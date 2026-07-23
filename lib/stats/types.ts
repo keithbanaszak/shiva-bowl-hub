@@ -362,6 +362,10 @@ export type DraftPickROI = {
   season: string;
   round: number;
   pickNo: number;
+  /** Pick number WITHIN the round — the ".01" part of Sleeper's "3.01". */
+  pickInRound: number;
+  /** Sleeper-style label: round, dot, zero-padded pick-in-round ("3.01"). */
+  pickLabel: string;
   draftSlot: number;
   userId: string;
   playerId: string;
@@ -370,7 +374,8 @@ export type DraftPickROI = {
   realizedCareer: number;
   starterCareer: number;
   seasonsRostered: number;
-  stealScore: number; // realized vs expected-for-slot (rookie drafts only)
+  stealScore: number; // realized minus expected-for-slot (rookie drafts only)
+  expected: number; // smoothed expected career points for that draft slot
   isStartup: boolean; // inaugural startup draft (excluded from steal rankings)
 };
 
@@ -379,7 +384,15 @@ export type DrafterRow = {
   picks: number;
   totalRealized: number;
   pointsPerPick: number;
+  /** Sum of (realized - expected) across their rookie picks. */
+  totalSteal: number;
+  /** The fair "is this manager good at drafting?" number: value added PER PICK,
+   *  so it doesn't just reward whoever accumulated the most picks. */
+  stealPerPick: number;
+  /** Share of picks that beat what that slot normally returns. */
+  hitRate: number;
   bestPick: DraftPickROI | null;
+  worstPick: DraftPickROI | null;
 };
 
 export type DraftStats = { picks: DraftPickROI[]; drafters: DrafterRow[] };

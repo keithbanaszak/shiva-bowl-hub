@@ -17,7 +17,11 @@
       "Bash(curl -s http://localhost:3000/glossary)",
       "Bash(grep -o \"</strong>career[^<]\\\\{0,30\\\\}\\\\|</strong>with[^<]\\\\{0,30\\\\}\")",
       "Bash(python3 -)",
-      "Bash(git commit -q -m 'Add sortable fixed-width DataTable; record book excludes non-games, shows playoff record *)"
+      "Bash(git commit -q -m 'Add sortable fixed-width DataTable; record book excludes non-games, shows playoff record *)",
+      "Bash(sed -n '/export type DraftPickROI/,/^};/p' lib/stats/types.ts)",
+      "Bash(sed -n '/export type DrafterRow/,/^};/p' lib/stats/types.ts)",
+      "Bash(git commit -q -m 'Trade receipt + draft rework; refresh runs year-round *)",
+      "Bash(git commit *)"
     ]
   }
 }

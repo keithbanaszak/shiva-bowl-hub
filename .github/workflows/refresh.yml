@@ -1,11 +1,15 @@
 name: Refresh Sleeper data
 
-# Weekly in-season refresh. Tuesday 13:17 UTC (after Monday Night Football
-# settles), Sept–Jan only. Off-:00 minute to dodge GitHub's high-load delays.
-# Also runnable on demand.
+# Tuesday 13:17 UTC, every week of the year. Off-:00 minute to dodge GitHub's
+# high-load delays. Also runnable on demand.
+#
+# This used to be Sept–Jan only, which silently missed the entire offseason —
+# and in a DYNASTY league the offseason is when trades, cuts and rookie-draft
+# moves happen. A July check found three drops that had gone unrecorded.
+# The refresh is cheap (one league's current season), so run it year-round.
 on:
   schedule:
-    - cron: "17 13 * 9-12,1 2"
+    - cron: "17 13 * * 2"
   workflow_dispatch:
 
 # allow the job to push the refreshed data commit

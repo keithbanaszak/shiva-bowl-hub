@@ -1,28 +1,153 @@
-import { Card, PageHeader, SectionTitle, Note, signed } from "@/components/ui";
-import { ManagerChip } from "@/components/Manager";
-import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { PageHeader, SectionTitle, Note, signed } from "@/components/ui";
 import { DraftBoard } from "@/components/DraftBoard";
 import { BoardCarousel } from "@/components/BoardCarousel";
+import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
+import { ManagerCell, PlayerCell } from "@/components/cells";
 import { draft } from "@/lib/data/draft";
 import { draftBoards } from "@/lib/data/draftBoards";
+import { label } from "@/lib/marts";
+import type { DraftPickROI } from "@/lib/stats/types";
+
+const mono = (v: React.ReactNode, cls = "") => <span className={`font-mono tabular-nums ${cls}`}>{v}</span>;
+
+/** Sleeper-style pick, e.g. "2023 · 3.01". */
+function PickLabel({ p }: { p: DraftPickROI }) {
+  return (
+    <span className="whitespace-nowrap font-mono text-xs tabular-nums text-[var(--muted)]">
+      {p.season} <span className="text-[var(--faint)]">·</span> {p.pickLabel}
+    </span>
+  );
+}
+
+/** Steals and busts share a shape: pick, player, drafter, career, value vs slot. */
+function pickTable(picks: DraftPickROI[], tone: "good" | "bad"): { columns: ColumnSpec[]; rows: TableRow[] } {
+  const columns: ColumnSpec[] = [
+    { key: "pick", header: "Pick", width: "22%", sortable: true },
+    { key: "player", header: "Player", width: "30%", sortable: true, descFirst: false },
+    { key: "by", header: "By", width: "26%", sortable: true, descFirst: false },
+    { key: "career", header: "Career", width: "11%", align: "right", sortable: true },
+    {
+      key: "steal",
+      header: "Steal",
+      width: "11%",
+      align: "right",
+      sortable: true,
+      headerTitle: "Career points minus what that draft slot normally returns",
+    },
+  ];
+
+  const rows: TableRow[] = picks.map((p) => ({
+    key: `${p.season}-${p.pickNo}`,
+    cells: {
+      pick: <PickLabel p={p} />,
+      player: <PlayerCell playerId={p.playerId} size={22} fits={16} />,
+      by: <ManagerCell userId={p.userId} size={18} fits={16} />,
+      career: mono(p.realizedCareer, "text-[var(--muted)]"),
+      steal: mono(
+        signed(p.stealScore),
+        p.stealScore >= 0 ? "font-semibold text-[var(--accent)]" : "font-semibold text-[var(--bad)]",
+      ),
+    },
+    sort: {
+      pick: p.pickNo,
+      player: p.name,
+      by: label(p.userId),
+      career: p.realizedCareer,
+      steal: p.stealScore,
+    },
+  }));
+
+  void tone;
+  return { columns, rows };
+}
 
 export default function DraftPage() {
   const drafters = draft.drafters;
   const rookiePicks = draft.picks.filter((p) => !p.isStartup);
-  const steals = [...rookiePicks]
-    .sort((a, b) => b.stealScore - a.stealScore)
-    .slice(0, 15);
+  const steals = [...rookiePicks].sort((a, b) => b.stealScore - a.stealScore).slice(0, 15);
+  // "bust" is now relative to the slot, not raw points — a late pick scoring
+  // little isn't a bust, a first-rounder returning nothing is
   const busts = rookiePicks
     .filter((p) => p.round <= 2)
-    .sort((a, b) => a.realizedCareer - b.realizedCareer)
-    .slice(0, 10);
+    .sort((a, b) => a.stealScore - b.stealScore)
+    .slice(0, 15);
+
+  const stealTbl = pickTable(steals, "good");
+  const bustTbl = pickTable(busts, "bad");
+
+  const drafterCols: ColumnSpec[] = [
+    { key: "mgr", header: "Manager", width: "14rem", sortable: true, descFirst: false },
+    { key: "picks", header: "Picks", width: "4.5rem", align: "right", sortable: true },
+    {
+      key: "perpick",
+      header: "Value/pick",
+      width: "7rem",
+      align: "right",
+      sortable: true,
+      headerTitle: "Points above what their draft slots normally return, per pick — the fair skill measure",
+    },
+    {
+      key: "total",
+      header: "Total value",
+      width: "7rem",
+      align: "right",
+      sortable: true,
+      headerTitle: "Total points above slot expectation (rewards volume as well as skill)",
+    },
+    {
+      key: "hit",
+      header: "Hit rate",
+      width: "6rem",
+      align: "right",
+      sortable: true,
+      headerTitle: "Share of picks that beat their slot",
+    },
+    { key: "pts", header: "Career pts", width: "6.5rem", align: "right", sortable: true },
+    { key: "best", header: "Best pick", width: "13rem", sortable: false },
+    { key: "worst", header: "Worst pick", width: "13rem", sortable: false },
+  ];
+
+  const drafterRows: TableRow[] = drafters.map((d) => ({
+    key: d.userId,
+    cells: {
+      mgr: <ManagerCell userId={d.userId} fits={18} />,
+      picks: mono(d.picks, "text-[var(--muted)]"),
+      perpick: mono(
+        signed(d.stealPerPick),
+        d.stealPerPick >= 0 ? "font-semibold text-[var(--accent)]" : "font-semibold text-[var(--bad)]",
+      ),
+      total: mono(signed(d.totalSteal), d.totalSteal >= 0 ? "text-[var(--accent)]" : "text-[var(--bad)]"),
+      hit: mono(`${(d.hitRate * 100).toFixed(0)}%`),
+      pts: mono(d.totalRealized, "text-[var(--muted)]"),
+      best: d.bestPick ? (
+        <span className="flex min-w-0 items-center gap-1.5 text-xs">
+          <PlayerCell playerId={d.bestPick.playerId} size={18} fits={14} href={false} />
+          <span className="shrink-0 font-mono text-[10px] text-[var(--accent)]">{signed(d.bestPick.stealScore)}</span>
+        </span>
+      ) : (
+        <span className="text-[var(--faint)]">—</span>
+      ),
+      worst: d.worstPick ? (
+        <span className="flex min-w-0 items-center gap-1.5 text-xs">
+          <PlayerCell playerId={d.worstPick.playerId} size={18} fits={14} href={false} />
+          <span className="shrink-0 font-mono text-[10px] text-[var(--bad)]">{signed(d.worstPick.stealScore)}</span>
+        </span>
+      ) : (
+        <span className="text-[var(--faint)]">—</span>
+      ),
+    },
+    sort: {
+      mgr: label(d.userId),
+      picks: d.picks,
+      perpick: d.stealPerPick,
+      total: d.totalSteal,
+      hit: d.hitRate,
+      pts: d.totalRealized,
+    },
+  }));
 
   const boardLabel = (b: (typeof draftBoards)[number]) =>
-    b.isFuture
-      ? `${b.season} (Upcoming)`
-      : b.isStartup
-        ? `${b.season} Startup`
-        : b.season;
+    b.isFuture ? `${b.season} (Upcoming)` : b.isStartup ? `${b.season} Startup` : b.season;
 
   return (
     <div>
@@ -39,145 +164,54 @@ export default function DraftPage() {
       </BoardCarousel>
 
       <div className="mb-8 mt-2 text-center text-xs text-[var(--muted)]">
-        Amber-outlined cells are traded picks — the badge shows the team that
-        now owns the pick.
+        Amber-outlined cells are traded picks — the badge shows the team that now owns the pick. Click a manager above
+        the board to spotlight only their picks.
       </div>
 
       <div className="mb-6">
         <Note title="How draft value works">
-          Each pick is credited with the <strong>career fantasy points</strong>{" "}
-          the player produced while on the drafting manager’s roster.{" "}
-          <strong>Steal score</strong> compares that to the average production
-          of all picks at the same slot. The inaugural startup draft is excluded
-          from steals and the drafter leaderboard — it was veterans, not
-          rookies.
+          Each pick is credited with the <strong>career fantasy points</strong> the player produced while on the
+          drafting manager’s roster. <strong>Steal</strong> is that minus what the same draft slot normally returns, so
+          a late-round hit counts for more than an early-round one. Slot expectation pools neighbouring picks — judging
+          each exact slot alone would rest on three samples. The inaugural startup draft is excluded throughout: it was
+          veterans, not rookies.
         </Note>
       </div>
 
-      <SectionTitle>🧠 Best drafters (rookie picks, career value)</SectionTitle>
-      <Card className="mb-8 overflow-x-auto scroll-thin">
-        <table className="w-full min-w-[640px] text-sm">
-          <thead>
-            <tr className="text-left text-xs uppercase tracking-wider text-[var(--muted)]">
-              <th className="py-2 pr-3">Manager</th>
-              <th className="px-3">Picks</th>
-              <th className="px-3">Career pts</th>
-              <th className="px-3">Pts/pick</th>
-              <th className="px-3">Best pick</th>
-            </tr>
-          </thead>
-          <tbody>
-            {drafters.map((d, i) => (
-              <tr key={d.userId} className="border-t border-[var(--border)]">
-                <td className="py-2 pr-3">
-                  <span className="flex items-center gap-2">
-                    <span className="w-5 text-right text-xs text-[var(--muted)]">
-                      {i + 1}
-                    </span>
-                    <ManagerChip userId={d.userId} />
-                  </span>
-                </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">
-                  {d.picks}
-                </td>
-                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
-                  {d.totalRealized}
-                </td>
-                <td className="px-3 tabular-nums">{d.pointsPerPick}</td>
-                <td className="px-3 text-[var(--muted)]">
-                  {d.bestPick
-                    ? `${d.bestPick.name} (${d.bestPick.realizedCareer})`
-                    : "—"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+      <SectionTitle>🧠 Best drafters (value above slot)</SectionTitle>
+      <p className="mb-3 text-sm text-[var(--muted)]">
+        Ranked by <strong>value per pick</strong>, not total points — otherwise whoever simply held the most picks wins
+        by volume. Sort by “Total value” to see the volume view.
+      </p>
+      <div className="mb-8">
+        <DataTable
+          rows={drafterRows}
+          columns={drafterCols}
+          rank
+          initialSort={{ key: "perpick", dir: "desc" }}
+          caption="Rookie drafts only. Value/pick is points above what that manager's draft slots normally return."
+        />
+      </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <div>
           <SectionTitle>💎 Biggest rookie-draft steals</SectionTitle>
-          <Card className="overflow-x-auto scroll-thin">
-            <table className="w-full min-w-[420px] text-sm">
-              <thead>
-                <tr className="text-left text-xs uppercase tracking-wider text-[var(--muted)]">
-                  <th className="py-2 pr-3">Pick</th>
-                  <th className="px-3">Player</th>
-                  <th className="px-3">By</th>
-                  <th className="px-3">Career</th>
-                  <th className="px-3">Steal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {steals.map((p) => (
-                  <tr
-                    key={`${p.season}-${p.pickNo}`}
-                    className="border-t border-[var(--border)]"
-                  >
-                    <td className="py-2 pr-3 tabular-nums text-[var(--muted)]">
-                      {p.season} R{p.round}.{p.pickNo}
-                    </td>
-                    <td className="px-3">
-                      <span className="flex items-center gap-2">
-                        <PlayerAvatar playerId={p.playerId} size={24} />
-                        <span className="truncate">{p.name}</span>
-                      </span>
-                    </td>
-                    <td className="px-3">
-                      <ManagerChip userId={p.userId} size={18} />
-                    </td>
-                    <td className="px-3 tabular-nums text-[var(--muted)]">
-                      {p.realizedCareer}
-                    </td>
-                    <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
-                      {signed(p.stealScore)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Card>
+          <DataTable
+            rows={stealTbl.rows}
+            columns={stealTbl.columns}
+            rank
+            initialSort={{ key: "steal", dir: "desc" }}
+          />
         </div>
-
         <div>
           <SectionTitle>🪦 Premium-pick busts (rounds 1–2)</SectionTitle>
-          <Card className="overflow-x-auto scroll-thin">
-            <table className="w-full min-w-[420px] text-sm">
-              <thead>
-                <tr className="text-left text-xs uppercase tracking-wider text-[var(--muted)]">
-                  <th className="py-2 pr-3">Pick</th>
-                  <th className="px-3">Player</th>
-                  <th className="px-3">By</th>
-                  <th className="px-3">Career</th>
-                </tr>
-              </thead>
-              <tbody>
-                {busts.map((p) => (
-                  <tr
-                    key={`${p.season}-${p.pickNo}`}
-                    className="border-t border-[var(--border)]"
-                  >
-                    <td className="py-2 pr-3 tabular-nums text-[var(--muted)]">
-                      {p.season} R{p.round}.{p.pickNo}
-                    </td>
-                    <td className="px-3">
-                      <span className="flex items-center gap-2">
-                        <PlayerAvatar playerId={p.playerId} size={24} />
-                        <span className="truncate">{p.name}</span>
-                      </span>
-                    </td>
-                    <td className="px-3">
-                      <ManagerChip userId={p.userId} size={18} />
-                    </td>
-                    <td className="px-3 tabular-nums font-semibold text-[var(--bad)]">
-                      {p.realizedCareer}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Card>
+          <DataTable
+            rows={bustTbl.rows}
+            columns={bustTbl.columns}
+            rank
+            initialSort={{ key: "steal", dir: "asc" }}
+            caption="Ranked by how far below the slot's normal return they came in."
+          />
         </div>
       </div>
     </div>

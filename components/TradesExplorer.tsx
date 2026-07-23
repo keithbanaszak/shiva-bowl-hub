@@ -165,9 +165,9 @@ export function TradesExplorer({
         </div>
       </div>
 
-      {/* auto-rows-fr makes every card in a row the same height, so the split
-          bars in their fixed-height footers land on the same y */}
-      <div className="grid auto-rows-fr grid-cols-1 gap-3 lg:grid-cols-2">
+      {/* CSS columns, not a grid: each card sizes to its own content instead of
+          stretching to match the tallest card in its row */}
+      <div className="columns-1 gap-3 lg:columns-2">
         {filtered.map((t) => (
           <TradeReceipt key={t.id} t={t} mgrMap={mgrMap} basis={basis} />
         ))}

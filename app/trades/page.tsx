@@ -19,14 +19,15 @@ export default function TradesPage() {
       />
       <div className="mb-6">
         <Note title="Reading the receipt">
-          <strong>←</strong> is what a manager got, <strong>→</strong> is what
-          they gave up. <strong>ROS</strong> = rest-of-season points;{" "}
-          <strong>Career</strong> = every point since, across seasons — toggle
-          which one grades the trade. Player ranks like <strong>TE5</strong> are{" "}
-          <strong>in-league</strong> finishes for that season (among players
-          rostered in this league), not NFL-wide. “Lopsided” vs “Even swap” is
-          points-only — a rebuild trade can be smart even when the points say
-          you lost.
+          Each box lists only what that manager <strong>received</strong> — a{" "}
+          <span className="font-mono text-[var(--accent)]">+</span> per asset.
+          What one side got, the other gave up. <strong>ROS</strong> =
+          rest-of-season points; <strong>Career</strong> = every point since,
+          across seasons — toggle which one grades the trade. Player ranks like{" "}
+          <strong>TE5</strong> are <strong>in-league</strong> finishes for that
+          season (among players rostered in this league), not NFL-wide.
+          “Lopsided” vs “Even swap” is points-only — a rebuild trade can be
+          smart even when the points say you lost.
         </Note>
       </div>
       <TradesExplorer trades={trades} managers={mgrs} />

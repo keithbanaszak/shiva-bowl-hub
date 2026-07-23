@@ -166,7 +166,7 @@ export default function Home() {
       </div>
 
       {/* activity feed + standings */}
-      <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0 space-y-8">
           <section>
             <SectionHead
@@ -208,22 +208,25 @@ export default function Home() {
                   </Panel>
                 ))}
               </div>
+              {/* wraps instead of scrolling sideways — six fixed cells always fit */}
               {home.topPerformers.length > 0 && (
-                <div className="scroll-thin mt-2 flex gap-2 overflow-x-auto pb-1">
+                <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
                   {home.topPerformers.map((p) => (
                     <div
                       key={p.pos}
-                      className="flex shrink-0 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel)] px-2.5 py-2"
+                      className="flex min-w-0 items-center gap-1.5 rounded-xl border border-[var(--border)] bg-[var(--panel)] px-2 py-1.5"
                     >
                       <PosBadge pos={p.pos} />
-                      <PlayerAvatar playerId={p.playerId} size={22} />
+                      <PlayerAvatar playerId={p.playerId} size={20} />
                       <Link
                         href={`/players/${p.playerId}`}
-                        className="text-xs hover:text-[var(--accent)]"
+                        className="min-w-0 flex-1 hover:text-[var(--accent)]"
                       >
-                        {p.name}
+                        <FitText fits={12} className="text-[11px]">
+                          {p.name}
+                        </FitText>
                       </Link>
-                      <span className="font-mono text-xs font-semibold text-[var(--accent)]">
+                      <span className="shrink-0 font-mono text-[11px] font-semibold text-[var(--accent)]">
                         {p.points}
                       </span>
                     </div>
@@ -312,7 +315,13 @@ export default function Home() {
           <Panel>
             <div className="mb-2 flex items-center justify-between px-1 text-[10px] uppercase tracking-wider text-[var(--muted)]">
               <span>Team</span>
-              <span>Rec · PF</span>
+              <span className="flex gap-2">
+                <span className="w-8 text-right">Rec</span>
+                <span className="w-10 text-right">PF</span>
+                <span className="w-10 text-right" title="Maximum possible points — every optimal lineup, all season">
+                  Max
+                </span>
+              </span>
             </div>
             <div className="space-y-0.5">
               {seasonStandings.map((r, i) => {
@@ -338,11 +347,18 @@ export default function Home() {
                         <FitText fits={17}>{label(r.userId)}</FitText>
                       </Link>
                       {r.champion && <span title="Champion">🏆</span>}
-                      <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--muted)]">
+                      <span className="w-8 shrink-0 text-right font-mono text-[11px] tabular-nums text-[var(--muted)]">
                         {r.wins}-{r.losses}
                       </span>
                       <span className="w-10 shrink-0 text-right font-mono text-[11px] tabular-nums">
                         {Math.round(r.pointsFor)}
+                      </span>
+                      {/* max PF = every week's optimal lineup; the gap is what start/sit cost */}
+                      <span
+                        className="w-10 shrink-0 text-right font-mono text-[11px] tabular-nums text-[var(--muted)]"
+                        title={`Max possible ${Math.round(r.seasonPpts)} · left ${Math.round(r.benchPoints)} on the bench (${(r.efficiency * 100).toFixed(0)}% efficiency)`}
+                      >
+                        {Math.round(r.seasonPpts)}
                       </span>
                     </div>
                   </div>
@@ -350,7 +366,7 @@ export default function Home() {
               })}
             </div>
             <div className="mt-2 border-t border-[var(--border)] px-1 pt-2 text-[10px] text-[var(--muted)]">
-              Bar length is points for, against the league leader.
+              Bar = points for vs the league leader. Max = every optimal lineup, so the PF/Max gap is what start-sit decisions cost.
             </div>
           </Panel>
           <div className="mt-6">
