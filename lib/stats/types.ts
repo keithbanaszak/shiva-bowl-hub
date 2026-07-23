@@ -666,3 +666,86 @@ export type ActivityMart = {
   byKind: Record<string, number>;
   bySeason: Record<string, number>;
 };
+
+// ---- lineup integrity / tank watch ------------------------------------------
+
+export type IntegrityLevel = "clean" | "minor" | "notable" | "severe";
+
+/**
+ * Why a week looks bad. "abandoned" is the kinder reading (a neglected roster)
+ * and is kept distinct from a deliberate lineup choice.
+ */
+export type IntegrityReason = "lineup-choice" | "abandoned" | "empty-slot";
+
+export type LineupSlotEntry = {
+  slot: string;
+  playerId: string | null;
+  proj: number | null;
+  /** False = Sleeper had no projection at all, i.e. he wasn't playing. */
+  hasProjection: boolean;
+  actual: number | null;
+};
+
+export type IntegrityWeek = {
+  id: string;
+  season: string;
+  week: number;
+  userId: string;
+  level: IntegrityLevel;
+  reason: IntegrityReason;
+  /** Projected total of the lineup actually started. */
+  startedProj: number;
+  /** Projected total of the best legal lineup available that week. */
+  bestProj: number;
+  gapPts: number;
+  gapPct: number;
+  deadStarters: number;
+  noProjStarters: number;
+  emptySlots: number;
+  actualPoints: number;
+  recordBefore: { w: number; l: number } | null;
+  started: LineupSlotEntry[];
+  bestLineup: LineupSlotEntry[];
+  benched: Array<{ playerId: string; proj: number; actual: number }>;
+};
+
+export type ManagerIntegrity = {
+  userId: string;
+  flaggedWeeks: number;
+  severeWeeks: number;
+  worstGapPct: number;
+  worstWeek: { season: string; week: number } | null;
+  totalGapPts: number;
+};
+
+export type IntegrityMart = {
+  /** Regular-season team-weeks searched — the denominator for the flag rate. */
+  scanned: number;
+  thresholds: { notablePct: number; severePct: number; deadProj: number; minGapPts: number };
+  weeks: IntegrityWeek[];
+  managers: ManagerIntegrity[];
+};
+
+// ---- scoring by starting lineup slot ----------------------------------------
+
+export type SlotScoringRow = {
+  userId: string;
+  /** A season, or "all" for career. */
+  scope: string;
+  /** QB | RB | WR | TE | FLEX | SUPER_FLEX | K | DEF */
+  slot: string;
+  totalPoints: number;
+  /** Individual slot starts (RB counts twice per week when there are two RB slots). */
+  starts: number;
+  teamWeeks: number;
+  /** Points this slot group contributed per team-week. */
+  avgPerWeek: number;
+  /** Points per individual slot start — comparable across slots. */
+  avgPerStart: number;
+  bestWeek: { season: string; week: number; points: number; playerId: string | null } | null;
+  topPlayer: { playerId: string; name: string; points: number } | null;
+  /** 1 = best avgPerWeek at this slot, within the scope. */
+  rank: number;
+};
+
+export type SlotScoringMart = { scopes: string[]; slots: string[]; rows: SlotScoringRow[] };

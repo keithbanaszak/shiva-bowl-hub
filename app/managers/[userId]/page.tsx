@@ -10,6 +10,8 @@ import { awardsForUser } from "@/lib/data/awards";
 import { rivalriesFor } from "@/lib/data/h2h";
 import { tradesForUser } from "@/lib/data/trades";
 import { kryptonite } from "@/lib/data/kryptonite";
+import { rowsForUser } from "@/lib/data/slotScoring";
+import { slotTone } from "@/lib/positions";
 import { pname } from "@/lib/data/players-dict";
 
 export function generateStaticParams() {
@@ -51,6 +53,12 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
 
   const krypt = kryptonite.byManager[userId];
 
+  // all-time production by starting lineup slot, in the canonical slot order
+  const SLOT_ORDER = ["QB", "RB", "WR", "TE", "FLEX", "SUPER_FLEX", "K", "DEF"];
+  const slots = rowsForUser(userId, "all").sort(
+    (a, b) => SLOT_ORDER.indexOf(a.slot) - SLOT_ORDER.indexOf(b.slot),
+  );
+
   // best / worst trade by career realized for this manager
   const myTrades = tradesForUser(userId)
     .filter((t) => t.realized && t.realized[userId])
@@ -68,7 +76,19 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       <div className="mb-6 flex items-center gap-4">
         <Avatar userId={userId} size={64} />
         <div>
-          <PageHeader title={mgr.label} kicker={`${seasons.length} seasons · ${row.wins}-${row.losses}${row.ties ? `-${row.ties}` : ""}`} />
+          <PageHeader
+            title={mgr.realName || mgr.label}
+            kicker={`${seasons.length} seasons · ${row.wins}-${row.losses}${row.ties ? `-${row.ties}` : ""}`}
+          />
+          {/* when we know the human, the team name becomes the subtitle */}
+          <div className="-mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--muted)]">
+            {mgr.realName && <span className="font-medium text-[var(--foreground)]">{mgr.label}</span>}
+            {mgr.nickname && <span>&ldquo;{mgr.nickname}&rdquo;</span>}
+            <span className="text-[var(--faint)]">@{mgr.displayName}</span>
+            {mgr.joined && <span>· since {mgr.joined}</span>}
+            {mgr.favoriteTeam && <span>· {mgr.favoriteTeam} fan</span>}
+          </div>
+          {mgr.bio && <p className="mt-1.5 max-w-2xl text-sm text-[var(--muted)]">{mgr.bio}</p>}
         </div>
       </div>
 
@@ -139,6 +159,41 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
           </Card>
         )}
       </div>
+
+      {/* production by starting slot */}
+      {slots.length > 0 && (
+        <>
+          <SectionTitle>🎰 By lineup slot (all-time)</SectionTitle>
+          <div className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
+            {slots.map((s) => (
+              <div
+                key={s.slot}
+                className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-2.5"
+                title={`${s.starts} starts · ${s.avgPerStart} per start${s.topPlayer ? ` · most points: ${s.topPlayer.name}` : ""}`}
+              >
+                <div
+                  className="text-[10px] font-bold uppercase tracking-wider"
+                  style={{ color: slotTone(s.slot) }}
+                >
+                  {s.slot === "SUPER_FLEX" ? "SFLEX" : s.slot}
+                </div>
+                <div className="mt-0.5 font-mono text-lg font-semibold tabular-nums">{s.avgPerWeek}</div>
+                <div className="text-[10px] text-[var(--muted)]">
+                  per wk · {ordinal(s.rank)} in league
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="-mt-6 mb-8 text-xs text-[var(--muted)]">
+            Points per team-week from each starting slot. Two-slot groups (RB, WR, and FLEX since 2025) are roughly
+            double a single slot — see the{" "}
+            <Link href="/breakdown" className="text-[var(--accent)] hover:underline">
+              league breakdown
+            </Link>{" "}
+            for per-start comparisons.
+          </p>
+        </>
+      )}
 
       {/* season by season */}
       <SectionTitle>Season by season</SectionTitle>

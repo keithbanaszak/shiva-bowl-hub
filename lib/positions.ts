@@ -17,3 +17,7 @@ export const posColor = (pos: string | null | undefined): string =>
 
 /** Same color with an appended 2-digit alpha (e.g. "1f", "55"). */
 export const posColorA = (pos: string | null | undefined, alpha: string): string => `${posColor(pos)}${alpha}`;
+
+/** Slot color, including the flex slots that have no Sleeper position color. */
+export const slotTone = (slot: string): string =>
+  slot === "FLEX" || slot === "SUPER_FLEX" ? "var(--accent-2)" : posColor(slot);

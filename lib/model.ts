@@ -52,6 +52,13 @@ export type Manager = {
   avatar: string | null;
   avatarUrl: string | null;
   seasons: string[];
+  // ---- hand-maintained, from league.managers.ts (all optional)
+  /** The human behind the team, when we've been told. */
+  realName?: string;
+  nickname?: string;
+  joined?: string;
+  favoriteTeam?: string;
+  bio?: string;
 };
 
 /** Recombine Sleeper's split integer/decimal point fields. */

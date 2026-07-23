@@ -1,10 +1,12 @@
 import { PageHeader, SectionTitle, Card, Note } from "@/components/ui";
 import { PosMatrix, type MatrixRow } from "@/components/breakdown/PosMatrix";
 import { PosCompare, type CompareDatum } from "@/components/breakdown/PosCompare";
+import { SlotTable } from "@/components/breakdown/SlotTable";
 import { TradeFinder } from "@/components/breakdown/TradeFinder";
-import { label } from "@/lib/marts";
+import { label, activeManagers } from "@/lib/marts";
 import { teamPower } from "@/lib/data/teamPower";
 import { posRow } from "@/lib/data/posBreakdown";
+import { slotScoring } from "@/lib/data/slotScoring";
 import { stancesOf } from "@/lib/data/tradeFinder";
 import type { BreakdownPos } from "@/lib/stats/types";
 
@@ -15,6 +17,9 @@ export default function BreakdownPage() {
   const managers = teams
     .map((t) => ({ userId: t.userId, label: label(t.userId) }))
     .sort((a, b) => a.label.localeCompare(b.label));
+
+  // slot scoring spans league history, so it includes managers who have left
+  const slotManagers = activeManagers().map((m) => ({ userId: m.userId, label: m.label }));
 
   // matrix rows
   const rows: MatrixRow[] = teams.map((t) => {
@@ -76,6 +81,21 @@ export default function BreakdownPage() {
       <SectionTitle>🧮 Positional matrix</SectionTitle>
       <div className="mb-10">
         <PosMatrix rows={rows} />
+      </div>
+
+      <SectionTitle>🎰 By starting lineup slot</SectionTitle>
+      <div className="mb-3">
+        <Note title="Slot, not position">
+          This buckets points by the <strong>slot a player was started in</strong>, not by his position — so kickers and
+          defenses are included, and <strong>FLEX</strong> and <strong>SFLEX</strong> are their own columns. That answers
+          &ldquo;who actually plays the best defense / kicker / tight end?&rdquo;. Slots come from each season&rsquo;s own
+          roster template: this league ran one FLEX through 2024 and added a second in 2025, so{" "}
+          <strong>Per week</strong> for a two-slot group is roughly double a single slot &mdash; use{" "}
+          <strong>Per start</strong> to compare across slots.
+        </Note>
+      </div>
+      <div className="mb-10">
+        <SlotTable mart={slotScoring} managers={slotManagers} />
       </div>
 
       <SectionTitle>🤝 Trade finder</SectionTitle>

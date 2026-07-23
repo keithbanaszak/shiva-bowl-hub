@@ -1,5 +1,22 @@
 import type { Dynasty, Manager } from "./model";
 import { avatarUrl } from "./model";
+import { managerProfiles } from "../league.managers";
+
+/** Merge the hand-maintained profile onto a manager, ignoring blank fields. */
+function withProfile(m: Manager): Manager {
+  const p = managerProfiles[m.userId];
+  if (!p) return m;
+  const clean = <T,>(v: T | undefined): T | undefined =>
+    typeof v === "string" ? ((v.trim() || undefined) as T | undefined) : v;
+  return {
+    ...m,
+    realName: clean(p.realName),
+    nickname: clean(p.nickname),
+    joined: clean(p.joined) ?? m.seasons[0],
+    favoriteTeam: clean(p.favoriteTeam),
+    bio: clean(p.bio),
+  };
+}
 
 export type Identity = {
   managers: Manager[];
@@ -66,6 +83,8 @@ export function buildIdentity(dynasty: Dynasty): Identity {
   }
 
   for (const m of byUserId.values()) m.seasons.sort();
+  // profiles are merged last, after seasons are known (joined defaults to the first)
+  for (const [uid, m] of byUserId) byUserId.set(uid, withProfile(m));
   const managers = [...byUserId.values()].sort((a, b) => a.label.localeCompare(b.label));
   return { managers, byUserId, rosterUser };
 }
