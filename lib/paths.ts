@@ -9,6 +9,13 @@ export const DATA_DIR = path.join(ROOT, "data");
 export const RAW_DIR = path.join(DATA_DIR, "raw");
 export const MARTS_DIR = path.join(DATA_DIR, "marts");
 
+/**
+ * Served as a static asset rather than imported. The command palette fetches it
+ * on first open, so the ~30KB index never lands in the RSC payload of all ~600
+ * prerendered pages.
+ */
+export const PUBLIC_DIR = path.join(ROOT, "public");
+
 export const seasonDir = (season: string) => path.join(RAW_DIR, season);
 export const matchupsDir = (season: string) => path.join(seasonDir(season), "matchups");
 export const transactionsDir = (season: string) => path.join(seasonDir(season), "transactions");

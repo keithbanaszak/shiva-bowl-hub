@@ -3,13 +3,15 @@ import type { Identity } from "../identity";
 import { userForRoster } from "../identity";
 import type {
   Acquisition,
+  DropRegret,
+  ManagerChurn,
   ManagerWaiverGrade,
   WaiverMove,
   WaiverSeasonLeaders,
   WaiverStats,
 } from "./types";
 import { round2 } from "./util";
-import { realizedFor, type PlayerWeekIndex } from "./playerWeeks";
+import { orderOf, realizedFor, type PlayerWeekIndex } from "./playerWeeks";
 
 const HIT_THRESHOLD = 20; // rest-of-season points that count an add as a "hit"
 
@@ -29,24 +31,35 @@ export function computeWaivers(
         if (t.status !== "complete") continue;
         const faabBid = t.type === "waiver" ? t.settings?.waiver_bid ?? 0 : 0;
 
-        // one feed entry per transaction (first add / first drop)
-        const addEntries = Object.entries(t.adds ?? {});
-        const dropEntries = Object.entries(t.drops ?? {});
-        if (addEntries.length > 0 || dropEntries.length > 0) {
-          const rid = addEntries[0]?.[1] ?? dropEntries[0]?.[1];
-          if (rid != null) {
-            moves.push({
-              id: t.transaction_id,
-              dateMs: t.status_updated ?? t.created ?? null,
-              season: s.season,
-              week,
-              type: t.type as "waiver" | "free_agent",
-              userId: uid(rid),
-              addPlayerId: addEntries[0]?.[0] ?? null,
-              dropPlayerId: dropEntries[0]?.[0] ?? null,
-              faab: faabBid,
-            });
-          }
+        // one feed entry per PLAYER MOVEMENT, so multi-player moves and every
+        // drop are represented rather than just the first of each.
+        const dateMs = t.status_updated ?? t.created ?? null;
+        const kind = t.type as "waiver" | "free_agent";
+        for (const [pid, rid] of Object.entries(t.adds ?? {})) {
+          moves.push({
+            id: `${t.transaction_id}:add:${pid}`,
+            dateMs,
+            season: s.season,
+            week,
+            type: kind,
+            action: "add",
+            userId: uid(rid),
+            playerId: pid,
+            faab: faabBid,
+          });
+        }
+        for (const [pid, rid] of Object.entries(t.drops ?? {})) {
+          moves.push({
+            id: `${t.transaction_id}:drop:${pid}`,
+            dateMs,
+            season: s.season,
+            week,
+            type: kind,
+            action: "drop",
+            userId: uid(rid),
+            playerId: pid,
+            faab: 0,
+          });
         }
 
         for (const [pid, rid] of Object.entries(t.adds ?? {})) {
@@ -129,17 +142,78 @@ export function computeWaivers(
     }))
     .sort((a, b) => b.pointsGained - a.pointsGained);
 
+  // ---- drop regret: what a dropped player went on to do for someone else
+  const dropRegrets: DropRegret[] = [];
+  for (const m of moves) {
+    if (m.action !== "drop") continue;
+    const log = index.byPlayer.get(m.playerId) ?? [];
+    const from = orderOf(m.season, m.week);
+
+    let afterSeason = 0;
+    let afterCareer = 0;
+    let nextUserId: string | null = null;
+    let reacquired = false;
+
+    for (const pw of log) {
+      if (pw.order <= from) continue;
+      if (pw.userId === m.userId) {
+        // he came back to the same manager — the "regret" window closes here
+        reacquired = true;
+        continue;
+      }
+      if (nextUserId === null) nextUserId = pw.userId;
+      afterCareer += pw.points;
+      if (pw.season === m.season) afterSeason += pw.points;
+    }
+
+    if (afterCareer <= 0) continue;
+    dropRegrets.push({
+      id: m.id,
+      season: m.season,
+      week: m.week,
+      userId: m.userId,
+      playerId: m.playerId,
+      pointsAfterSeason: round2(afterSeason),
+      pointsAfterCareer: round2(afterCareer),
+      nextUserId,
+      reacquired,
+    });
+  }
+  dropRegrets.sort((a, b) => b.pointsAfterSeason - a.pointsAfterSeason || b.pointsAfterCareer - a.pointsAfterCareer);
+
+  // ---- roster churn per manager
+  const churnMap = new Map<string, ManagerChurn>();
+  const churnFor = (userId: string): ManagerChurn => {
+    let c = churnMap.get(userId);
+    if (!c) {
+      c = { userId, adds: 0, drops: 0, faabSpent: 0, regretPoints: 0 };
+      churnMap.set(userId, c);
+    }
+    return c;
+  };
+  for (const m of moves) {
+    const c = churnFor(m.userId);
+    if (m.action === "add") {
+      c.adds++;
+      c.faabSpent += m.faab;
+    } else {
+      c.drops++;
+    }
+  }
+  for (const d of dropRegrets) churnFor(d.userId).regretPoints += d.pointsAfterSeason;
+  const churn = [...churnMap.values()]
+    .map((c) => ({ ...c, regretPoints: round2(c.regretPoints) }))
+    .sort((a, b) => b.adds + b.drops - (a.adds + a.drops));
+
   // store only meaningful acquisitions to keep the mart lean
   const meaningful = acquisitions
     .filter((a) => a.realizedCareer > 0)
     .sort((a, b) => b.realizedCareer - a.realizedCareer)
     .slice(0, 300);
 
-  const recentMoves = moves
-    .sort((a, b) => (b.dateMs ?? 0) - (a.dateMs ?? 0))
-    .slice(0, 40);
+  moves.sort((a, b) => (b.dateMs ?? 0) - (a.dateMs ?? 0));
 
-  return { acquisitions: meaningful, seasonLeaders, managerGrades, recentMoves };
+  return { acquisitions: meaningful, seasonLeaders, managerGrades, moves, dropRegrets, churn };
 }
 
 function best<T>(items: T[], score: (t: T) => number): T | null {

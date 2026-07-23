@@ -99,13 +99,34 @@ export type H2HPair = {
 };
 
 export type TradeAsset =
-  | { kind: "player"; playerId: string; name: string; position: string | null }
-  | { kind: "pick"; season: string; round: number; becamePlayerId: string | null; becameName: string | null };
+  | {
+      kind: "player";
+      playerId: string;
+      name: string;
+      position: string | null;
+      /** In-league positional finish in the trade's season, e.g. "WR7". */
+      rankLabel?: string | null;
+      /** Points per game that season, for a quick quality read. */
+      ppg?: number | null;
+    }
+  | {
+      kind: "pick";
+      season: string;
+      round: number;
+      becamePlayerId: string | null;
+      becameName: string | null;
+      /** Whose original pick this was — enables "2026 R1 (via Southern Charm)". */
+      originalUserId?: string | null;
+      rankLabel?: string | null;
+      ppg?: number | null;
+    };
 
 export type TradeSide = {
   userId: string;
   rosterId: number;
   received: TradeAsset[];
+  /** What this side gave up. Mirrors `received` on the other side(s). */
+  sent: TradeAsset[];
   faabReceived: number;
 };
 
@@ -121,6 +142,8 @@ export type Trade = {
   season: string;
   week: number | null;
   dateMs: number | null;
+  /** Sleeper's `creator` — the manager who proposed the deal. */
+  creatorUserId: string | null;
   sides: TradeSide[];
   // realized points overlay (null when per-player points unavailable)
   realized: Record<string, TradeRealized> | null; // userId -> realized breakdown
@@ -276,23 +299,58 @@ export type ManagerWaiverGrade = {
   hitRate: number; // share of adds that produced > 20 pts
 };
 
+/**
+ * One row per PLAYER MOVEMENT, not per transaction. The previous shape kept only
+ * the first add and first drop of each transaction and truncated to 40 rows, so
+ * most drops were invisible.
+ */
 export type WaiverMove = {
-  id: string;
+  id: string; // `${transactionId}:${action}:${playerId}`
   dateMs: number | null;
   season: string;
-  week: number | null;
+  week: number;
   type: "waiver" | "free_agent";
+  action: "add" | "drop";
   userId: string;
-  addPlayerId: string | null;
-  dropPlayerId: string | null;
+  playerId: string;
+  /** Winning bid; only meaningful on waiver adds. */
   faab: number;
+};
+
+/** A drop that aged badly — "the one that got away". */
+export type DropRegret = {
+  id: string;
+  season: string;
+  week: number;
+  userId: string; // who dropped him
+  playerId: string;
+  /** Points he scored for ANYONE after the drop, within the same season. */
+  pointsAfterSeason: number;
+  /** …and across the rest of his career in this league. */
+  pointsAfterCareer: number;
+  /** Who picked him up next, if anyone did. */
+  nextUserId: string | null;
+  /** True when the same manager re-acquired him later — much less embarrassing. */
+  reacquired: boolean;
+};
+
+export type ManagerChurn = {
+  userId: string;
+  adds: number;
+  drops: number;
+  faabSpent: number;
+  /** Total points dropped players went on to score elsewhere that season. */
+  regretPoints: number;
 };
 
 export type WaiverStats = {
   acquisitions: Acquisition[];
   seasonLeaders: WaiverSeasonLeaders[];
   managerGrades: ManagerWaiverGrade[];
-  recentMoves: WaiverMove[];
+  /** Every add and drop in league history, newest first. */
+  moves: WaiverMove[];
+  dropRegrets: DropRegret[];
+  churn: ManagerChurn[];
 };
 
 // -------------------------------------------------------------------- draft
@@ -549,4 +607,62 @@ export type Marts = {
   cards: ManagerCard[];
   allTime: AllTimeRow[];
   validation: { season: string; userId: string; computedOptimal: number; sleeperPpts: number; diff: number }[];
+};
+
+// ---- ⌘K command palette -----------------------------------------------------
+
+export type SearchDoc = {
+  kind: "page" | "manager" | "player";
+  id: string;
+  label: string;
+  sub: string;
+  href: string;
+  pos?: string;
+  /** Relevance tiebreaker (career points for players); higher sorts first. */
+  score?: number;
+};
+
+export type SearchIndex = { generatedAtMs: number; docs: SearchDoc[] };
+
+// ---- in-league positional ranks ---------------------------------------------
+
+export type PlayerSeasonRank = {
+  season: string;
+  playerId: string;
+  position: string | null;
+  points: number;
+  weeks: number;
+  starts: number;
+  ppg: number;
+  /** 1 = most total points at that position, among players rostered in-league. */
+  posRank: number;
+  /** Rank by PPG; null when the player didn't clear the games threshold. */
+  posRankPpg: number | null;
+  posCount: number;
+};
+
+export type PlayerRankMart = { minWeeksForPpg: number; rows: PlayerSeasonRank[] };
+
+// ---- unified league activity feed -------------------------------------------
+
+export type ActivityKind = "trade" | "waiver" | "free_agent" | "drop";
+
+export type ActivityEvent = {
+  id: string;
+  kind: ActivityKind;
+  dateMs: number | null;
+  season: string;
+  week: number | null;
+  /** Everyone involved. Trades have 2+; adds and drops have exactly 1. */
+  userIds: string[];
+  playerIds: string[];
+  /** Set for trades so the feed can link to the full receipt. */
+  tradeId: string | null;
+  faab: number;
+};
+
+export type ActivityMart = {
+  events: ActivityEvent[];
+  byKind: Record<string, number>;
+  bySeason: Record<string, number>;
 };

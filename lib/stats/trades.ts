@@ -1,9 +1,10 @@
 import type { Dynasty } from "../model";
 import type { Identity } from "../identity";
 import { userForRoster } from "../identity";
-import type { Trade, TradeAsset, TradeRealized, TradeSide } from "./types";
+import type { PlayerRankMart, PlayerSeasonRank, Trade, TradeAsset, TradeRealized, TradeSide } from "./types";
 import { playerName, round2 } from "./util";
 import { realizedFor, type PlayerWeekIndex } from "./playerWeeks";
+import { rankLabel } from "./playerRanks";
 
 /** Resolve a traded pick (season, round, originalRosterId) to the player drafted in that slot. */
 function resolvePick(
@@ -29,11 +30,33 @@ function resolvePick(
   return { playerId: null, name: null };
 }
 
-export function computeTrades(dynasty: Dynasty, identity: Identity, index: PlayerWeekIndex): Trade[] {
+export function computeTrades(
+  dynasty: Dynasty,
+  identity: Identity,
+  index: PlayerWeekIndex,
+  ranks: PlayerRankMart,
+): Trade[] {
   const trades: Trade[] = [];
+
+  // (season, playerId) -> in-league positional rank for that season
+  const rankBy = new Map<string, PlayerSeasonRank>();
+  for (const r of ranks.rows) rankBy.set(`${r.season}:${r.playerId}`, r);
 
   for (const s of dynasty.seasons) {
     const uid = (rosterId: number) => userForRoster(identity, s.season, rosterId);
+
+    /** Player asset tagged with how good he actually was that season, in-league. */
+    const playerAsset = (pid: string): TradeAsset => {
+      const r = rankBy.get(`${s.season}:${pid}`);
+      return {
+        kind: "player",
+        playerId: pid,
+        name: playerName(dynasty.players, pid),
+        position: dynasty.players[pid]?.position ?? null,
+        rankLabel: rankLabel(r),
+        ppg: r?.ppg ?? null,
+      };
+    };
 
     for (const [week, txns] of s.transactionsByWeek) {
       for (const t of txns) {
@@ -45,32 +68,35 @@ export function computeTrades(dynasty: Dynasty, identity: Identity, index: Playe
           userId: uid(rid),
           rosterId: rid,
           received: [],
+          sent: [],
           faabReceived: 0,
         }));
         const sideByRoster = new Map(sides.map((sd) => [sd.rosterId, sd]));
 
+        // adds[pid] = roster that GOT him; drops[pid] = roster that GAVE HIM UP
         for (const [pid, rid] of Object.entries(t.adds ?? {})) {
-          const side = sideByRoster.get(rid);
-          if (!side) continue;
-          side.received.push({
-            kind: "player",
-            playerId: pid,
-            name: playerName(dynasty.players, pid),
-            position: dynasty.players[pid]?.position ?? null,
-          } as TradeAsset);
+          sideByRoster.get(rid)?.received.push(playerAsset(pid));
+        }
+        for (const [pid, rid] of Object.entries(t.drops ?? {})) {
+          sideByRoster.get(rid)?.sent.push(playerAsset(pid));
         }
 
         for (const dp of t.draft_picks ?? []) {
-          const side = sideByRoster.get(dp.owner_id);
-          if (!side) continue;
           const became = resolvePick(dynasty, dp.season, dp.round, dp.roster_id);
-          side.received.push({
+          const r = became.playerId ? rankBy.get(`${dp.season}:${became.playerId}`) : undefined;
+          const asset: TradeAsset = {
             kind: "pick",
             season: dp.season,
             round: dp.round,
             becamePlayerId: became.playerId,
             becameName: became.name,
-          });
+            // dp.roster_id identifies WHOSE pick it is, which is what "via X" shows
+            originalUserId: uid(dp.roster_id),
+            rankLabel: rankLabel(r),
+            ppg: r?.ppg ?? null,
+          };
+          sideByRoster.get(dp.owner_id)?.received.push(asset);
+          if (dp.previous_owner_id != null) sideByRoster.get(dp.previous_owner_id)?.sent.push(asset);
         }
 
         for (const wb of t.waiver_budget ?? []) {
@@ -117,6 +143,7 @@ export function computeTrades(dynasty: Dynasty, identity: Identity, index: Playe
           season: s.season,
           week,
           dateMs: t.created ?? t.status_updated ?? null,
+          creatorUserId: t.creator ?? null,
           sides,
           realized: anyPoints ? realized : null,
         });

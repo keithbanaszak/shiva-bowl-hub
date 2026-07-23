@@ -8,7 +8,7 @@ import path from "node:path";
 import { loadDynasty } from "../../lib/raw";
 import { buildIdentity } from "../../lib/identity";
 import { writeJson } from "../../lib/fsx";
-import { MARTS_DIR } from "../../lib/paths";
+import { MARTS_DIR, PUBLIC_DIR } from "../../lib/paths";
 import { computeSeason } from "../../lib/stats/season";
 import { computePlayoffs } from "../../lib/stats/playoffs";
 import { computeH2H } from "../../lib/stats/h2h";
@@ -27,6 +27,9 @@ import { computePlayerLegacy } from "../../lib/stats/playerLegacy";
 import { computeTeamPower } from "../../lib/stats/teamPower";
 import { computeHome } from "../../lib/stats/home";
 import { computePosBreakdown } from "../../lib/stats/posBreakdown";
+import { buildSearchIndex } from "../../lib/stats/searchIndex";
+import { computePlayerRanks } from "../../lib/stats/playerRanks";
+import { computeActivity } from "../../lib/stats/activity";
 import type { AllTimeRow, SeasonPlayoffs, SeasonStanding, TeamWeek } from "../../lib/stats/types";
 import { round2 } from "../../lib/stats/util";
 
@@ -152,7 +155,8 @@ function main() {
 
   console.log("Computing stats…");
   const h2h = computeH2H(teamWeeks);
-  const trades = computeTrades(dynasty, identity, index);
+  const playerRanks = computePlayerRanks(dynasty, index);
+  const trades = computeTrades(dynasty, identity, index, playerRanks);
   const allTime = buildAllTime(standings, playoffs);
   const { awards, cards } = buildAwardsAndCards({ dynasty, identity, teamWeeks, standings, playoffs, h2h, trades });
   const playerStats = computePlayerStats(index);
@@ -167,6 +171,7 @@ function main() {
   const teamPower = computeTeamPower(dynasty, identity, index);
   const home = computeHome(dynasty, index, teamWeeks);
   const posBreakdown = computePosBreakdown(dynasty, index, teamWeeks);
+  const activity = computeActivity(trades, waivers);
 
   // ---- write per-domain marts
   const w = (name: string, data: unknown) => writeJson(path.join(MARTS_DIR, `${name}.json`), data);
@@ -196,6 +201,13 @@ function main() {
   w("teamPower", teamPower);
   w("home", home);
   w("posBreakdown", posBreakdown);
+  w("playerRanks", playerRanks);
+  w("activity", activity);
+
+  // Served as a static asset, not imported — see PUBLIC_DIR in lib/paths.ts.
+  const searchIndex = buildSearchIndex(identity, playerLegacy);
+  searchIndex.generatedAtMs = start;
+  writeJson(path.join(PUBLIC_DIR, "search-index.json"), searchIndex);
 
   console.log(
     `\nMarts written: ${teamWeeks.length} team-weeks · ${standings.length} standings · ${h2h.length} rivalries · ${trades.length} trades · ${playerStats.startRecords.length} start-records · ${waivers.acquisitions.length} key adds · ${draft.picks.length} picks · ${schedule.length} matchups · ${lineups.length} lineups · ${playerLegacy.players.length} player legacies · ${teamPower.teams.length} team power.`,

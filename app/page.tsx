@@ -1,28 +1,22 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Card, PageHeader, TileLink, Badge } from "@/components/ui";
+import { Card, PageHeader, TileLink } from "@/components/ui";
 import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PosBadge } from "@/components/Pos";
-import { TradeCard } from "@/components/TradeCard";
+import { ActivityRow } from "@/components/activity/ActivityRow";
 import { completedSeasons, label } from "@/lib/marts";
 import { playoffsForSeason } from "@/lib/data/playoffs";
-import { trades } from "@/lib/data/trades";
-import { waivers } from "@/lib/data/waivers";
 import { standingsForSeason } from "@/lib/data/standings";
 import { schedule } from "@/lib/data/schedule";
 import { home } from "@/lib/data/home";
-import { pname } from "@/lib/data/players-dict";
-import type { ScheduleMatchup, WaiverMove } from "@/lib/stats/types";
-
-const fmtDate = (ms: number | null) =>
-  ms ? new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+import { events } from "@/lib/data/activity";
+import type { ScheduleMatchup } from "@/lib/stats/types";
 
 function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`rounded-2xl border border-[var(--border)] bg-[var(--card)] p-3 ${className}`}>{children}</div>;
 }
 
-/** Consistent section header with a separating rule, used for every block. */
 function SectionHead({ title, href, linkText }: { title: ReactNode; href?: string; linkText?: string }) {
   return (
     <div className="mb-3 flex items-end justify-between gap-3 border-b border-[var(--border)] pb-2">
@@ -42,7 +36,7 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
   return (
     <Card className="flex h-full flex-col justify-center">
       <div className="mb-3 flex items-center justify-between text-xs">
-        <span className="font-display uppercase tracking-widest text-accent-2">★ Game of the Week</span>
+        <span className="font-display uppercase tracking-widest text-[var(--accent-2)]">★ Game of the Week</span>
         <span className="text-[var(--muted)]">
           {m.season} · Wk {m.week}
           {m.isPlayoff ? " · Playoffs" : ""}
@@ -71,41 +65,11 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
   );
 }
 
-function MoveItem({ m }: { m: WaiverMove }) {
-  const pid = m.addPlayerId ?? m.dropPlayerId;
-  const isAdd = !!m.addPlayerId;
-  return (
-    <div className="flex items-center justify-between gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel)] p-2.5">
-      <div className="flex min-w-0 items-center gap-2">
-        {pid && <PlayerAvatar playerId={pid} size={26} />}
-        <div className="min-w-0">
-          {pid && (
-            <div className={`truncate text-sm ${isAdd ? "text-[var(--accent)]" : "text-[var(--bad)]"}`}>
-              {isAdd ? "+" : "−"} {pname(pid)}
-            </div>
-          )}
-          <div className="truncate text-[11px] text-[var(--muted)]">
-            <ManagerChip userId={m.userId} size={14} />
-          </div>
-        </div>
-      </div>
-      <div className="shrink-0 text-right text-[11px] text-[var(--muted)]">
-        {m.faab > 0 ? <div className="font-mono text-[var(--gold)]">${m.faab}</div> : <div>{isAdd ? "free" : "drop"}</div>}
-        <div>{fmtDate(m.dateMs)}</div>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const seasons = completedSeasons();
   const latest = seasons[0];
   const span = seasons.length ? `${seasons[seasons.length - 1]}–${latest}` : "";
   const champ = playoffsForSeason(latest)?.championUserId ?? null;
-
-  const recentTrades = trades.slice(0, 3);
-  const recentMoves = waivers.recentMoves.slice(0, 6);
-  const bestAdd = waivers.seasonLeaders.find((s) => s.season === latest)?.bestFreeAdd ?? null;
 
   const latestGotw = [...schedule]
     .filter((m) => m.isGameOfWeek)
@@ -113,6 +77,7 @@ export default function Home() {
 
   const seasonStandings = standingsForSeason(latest);
   const lp = home.lastPlayed;
+  const recent = events.slice(0, 9);
 
   return (
     <div>
@@ -138,88 +103,57 @@ export default function Home() {
         <div className="lg:col-span-2">{latestGotw && <GameOfWeekCard m={latestGotw} />}</div>
       </div>
 
-      {/* around the league last week */}
-      {lp && (home.topPerformers.length > 0 || home.weeklyAwards.length > 0) && (
-        <section className="mb-10">
-          <SectionHead title={`📣 Around the league · ${lp.season} Week ${lp.week}`} href={`/schedule/${lp.season}`} linkText="schedule" />
-
-          {home.topPerformers.length > 0 && (
-            <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-              {home.topPerformers.map((p) => (
-                <Panel key={p.pos}>
-                  <div className="mb-1 flex items-center justify-between">
-                    <PosBadge pos={p.pos} />
-                    <span className="font-mono text-sm font-semibold text-[var(--accent)]">{p.points}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <PlayerAvatar playerId={p.playerId} size={24} />
-                    <Link href={`/players/${p.playerId}`} className="min-w-0 truncate text-xs hover:text-[var(--accent)]">
-                      {p.name}
-                    </Link>
-                  </div>
-                  <div className="mt-1 truncate text-[10px] text-[var(--muted)]">{label(p.userId)}</div>
-                </Panel>
-              ))}
-            </div>
-          )}
-
-          {home.weeklyAwards.length > 0 && (
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {home.weeklyAwards.map((a) => (
-                <Panel key={a.key}>
-                  <div className="text-xs text-[var(--muted)]">
-                    {a.emoji} {a.title}
-                  </div>
-                  <div className="mt-1.5">
-                    <ManagerChip userId={a.userId} href={`/managers/${a.userId}`} size={22} className="font-medium" />
-                  </div>
-                  <div className="mt-1.5 flex flex-wrap items-center gap-1 text-xs">
-                    <span className="font-mono text-[var(--gold)]">{a.value}</span>
-                    {a.detail && (
-                      <span className="flex items-center gap-1 text-[var(--muted)]">
-                        vs <Avatar userId={a.detail} size={16} /> {label(a.detail)}
-                      </span>
-                    )}
-                  </div>
-                </Panel>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {/* main column + standings sidebar */}
+      {/* activity feed + standings */}
       <div className="grid gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0 space-y-10">
           <section>
-            <SectionHead title="🧾 Recent trades" href="/trades" linkText="all trades" />
-            <div className="space-y-3">
-              {recentTrades.map((t) => (
-                <TradeCard key={t.id} t={t} />
+            <SectionHead title="⚡ Latest activity" href="/activity" linkText="full feed" />
+            <div className="space-y-2">
+              {recent.map((e) => (
+                <ActivityRow key={e.id} e={e} />
               ))}
             </div>
           </section>
 
-          <section>
-            <SectionHead title="🔁 Recent moves" href="/waivers" linkText="waiver hub" />
-            {bestAdd?.playerId && (
-              <div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--border-glow)] bg-[var(--accent-soft)] p-2.5 text-sm">
-                <span className="flex min-w-0 items-center gap-2">
-                  <PlayerAvatar playerId={bestAdd.playerId} size={26} />
-                  <span className="min-w-0">
-                    <span className="truncate font-medium text-[var(--accent-strong)]">{pname(bestAdd.playerId)}</span>
-                    <span className="block text-[11px] text-[var(--muted)]">Best free add · {latest}</span>
-                  </span>
-                </span>
-                <span className="shrink-0 font-mono text-sm text-[var(--accent)]">{bestAdd.realizedSeason} pts</span>
+          {lp && home.weeklyAwards.length > 0 && (
+            <section>
+              <SectionHead
+                title={`📣 ${lp.season} Week ${lp.week}`}
+                href={`/schedule/${lp.season}`}
+                linkText="schedule"
+              />
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                {home.weeklyAwards.map((a) => (
+                  <Panel key={a.key}>
+                    <div className="text-xs text-[var(--muted)]">
+                      {a.emoji} {a.title}
+                    </div>
+                    <div className="mt-1.5">
+                      <ManagerChip userId={a.userId} href={`/managers/${a.userId}`} size={22} className="font-medium" />
+                    </div>
+                    <div className="mt-1.5 font-mono text-xs text-[var(--gold)]">{a.value}</div>
+                  </Panel>
+                ))}
               </div>
-            )}
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {recentMoves.map((m) => (
-                <MoveItem key={m.id} m={m} />
-              ))}
-            </div>
-          </section>
+              {home.topPerformers.length > 0 && (
+                <div className="scroll-thin mt-2 flex gap-2 overflow-x-auto pb-1">
+                  {home.topPerformers.map((p) => (
+                    <div
+                      key={p.pos}
+                      className="flex shrink-0 items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel)] px-2.5 py-2"
+                    >
+                      <PosBadge pos={p.pos} />
+                      <PlayerAvatar playerId={p.playerId} size={22} />
+                      <Link href={`/players/${p.playerId}`} className="text-xs hover:text-[var(--accent)]">
+                        {p.name}
+                      </Link>
+                      <span className="font-mono text-xs font-semibold text-[var(--accent)]">{p.points}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
 
           <section>
             <SectionHead title="🏆 Champions" />
@@ -246,12 +180,12 @@ export default function Home() {
           <section>
             <SectionHead title="Explore" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              <TileLink href="/teams" emoji="🛠️" title="Team Power" desc="Roster strength, contender ↔ rebuilder, pick capital." />
-              <TileLink href="/rivalries" emoji="🔥" title="Rivalries" desc="The league's hottest feuds, ranked by heat." />
-              <TileLink href="/draft" emoji="🎯" title="Draft Room" desc="Rookie-draft steals, busts, and the best drafters." />
-              <TileLink href="/players" emoji="📇" title="Players" desc="Every player's league legacy and ownership." />
-              <TileLink href="/luck" emoji="🍀" title="Schedule Luck" desc="All-play, median records, and the Fraud Detector." />
-              <TileLink href="/records" emoji="📈" title="Record Book" desc="Top weeks, blowouts, and bench heists." />
+              <TileLink href="/activity" emoji="⚡" title="League Activity" desc="Every trade, add and drop, in order." />
+              <TileLink href="/integrity" emoji="🔍" title="Lineup Integrity" desc="Tank watch — lineups vs projections." />
+              <TileLink href="/breakdown" emoji="🎛️" title="Breakdown" desc="Scoring by position and lineup slot." />
+              <TileLink href="/rivalries" emoji="🔥" title="Rivalries" desc="The league's hottest feuds, ranked." />
+              <TileLink href="/draft" emoji="🎯" title="Draft Room" desc="Rookie-draft steals and busts." />
+              <TileLink href="/records" emoji="📈" title="Record Book" desc="Top weeks, blowouts, bench heists." />
             </div>
           </section>
         </div>
@@ -269,7 +203,10 @@ export default function Home() {
                 <div key={r.userId} className="flex items-center gap-2 rounded-lg px-1 py-1 text-sm">
                   <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">{i + 1}</span>
                   <Avatar userId={r.userId} size={20} />
-                  <Link href={`/managers/${r.userId}`} className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]">
+                  <Link
+                    href={`/managers/${r.userId}`}
+                    className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]"
+                  >
                     {label(r.userId)}
                   </Link>
                   {r.champion && <span title="Champion">🏆</span>}
