@@ -215,6 +215,7 @@ export type KryptonitePair = {
   avgVs: number;
   overallAvg: number;
   diff: number; // avgVs - overallAvg
+  pctAbove: number; // diff / overallAvg
   totalVs: number;
 };
 export type KryptoniteStats = {
@@ -255,6 +256,9 @@ export type PlayerStartRecord = {
   pointsWhileStarting: number;
   topManagerUserId: string | null; // manager who started him most
   topManagerStarts: number;
+  // that manager's W/L in the weeks they started him
+  topManagerWins: number;
+  topManagerLosses: number;
 };
 
 export type BenchLeader = {

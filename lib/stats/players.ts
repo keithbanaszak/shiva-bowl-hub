@@ -17,6 +17,9 @@ export function computePlayerStats(index: PlayerWeekIndex): PlayerStats {
     let ties = 0;
     let pointsWhileStarting = 0;
     const startsByManager = new Map<string, number>();
+    // W/L for each manager while they started him — "started most by" is more
+    // interesting when you can see whether it actually worked out for them
+    const recordByManager = new Map<string, { w: number; l: number }>();
 
     // ---- bench
     let benchPoints = 0;
@@ -28,9 +31,15 @@ export function computePlayerStats(index: PlayerWeekIndex): PlayerStats {
         starts++;
         pointsWhileStarting += pw.points;
         startsByManager.set(pw.userId, (startsByManager.get(pw.userId) ?? 0) + 1);
-        if (pw.result === "W") wins++;
-        else if (pw.result === "L") losses++;
-        else if (pw.result === "T") ties++;
+        const rec = recordByManager.get(pw.userId) ?? { w: 0, l: 0 };
+        if (pw.result === "W") {
+          wins++;
+          rec.w++;
+        } else if (pw.result === "L") {
+          losses++;
+          rec.l++;
+        } else if (pw.result === "T") ties++;
+        recordByManager.set(pw.userId, rec);
       } else {
         if (pw.points > 0) {
           benchPoints += pw.points;
@@ -43,6 +52,7 @@ export function computePlayerStats(index: PlayerWeekIndex): PlayerStats {
     if (starts >= MIN_STARTS) {
       const decided = wins + losses;
       const [topMgr, topStarts] = topEntry(startsByManager);
+      const topRec = topMgr ? (recordByManager.get(topMgr) ?? { w: 0, l: 0 }) : { w: 0, l: 0 };
       startRecords.push({
         playerId,
         starts,
@@ -53,6 +63,8 @@ export function computePlayerStats(index: PlayerWeekIndex): PlayerStats {
         pointsWhileStarting: round2(pointsWhileStarting),
         topManagerUserId: topMgr,
         topManagerStarts: topStarts,
+        topManagerWins: topRec.w,
+        topManagerLosses: topRec.l,
       });
     }
 

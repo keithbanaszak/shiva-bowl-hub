@@ -13,7 +13,7 @@ const KINDS: Array<{ key: ActivityKind | "all"; label: string }> = [
   { key: "drop", label: "Drops" },
 ];
 
-const PAGE = 60;
+const PAGE = 50;
 
 /**
  * Filters + progressive reveal over the prerendered rows. The rows themselves are
@@ -34,7 +34,7 @@ export function ActivityFeed({
   const [kind, setKind] = useState<ActivityKind | "all">("all");
   const [season, setSeason] = useState("all");
   const [user, setUser] = useState("all");
-  const [limit, setLimit] = useState(PAGE);
+  const [page, setPage] = useState(0);
 
   const visible = useMemo(() => {
     const idx: number[] = [];
@@ -48,7 +48,10 @@ export function ActivityFeed({
     return idx;
   }, [events, kind, season, user]);
 
-  const shown = visible.slice(0, limit);
+  // clamp rather than reset, so narrowing a filter can't strand you on a dead page
+  const pages = Math.max(1, Math.ceil(visible.length / PAGE));
+  const current = Math.min(page, pages - 1);
+  const shown = visible.slice(current * PAGE, current * PAGE + PAGE);
 
   const seg = (on: boolean) =>
     `rounded-md px-2.5 py-1.5 text-xs transition ${
@@ -66,7 +69,7 @@ export function ActivityFeed({
               key={k.key}
               onClick={() => {
                 setKind(k.key);
-                setLimit(PAGE);
+                setPage(0);
               }}
               className={seg(kind === k.key)}
             >
@@ -79,7 +82,7 @@ export function ActivityFeed({
           value={season}
           onChange={(e) => {
             setSeason(e.target.value);
-            setLimit(PAGE);
+            setPage(0);
           }}
           aria-label="Filter by season"
           className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
@@ -96,7 +99,7 @@ export function ActivityFeed({
           value={user}
           onChange={(e) => {
             setUser(e.target.value);
-            setLimit(PAGE);
+            setPage(0);
           }}
           aria-label="Filter by manager"
           className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
@@ -114,16 +117,33 @@ export function ActivityFeed({
         </span>
       </div>
 
-      <div className="space-y-2">{shown.map((i) => rows[i])}</div>
+      <div className="space-y-1">{shown.map((i) => rows[i])}</div>
 
-      {shown.length < visible.length && (
-        <button
-          onClick={() => setLimit((l) => l + PAGE)}
-          className="mt-4 w-full rounded-xl border border-[var(--border)] py-2.5 text-sm text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
-        >
-          Show {Math.min(PAGE, visible.length - shown.length)} more ·{" "}
-          {visible.length - shown.length} remaining
-        </button>
+      {pages > 1 && (
+        <div className="mt-4 flex items-center justify-between gap-2">
+          <button
+            onClick={() => setPage(Math.max(0, current - 1))}
+            disabled={current === 0}
+            className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+          >
+            ← Prev
+          </button>
+          <span className="text-center text-xs text-[var(--muted)]">
+            Page {current + 1} of {pages}
+            <span className="hidden sm:inline">
+              {" "}
+              · {current * PAGE + 1}–{current * PAGE + shown.length} of{" "}
+              {visible.length}
+            </span>
+          </span>
+          <button
+            onClick={() => setPage(Math.min(pages - 1, current + 1))}
+            disabled={current >= pages - 1}
+            className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+          >
+            Next →
+          </button>
+        </div>
       )}
       {visible.length === 0 && (
         <div className="py-12 text-center text-sm text-[var(--muted)]">

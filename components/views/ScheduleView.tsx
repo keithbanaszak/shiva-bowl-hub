@@ -2,6 +2,8 @@ import { Card, PageHeader, Badge, Note } from "@/components/ui";
 import { MatchupBar } from "@/components/MatchupBar";
 import { SeasonPills } from "@/components/SeasonPills";
 import { WeekCarousel } from "@/components/WeekCarousel";
+import { PlayoffBracket } from "@/components/PlayoffBracket";
+import { playoffsForSeason } from "@/lib/data/playoffs";
 import { label } from "@/lib/marts";
 import {
   seasonsWithSchedule,
@@ -72,6 +74,7 @@ function WeekSection({ season, week }: { season: string; week: number }) {
 }
 
 export function ScheduleView({ season }: { season: string }) {
+  const po = playoffsForSeason(season);
   const seasons = seasonsWithSchedule();
   const weeks = weeksForSeason(season);
 
@@ -91,6 +94,18 @@ export function ScheduleView({ season }: { season: string }) {
           scorers, playoff stakes, and final margin.
         </Note>
       </div>
+
+      {po && po.games.some((g) => g.bracket === "winners") && (
+        <section className="mb-8">
+          <h2 className="mb-3 font-display text-lg font-semibold tracking-tight">
+            🏆 {season} playoff bracket
+          </h2>
+          <PlayoffBracket po={po} />
+          <p className="mt-2 text-xs text-[var(--muted)]">
+            Winners bracket only. The small number is that team’s playoff seed.
+          </p>
+        </section>
+      )}
 
       <WeekCarousel
         labels={weeks.map((w) => `${season} · Week ${w}`)}

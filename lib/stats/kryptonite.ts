@@ -40,6 +40,9 @@ export function computeKryptonite(index: PlayerWeekIndex): KryptoniteStats {
         avgVs: round2(avgVs),
         overallAvg: round2(overallAvg),
         diff: round2(diff),
+        // how much better, as a share of his own norm — a +5 lift on a 6-point
+        // player is a very different story from +5 on a 25-point player
+        pctAbove: overallAvg > 0 ? round2(diff / overallAvg) : 0,
         totalVs: round2(e.total),
       };
       if (diff > 3) nemeses.push(pair);

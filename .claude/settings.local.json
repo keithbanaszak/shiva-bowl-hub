@@ -21,7 +21,8 @@
       "Bash(sed -n '/export type DraftPickROI/,/^};/p' lib/stats/types.ts)",
       "Bash(sed -n '/export type DrafterRow/,/^};/p' lib/stats/types.ts)",
       "Bash(git commit -q -m 'Trade receipt + draft rework; refresh runs year-round *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(xargs echo \"setLimit remaining:\")"
     ]
   }
 }
