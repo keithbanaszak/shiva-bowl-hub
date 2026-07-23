@@ -72,7 +72,7 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
                   <span className="shrink-0 text-[var(--faint)]">⇄</span>
                 )}
                 <Avatar userId={u} size={14} />
-                <FitText fits={11}>{label(u)}</FitText>
+                <FitText>{label(u)}</FitText>
               </span>
             ))}
           </span>
@@ -87,7 +87,7 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
                 e.kind === "drop" ? "text-[var(--bad)]" : "text-[var(--accent)]"
               }`}
             >
-              <FitText fits={22}>{pid ? pname(pid) : "—"}</FitText>
+              <FitText>{pid ? pname(pid) : "—"}</FitText>
             </Link>
             {rank && col && (
               <span
@@ -101,7 +101,7 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
           </span>
           <span className="flex min-w-0 items-center gap-1 text-[11px] text-[var(--muted)]">
             <Avatar userId={e.userIds[0]} size={14} />
-            <FitText fits={16}>{label(e.userIds[0])}</FitText>
+            <FitText>{label(e.userIds[0])}</FitText>
           </span>
         </>
       )}

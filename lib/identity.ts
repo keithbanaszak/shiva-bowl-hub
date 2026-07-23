@@ -58,6 +58,7 @@ export function buildIdentity(dynasty: Dynasty): Identity {
           avatar: u?.avatar ?? null,
           avatarUrl: avatarUrl(u?.avatar),
           seasons: [],
+          active: false,
         });
       }
       const m = byUserId.get(uid)!;
@@ -77,12 +78,22 @@ export function buildIdentity(dynasty: Dynasty): Identity {
           avatar: u.avatar ?? null,
           avatarUrl: avatarUrl(u.avatar),
           seasons: [],
+          active: false,
         });
       }
     }
   }
 
   for (const m of byUserId.values()) m.seasons.sort();
+
+  // dynasty.seasons is newest-first, so [0] is the current league year
+  const currentSeason = dynasty.seasons[0]?.season;
+  const currentRosterOwners = new Set(
+    (dynasty.seasons[0]?.rosters ?? []).map((r) => r.owner_id).filter(Boolean) as string[],
+  );
+  for (const m of byUserId.values()) {
+    m.active = currentRosterOwners.has(m.userId) || (currentSeason ? m.seasons.includes(currentSeason) : false);
+  }
   // profiles are merged last, after seasons are known (joined defaults to the first)
   for (const [uid, m] of byUserId) byUserId.set(uid, withProfile(m));
   const managers = [...byUserId.values()].sort((a, b) => a.label.localeCompare(b.label));

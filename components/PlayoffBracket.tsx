@@ -41,7 +41,7 @@ function Side({
       )}
       <Avatar userId={userId} size={18} />
       <span className="min-w-0 flex-1 text-[11px]">
-        <FitText fits={15}>{label(userId)}</FitText>
+        <FitText>{label(userId)}</FitText>
       </span>
       <span
         className={`shrink-0 font-mono text-[11px] tabular-nums ${won ? "font-semibold text-[var(--accent)]" : "text-[var(--muted)]"}`}

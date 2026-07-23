@@ -39,7 +39,7 @@ export default function PlayersPage() {
     return {
       key: r.playerId,
       cells: {
-        player: <PlayerCell playerId={r.playerId} size={22} fits={16} sub={pteam(r.playerId)} />,
+        player: <PlayerCell playerId={r.playerId} size={22} sub={pteam(r.playerId)} />,
         pos: <PosBadge pos={ppos(r.playerId)} />,
         starts: mono(r.starts, "text-[var(--muted)]"),
         record: mono(`${r.wins}-${r.losses}${r.ties ? `-${r.ties}` : ""}`),
@@ -47,7 +47,7 @@ export default function PlayersPage() {
         pts: mono(r.pointsWhileStarting, "text-[var(--muted)]"),
         top: r.topManagerUserId ? (
           <span className="flex min-w-0 items-center gap-1.5">
-            <ManagerCell userId={r.topManagerUserId} size={18} fits={14} />
+            <ManagerCell userId={r.topManagerUserId} size={18} />
             <span
               className="shrink-0 whitespace-nowrap font-mono text-[10px] text-[var(--muted)]"
               title={`${r.topManagerWins}-${r.topManagerLosses} in the ${r.topManagerStarts} weeks they started him`}
@@ -83,13 +83,13 @@ export default function PlayersPage() {
   const benchRows: TableRow[] = bench.map((r) => ({
     key: r.playerId,
     cells: {
-      player: <PlayerCell playerId={r.playerId} size={22} fits={18} sub={pteam(r.playerId)} />,
+      player: <PlayerCell playerId={r.playerId} size={22} sub={pteam(r.playerId)} />,
       pos: <PosBadge pos={ppos(r.playerId)} />,
       pts: mono(r.benchPoints, "font-semibold text-[var(--gold)]"),
       weeks: mono(r.benchWeeks, "text-[var(--muted)]"),
       top: r.topManagerUserId ? (
         <span className="flex min-w-0 items-center gap-1.5">
-          <ManagerCell userId={r.topManagerUserId} size={18} fits={16} />
+          <ManagerCell userId={r.topManagerUserId} size={18} />
           <span className="shrink-0 font-mono text-[10px] text-[var(--muted)]">{r.topManagerBenchPoints}</span>
         </span>
       ) : (
@@ -134,9 +134,9 @@ export default function PlayersPage() {
   const kryptRows: TableRow[] = nemeses.map((n, i) => ({
     key: `${n.playerId}:${n.managerUserId}:${i}`,
     cells: {
-      player: <PlayerCell playerId={n.playerId} size={22} fits={15} />,
+      player: <PlayerCell playerId={n.playerId} size={22} />,
       pos: <PosBadge pos={ppos(n.playerId)} />,
-      victim: <ManagerCell userId={n.managerUserId} size={18} fits={15} />,
+      victim: <ManagerCell userId={n.managerUserId} size={18} />,
       own: mono(n.overallAvg, "text-[var(--muted)]"),
       vs: mono(n.avgVs, "font-semibold text-[var(--gold)]"),
       diff: mono(signed(n.diff), "text-[var(--accent)]"),

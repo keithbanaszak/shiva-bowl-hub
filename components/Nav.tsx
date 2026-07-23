@@ -127,7 +127,7 @@ export function Nav() {
         ref={navRef}
         className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--nav-bg)] backdrop-blur"
       >
-        <nav className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-3">
+        <nav className="mx-auto flex w-full max-w-[110rem] items-center gap-1 px-4 py-3">
           <Link
             href="/"
             className="mr-1 flex items-center gap-2 font-display font-bold tracking-tight"

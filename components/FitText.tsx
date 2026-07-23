@@ -1,42 +1,50 @@
 /**
- * Text that shrinks to fit its box instead of overflowing or being cut off.
+ * Text that shrinks to fit the box it's actually in.
  *
- * League team names range from "Mia Cat" to "Pickens on Downs kids", so a single
- * font size either wastes space on the short ones or clips the long ones. This
- * steps the size down in `em` — relative to whatever the parent sets — so the
- * same component works in a 300px sidebar row and in a full-width card.
+ * The first version guessed from character count against an assumed "this many
+ * characters fit" number, which was wrong whenever the real column was narrower
+ * or wider than the guess — "Pass Me The HERBS" fitted in one table and clipped
+ * in another.
  *
- * Truncation is still the last resort for pathological input, hence `truncate` +
- * a `title`, but for real team names the shrink alone is enough.
+ * This version lets CSS do the measuring. The wrapper becomes a query container,
+ * so `cqi` (1% of the container's inline size) tracks the real available width.
+ * A proportional glyph averages a bit over half its font size, so N characters
+ * need roughly `N * 0.55 * fontSize`; solving for fontSize gives
+ * `fontSize ≈ 180cqi / N`. `clamp` keeps it between a readable floor and the
+ * inherited size, so short names never inflate and long ones never vanish.
+ *
+ * Overflow still ellipsises as a final backstop for pathological input.
  */
 export function FitText({
   children,
-  fits = 18,
-  min = 0.78,
+  min = 0.72,
   className = "",
   title,
   as: Tag = "span",
 }: {
   children: string;
-  /** Characters that sit comfortably at the parent's font size. */
-  fits?: number;
-  /** Floor for the scale factor, so text never becomes unreadable. */
+  /** Smallest allowed scale, relative to the inherited font size. */
   min?: number;
   className?: string;
   title?: string;
   as?: "span" | "div";
 }) {
   const len = children?.length ?? 0;
-  // linear shrink past the comfortable length, clamped at `min`
-  const scale = len <= fits ? 1 : Math.max(min, fits / len);
+  // 180 ≈ 100 / 0.55, the reciprocal of average glyph width in em
+  const cqi = len > 0 ? (180 / len).toFixed(1) : "100";
 
   return (
-    <Tag
-      className={`block min-w-0 truncate ${className}`}
-      style={scale < 1 ? { fontSize: `${scale.toFixed(3)}em` } : undefined}
-      title={title ?? (len > fits ? children : undefined)}
-    >
-      {children}
+    // flex-1 + min-w-0 matter: as a bare flex item this would size to its own
+    // content, so `cqi` would measure the text rather than the space available
+    // and nothing would ever shrink. Outside a flex row both are inert.
+    <Tag className={`block min-w-0 flex-1 ${className}`} style={{ containerType: "inline-size" }}>
+      <span
+        className="block truncate"
+        style={{ fontSize: `clamp(${min}em, ${cqi}cqi, 1em)` }}
+        title={title ?? children}
+      >
+        {children}
+      </span>
     </Tag>
   );
 }

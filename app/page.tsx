@@ -222,7 +222,7 @@ export default function Home() {
                         href={`/players/${p.playerId}`}
                         className="min-w-0 flex-1 hover:text-[var(--accent)]"
                       >
-                        <FitText fits={12} className="text-[11px]">
+                        <FitText className="text-[11px]">
                           {p.name}
                         </FitText>
                       </Link>
@@ -344,7 +344,7 @@ export default function Home() {
                         href={`/managers/${r.userId}`}
                         className="min-w-0 flex-1 text-xs hover:text-[var(--accent)]"
                       >
-                        <FitText fits={17}>{label(r.userId)}</FitText>
+                        <FitText>{label(r.userId)}</FitText>
                       </Link>
                       {r.champion && <span title="Champion">🏆</span>}
                       <span className="w-8 shrink-0 text-right font-mono text-[11px] tabular-nums text-[var(--muted)]">

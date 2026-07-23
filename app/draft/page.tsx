@@ -40,8 +40,8 @@ function pickTable(picks: DraftPickROI[], tone: "good" | "bad"): { columns: Colu
     key: `${p.season}-${p.pickNo}`,
     cells: {
       pick: <PickLabel p={p} />,
-      player: <PlayerCell playerId={p.playerId} size={22} fits={16} />,
-      by: <ManagerCell userId={p.userId} size={18} fits={16} />,
+      player: <PlayerCell playerId={p.playerId} size={22} />,
+      by: <ManagerCell userId={p.userId} size={18} />,
       career: mono(p.realizedCareer, "text-[var(--muted)]"),
       steal: mono(
         signed(p.stealScore),
@@ -76,12 +76,12 @@ export default function DraftPage() {
   const bustTbl = pickTable(busts, "bad");
 
   const drafterCols: ColumnSpec[] = [
-    { key: "mgr", header: "Manager", width: "14rem", sortable: true, descFirst: false },
-    { key: "picks", header: "Picks", width: "4.5rem", align: "right", sortable: true },
+    { key: "mgr", header: "Manager", width: "20%", sortable: true, descFirst: false },
+    { key: "picks", header: "Picks", width: "6%", align: "right", sortable: true },
     {
       key: "perpick",
       header: "Value/pick",
-      width: "7rem",
+      width: "9%",
       align: "right",
       sortable: true,
       headerTitle: "Points above what their draft slots normally return, per pick — the fair skill measure",
@@ -89,7 +89,7 @@ export default function DraftPage() {
     {
       key: "total",
       header: "Total value",
-      width: "7rem",
+      width: "9%",
       align: "right",
       sortable: true,
       headerTitle: "Total points above slot expectation (rewards volume as well as skill)",
@@ -97,20 +97,20 @@ export default function DraftPage() {
     {
       key: "hit",
       header: "Hit rate",
-      width: "6rem",
+      width: "8%",
       align: "right",
       sortable: true,
       headerTitle: "Share of picks that beat their slot",
     },
-    { key: "pts", header: "Career pts", width: "6.5rem", align: "right", sortable: true },
-    { key: "best", header: "Best pick", width: "13rem", sortable: false },
-    { key: "worst", header: "Worst pick", width: "13rem", sortable: false },
+    { key: "pts", header: "Career pts", width: "9%", align: "right", sortable: true },
+    { key: "best", header: "Best pick", width: "19.5%", sortable: false },
+    { key: "worst", header: "Worst pick", width: "19.5%", sortable: false },
   ];
 
   const drafterRows: TableRow[] = drafters.map((d) => ({
     key: d.userId,
     cells: {
-      mgr: <ManagerCell userId={d.userId} fits={18} />,
+      mgr: <ManagerCell userId={d.userId} />,
       picks: mono(d.picks, "text-[var(--muted)]"),
       perpick: mono(
         signed(d.stealPerPick),
@@ -121,7 +121,7 @@ export default function DraftPage() {
       pts: mono(d.totalRealized, "text-[var(--muted)]"),
       best: d.bestPick ? (
         <span className="flex min-w-0 items-center gap-1.5 text-xs">
-          <PlayerCell playerId={d.bestPick.playerId} size={18} fits={14} href={false} />
+          <PlayerCell playerId={d.bestPick.playerId} size={18} href={false} />
           <span className="shrink-0 font-mono text-[10px] text-[var(--accent)]">{signed(d.bestPick.stealScore)}</span>
         </span>
       ) : (
@@ -129,7 +129,7 @@ export default function DraftPage() {
       ),
       worst: d.worstPick ? (
         <span className="flex min-w-0 items-center gap-1.5 text-xs">
-          <PlayerCell playerId={d.worstPick.playerId} size={18} fits={14} href={false} />
+          <PlayerCell playerId={d.worstPick.playerId} size={18} href={false} />
           <span className="shrink-0 font-mono text-[10px] text-[var(--bad)]">{signed(d.worstPick.stealScore)}</span>
         </span>
       ) : (

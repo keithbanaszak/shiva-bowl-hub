@@ -22,7 +22,14 @@
       "Bash(sed -n '/export type DrafterRow/,/^};/p' lib/stats/types.ts)",
       "Bash(git commit -q -m 'Trade receipt + draft rework; refresh runs year-round *)",
       "Bash(git commit *)",
-      "Bash(xargs echo \"setLimit remaining:\")"
+      "Bash(xargs echo \"setLimit remaining:\")",
+      "Bash(curl -s -o /dev/null -m 6 -w \"HTTP %{http_code} in %{time_total}s\\\\n\" http://localhost:3000/)",
+      "PowerShell($c = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { $c | Select-Object LocalAddress,LocalPort,OwningProcess | Format-Table -AutoSize; foreach \\($x in $c\\) { Get-Process -Id $x.OwningProcess -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,StartTime } } else { \"Nothing listening on port 3000\" })",
+      "Bash(curl -s -o /dev/null -m 5 -w \"HTTP %{http_code}\\\\n\" http://127.0.0.1:3000/)",
+      "Bash(curl -s -o /dev/null -m 5 -w \"HTTP %{http_code}\\\\n\" \"http://[::1]:3000/\")",
+      "PowerShell(Stop-Process -Id 165220 -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2; $c = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { \"STILL HELD by PID \" + $c[0].OwningProcess } else { \"port 3000 free\" })",
+      "Bash(curl -s -o /dev/null -m 8 -w \"port 3001: HTTP %{http_code} in %{time_total}s\\\\n\" http://localhost:3001/)",
+      "Bash(curl -s -m 8 http://localhost:3001/)"
     ]
   }
 }

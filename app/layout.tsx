@@ -44,8 +44,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full">
         <Nav />
-        <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
-        <footer className="mx-auto max-w-6xl border-t border-[var(--border)] px-4 py-8 text-xs text-[var(--muted)]">
+        <main className="mx-auto w-full max-w-[110rem] px-4 py-8 sm:px-6">{children}</main>
+        <footer className="mx-auto w-full max-w-[110rem] border-t border-[var(--border)] px-4 py-8 text-xs text-[var(--muted)]">
           Built on the free Sleeper API · data is read-only league history ·
           trade verdicts are “realized” points, not dynasty market value.
         </footer>

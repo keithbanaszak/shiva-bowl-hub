@@ -52,6 +52,8 @@ export type Manager = {
   avatar: string | null;
   avatarUrl: string | null;
   seasons: string[];
+  /** Still in the league — has a roster in the most recent season. */
+  active: boolean;
   // ---- hand-maintained, from league.managers.ts (all optional)
   /** The human behind the team, when we've been told. */
   realName?: string;

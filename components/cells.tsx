@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Avatar } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { FitText } from "@/components/FitText";
-import { label } from "@/lib/marts";
+import { label, getManager } from "@/lib/marts";
 import { pname } from "@/lib/data/players-dict";
 
 /**
@@ -18,18 +18,26 @@ export function ManagerCell({
   userId,
   size = 20,
   href = true,
-  fits = 20,
 }: {
   userId: string | null | undefined;
   size?: number;
   href?: boolean;
-  fits?: number;
 }) {
   if (!userId) return <span className="text-[var(--faint)]">—</span>;
+  const former = getManager(userId)?.active === false;
   const inner = (
     <span className="flex min-w-0 items-center gap-1.5">
       <Avatar userId={userId} size={size} />
-      <FitText fits={fits}>{label(userId)}</FitText>
+      <FitText>{label(userId)}</FitText>
+      {former && (
+        <span
+          aria-hidden
+          title="No longer in the league"
+          className="shrink-0 text-[10px] leading-none text-[var(--faint)]"
+        >
+          ✦
+        </span>
+      )}
     </span>
   );
   return href ? (
@@ -46,20 +54,18 @@ export function PlayerCell({
   playerId,
   size = 20,
   href = true,
-  fits = 20,
   sub,
 }: {
   playerId: string;
   size?: number;
   href?: boolean;
-  fits?: number;
   sub?: string | null;
 }) {
   const inner = (
     <span className="flex min-w-0 items-center gap-1.5">
       <PlayerAvatar playerId={playerId} size={size} />
       <span className="min-w-0">
-        <FitText fits={fits}>{pname(playerId)}</FitText>
+        <FitText>{pname(playerId)}</FitText>
         {sub && <span className="block truncate text-[10px] text-[var(--muted)]">{sub}</span>}
       </span>
     </span>

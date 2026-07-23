@@ -42,9 +42,9 @@ export function RecordTable({
   const data: TableRow[] = rows.map((r, i) => ({
     key: `${r.season}:${r.week}:${r.userId}:${i}`,
     cells: {
-      manager: <ManagerCell userId={r.userId} fits={18} />,
+      manager: <ManagerCell userId={r.userId} />,
       when: <WhenCell season={r.season} week={r.week} isPlayoff={r.isPlayoff} />,
-      opponent: <ManagerCell userId={r.opponentUserId} fits={18} />,
+      opponent: <ManagerCell userId={r.opponentUserId} />,
       value: <span className={`font-mono font-semibold tabular-nums ${valueCls}`}>{r.value}</span>,
     },
     sort: {

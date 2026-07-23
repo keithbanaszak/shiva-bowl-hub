@@ -6,7 +6,7 @@ import { RecordTable } from "@/components/records/RecordTable";
 import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
 import { ManagerCell } from "@/components/cells";
 import { records } from "@/lib/data/records";
-import { allTime, label, ordinal } from "@/lib/marts";
+import { allTime, label, ordinal, getManager } from "@/lib/marts";
 
 const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
 const num = (v: ReactNode, cls = "") => <span className={`font-mono tabular-nums ${cls}`}>{v}</span>;
@@ -23,21 +23,21 @@ export default function RecordsPage() {
     .map((r) => ({ userId: r.userId, display: pct(r.winPct), pct: r.winPct * 100 }));
 
   const columns: ColumnSpec[] = [
-    { key: "mgr", header: "Manager", width: "16rem", sortable: true, descFirst: false },
+    { key: "mgr", header: "Manager", width: "22%", sortable: true, descFirst: false },
     // ---- regular season
     {
       key: "rec",
       header: "Reg record",
-      width: "7rem",
+      width: "8%",
       align: "right",
       sortable: true,
       headerTitle: "Regular-season record",
     },
-    { key: "win", header: "Win%", width: "5.5rem", align: "right", sortable: true },
+    { key: "win", header: "Win%", width: "7%", align: "right", sortable: true },
     {
       key: "allplay",
       header: "All-play%",
-      width: "6.5rem",
+      width: "7.5%",
       align: "right",
       sortable: true,
       headerTitle: "Record if you played everyone every week — true strength",
@@ -46,32 +46,33 @@ export default function RecordsPage() {
     {
       key: "porec",
       header: "PO record",
-      width: "7rem",
+      width: "8%",
       align: "right",
       sortable: true,
       headerTitle: "Playoff record — winners bracket only, so consolation games don't pad it",
     },
-    { key: "apps", header: "PO apps", width: "5.5rem", align: "right", sortable: true },
-    { key: "titles", header: "Titles", width: "4.5rem", align: "right", sortable: true },
-    { key: "fin", header: "Avg fin", width: "5.5rem", align: "right", sortable: true, descFirst: false },
-    { key: "best", header: "Best", width: "4.5rem", align: "right", sortable: true, descFirst: false },
+    { key: "apps", header: "PO apps", width: "7%", align: "right", sortable: true },
+    { key: "titles", header: "Titles", width: "6%", align: "right", sortable: true },
+    { key: "fin", header: "Avg fin", width: "7%", align: "right", sortable: true, descFirst: false },
+    { key: "best", header: "Best", width: "6%", align: "right", sortable: true, descFirst: false },
     // ---- quality
     {
       key: "iq",
       header: "Lineup IQ",
-      width: "6.5rem",
+      width: "7.5%",
       align: "right",
       sortable: true,
       headerTitle: "Points started / points available",
     },
-    { key: "luck", header: "Luck", width: "5.5rem", align: "right", sortable: true },
-    { key: "pfg", header: "PF/g", width: "5.5rem", align: "right", sortable: true },
+    { key: "luck", header: "Luck", width: "7%", align: "right", sortable: true },
+    { key: "pfg", header: "PF/g", width: "7%", align: "right", sortable: true },
   ];
 
   const rows: TableRow[] = allTime.map((r) => ({
     key: r.userId,
+    inactive: getManager(r.userId)?.active === false,
     cells: {
-      mgr: <ManagerCell userId={r.userId} fits={19} />,
+      mgr: <ManagerCell userId={r.userId} />,
       rec: num(`${r.wins}-${r.losses}${r.ties ? `-${r.ties}` : ""}`),
       win: num(pct(r.winPct)),
       allplay: num(pct(r.allPlayWinPct), "text-[var(--muted)]"),

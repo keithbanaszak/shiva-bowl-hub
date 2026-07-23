@@ -18,7 +18,14 @@ import { useMemo, useState, type ReactNode } from "react";
 export type ColumnSpec = {
   key: string;
   header: ReactNode;
-  /** CSS width. Required — this is what stops the columns jumping when sorted. */
+  /**
+   * Column width — this is what stops columns jumping when sorted.
+   *
+   * Prefer PERCENTAGES that add up to 100. With `table-fixed` those divide
+   * whatever width is available, so the table grows into a wide screen and never
+   * needs a horizontal scrollbar. Fixed rem widths force the table past the
+   * viewport on anything but a huge display.
+   */
   width: string;
   align?: "left" | "right" | "center";
   /** Sortable when the row supplies a `sort` value for this key. */
@@ -32,6 +39,8 @@ export type TableRow = {
   key: string;
   cells: Record<string, ReactNode>;
   sort?: Record<string, number | string | null>;
+  /** Marks a row as historical (e.g. a manager who left). Enables a hide toggle. */
+  inactive?: boolean;
 };
 
 type Dir = "asc" | "desc";
@@ -44,6 +53,8 @@ export function DataTable({
   emptyText = "Nothing to show.",
   rank = false,
   maxHeight,
+  minWidth = "44rem",
+  toolbar,
 }: {
   rows: TableRow[];
   columns: ColumnSpec[];
@@ -53,14 +64,22 @@ export function DataTable({
   /** Show a 1..n gutter that follows the current sort. */
   rank?: boolean;
   maxHeight?: string;
+  /** Below this the table scrolls rather than crushing; above it, it just fills. */
+  minWidth?: string;
+  /** Controls rendered above the table (filters, toggles). */
+  toolbar?: ReactNode;
 }) {
   const [sortKey, setSortKey] = useState<string | null>(initialSort?.key ?? null);
   const [dir, setDir] = useState<Dir>(initialSort?.dir ?? "desc");
+  const [hideInactive, setHideInactive] = useState(false);
+
+  const anyInactive = rows.some((r) => r.inactive);
 
   const sorted = useMemo(() => {
-    if (!sortKey) return rows;
+    const visible = hideInactive ? rows.filter((r) => !r.inactive) : rows;
+    if (!sortKey) return visible;
     const mul = dir === "asc" ? 1 : -1;
-    return [...rows].sort((a, b) => {
+    return [...visible].sort((a, b) => {
       const va = a.sort?.[sortKey] ?? null;
       const vb = b.sort?.[sortKey] ?? null;
       // nulls always sink, whichever way we're sorting
@@ -68,9 +87,11 @@ export function DataTable({
       if (va == null) return 1;
       if (vb == null) return -1;
       if (typeof va === "number" && typeof vb === "number") return (va - vb) * mul;
-      return String(va).localeCompare(String(vb)) * mul;
+      // localeCompare with numeric so "10-4" sorts after "9-5" when a column
+      // falls back to string comparison
+      return String(va).localeCompare(String(vb), undefined, { numeric: true }) * mul;
     });
-  }, [rows, sortKey, dir]);
+  }, [rows, sortKey, dir, hideInactive]);
 
   const toggle = (c: ColumnSpec) => {
     if (!c.sortable) return;
@@ -85,8 +106,27 @@ export function DataTable({
 
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)]">
+      {(toolbar || anyInactive) && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border)] px-3 py-2">
+          {toolbar}
+          {anyInactive && (
+            <label className="ml-auto flex cursor-pointer select-none items-center gap-1.5 text-xs text-[var(--muted)]">
+              <input
+                type="checkbox"
+                checked={hideInactive}
+                onChange={(e) => setHideInactive(e.target.checked)}
+                className="accent-[var(--accent)]"
+              />
+              Hide former managers
+              <span className="rounded bg-[var(--chip)] px-1 text-[10px]">
+                {rows.filter((r) => r.inactive).length}
+              </span>
+            </label>
+          )}
+        </div>
+      )}
       <div className="scroll-thin overflow-x-auto" style={maxHeight ? { maxHeight, overflowY: "auto" } : undefined}>
-        <table className="w-full table-fixed text-sm">
+        <table className="w-full table-fixed text-sm" style={{ minWidth }}>
           <colgroup>
             {rank && <col style={{ width: "2.5rem" }} />}
             {columns.map((c) => (
