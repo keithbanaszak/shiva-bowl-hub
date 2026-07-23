@@ -10,7 +10,8 @@ type Mgr = { userId: string; label: string };
 const slotColor = (slot: string): string =>
   slot === "FLEX" || slot === "SUPER_FLEX" ? "var(--accent-2)" : posColor(slot);
 
-const slotLabel = (slot: string): string => (slot === "SUPER_FLEX" ? "SFLEX" : slot);
+const slotLabel = (slot: string): string =>
+  slot === "SUPER_FLEX" ? "SFLEX" : slot;
 
 export function SlotTable({
   mart,
@@ -20,10 +21,15 @@ export function SlotTable({
   managers: Mgr[];
 }) {
   const [scope, setScope] = useState("all");
-  const [metric, setMetric] = useState<"avgPerWeek" | "avgPerStart" | "totalPoints">("avgPerWeek");
+  const [metric, setMetric] = useState<
+    "avgPerWeek" | "avgPerStart" | "totalPoints"
+  >("avgPerWeek");
   const [sortSlot, setSortSlot] = useState<string | null>(null);
 
-  const nameOf = useMemo(() => new Map(managers.map((m) => [m.userId, m.label])), [managers]);
+  const nameOf = useMemo(
+    () => new Map(managers.map((m) => [m.userId, m.label])),
+    [managers],
+  );
 
   const { rows, best, worst } = useMemo(() => {
     const scoped = mart.rows.filter((r) => r.scope === scope);
@@ -46,8 +52,14 @@ export function SlotTable({
     const rows = [...byUser.entries()]
       .map(([userId, slots]) => ({ userId, slots }))
       .sort((a, b) => {
-        if (sortSlot) return (b.slots.get(sortSlot)?.[metric] ?? 0) - (a.slots.get(sortSlot)?.[metric] ?? 0);
-        return (nameOf.get(a.userId) ?? "").localeCompare(nameOf.get(b.userId) ?? "");
+        if (sortSlot)
+          return (
+            (b.slots.get(sortSlot)?.[metric] ?? 0) -
+            (a.slots.get(sortSlot)?.[metric] ?? 0)
+          );
+        return (nameOf.get(a.userId) ?? "").localeCompare(
+          nameOf.get(b.userId) ?? "",
+        );
       });
     return { rows, best, worst };
   }, [mart, scope, metric, sortSlot, nameOf]);
@@ -61,7 +73,9 @@ export function SlotTable({
 
   const seg = (on: boolean) =>
     `rounded-md px-2.5 py-1.5 text-xs transition ${
-      on ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"
+      on
+        ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+        : "text-[var(--muted)] hover:text-[var(--foreground)]"
     }`;
 
   return (
@@ -69,7 +83,11 @@ export function SlotTable({
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <div className="flex flex-wrap rounded-lg border border-[var(--border)] p-0.5">
           {mart.scopes.map((s) => (
-            <button key={s} onClick={() => setScope(s)} className={seg(scope === s)}>
+            <button
+              key={s}
+              onClick={() => setScope(s)}
+              className={seg(scope === s)}
+            >
               {s === "all" ? "All-time" : s}
             </button>
           ))}
@@ -77,18 +95,34 @@ export function SlotTable({
         <div className="flex rounded-lg border border-[var(--border)] p-0.5">
           {(
             [
-              ["avgPerWeek", "Per week", "Points this slot group added per team-week (RB covers two slots)"],
-              ["avgPerStart", "Per start", "Points per individual slot start — comparable across slots"],
+              [
+                "avgPerWeek",
+                "Per week",
+                "Points this slot group added per team-week (RB covers two slots)",
+              ],
+              [
+                "avgPerStart",
+                "Per start",
+                "Points per individual slot start — comparable across slots",
+              ],
               ["totalPoints", "Total", "Total points from this slot"],
             ] as const
           ).map(([k, lab, title]) => (
-            <button key={k} onClick={() => setMetric(k)} className={seg(metric === k)} title={title}>
+            <button
+              key={k}
+              onClick={() => setMetric(k)}
+              className={seg(metric === k)}
+              title={title}
+            >
               {lab}
             </button>
           ))}
         </div>
         {sortSlot && (
-          <button onClick={() => setSortSlot(null)} className="text-xs text-[var(--muted)] hover:underline">
+          <button
+            onClick={() => setSortSlot(null)}
+            className="text-xs text-[var(--muted)] hover:underline"
+          >
             clear sort ({slotLabel(sortSlot)})
           </button>
         )}
@@ -115,11 +149,24 @@ export function SlotTable({
           </thead>
           <tbody>
             {rows.map(({ userId, slots }) => (
-              <tr key={userId} className="border-b border-[var(--border)] last:border-0">
-                <td className="whitespace-nowrap p-2.5 font-medium">{nameOf.get(userId) ?? userId}</td>
+              <tr
+                key={userId}
+                className="border-b border-[var(--border)] last:border-0"
+              >
+                <td className="whitespace-nowrap p-2.5 font-medium">
+                  {nameOf.get(userId) ?? userId}
+                </td>
                 {mart.slots.map((s) => {
                   const r = slots.get(s);
-                  if (!r) return <td key={s} className="p-2.5 text-right text-[var(--faint)]">—</td>;
+                  if (!r)
+                    return (
+                      <td
+                        key={s}
+                        className="p-2.5 text-right text-[var(--faint)]"
+                      >
+                        —
+                      </td>
+                    );
                   const h = heat(s, r[metric]);
                   return (
                     <td
@@ -130,7 +177,10 @@ export function SlotTable({
                       }`}
                       style={{
                         // tint toward the slot's color as the number approaches league best
-                        backgroundColor: h > 0.5 ? `color-mix(in oklab, ${slotColor(s)} ${(h - 0.5) * 40}%, transparent)` : undefined,
+                        backgroundColor:
+                          h > 0.5
+                            ? `color-mix(in oklab, ${slotColor(s)} ${(h - 0.5) * 40}%, transparent)`
+                            : undefined,
                         color: r.rank === 1 ? slotColor(s) : undefined,
                         fontWeight: r.rank === 1 ? 600 : undefined,
                       }}
@@ -145,8 +195,8 @@ export function SlotTable({
         </table>
       </div>
       <p className="mt-2 text-xs text-[var(--muted)]">
-        Click a slot header to sort by it. Brighter = better at that slot. Hover a cell for rank, starts and the player
-        who produced most there.
+        Click a slot header to sort by it. Brighter = better at that slot. Hover
+        a cell for rank, starts and the player who produced most there.
       </p>
     </div>
   );

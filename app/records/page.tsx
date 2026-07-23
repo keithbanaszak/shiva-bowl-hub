@@ -22,7 +22,13 @@ function RecordTable({
   tone?: "default" | "good" | "bad" | "gold";
 }) {
   const valueClass =
-    tone === "good" ? "text-[var(--accent)]" : tone === "bad" ? "text-[var(--bad)]" : tone === "gold" ? "text-[var(--gold)]" : "text-[var(--foreground)]";
+    tone === "good"
+      ? "text-[var(--accent)]"
+      : tone === "bad"
+        ? "text-[var(--bad)]"
+        : tone === "gold"
+          ? "text-[var(--gold)]"
+          : "text-[var(--foreground)]";
   return (
     <div>
       <SectionTitle>
@@ -42,15 +48,25 @@ function RecordTable({
           <tbody>
             {rows.map((r, i) => (
               <tr key={i} className="border-t border-[var(--border)]">
-                <td className="py-2 pr-3 text-xs text-[var(--muted)]">{i + 1}</td>
+                <td className="py-2 pr-3 text-xs text-[var(--muted)]">
+                  {i + 1}
+                </td>
                 <td className="px-3">
                   <ManagerChip userId={r.userId} size={20} />
                 </td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">
                   {r.season} wk {r.week}
                 </td>
-                {vs && <td className="px-3 text-[var(--muted)]">{label(r.opponentUserId)}</td>}
-                <td className={`px-3 text-right font-mono font-semibold tabular-nums ${valueClass}`}>{r.value}</td>
+                {vs && (
+                  <td className="px-3 text-[var(--muted)]">
+                    {label(r.opponentUserId)}
+                  </td>
+                )}
+                <td
+                  className={`px-3 text-right font-mono font-semibold tabular-nums ${valueClass}`}
+                >
+                  {r.value}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -63,13 +79,25 @@ function RecordTable({
 export default function RecordsPage() {
   const iq: BarRow[] = [...allTime]
     .sort((a, b) => b.careerEfficiency - a.careerEfficiency)
-    .map((r) => ({ userId: r.userId, display: `${(r.careerEfficiency * 100).toFixed(1)}%`, pct: r.careerEfficiency * 100 }));
+    .map((r) => ({
+      userId: r.userId,
+      display: `${(r.careerEfficiency * 100).toFixed(1)}%`,
+      pct: r.careerEfficiency * 100,
+    }));
   const allPlay: BarRow[] = [...allTime]
     .sort((a, b) => b.allPlayWinPct - a.allPlayWinPct)
-    .map((r) => ({ userId: r.userId, display: `${(r.allPlayWinPct * 100).toFixed(1)}%`, pct: r.allPlayWinPct * 100 }));
+    .map((r) => ({
+      userId: r.userId,
+      display: `${(r.allPlayWinPct * 100).toFixed(1)}%`,
+      pct: r.allPlayWinPct * 100,
+    }));
   const winPct: BarRow[] = [...allTime]
     .sort((a, b) => b.winPct - a.winPct)
-    .map((r) => ({ userId: r.userId, display: `${(r.winPct * 100).toFixed(1)}%`, pct: r.winPct * 100 }));
+    .map((r) => ({
+      userId: r.userId,
+      display: `${(r.winPct * 100).toFixed(1)}%`,
+      pct: r.winPct * 100,
+    }));
 
   return (
     <div>
@@ -82,11 +110,21 @@ export default function RecordsPage() {
       <SectionTitle>All-time manager rankings</SectionTitle>
       <div className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card>
-          <div className="mb-3 text-sm font-semibold">🧠 Lineup IQ <span className="font-normal text-[var(--muted)]">(start/sit efficiency)</span></div>
+          <div className="mb-3 text-sm font-semibold">
+            🧠 Lineup IQ{" "}
+            <span className="font-normal text-[var(--muted)]">
+              (start/sit efficiency)
+            </span>
+          </div>
           <BarLeaderboard rows={iq} />
         </Card>
         <Card>
-          <div className="mb-3 text-sm font-semibold">📊 All-play win% <span className="font-normal text-[var(--muted)]">(true strength)</span></div>
+          <div className="mb-3 text-sm font-semibold">
+            📊 All-play win%{" "}
+            <span className="font-normal text-[var(--muted)]">
+              (true strength)
+            </span>
+          </div>
           <BarLeaderboard rows={allPlay} />
         </Card>
         <Card>
@@ -116,23 +154,40 @@ export default function RecordsPage() {
               <tr key={r.userId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
                   <span className="flex items-center gap-2">
-                    <span className="w-4 text-right text-xs text-[var(--muted)]">{i + 1}</span>
-                    <ManagerChip userId={r.userId} href={`/managers/${r.userId}`} />
+                    <span className="w-4 text-right text-xs text-[var(--muted)]">
+                      {i + 1}
+                    </span>
+                    <ManagerChip
+                      userId={r.userId}
+                      href={`/managers/${r.userId}`}
+                    />
                   </span>
                 </td>
                 <td className="px-3 tabular-nums">
                   {r.wins}-{r.losses}
                   {r.ties ? `-${r.ties}` : ""}
                 </td>
-                <td className="px-3 tabular-nums">{(r.winPct * 100).toFixed(1)}%</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{(r.allPlayWinPct * 100).toFixed(1)}%</td>
-                <td className="px-3 tabular-nums">{(r.careerEfficiency * 100).toFixed(1)}%</td>
-                <td className={`px-3 tabular-nums ${r.totalLuck > 0 ? "text-[var(--accent)]" : r.totalLuck < 0 ? "text-[var(--bad)]" : ""}`}>
+                <td className="px-3 tabular-nums">
+                  {(r.winPct * 100).toFixed(1)}%
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {(r.allPlayWinPct * 100).toFixed(1)}%
+                </td>
+                <td className="px-3 tabular-nums">
+                  {(r.careerEfficiency * 100).toFixed(1)}%
+                </td>
+                <td
+                  className={`px-3 tabular-nums ${r.totalLuck > 0 ? "text-[var(--accent)]" : r.totalLuck < 0 ? "text-[var(--bad)]" : ""}`}
+                >
                   {signed(r.totalLuck)}
                 </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.pointsPerGame}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.pointsPerGame}
+                </td>
                 <td className="px-3 tabular-nums">{r.championships || "—"}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.avgFinish ?? "—"}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.avgFinish ?? "—"}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -140,18 +195,48 @@ export default function RecordsPage() {
       </Card>
 
       <div className="mb-2 text-sm text-[var(--muted)]">
-        Want one manager&rsquo;s full story?{" "}
+        Want one manager’s full story?{" "}
         <Link href="/managers" className="text-[var(--accent)] hover:underline">
           Browse manager profiles →
         </Link>
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <RecordTable emoji="🚀" title="Highest scoring weeks" rows={records.topWeeks} valueLabel="Points" tone="good" />
-        <RecordTable emoji="💀" title="Lowest scoring weeks" rows={records.lowWeeks} valueLabel="Points" tone="bad" />
-        <RecordTable emoji="🔨" title="Biggest blowouts" rows={records.biggestBlowouts} valueLabel="Margin" tone="gold" />
-        <RecordTable emoji="🪑" title="Most points left on bench" rows={records.bestBenchWeeks} valueLabel="Bench pts" tone="gold" />
-        <RecordTable emoji="🎆" title="Highest-scoring shootouts" rows={records.highestCombined} valueLabel="Combined" tone="good" />
+        <RecordTable
+          emoji="🚀"
+          title="Highest scoring weeks"
+          rows={records.topWeeks}
+          valueLabel="Points"
+          tone="good"
+        />
+        <RecordTable
+          emoji="💀"
+          title="Lowest scoring weeks"
+          rows={records.lowWeeks}
+          valueLabel="Points"
+          tone="bad"
+        />
+        <RecordTable
+          emoji="🔨"
+          title="Biggest blowouts"
+          rows={records.biggestBlowouts}
+          valueLabel="Margin"
+          tone="gold"
+        />
+        <RecordTable
+          emoji="🪑"
+          title="Most points left on bench"
+          rows={records.bestBenchWeeks}
+          valueLabel="Bench pts"
+          tone="gold"
+        />
+        <RecordTable
+          emoji="🎆"
+          title="Highest-scoring shootouts"
+          rows={records.highestCombined}
+          valueLabel="Combined"
+          tone="good"
+        />
       </div>
     </div>
   );

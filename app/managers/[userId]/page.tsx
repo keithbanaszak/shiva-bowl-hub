@@ -1,6 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Card, PageHeader, SectionTitle, Stat, Badge, signed } from "@/components/ui";
+import {
+  Card,
+  PageHeader,
+  SectionTitle,
+  Stat,
+  Badge,
+  signed,
+} from "@/components/ui";
 import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { allTime, getManager, label, ordinal } from "@/lib/marts";
@@ -18,7 +25,11 @@ export function generateStaticParams() {
   return allTime.map((r) => ({ userId: r.userId }));
 }
 
-export default async function ManagerProfile({ params }: { params: Promise<{ userId: string }> }) {
+export default async function ManagerProfile({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
   const { userId } = await params;
   const row = allTime.find((r) => r.userId === userId);
   const mgr = getManager(userId);
@@ -47,8 +58,12 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       heat: p.heat,
     };
   });
-  const nemesis = [...rivs].filter((r) => r.games >= 3).sort((a, b) => b.oppWins - b.myWins - (a.oppWins - a.myWins))[0];
-  const freeLunch = [...rivs].filter((r) => r.games >= 3).sort((a, b) => b.myWins - b.oppWins - (a.myWins - a.oppWins))[0];
+  const nemesis = [...rivs]
+    .filter((r) => r.games >= 3)
+    .sort((a, b) => b.oppWins - b.myWins - (a.oppWins - a.myWins))[0];
+  const freeLunch = [...rivs]
+    .filter((r) => r.games >= 3)
+    .sort((a, b) => b.myWins - b.oppWins - (a.myWins - a.oppWins))[0];
   const topRival = rivs[0];
 
   const krypt = kryptonite.byManager[userId];
@@ -69,7 +84,10 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
 
   return (
     <div>
-      <Link href="/managers" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]">
+      <Link
+        href="/managers"
+        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
+      >
         ← All managers
       </Link>
 
@@ -82,13 +100,21 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
           />
           {/* when we know the human, the team name becomes the subtitle */}
           <div className="-mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--muted)]">
-            {mgr.realName && <span className="font-medium text-[var(--foreground)]">{mgr.label}</span>}
-            {mgr.nickname && <span>&ldquo;{mgr.nickname}&rdquo;</span>}
+            {mgr.realName && (
+              <span className="font-medium text-[var(--foreground)]">
+                {mgr.label}
+              </span>
+            )}
+            {mgr.nickname && <span>“{mgr.nickname}”</span>}
             <span className="text-[var(--faint)]">@{mgr.displayName}</span>
             {mgr.joined && <span>· since {mgr.joined}</span>}
             {mgr.favoriteTeam && <span>· {mgr.favoriteTeam} fan</span>}
           </div>
-          {mgr.bio && <p className="mt-1.5 max-w-2xl text-sm text-[var(--muted)]">{mgr.bio}</p>}
+          {mgr.bio && (
+            <p className="mt-1.5 max-w-2xl text-sm text-[var(--muted)]">
+              {mgr.bio}
+            </p>
+          )}
         </div>
       </div>
 
@@ -121,12 +147,30 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       {/* career stats */}
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="Win %" value={`${(row.winPct * 100).toFixed(1)}%`} />
-        <Stat label="All-play %" value={`${(row.allPlayWinPct * 100).toFixed(1)}%`} sub="true strength" />
-        <Stat label="Lineup IQ" value={`${(row.careerEfficiency * 100).toFixed(1)}%`} sub="start/sit" />
-        <Stat label="Schedule luck" value={signed(row.totalLuck)} tone={row.totalLuck > 0 ? "good" : row.totalLuck < 0 ? "bad" : "default"} />
+        <Stat
+          label="All-play %"
+          value={`${(row.allPlayWinPct * 100).toFixed(1)}%`}
+          sub="true strength"
+        />
+        <Stat
+          label="Lineup IQ"
+          value={`${(row.careerEfficiency * 100).toFixed(1)}%`}
+          sub="start/sit"
+        />
+        <Stat
+          label="Schedule luck"
+          value={signed(row.totalLuck)}
+          tone={
+            row.totalLuck > 0 ? "good" : row.totalLuck < 0 ? "bad" : "default"
+          }
+        />
         <Stat label="Points / game" value={row.pointsPerGame} />
         <Stat label="Playoff appearances" value={row.playoffAppearances} />
-        <Stat label="Best finish" value={row.bestFinish ? ordinal(row.bestFinish) : "—"} tone="gold" />
+        <Stat
+          label="Best finish"
+          value={row.bestFinish ? ordinal(row.bestFinish) : "—"}
+          tone="gold"
+        />
         <Stat label="Avg finish" value={row.avgFinish ?? "—"} />
       </div>
 
@@ -134,27 +178,50 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {nemesis && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-[var(--bad)]">Nemesis</div>
-            <div className="mt-2"><ManagerChip userId={nemesis.oppId} href={`/compare/${userId}/${nemesis.oppId}`} /></div>
-            <div className="mt-1 text-sm text-[var(--muted)]">{nemesis.myWins}-{nemesis.oppWins} vs them</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--bad)]">
+              Nemesis
+            </div>
+            <div className="mt-2">
+              <ManagerChip
+                userId={nemesis.oppId}
+                href={`/compare/${userId}/${nemesis.oppId}`}
+              />
+            </div>
+            <div className="mt-1 text-sm text-[var(--muted)]">
+              {nemesis.myWins}-{nemesis.oppWins} vs them
+            </div>
           </Card>
         )}
         {freeLunch && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-[var(--accent)]">Free lunch</div>
-            <div className="mt-2"><ManagerChip userId={freeLunch.oppId} href={`/compare/${userId}/${freeLunch.oppId}`} /></div>
-            <div className="mt-1 text-sm text-[var(--muted)]">{freeLunch.myWins}-{freeLunch.oppWins} vs them</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--accent)]">
+              Free lunch
+            </div>
+            <div className="mt-2">
+              <ManagerChip
+                userId={freeLunch.oppId}
+                href={`/compare/${userId}/${freeLunch.oppId}`}
+              />
+            </div>
+            <div className="mt-1 text-sm text-[var(--muted)]">
+              {freeLunch.myWins}-{freeLunch.oppWins} vs them
+            </div>
           </Card>
         )}
         {krypt && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-[var(--gold)]">Kryptonite</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--gold)]">
+              Kryptonite
+            </div>
             <div className="mt-2 flex items-center gap-2">
               <PlayerAvatar playerId={krypt.playerId} size={28} />
-              <span className="truncate text-sm font-medium">{pname(krypt.playerId)}</span>
+              <span className="truncate text-sm font-medium">
+                {pname(krypt.playerId)}
+              </span>
             </div>
             <div className="mt-1 text-sm text-[var(--muted)]">
-              {krypt.avgVs} avg vs you ({signed(krypt.diff)} over his norm, {krypt.games} games)
+              {krypt.avgVs} avg vs you ({signed(krypt.diff)} over his norm,{" "}
+              {krypt.games} games)
             </div>
           </Card>
         )}
@@ -177,7 +244,9 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
                 >
                   {s.slot === "SUPER_FLEX" ? "SFLEX" : s.slot}
                 </div>
-                <div className="mt-0.5 font-mono text-lg font-semibold tabular-nums">{s.avgPerWeek}</div>
+                <div className="mt-0.5 font-mono text-lg font-semibold tabular-nums">
+                  {s.avgPerWeek}
+                </div>
                 <div className="text-[10px] text-[var(--muted)]">
                   per wk · {ordinal(s.rank)} in league
                 </div>
@@ -185,9 +254,12 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
             ))}
           </div>
           <p className="-mt-6 mb-8 text-xs text-[var(--muted)]">
-            Points per team-week from each starting slot. Two-slot groups (RB, WR, and FLEX since 2025) are roughly
-            double a single slot — see the{" "}
-            <Link href="/breakdown" className="text-[var(--accent)] hover:underline">
+            Points per team-week from each starting slot. Two-slot groups (RB,
+            WR, and FLEX since 2025) are roughly double a single slot — see the{" "}
+            <Link
+              href="/breakdown"
+              className="text-[var(--accent)] hover:underline"
+            >
               league breakdown
             </Link>{" "}
             for per-start comparisons.
@@ -219,13 +291,32 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
                   {s.wins}-{s.losses}
                   {s.ties ? `-${s.ties}` : ""}
                 </td>
-                <td className="px-3 tabular-nums">{s.finish ? (s.finish === 1 ? "🏆 1st" : ordinal(s.finish)) : "—"}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{s.pointsFor}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{(s.allPlayWinPct * 100).toFixed(0)}%</td>
-                <td className={`px-3 tabular-nums ${s.luck > 0 ? "text-[var(--accent)]" : s.luck < 0 ? "text-[var(--bad)]" : ""}`}>{signed(s.luck)}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{(s.efficiency * 100).toFixed(0)}%</td>
+                <td className="px-3 tabular-nums">
+                  {s.finish
+                    ? s.finish === 1
+                      ? "🏆 1st"
+                      : ordinal(s.finish)
+                    : "—"}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {s.pointsFor}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {(s.allPlayWinPct * 100).toFixed(0)}%
+                </td>
+                <td
+                  className={`px-3 tabular-nums ${s.luck > 0 ? "text-[var(--accent)]" : s.luck < 0 ? "text-[var(--bad)]" : ""}`}
+                >
+                  {signed(s.luck)}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {(s.efficiency * 100).toFixed(0)}%
+                </td>
                 <td className="px-3">
-                  <Link href={`/wrapped/${s.season}/${userId}`} className="text-xs text-[var(--accent)] hover:underline">
+                  <Link
+                    href={`/wrapped/${s.season}/${userId}`}
+                    className="text-xs text-[var(--accent)] hover:underline"
+                  >
                     wrapped →
                   </Link>
                 </td>
@@ -245,11 +336,17 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
             ) : (
               <ul className="space-y-2 text-sm">
                 {awards.map(({ season, award }, i) => (
-                  <li key={i} className="flex items-center justify-between gap-2">
+                  <li
+                    key={i}
+                    className="flex items-center justify-between gap-2"
+                  >
                     <span>
-                      <span className="text-[var(--muted)]">{season}</span> · {award.title}
+                      <span className="text-[var(--muted)]">{season}</span> ·{" "}
+                      {award.title}
                     </span>
-                    <Badge tone={award.kind === "serious" ? "good" : "gold"}>{award.value}</Badge>
+                    <Badge tone={award.kind === "serious" ? "good" : "gold"}>
+                      {award.value}
+                    </Badge>
                   </li>
                 ))}
               </ul>
@@ -262,31 +359,43 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
             {bestTrade ? (
               <div>
                 <div className="mb-2 text-xs text-[var(--muted)]">
-                  {bestTrade.t.season} · Wk {bestTrade.t.week} · {bestTrade.net} career points acquired
+                  {bestTrade.t.season} · Wk {bestTrade.t.week} · {bestTrade.net}{" "}
+                  career points acquired
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {bestTrade.t.sides
                     .find((s) => s.userId === userId)
                     ?.received.map((a, i) =>
                       a.kind === "player" ? (
-                        <span key={i} className="flex items-center gap-1.5 rounded-full bg-[var(--card-2)] px-2 py-1 text-xs">
+                        <span
+                          key={i}
+                          className="flex items-center gap-1.5 rounded-full bg-[var(--card-2)] px-2 py-1 text-xs"
+                        >
                           <PlayerAvatar playerId={a.playerId} size={18} />
                           {a.name}
                         </span>
                       ) : (
-                        <span key={i} className="rounded-full bg-[var(--card-2)] px-2 py-1 text-xs text-[var(--muted)]">
+                        <span
+                          key={i}
+                          className="rounded-full bg-[var(--card-2)] px-2 py-1 text-xs text-[var(--muted)]"
+                        >
                           {a.season} R{a.round}
                           {a.becameName ? ` → ${a.becameName}` : ""}
                         </span>
                       ),
                     )}
                 </div>
-                <Link href="/trades" className="mt-3 inline-block text-xs text-[var(--accent)] hover:underline">
+                <Link
+                  href="/trades"
+                  className="mt-3 inline-block text-xs text-[var(--accent)] hover:underline"
+                >
                   all trades →
                 </Link>
               </div>
             ) : (
-              <div className="text-sm text-[var(--muted)]">No trades on record.</div>
+              <div className="text-sm text-[var(--muted)]">
+                No trades on record.
+              </div>
             )}
           </Card>
         </div>
@@ -295,7 +404,10 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       {topRival && (
         <p className="mt-6 text-sm text-[var(--muted)]">
           Fiercest rivalry:{" "}
-          <Link href={`/compare/${userId}/${topRival.oppId}`} className="text-[var(--accent)] hover:underline">
+          <Link
+            href={`/compare/${userId}/${topRival.oppId}`}
+            className="text-[var(--accent)] hover:underline"
+          >
             {label(topRival.oppId)}
           </Link>{" "}
           (heat {topRival.heat}, {topRival.myWins}-{topRival.oppWins}).

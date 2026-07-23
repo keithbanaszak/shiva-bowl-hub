@@ -9,14 +9,20 @@ import { draftBoards } from "@/lib/data/draftBoards";
 export default function DraftPage() {
   const drafters = draft.drafters;
   const rookiePicks = draft.picks.filter((p) => !p.isStartup);
-  const steals = [...rookiePicks].sort((a, b) => b.stealScore - a.stealScore).slice(0, 15);
+  const steals = [...rookiePicks]
+    .sort((a, b) => b.stealScore - a.stealScore)
+    .slice(0, 15);
   const busts = rookiePicks
     .filter((p) => p.round <= 2)
     .sort((a, b) => a.realizedCareer - b.realizedCareer)
     .slice(0, 10);
 
   const boardLabel = (b: (typeof draftBoards)[number]) =>
-    b.isFuture ? `${b.season} (Upcoming)` : b.isStartup ? `${b.season} Startup` : b.season;
+    b.isFuture
+      ? `${b.season} (Upcoming)`
+      : b.isStartup
+        ? `${b.season} Startup`
+        : b.season;
 
   return (
     <div>
@@ -33,15 +39,18 @@ export default function DraftPage() {
       </BoardCarousel>
 
       <div className="mb-8 mt-2 text-center text-xs text-[var(--muted)]">
-        Amber-outlined cells are traded picks — the badge shows the team that now owns the pick.
+        Amber-outlined cells are traded picks — the badge shows the team that
+        now owns the pick.
       </div>
 
       <div className="mb-6">
         <Note title="How draft value works">
-          Each pick is credited with the <strong>career fantasy points</strong> the player produced while on the
-          drafting manager&rsquo;s roster. <strong>Steal score</strong> compares that to the average production of
-          all picks at the same slot. The inaugural startup draft is excluded from steals and the drafter
-          leaderboard — it was veterans, not rookies.
+          Each pick is credited with the <strong>career fantasy points</strong>{" "}
+          the player produced while on the drafting manager’s roster.{" "}
+          <strong>Steal score</strong> compares that to the average production
+          of all picks at the same slot. The inaugural startup draft is excluded
+          from steals and the drafter leaderboard — it was veterans, not
+          rookies.
         </Note>
       </div>
 
@@ -62,15 +71,23 @@ export default function DraftPage() {
               <tr key={d.userId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
                   <span className="flex items-center gap-2">
-                    <span className="w-5 text-right text-xs text-[var(--muted)]">{i + 1}</span>
+                    <span className="w-5 text-right text-xs text-[var(--muted)]">
+                      {i + 1}
+                    </span>
                     <ManagerChip userId={d.userId} />
                   </span>
                 </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{d.picks}</td>
-                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{d.totalRealized}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {d.picks}
+                </td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
+                  {d.totalRealized}
+                </td>
                 <td className="px-3 tabular-nums">{d.pointsPerPick}</td>
                 <td className="px-3 text-[var(--muted)]">
-                  {d.bestPick ? `${d.bestPick.name} (${d.bestPick.realizedCareer})` : "—"}
+                  {d.bestPick
+                    ? `${d.bestPick.name} (${d.bestPick.realizedCareer})`
+                    : "—"}
                 </td>
               </tr>
             ))}
@@ -94,7 +111,10 @@ export default function DraftPage() {
               </thead>
               <tbody>
                 {steals.map((p) => (
-                  <tr key={`${p.season}-${p.pickNo}`} className="border-t border-[var(--border)]">
+                  <tr
+                    key={`${p.season}-${p.pickNo}`}
+                    className="border-t border-[var(--border)]"
+                  >
                     <td className="py-2 pr-3 tabular-nums text-[var(--muted)]">
                       {p.season} R{p.round}.{p.pickNo}
                     </td>
@@ -107,8 +127,12 @@ export default function DraftPage() {
                     <td className="px-3">
                       <ManagerChip userId={p.userId} size={18} />
                     </td>
-                    <td className="px-3 tabular-nums text-[var(--muted)]">{p.realizedCareer}</td>
-                    <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{signed(p.stealScore)}</td>
+                    <td className="px-3 tabular-nums text-[var(--muted)]">
+                      {p.realizedCareer}
+                    </td>
+                    <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
+                      {signed(p.stealScore)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -130,7 +154,10 @@ export default function DraftPage() {
               </thead>
               <tbody>
                 {busts.map((p) => (
-                  <tr key={`${p.season}-${p.pickNo}`} className="border-t border-[var(--border)]">
+                  <tr
+                    key={`${p.season}-${p.pickNo}`}
+                    className="border-t border-[var(--border)]"
+                  >
                     <td className="py-2 pr-3 tabular-nums text-[var(--muted)]">
                       {p.season} R{p.round}.{p.pickNo}
                     </td>
@@ -143,7 +170,9 @@ export default function DraftPage() {
                     <td className="px-3">
                       <ManagerChip userId={p.userId} size={18} />
                     </td>
-                    <td className="px-3 tabular-nums font-semibold text-[var(--bad)]">{p.realizedCareer}</td>
+                    <td className="px-3 tabular-nums font-semibold text-[var(--bad)]">
+                      {p.realizedCareer}
+                    </td>
                   </tr>
                 ))}
               </tbody>

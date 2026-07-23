@@ -1,6 +1,9 @@
 import { PageHeader, SectionTitle, Card, Note } from "@/components/ui";
 import { PosMatrix, type MatrixRow } from "@/components/breakdown/PosMatrix";
-import { PosCompare, type CompareDatum } from "@/components/breakdown/PosCompare";
+import {
+  PosCompare,
+  type CompareDatum,
+} from "@/components/breakdown/PosCompare";
 import { SlotTable } from "@/components/breakdown/SlotTable";
 import { TradeFinder } from "@/components/breakdown/TradeFinder";
 import { label, activeManagers } from "@/lib/marts";
@@ -19,7 +22,10 @@ export default function BreakdownPage() {
     .sort((a, b) => a.label.localeCompare(b.label));
 
   // slot scoring spans league history, so it includes managers who have left
-  const slotManagers = activeManagers().map((m) => ({ userId: m.userId, label: m.label }));
+  const slotManagers = activeManagers().map((m) => ({
+    userId: m.userId,
+    label: m.label,
+  }));
 
   // matrix rows
   const rows: MatrixRow[] = teams.map((t) => {
@@ -41,7 +47,12 @@ export default function BreakdownPage() {
         RB: cell("RB"),
         WR: cell("WR"),
         TE: cell("TE"),
-        PICKS: { strength: t.futureCapital, startedPpg: 0, totalPpw: 0, stance: st?.picks.label ?? "balanced" },
+        PICKS: {
+          strength: t.futureCapital,
+          startedPpg: 0,
+          totalPpw: 0,
+          stance: st?.picks.label ?? "balanced",
+        },
       },
     };
   });
@@ -71,10 +82,13 @@ export default function BreakdownPage() {
 
       <div className="mb-6">
         <Note title="How to read this">
-          <strong>Current strength</strong> is each team&rsquo;s present roster at a position (0–100, relative to the
-          league). <strong>Started PPG</strong> and <strong>Total/wk</strong> are all-time production per week the
-          manager played. The <strong>PICKS</strong> column is future draft capital. Green ▲ = surplus, red ▼ = need —
-          the trade finder pairs complementary teams (and contenders with rebuilders for picks-for-players).
+          <strong>Current strength</strong> is each team’s present roster at a
+          position (0–100, relative to the league). <strong>Started PPG</strong>{" "}
+          and <strong>Total/wk</strong> are all-time production per week the
+          manager played. The <strong>PICKS</strong> column is future draft
+          capital. Green ▲ = surplus, red ▼ = need — the trade finder pairs
+          complementary teams (and contenders with rebuilders for
+          picks-for-players).
         </Note>
       </div>
 
@@ -86,11 +100,14 @@ export default function BreakdownPage() {
       <SectionTitle>🎰 By starting lineup slot</SectionTitle>
       <div className="mb-3">
         <Note title="Slot, not position">
-          This buckets points by the <strong>slot a player was started in</strong>, not by his position — so kickers and
-          defenses are included, and <strong>FLEX</strong> and <strong>SFLEX</strong> are their own columns. That answers
-          &ldquo;who actually plays the best defense / kicker / tight end?&rdquo;. Slots come from each season&rsquo;s own
-          roster template: this league ran one FLEX through 2024 and added a second in 2025, so{" "}
-          <strong>Per week</strong> for a two-slot group is roughly double a single slot &mdash; use{" "}
+          This buckets points by the{" "}
+          <strong>slot a player was started in</strong>, not by his position —
+          so kickers and defenses are included, and <strong>FLEX</strong> and{" "}
+          <strong>SFLEX</strong> are their own columns. That answers “who
+          actually plays the best defense / kicker / tight end?”. Slots come
+          from each season’s own roster template: this league ran one FLEX
+          through 2024 and added a second in 2025, so <strong>Per week</strong>{" "}
+          for a two-slot group is roughly double a single slot — use{" "}
           <strong>Per start</strong> to compare across slots.
         </Note>
       </div>

@@ -29,14 +29,18 @@ export function ComparePicker({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
       <div className="flex-1">
-        <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager A</div>
+        <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">
+          Manager A
+        </div>
         {select(a, setA)}
       </div>
       <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-[var(--chip)] text-xs font-bold">
         VS
       </div>
       <div className="flex-1">
-        <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager B</div>
+        <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">
+          Manager B
+        </div>
         {select(b, setB)}
       </div>
       <button

@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Card, PageHeader, SectionTitle, Note, Badge, Stat } from "@/components/ui";
+import {
+  Card,
+  PageHeader,
+  SectionTitle,
+  Note,
+  Badge,
+  Stat,
+} from "@/components/ui";
 import { ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { waivers } from "@/lib/data/waivers";
@@ -20,14 +27,18 @@ function LeaderTile({
 }) {
   return (
     <div className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-3">
-      <div className="mb-1 text-[11px] uppercase tracking-wider text-[var(--muted)]">{title}</div>
+      <div className="mb-1 text-[11px] uppercase tracking-wider text-[var(--muted)]">
+        {title}
+      </div>
       {a ? (
         <>
           <div className="flex items-center gap-2">
             <PlayerAvatar playerId={a.playerId} size={30} />
             <div className="min-w-0">
               <div className="truncate font-semibold">{pname(a.playerId)}</div>
-              <div className="truncate text-xs text-[var(--muted)]">{label(a.userId)}</div>
+              <div className="truncate text-xs text-[var(--muted)]">
+                {label(a.userId)}
+              </div>
             </div>
           </div>
           <div className="mt-2">
@@ -62,22 +73,29 @@ export default function WaiversPage() {
         <Stat label="Total adds" value={totalAdds} tone="good" />
         <Stat label="Total drops" value={totalDrops} tone="bad" />
         <Stat label="FAAB spent" value={`$${totalFaab}`} tone="gold" />
-        <Stat label="Regret drops" value={waivers.dropRegrets.length} sub="scored for someone else" />
+        <Stat
+          label="Regret drops"
+          value={waivers.dropRegrets.length}
+          sub="scored for someone else"
+        />
       </div>
 
       <div className="mb-8">
         <Note title="How this is scored">
-          For every waiver claim or free-agent add, we credit the manager with the points that player scored{" "}
-          <strong>afterward while on their roster</strong> (rest-of-season). <strong>Pts/$ FAAB</strong> is those points
-          divided by the bid. A &ldquo;hit&rdquo; is any add that went on to score 20+ points. Free ($0) pickups are
-          tracked separately so the bargain hunters get their due.
+          For every waiver claim or free-agent add, we credit the manager with
+          the points that player scored{" "}
+          <strong>afterward while on their roster</strong> (rest-of-season).{" "}
+          <strong>Pts/$ FAAB</strong> is those points divided by the bid. A
+          “hit” is any add that went on to score 20+ points. Free ($0) pickups
+          are tracked separately so the bargain hunters get their due.
         </Note>
       </div>
 
       {/* ---- the ones that got away ---- */}
       <SectionTitle>🪤 The ones that got away</SectionTitle>
       <p className="mb-3 text-sm text-[var(--muted)]">
-        Players dropped who then scored for <em>somebody else</em>. Rest-of-season points after the drop.
+        Players dropped who then scored for <em>somebody else</em>.
+        Rest-of-season points after the drop.
       </p>
       <Card className="mb-8 overflow-x-auto scroll-thin">
         <table className="w-full min-w-[680px] text-sm">
@@ -95,7 +113,10 @@ export default function WaiversPage() {
             {regrets.map((d) => (
               <tr key={d.id} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
-                  <Link href={`/players/${d.playerId}`} className="flex items-center gap-2 hover:text-[var(--accent)]">
+                  <Link
+                    href={`/players/${d.playerId}`}
+                    className="flex items-center gap-2 hover:text-[var(--accent)]"
+                  >
                     <PlayerAvatar playerId={d.playerId} size={24} />
                     <span className="truncate">{pname(d.playerId)}</span>
                     {d.reacquired && (
@@ -109,14 +130,22 @@ export default function WaiversPage() {
                   </Link>
                 </td>
                 <td className="px-3">
-                  <ManagerChip userId={d.userId} href={`/managers/${d.userId}`} size={18} />
+                  <ManagerChip
+                    userId={d.userId}
+                    href={`/managers/${d.userId}`}
+                    size={18}
+                  />
                 </td>
                 <td className="whitespace-nowrap px-3 text-xs text-[var(--muted)]">
                   {d.season} · Wk {d.week}
                 </td>
                 <td className="px-3">
                   {d.nextUserId ? (
-                    <ManagerChip userId={d.nextUserId} href={`/managers/${d.nextUserId}`} size={18} />
+                    <ManagerChip
+                      userId={d.nextUserId}
+                      href={`/managers/${d.nextUserId}`}
+                      size={18}
+                    />
                   ) : (
                     <span className="text-xs text-[var(--muted)]">—</span>
                   )}
@@ -124,7 +153,9 @@ export default function WaiversPage() {
                 <td className="px-3 text-right font-mono font-semibold tabular-nums text-[var(--bad)]">
                   {d.pointsAfterSeason}
                 </td>
-                <td className="px-3 text-right font-mono tabular-nums text-[var(--muted)]">{d.pointsAfterCareer}</td>
+                <td className="px-3 text-right font-mono tabular-nums text-[var(--muted)]">
+                  {d.pointsAfterCareer}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -179,13 +210,26 @@ export default function WaiversPage() {
             {churn.map((c) => (
               <tr key={c.userId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
-                  <ManagerChip userId={c.userId} href={`/managers/${c.userId}`} />
+                  <ManagerChip
+                    userId={c.userId}
+                    href={`/managers/${c.userId}`}
+                  />
                 </td>
-                <td className="px-3 text-right tabular-nums text-[var(--accent)]">{c.adds}</td>
-                <td className="px-3 text-right tabular-nums text-[var(--bad)]">{c.drops}</td>
-                <td className="px-3 text-right font-semibold tabular-nums">{c.adds + c.drops}</td>
-                <td className="px-3 text-right tabular-nums text-[var(--gold)]">${c.faabSpent}</td>
-                <td className="px-3 text-right tabular-nums text-[var(--muted)]">{c.regretPoints}</td>
+                <td className="px-3 text-right tabular-nums text-[var(--accent)]">
+                  {c.adds}
+                </td>
+                <td className="px-3 text-right tabular-nums text-[var(--bad)]">
+                  {c.drops}
+                </td>
+                <td className="px-3 text-right font-semibold tabular-nums">
+                  {c.adds + c.drops}
+                </td>
+                <td className="px-3 text-right tabular-nums text-[var(--gold)]">
+                  ${c.faabSpent}
+                </td>
+                <td className="px-3 text-right tabular-nums text-[var(--muted)]">
+                  {c.regretPoints}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -213,17 +257,34 @@ export default function WaiversPage() {
               <tr key={g.userId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
                   <span className="flex items-center gap-2">
-                    <span className="w-5 text-right text-xs text-[var(--muted)]">{i + 1}</span>
-                    <ManagerChip userId={g.userId} href={`/managers/${g.userId}`} />
+                    <span className="w-5 text-right text-xs text-[var(--muted)]">
+                      {i + 1}
+                    </span>
+                    <ManagerChip
+                      userId={g.userId}
+                      href={`/managers/${g.userId}`}
+                    />
                   </span>
                 </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{g.adds}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">${g.faabSpent}</td>
-                <td className="px-3 font-semibold tabular-nums text-[var(--accent)]">{g.pointsGained}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{g.starterPointsGained}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {g.adds}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  ${g.faabSpent}
+                </td>
+                <td className="px-3 font-semibold tabular-nums text-[var(--accent)]">
+                  {g.pointsGained}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {g.starterPointsGained}
+                </td>
                 <td className="px-3 tabular-nums">{g.pointsPerFaab}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{g.freeAddPoints}</td>
-                <td className="px-3 tabular-nums">{(g.hitRate * 100).toFixed(0)}%</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {g.freeAddPoints}
+                </td>
+                <td className="px-3 tabular-nums">
+                  {(g.hitRate * 100).toFixed(0)}%
+                </td>
               </tr>
             ))}
           </tbody>

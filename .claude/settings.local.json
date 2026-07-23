@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(node -e ' *)",
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(node -e \"console.log\\('restored:', Object.keys\\(require\\('./data/players.json'\\)\\).length, 'players'\\)\")",
+      "Bash(grep -rEn \"</\\(strong|em|abbr|code\\)>$\" app components)",
+      "Bash(grep -rEc \"</\\(strong|em|abbr|code\\)>$\" app components)",
+      "Bash(curl -s http://localhost:3000/players)",
+      "Bash(curl -s http://localhost:3000/draft)",
+      "Bash(curl -s http://localhost:3000/_spacetest)",
+      "Bash(curl -s -o /dev/null -w \"status: %{http_code}\\\\n\" http://localhost:3000/_spacetest)",
+      "Bash(curl -s http://localhost:3000/spacetest)",
+      "Bash(rm -rf app/spacetest)",
+      "Bash(xargs echo \"entities remaining:\")",
+      "Bash(grep -o \"</strong>the[^<]\\\\{0,40\\\\}\")",
+      "Bash(curl -s http://localhost:3000/glossary)",
+      "Bash(grep -o \"</strong>career[^<]\\\\{0,30\\\\}\\\\|</strong>with[^<]\\\\{0,30\\\\}\")"
     ]
   }
 }

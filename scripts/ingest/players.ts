@@ -1,6 +1,6 @@
 import { api } from "../../lib/sleeper/client";
 import { playersPath } from "../../lib/paths";
-import { writeJson, fileAgeMs } from "../../lib/fsx";
+import { writeJson, fileAgeMs, readJsonIfExists } from "../../lib/fsx";
 import type { SlimPlayer } from "../../lib/sleeper/types";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -36,6 +36,13 @@ function slim(playerId: string, p: RawPlayer): SlimPlayer {
  * Fetch the global player dump, slim it, and (when ids are given) filter to just
  * the players that appear in our league — keeps data/players.json tiny.
  * Skips the network call if the file is fresh (< 24h) unless `force`.
+ *
+ * The result is MERGED over whatever is already on disk and never shrinks. This
+ * matters: `neededIds` is only the *current* season's rostered players, so an
+ * in-season or offseason refresh would otherwise evict every player from prior
+ * seasons and blank out their names across the whole site. (An offseason refresh
+ * once cut the dict from 653 players to 316 for exactly this reason.) Players
+ * retire; their history doesn't.
  */
 export async function refreshPlayers(
   neededIds?: Set<string>,
@@ -51,12 +58,21 @@ export async function refreshPlayers(
   const all = (await api.allPlayers()) as Record<string, RawPlayer> | null;
   if (!all) throw new Error("players/nfl returned empty");
 
-  const out: Record<string, SlimPlayer> = {};
+  // start from what we already know, so retired players keep their names
+  const existing = readJsonIfExists<Record<string, SlimPlayer>>(playersPath) ?? {};
+  const out: Record<string, SlimPlayer> = { ...existing };
+
+  let added = 0;
   for (const [id, raw] of Object.entries(all)) {
     if (neededIds && !neededIds.has(id)) continue;
-    out[id] = slim(id, raw);
+    if (!out[id]) added++;
+    out[id] = slim(id, raw); // fresh data wins for team/position changes
   }
+
+  const kept = Object.keys(out).length - added;
   writeJson(playersPath, out, true);
-  console.log(`  wrote ${Object.keys(out).length} players -> data/players.json`);
+  console.log(
+    `  wrote ${Object.keys(out).length} players -> data/players.json (${added} new, ${kept} retained)`,
+  );
   return Object.keys(out).length;
 }

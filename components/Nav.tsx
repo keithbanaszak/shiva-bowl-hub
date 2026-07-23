@@ -18,7 +18,11 @@ const GROUPS: Group[] = [
   {
     label: "Activity",
     items: [
-      { href: "/activity", label: "League Activity", desc: "Every move, newest first" },
+      {
+        href: "/activity",
+        label: "League Activity",
+        desc: "Every move, newest first",
+      },
       { href: "/trades", label: "Trade Receipts", desc: "Every trade, graded" },
       { href: "/waivers", label: "Waiver Wire", desc: "Adds, drops and FAAB" },
     ],
@@ -37,14 +41,26 @@ const GROUPS: Group[] = [
       { href: "/schedule", label: "Schedule & GOTW", desc: "Week by week" },
       { href: "/awards", label: "Awards", desc: "Season superlatives" },
       { href: "/wrapped", label: "Dynasty Wrapped", desc: "Per-manager recap" },
-      { href: "/luck", label: "Schedule Luck", desc: "All-play and Fraud Detector" },
+      {
+        href: "/luck",
+        label: "Schedule Luck",
+        desc: "All-play and Fraud Detector",
+      },
     ],
   },
   {
     label: "Stats",
     items: [
-      { href: "/records", label: "Record Book", desc: "Top weeks and blowouts" },
-      { href: "/breakdown", label: "League Breakdown", desc: "By position and lineup slot" },
+      {
+        href: "/records",
+        label: "Record Book",
+        desc: "Top weeks and blowouts",
+      },
+      {
+        href: "/breakdown",
+        label: "League Breakdown",
+        desc: "By position and lineup slot",
+      },
       { href: "/teams", label: "Team Power", desc: "Contender vs rebuilder" },
       { href: "/draft", label: "Draft Room", desc: "Rookie boards" },
       { href: "/players", label: "Players", desc: "Every player's legacy" },
@@ -63,7 +79,8 @@ export function Nav() {
   const { open: paletteOpen, setOpen: setPaletteOpen } = usePaletteHotkey();
   const navRef = useRef<HTMLElement>(null);
 
-  const active = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const active = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
   const groupActive = (g: Group) => g.items.some((i) => active(i.href));
 
   // close menus on navigation
@@ -77,7 +94,8 @@ export function Nav() {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
     const onDown = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(null);
+      if (navRef.current && !navRef.current.contains(e.target as Node))
+        setOpen(null);
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("mousedown", onDown);
@@ -110,7 +128,10 @@ export function Nav() {
         className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--nav-bg)] backdrop-blur"
       >
         <nav className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-3">
-          <Link href="/" className="mr-1 flex items-center gap-2 font-display font-bold tracking-tight">
+          <Link
+            href="/"
+            className="mr-1 flex items-center gap-2 font-display font-bold tracking-tight"
+          >
             <span className="scanline grid h-7 w-7 place-items-center rounded-lg bg-[var(--accent-soft)] text-[11px] font-bold text-[var(--accent)] glow-border">
               SB
             </span>
@@ -132,7 +153,10 @@ export function Nav() {
                   className={`flex items-center gap-1 ${linkCls(groupActive(g) || open === g.label)}`}
                 >
                   {g.label}
-                  <span aria-hidden className={`text-[10px] transition ${open === g.label ? "rotate-180" : ""}`}>
+                  <span
+                    aria-hidden
+                    className={`text-[10px] transition ${open === g.label ? "rotate-180" : ""}`}
+                  >
                     ▾
                   </span>
                 </button>
@@ -149,7 +173,11 @@ export function Nav() {
                         }`}
                       >
                         <span className="block text-sm">{i.label}</span>
-                        {i.desc && <span className="block text-[11px] text-[var(--muted)]">{i.desc}</span>}
+                        {i.desc && (
+                          <span className="block text-[11px] text-[var(--muted)]">
+                            {i.desc}
+                          </span>
+                        )}
                       </Link>
                     ))}
                   </div>
@@ -167,7 +195,9 @@ export function Nav() {
             >
               <span aria-hidden>⌕</span>
               <span className="hidden lg:inline">Search</span>
-              <kbd className="hidden rounded border border-[var(--border)] px-1 py-0.5 text-[10px] lg:block">⌘K</kbd>
+              <kbd className="hidden rounded border border-[var(--border)] px-1 py-0.5 text-[10px] lg:block">
+                ⌘K
+              </kbd>
             </button>
 
             <ThemeToggle />
@@ -188,7 +218,15 @@ export function Nav() {
               aria-expanded={drawer}
               className="grid h-8 w-8 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] md:hidden"
             >
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden
+              >
                 <path d="M4 7h16M4 12h16M4 17h16" />
               </svg>
             </button>
@@ -225,7 +263,9 @@ export function Nav() {
               <Link
                 href="/"
                 className={`mb-2 block rounded-lg px-3 py-2 text-sm ${
-                  pathname === "/" ? "bg-[var(--accent-soft)] text-[var(--accent)]" : "hover:bg-[var(--card-2)]"
+                  pathname === "/"
+                    ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                    : "hover:bg-[var(--card-2)]"
                 }`}
               >
                 Home
@@ -233,7 +273,9 @@ export function Nav() {
 
               {GROUPS.map((g) => (
                 <div key={g.label} className="mb-3">
-                  <div className="px-3 pb-1 text-[10px] uppercase tracking-wider text-[var(--faint)]">{g.label}</div>
+                  <div className="px-3 pb-1 text-[10px] uppercase tracking-wider text-[var(--faint)]">
+                    {g.label}
+                  </div>
                   {g.items.map((i) => (
                     <Link
                       key={i.href}
@@ -245,7 +287,11 @@ export function Nav() {
                       }`}
                     >
                       <span className="block text-sm">{i.label}</span>
-                      {i.desc && <span className="block text-[11px] text-[var(--muted)]">{i.desc}</span>}
+                      {i.desc && (
+                        <span className="block text-[11px] text-[var(--muted)]">
+                          {i.desc}
+                        </span>
+                      )}
                     </Link>
                   ))}
                 </div>
@@ -264,7 +310,10 @@ export function Nav() {
         </div>
       )}
 
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+      />
     </>
   );
 }

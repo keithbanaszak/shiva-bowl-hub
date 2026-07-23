@@ -33,10 +33,12 @@ export default function PlayersPage() {
 
       <div className="mb-6">
         <Note title="What counts here">
-          A player&rsquo;s <strong>start record</strong> is the win/loss record of whichever team started him,
-          that week (minimum 10 career starts to qualify). <strong>Bench points</strong> are points a player
-          scored while sitting on someone&rsquo;s bench — pure hindsight pain. Click any player for their full{" "}
-          <strong>league legacy</strong> — every owner, revenge game, and painful drop.
+          A player’s <strong>start record</strong> is the win/loss record of
+          whichever team started him, that week (minimum 10 career starts to
+          qualify). <strong>Bench points</strong> are points a player scored
+          while sitting on someone’s bench — pure hindsight pain. Click any
+          player for their full <strong>league legacy</strong> — every owner,
+          revenge game, and painful drop.
         </Note>
       </div>
 
@@ -59,18 +61,28 @@ export default function PlayersPage() {
               <tr key={r.playerId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
                   <span className="flex items-center gap-2">
-                    <span className="w-5 text-right text-xs text-[var(--muted)]">{i + 1}</span>
+                    <span className="w-5 text-right text-xs text-[var(--muted)]">
+                      {i + 1}
+                    </span>
                     <PlayerAvatar playerId={r.playerId} size={26} />
                     <PlayerLink id={r.playerId}>{pname(r.playerId)}</PlayerLink>
                   </span>
                 </td>
-                <td className="px-3 text-[var(--muted)]">{ppos(r.playerId) ?? "—"}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.starts}</td>
+                <td className="px-3 text-[var(--muted)]">
+                  {ppos(r.playerId) ?? "—"}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.starts}
+                </td>
                 <td className="px-3 tabular-nums">
                   {r.wins}-{r.losses}
                 </td>
-                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{(r.winPct * 100).toFixed(0)}%</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.pointsWhileStarting}</td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
+                  {(r.winPct * 100).toFixed(0)}%
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.pointsWhileStarting}
+                </td>
                 <td className="px-3">
                   <ManagerChip userId={r.topManagerUserId} size={18} />
                 </td>
@@ -97,14 +109,22 @@ export default function PlayersPage() {
               <tr key={b.playerId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3">
                   <span className="flex items-center gap-2">
-                    <span className="w-5 text-right text-xs text-[var(--muted)]">{i + 1}</span>
+                    <span className="w-5 text-right text-xs text-[var(--muted)]">
+                      {i + 1}
+                    </span>
                     <PlayerAvatar playerId={b.playerId} size={26} />
                     <PlayerLink id={b.playerId}>{pname(b.playerId)}</PlayerLink>
                   </span>
                 </td>
-                <td className="px-3 text-[var(--muted)]">{ppos(b.playerId) ?? "—"}</td>
-                <td className="px-3 tabular-nums font-semibold text-[var(--gold)]">{b.benchPoints}</td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{b.benchWeeks}</td>
+                <td className="px-3 text-[var(--muted)]">
+                  {ppos(b.playerId) ?? "—"}
+                </td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--gold)]">
+                  {b.benchPoints}
+                </td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {b.benchWeeks}
+                </td>
                 <td className="px-3">
                   <ManagerChip userId={b.topManagerUserId} size={18} />
                 </td>
@@ -117,8 +137,9 @@ export default function PlayersPage() {
       <SectionTitle>☠️ Kryptonite — players who torch one manager</SectionTitle>
       <Note>
         <span className="text-[var(--muted)]">
-          Players who, when started, score well <strong>above their own average</strong> specifically against one
-          manager (min 3 meetings). That manager&rsquo;s personal bogeyman.
+          Players who, when started, score well{" "}
+          <strong>above their own average</strong> specifically against one
+          manager (min 3 meetings). That manager’s personal bogeyman.
         </span>
       </Note>
       <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -134,8 +155,12 @@ export default function PlayersPage() {
               </div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="font-mono text-sm font-semibold text-[var(--gold)]">{n.avgVs}</div>
-              <div className="text-[10px] text-[var(--muted)]">{signed(n.diff)} · {n.games}g</div>
+              <div className="font-mono text-sm font-semibold text-[var(--gold)]">
+                {n.avgVs}
+              </div>
+              <div className="text-[10px] text-[var(--muted)]">
+                {signed(n.diff)} · {n.games}g
+              </div>
             </div>
           </Card>
         ))}

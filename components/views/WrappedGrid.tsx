@@ -7,7 +7,9 @@ import { cardsForSeason } from "@/lib/data/cards";
 
 export function WrappedGrid({ season }: { season: string }) {
   const seasons = completedSeasons();
-  const cards = [...cardsForSeason(season)].sort((a, b) => (a.finish ?? 99) - (b.finish ?? 99));
+  const cards = [...cardsForSeason(season)].sort(
+    (a, b) => (a.finish ?? 99) - (b.finish ?? 99),
+  );
 
   return (
     <div>
@@ -28,7 +30,9 @@ export function WrappedGrid({ season }: { season: string }) {
             <div className="flex items-center gap-3">
               <Avatar userId={c.userId} size={40} />
               <div className="min-w-0">
-                <div className="truncate font-semibold group-hover:text-[var(--accent)]">{c.label}</div>
+                <div className="truncate font-semibold group-hover:text-[var(--accent)]">
+                  {c.label}
+                </div>
                 <div className="text-xs text-[var(--muted)]">
                   {c.record} · {c.finish ? ordinal(c.finish) : "—"}
                 </div>
@@ -37,7 +41,11 @@ export function WrappedGrid({ season }: { season: string }) {
             </div>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <Badge>{c.pointsFor} PF</Badge>
-              <Badge tone={c.luck > 0 ? "good" : c.luck < 0 ? "bad" : "default"}>luck {signed(c.luck)}</Badge>
+              <Badge
+                tone={c.luck > 0 ? "good" : c.luck < 0 ? "bad" : "default"}
+              >
+                luck {signed(c.luck)}
+              </Badge>
               <Badge tone="gold">{c.benchPoints} on bench</Badge>
             </div>
           </Link>

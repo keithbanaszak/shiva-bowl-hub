@@ -5,7 +5,13 @@ import { ordinal } from "@/lib/marts";
 import type { Trade, TradeAsset } from "@/lib/stats/types";
 
 const fmtDate = (ms: number | null) =>
-  ms ? new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+  ms
+    ? new Date(ms).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
 
 function PickChip({ a }: { a: Extract<TradeAsset, { kind: "pick" }> }) {
   return (
@@ -33,11 +39,19 @@ function Asset({ a }: { a: TradeAsset }) {
 }
 
 /** A trade as a row of per-manager "received" hauls — clear for 2- and 3+-team deals. */
-export function TradeCard({ t, realized = true }: { t: Trade; realized?: boolean }) {
+export function TradeCard({
+  t,
+  realized = true,
+}: {
+  t: Trade;
+  realized?: boolean;
+}) {
   return (
     <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-3">
       <div className="mb-2 flex items-center justify-between text-[11px] text-[var(--muted)]">
-        <span className="font-display uppercase tracking-wider text-accent-2">⇄ Trade</span>
+        <span className="font-display uppercase tracking-wider text-accent-2">
+          ⇄ Trade
+        </span>
         <span>
           {fmtDate(t.dateMs)} · {t.season} Wk {t.week}
         </span>
@@ -46,10 +60,22 @@ export function TradeCard({ t, realized = true }: { t: Trade; realized?: boolean
         {t.sides.map((s) => {
           const net = realized ? t.realized?.[s.userId]?.career : undefined;
           return (
-            <div key={s.userId} className="min-w-[170px] flex-1 rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5">
+            <div
+              key={s.userId}
+              className="min-w-[170px] flex-1 rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5"
+            >
               <div className="mb-2 flex items-center justify-between gap-2 border-b border-[var(--border)] pb-2">
-                <ManagerChip userId={s.userId} href={`/managers/${s.userId}`} size={20} className="font-semibold" />
-                {net != null && net > 0 && <span className="shrink-0 font-mono text-xs text-[var(--accent)]">{net} pts</span>}
+                <ManagerChip
+                  userId={s.userId}
+                  href={`/managers/${s.userId}`}
+                  size={20}
+                  className="font-semibold"
+                />
+                {net != null && net > 0 && (
+                  <span className="shrink-0 font-mono text-xs text-[var(--accent)]">
+                    {net} pts
+                  </span>
+                )}
               </div>
               <div className="space-y-1.5">
                 {s.received.map((a, i) => (

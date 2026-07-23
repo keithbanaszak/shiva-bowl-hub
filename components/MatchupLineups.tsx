@@ -3,13 +3,29 @@ import { pname, ppos, pteam } from "@/lib/data/players-dict";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { MatchupBar } from "@/components/MatchupBar";
 
-function Side({ p, side, win }: { p: LineupPlayer | undefined; side: "l" | "r"; win: boolean }) {
+function Side({
+  p,
+  side,
+  win,
+}: {
+  p: LineupPlayer | undefined;
+  side: "l" | "r";
+  win: boolean;
+}) {
   if (!p) return <div className="flex-1" />;
-  const meta = [ppos(p.playerId), pteam(p.playerId)].filter(Boolean).join(" · ");
+  const meta = [ppos(p.playerId), pteam(p.playerId)]
+    .filter(Boolean)
+    .join(" · ");
   const score = (
     <span className="shrink-0 font-mono leading-tight">
-      <span className={`block text-sm tabular-nums ${win ? "font-semibold text-[var(--accent)]" : ""}`}>{p.points}</span>
-      {p.proj != null && <span className="block text-[10px] text-[var(--muted)]">{p.proj}</span>}
+      <span
+        className={`block text-sm tabular-nums ${win ? "font-semibold text-[var(--accent)]" : ""}`}
+      >
+        {p.points}
+      </span>
+      {p.proj != null && (
+        <span className="block text-[10px] text-[var(--muted)]">{p.proj}</span>
+      )}
     </span>
   );
   const who = (
@@ -17,12 +33,18 @@ function Side({ p, side, win }: { p: LineupPlayer | undefined; side: "l" | "r"; 
       <PlayerAvatar playerId={p.playerId} size={28} />
       <span className="min-w-0">
         <span className="block truncate text-xs">{pname(p.playerId)}</span>
-        {meta && <span className="block truncate text-[10px] text-[var(--muted)]">{meta}</span>}
+        {meta && (
+          <span className="block truncate text-[10px] text-[var(--muted)]">
+            {meta}
+          </span>
+        )}
       </span>
     </span>
   );
   return (
-    <div className={`flex min-w-0 flex-1 items-center gap-2 ${side === "r" ? "flex-row-reverse text-right" : ""}`}>
+    <div
+      className={`flex min-w-0 flex-1 items-center gap-2 ${side === "r" ? "flex-row-reverse text-right" : ""}`}
+    >
       {who}
       <span className="flex-1" />
       {score}
@@ -31,13 +53,24 @@ function Side({ p, side, win }: { p: LineupPlayer | undefined; side: "l" | "r"; 
 }
 
 /** Header (team totals) + slot-by-slot starter comparison with headshots and projections. */
-export function MatchupLineups({ lineup, leftUserId }: { lineup: MatchupLineup; leftUserId?: string }) {
+export function MatchupLineups({
+  lineup,
+  leftUserId,
+}: {
+  lineup: MatchupLineup;
+  leftUserId?: string;
+}) {
   const teams = [...lineup.teams];
   if (leftUserId && teams[0]?.userId !== leftUserId) teams.reverse();
   const [left, right] = teams;
   if (!left || !right) return null;
   const rows = Math.max(left.starters.length, right.starters.length);
-  const winner = left.points > right.points ? left.userId : right.points > left.points ? right.userId : null;
+  const winner =
+    left.points > right.points
+      ? left.userId
+      : right.points > left.points
+        ? right.userId
+        : null;
 
   return (
     <div>

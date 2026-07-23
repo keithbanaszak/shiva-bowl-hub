@@ -43,11 +43,17 @@ export default async function ComparePairPage({
 
   return (
     <div>
-      <Link href="/compare" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]">
+      <Link
+        href="/compare"
+        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
+      >
         ← Compare
       </Link>
 
-      <PageHeader kicker="Manager vs manager" title={`${label(a)} vs ${label(b)}`} />
+      <PageHeader
+        kicker="Manager vs manager"
+        title={`${label(a)} vs ${label(b)}`}
+      />
 
       {/* scoreboard */}
       <Card className="mb-6">
@@ -63,7 +69,9 @@ export default async function ComparePairPage({
             <div className="font-mono text-3xl font-bold tabular-nums">
               {aWins}–{bWins}
             </div>
-            <div className="text-xs text-[var(--muted)]">{tied ? "dead even" : "all-time"}</div>
+            <div className="text-xs text-[var(--muted)]">
+              {tied ? "dead even" : "all-time"}
+            </div>
           </div>
           <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
             <div className="min-w-0 text-right">
@@ -79,49 +87,81 @@ export default async function ComparePairPage({
         <Stat label="Rivalry heat" value={pair.heat} tone="gold" />
         <Stat label="Games" value={pair.games} />
         <Stat label="Avg margin" value={pair.avgMargin} />
-        <Stat label="Playoff record" value={aPlayoff + bPlayoff > 0 ? `${aPlayoff}-${bPlayoff}` : "—"} />
+        <Stat
+          label="Playoff record"
+          value={aPlayoff + bPlayoff > 0 ? `${aPlayoff}-${bPlayoff}` : "—"}
+        />
         <Stat label={`${label(a)} pts`} value={aPts} />
         <Stat label={`${label(b)} pts`} value={bPts} />
         {pair.biggest && (
-          <Stat label="Biggest blowout" value={Math.abs(pair.biggest.margin)} sub={`${pair.biggest.season} wk ${pair.biggest.week}`} tone="bad" />
+          <Stat
+            label="Biggest blowout"
+            value={Math.abs(pair.biggest.margin)}
+            sub={`${pair.biggest.season} wk ${pair.biggest.week}`}
+            tone="bad"
+          />
         )}
         {pair.closest && (
-          <Stat label="Closest game" value={Math.abs(pair.closest.margin)} sub={`${pair.closest.season} wk ${pair.closest.week}`} tone="good" />
+          <Stat
+            label="Closest game"
+            value={Math.abs(pair.closest.margin)}
+            sub={`${pair.closest.season} wk ${pair.closest.week}`}
+            tone="good"
+          />
         )}
       </div>
 
       {pair.currentStreak && (
         <p className="mb-8 text-sm text-[var(--muted)]">
-          Current streak: <span className="text-[var(--foreground)]">{label(pair.currentStreak.holder)}</span> has won the last{" "}
-          {pair.currentStreak.length}.
+          Current streak:{" "}
+          <span className="text-[var(--foreground)]">
+            {label(pair.currentStreak.holder)}
+          </span>{" "}
+          has won the last {pair.currentStreak.length}.
         </p>
       )}
 
       {/* trades between them */}
       {trades.length > 0 && (
         <>
-          <h2 className="mb-3 text-lg font-semibold tracking-tight">Trades between them ({trades.length})</h2>
+          <h2 className="mb-3 text-lg font-semibold tracking-tight">
+            Trades between them ({trades.length})
+          </h2>
           <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {trades.map((t) => (
               <Card key={t.id}>
-                <div className="mb-2 text-xs text-[var(--muted)]">{t.season} · Week {t.week}</div>
+                <div className="mb-2 text-xs text-[var(--muted)]">
+                  {t.season} · Week {t.week}
+                </div>
                 <div className="grid grid-cols-2 gap-3">
                   {t.sides
                     .filter((s) => s.userId === a || s.userId === b)
                     .map((s) => (
-                      <div key={s.userId} className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5">
-                        <div className="mb-1 truncate text-xs font-medium">{label(s.userId)} got</div>
+                      <div
+                        key={s.userId}
+                        className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5"
+                      >
+                        <div className="mb-1 truncate text-xs font-medium">
+                          {label(s.userId)} got
+                        </div>
                         <ul className="space-y-0.5 text-xs">
                           {s.received.map((as, i) => (
                             <li key={i} className="truncate">
-                              {as.kind === "player" ? pname(as.playerId) : `${as.season} R${as.round}${as.becameName ? ` → ${as.becameName}` : ""}`}
+                              {as.kind === "player"
+                                ? pname(as.playerId)
+                                : `${as.season} R${as.round}${as.becameName ? ` → ${as.becameName}` : ""}`}
                             </li>
                           ))}
-                          {s.faabReceived > 0 && <li className="text-[var(--muted)]">${s.faabReceived} FAAB</li>}
+                          {s.faabReceived > 0 && (
+                            <li className="text-[var(--muted)]">
+                              ${s.faabReceived} FAAB
+                            </li>
+                          )}
                         </ul>
                         {t.realized?.[s.userId] && (
                           <div className="mt-1 text-[10px] text-[var(--muted)]">
-                            realized {t.realized[s.userId].season} (career {t.realized[s.userId].career})
+                            realized {t.realized[s.userId].season} (career{" "}
+                            {t.realized[s.userId].career})
                           </div>
                         )}
                       </div>
@@ -134,13 +174,18 @@ export default async function ComparePairPage({
       )}
 
       {/* every meeting with expandable lineups */}
-      <h2 className="mb-3 text-lg font-semibold tracking-tight">Every meeting ({games.length})</h2>
+      <h2 className="mb-3 text-lg font-semibold tracking-tight">
+        Every meeting ({games.length})
+      </h2>
       <div className="space-y-2">
         {games.map((g, i) => {
           const lineup = lineupForMeeting(g.season, g.week, a, b);
           const aWon = g.result === "W";
           return (
-            <details key={i} className="group rounded-xl border border-[var(--border)] bg-[var(--card)]">
+            <details
+              key={i}
+              className="group rounded-xl border border-[var(--border)] bg-[var(--card)]"
+            >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm">
                 <span className="flex items-center gap-2 text-[var(--muted)]">
                   <span className="tabular-nums">{g.season}</span>
@@ -148,14 +193,32 @@ export default async function ComparePairPage({
                   {g.isPlayoff && <Badge tone="gold">PO</Badge>}
                 </span>
                 <span className="flex items-center gap-3 font-mono tabular-nums">
-                  <span className={aWon ? "font-semibold text-[var(--accent)]" : ""}>{g.points}</span>
+                  <span
+                    className={aWon ? "font-semibold text-[var(--accent)]" : ""}
+                  >
+                    {g.points}
+                  </span>
                   <span className="text-[var(--muted)]">–</span>
-                  <span className={g.result === "L" ? "font-semibold text-[var(--accent)]" : ""}>{g.opponentPoints}</span>
+                  <span
+                    className={
+                      g.result === "L"
+                        ? "font-semibold text-[var(--accent)]"
+                        : ""
+                    }
+                  >
+                    {g.opponentPoints}
+                  </span>
                 </span>
                 <span className="hidden w-28 text-right text-xs text-[var(--muted)] sm:block">
-                  {g.result === "W" ? `${label(a)} won` : g.result === "L" ? `${label(b)} won` : "tie"}
+                  {g.result === "W"
+                    ? `${label(a)} won`
+                    : g.result === "L"
+                      ? `${label(b)} won`
+                      : "tie"}
                 </span>
-                <span className="text-xs text-[var(--muted)] group-open:rotate-180">▾</span>
+                <span className="text-xs text-[var(--muted)] group-open:rotate-180">
+                  ▾
+                </span>
               </summary>
               {lineup ? (
                 <div className="border-t border-[var(--border)] p-4">

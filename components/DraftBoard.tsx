@@ -16,17 +16,24 @@ const POS_TINT: Record<string, string> = {
 function NowOwned({ userId }: { userId: string }) {
   return (
     <div className="mt-1 flex items-center gap-1 rounded bg-amber-400/10 px-1 py-0.5">
-      <span className="text-[8px] font-semibold uppercase tracking-wide text-[var(--gold)]/70">now</span>
+      <span className="text-[8px] font-semibold uppercase tracking-wide text-[var(--gold)]/70">
+        now
+      </span>
       <Avatar userId={userId} size={12} />
-      <span className="truncate text-[9px] font-medium text-[var(--gold)]">{label(userId)}</span>
+      <span className="truncate text-[9px] font-medium text-[var(--gold)]">
+        {label(userId)}
+      </span>
     </div>
   );
 }
 
 function Cell({ c }: { c: DraftBoardCell }) {
-  const tint = (c.position && POS_TINT[c.position]) || "bg-[var(--panel)] border-[var(--border)]";
+  const tint =
+    (c.position && POS_TINT[c.position]) ||
+    "bg-[var(--panel)] border-[var(--border)]";
   // A pick is "traded" only when its current owner differs from the column's original owner.
-  const traded = c.isTraded && !!c.ownerUserId && c.ownerUserId !== c.slotOwnerUserId;
+  const traded =
+    c.isTraded && !!c.ownerUserId && c.ownerUserId !== c.slotOwnerUserId;
 
   return (
     <div
@@ -46,7 +53,9 @@ function Cell({ c }: { c: DraftBoardCell }) {
         <>
           <div className="mt-1 flex items-center gap-1.5">
             <PlayerAvatar playerId={c.playerId} size={22} />
-            <span className="min-w-0 truncate text-[11px] leading-tight">{c.name}</span>
+            <span className="min-w-0 truncate text-[11px] leading-tight">
+              {c.name}
+            </span>
           </div>
           {traded && c.ownerUserId && <NowOwned userId={c.ownerUserId} />}
         </>
@@ -85,15 +94,24 @@ export function DraftBoard({ board }: { board: Board }) {
           style={{ gridTemplateColumns: cols }}
         >
           {board.order.map((o) => (
-            <div key={o.slot} className="flex flex-col items-center gap-1 px-1 text-center">
+            <div
+              key={o.slot}
+              className="flex flex-col items-center gap-1 px-1 text-center"
+            >
               <Avatar userId={o.userId} size={26} />
-              <span className="truncate text-[10px] leading-tight text-[var(--muted)]">{label(o.userId)}</span>
+              <span className="truncate text-[10px] leading-tight text-[var(--muted)]">
+                {label(o.userId)}
+              </span>
             </div>
           ))}
         </div>
         {/* rounds */}
         {rounds.map((r) => (
-          <div key={r} className="mb-1.5 grid gap-1.5" style={{ gridTemplateColumns: cols }}>
+          <div
+            key={r}
+            className="mb-1.5 grid gap-1.5"
+            style={{ gridTemplateColumns: cols }}
+          >
             {(byRound.get(r) ?? [])
               .sort((a, b) => a.slot - b.slot)
               .map((c) => (

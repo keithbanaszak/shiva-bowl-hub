@@ -45,22 +45,44 @@ export function MatchupBar({
       {/* left team (blue) */}
       <div className={`flex flex-1 items-center gap-2 px-3 py-2.5 ${leftTint}`}>
         <Avatar userId={aUserId} size={av} />
-        <span className={`min-w-0 flex-1 truncate ${aWon ? "font-semibold text-[var(--foreground)]" : "text-[var(--muted)]"}`}>
+        <span
+          className={`min-w-0 flex-1 truncate ${aWon ? "font-semibold text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+        >
           {label(aUserId)}
         </span>
         <span className="shrink-0 text-right font-mono leading-none">
-          <span className={`${scoreCls} tabular-nums ${aWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}>{aPoints}</span>
-          {aProj != null && <span className="mt-0.5 block text-[10px] text-[var(--muted)]">{aProj}</span>}
+          <span
+            className={`${scoreCls} tabular-nums ${aWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+          >
+            {aPoints}
+          </span>
+          {aProj != null && (
+            <span className="mt-0.5 block text-[10px] text-[var(--muted)]">
+              {aProj}
+            </span>
+          )}
         </span>
       </div>
       <div className="w-px bg-[var(--inset)]" />
       {/* right team (red) */}
-      <div className={`flex flex-1 items-center gap-2 px-3 py-2.5 ${rightTint}`}>
+      <div
+        className={`flex flex-1 items-center gap-2 px-3 py-2.5 ${rightTint}`}
+      >
         <span className="shrink-0 text-left font-mono leading-none">
-          <span className={`${scoreCls} tabular-nums ${bWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}>{bPoints}</span>
-          {bProj != null && <span className="mt-0.5 block text-[10px] text-[var(--muted)]">{bProj}</span>}
+          <span
+            className={`${scoreCls} tabular-nums ${bWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+          >
+            {bPoints}
+          </span>
+          {bProj != null && (
+            <span className="mt-0.5 block text-[10px] text-[var(--muted)]">
+              {bProj}
+            </span>
+          )}
         </span>
-        <span className={`min-w-0 flex-1 truncate text-right ${bWon ? "font-semibold text-[var(--foreground)]" : "text-[var(--muted)]"}`}>
+        <span
+          className={`min-w-0 flex-1 truncate text-right ${bWon ? "font-semibold text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+        >
           {label(bUserId)}
         </span>
         <Avatar userId={bUserId} size={av} />

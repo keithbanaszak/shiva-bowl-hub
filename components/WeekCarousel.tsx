@@ -12,7 +12,10 @@ export function WeekCarousel({
   defaultIndex?: number;
 }) {
   const nodes = Array.isArray(children) ? children : [children];
-  const start = Math.min(Math.max(defaultIndex ?? nodes.length - 1, 0), nodes.length - 1);
+  const start = Math.min(
+    Math.max(defaultIndex ?? nodes.length - 1, 0),
+    nodes.length - 1,
+  );
   const [i, setI] = useState(start);
 
   return (
@@ -26,7 +29,9 @@ export function WeekCarousel({
         >
           ‹
         </button>
-        <div className="min-w-40 text-center text-xl font-semibold tracking-tight">{labels[i]}</div>
+        <div className="min-w-40 text-center text-xl font-semibold tracking-tight">
+          {labels[i]}
+        </div>
         <button
           onClick={() => setI((x) => Math.min(nodes.length - 1, x + 1))}
           disabled={i === nodes.length - 1}

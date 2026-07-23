@@ -11,14 +11,27 @@ const ROUND_COLOR: Record<number, string> = {
   4: "#6b7280",
 };
 
-export const roundColor = (round: number): string => ROUND_COLOR[round] ?? "#6b7280";
+export const roundColor = (round: number): string =>
+  ROUND_COLOR[round] ?? "#6b7280";
 
-export function PickBadge({ round, size = 30 }: { round: number; size?: number }) {
+export function PickBadge({
+  round,
+  size = 30,
+}: {
+  round: number;
+  size?: number;
+}) {
   const c = roundColor(round);
   return (
     <span
       aria-hidden
-      style={{ width: size, height: size, color: c, backgroundColor: `${c}1f`, borderColor: `${c}66` }}
+      style={{
+        width: size,
+        height: size,
+        color: c,
+        backgroundColor: `${c}1f`,
+        borderColor: `${c}66`,
+      }}
       className="grid shrink-0 place-items-center rounded-md border-2 font-mono text-[11px] font-bold leading-none"
       title={`Round ${round} pick`}
     >

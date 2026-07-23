@@ -3,7 +3,11 @@ import { MatchupBar } from "@/components/MatchupBar";
 import { SeasonPills } from "@/components/SeasonPills";
 import { WeekCarousel } from "@/components/WeekCarousel";
 import { label } from "@/lib/marts";
-import { seasonsWithSchedule, weeksForSeason, matchupsForWeek } from "@/lib/data/schedule";
+import {
+  seasonsWithSchedule,
+  weeksForSeason,
+  matchupsForWeek,
+} from "@/lib/data/schedule";
 import type { ScheduleMatchup } from "@/lib/stats/types";
 
 function seriesText(m: ScheduleMatchup): string {
@@ -17,7 +21,9 @@ function seriesText(m: ScheduleMatchup): string {
 function GameOfWeek({ m }: { m: ScheduleMatchup }) {
   return (
     <Card className="relative mb-3 overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
-      <div className="pointer-events-none absolute -right-4 -top-6 text-6xl opacity-10">⭐</div>
+      <div className="pointer-events-none absolute -right-4 -top-6 text-6xl opacity-10">
+        ⭐
+      </div>
       <div className="mb-3 flex items-center gap-2">
         <Badge tone="gold">Game of the Week</Badge>
         {m.isPlayoff && <Badge tone="info">Playoff</Badge>}
@@ -80,12 +86,16 @@ export function ScheduleView({ season }: { season: string }) {
 
       <div className="mb-6">
         <Note title="Game of the Week">
-          Each week's most compelling matchup — chosen from rivalry heat, recent trades between the two,
-          championship-rematch history, both being top scorers, playoff stakes, and final margin.
+          Each week's most compelling matchup — chosen from rivalry heat, recent
+          trades between the two, championship-rematch history, both being top
+          scorers, playoff stakes, and final margin.
         </Note>
       </div>
 
-      <WeekCarousel labels={weeks.map((w) => `${season} · Week ${w}`)} defaultIndex={weeks.length - 1}>
+      <WeekCarousel
+        labels={weeks.map((w) => `${season} · Week ${w}`)}
+        defaultIndex={weeks.length - 1}
+      >
         {weeks.map((w) => {
           const playoff = matchupsForWeek(season, w)[0]?.isPlayoff;
           return (

@@ -10,7 +10,13 @@ function initials(label: string): string {
     .join("");
 }
 
-export function Avatar({ userId, size = 28 }: { userId: string | null | undefined; size?: number }) {
+export function Avatar({
+  userId,
+  size = 28,
+}: {
+  userId: string | null | undefined;
+  size?: number;
+}) {
   const m = getManager(userId);
   const url = m?.avatarUrl;
   const dim = { width: size, height: size };

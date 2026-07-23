@@ -11,7 +11,9 @@ export function BarLeaderboard({ rows }: { rows: BarRow[] }) {
       {rows.map((r, i) => (
         <div key={r.userId}>
           <div className="mb-1 flex items-center gap-2">
-            <span className="w-4 text-right text-[11px] text-[var(--muted)]">{i + 1}</span>
+            <span className="w-4 text-right text-[11px] text-[var(--muted)]">
+              {i + 1}
+            </span>
             <Avatar userId={r.userId} size={20} />
             <span className="min-w-0 truncate text-sm">{label(r.userId)}</span>
           </div>
@@ -20,7 +22,9 @@ export function BarLeaderboard({ rows }: { rows: BarRow[] }) {
               className="flex h-full items-center rounded-md bg-gradient-to-r from-sky-500/50 to-emerald-400/60 px-2"
               style={{ width: `${Math.max(8, (r.pct / max) * 100)}%` }}
             >
-              <span className="font-mono text-[11px] font-semibold tabular-nums text-[var(--foreground)]">{r.display}</span>
+              <span className="font-mono text-[11px] font-semibold tabular-nums text-[var(--foreground)]">
+                {r.display}
+              </span>
             </div>
           </div>
         </div>

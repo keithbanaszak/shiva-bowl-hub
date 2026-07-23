@@ -24,10 +24,12 @@ export default function RivalriesPage() {
 
       <div className="mb-6">
         <Note title="What is Rivalry Heat?">
-          A 0–100 score that rewards rivalries that are <strong>frequent</strong> (lots of meetings),{" "}
-          <strong>even</strong> (neither manager dominates), <strong>close</strong> (small average margins),
-          and <strong>high-stakes</strong> (playoff meetings count extra). Two teams that always play
-          nail-biters score higher than a one-sided pairing.
+          A 0–100 score that rewards rivalries that are{" "}
+          <strong>frequent</strong> (lots of meetings), <strong>even</strong>
+          (neither manager dominates), <strong>close</strong> (small average
+          margins), and <strong>high-stakes</strong> (playoff meetings count
+          extra). Two teams that always play nail-biters score higher than a
+          one-sided pairing.
         </Note>
       </div>
 
@@ -41,7 +43,9 @@ export default function RivalriesPage() {
           >
             <div className="flex items-center justify-between">
               <Badge tone={heatTone(p.heat)}>Heat {p.heat}</Badge>
-              <span className="text-xs text-[var(--muted)]">{p.games} games</span>
+              <span className="text-xs text-[var(--muted)]">
+                {p.games} games
+              </span>
             </div>
             <div className="mt-3 flex items-center justify-between gap-2">
               <div className="flex min-w-0 flex-1 items-center gap-2">
@@ -52,14 +56,22 @@ export default function RivalriesPage() {
                 {p.aWins}-{p.bWins}
               </span>
               <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
-                <span className="truncate text-right text-sm">{label(p.bUserId)}</span>
+                <span className="truncate text-right text-sm">
+                  {label(p.bUserId)}
+                </span>
                 <Avatar userId={p.bUserId} size={28} />
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between text-xs text-[var(--muted)]">
               <span>avg margin {p.avgMargin}</span>
-              {p.playoffAWins + p.playoffBWins > 0 && <span>playoffs {p.playoffAWins}-{p.playoffBWins}</span>}
-              <span className="text-[var(--accent)] group-hover:underline">compare →</span>
+              {p.playoffAWins + p.playoffBWins > 0 && (
+                <span>
+                  playoffs {p.playoffAWins}-{p.playoffBWins}
+                </span>
+              )}
+              <span className="text-[var(--accent)] group-hover:underline">
+                compare →
+              </span>
             </div>
           </Link>
         ))}
@@ -70,7 +82,8 @@ export default function RivalriesPage() {
         <Link href="/compare" className="text-[var(--accent)] hover:underline">
           Compare Managers
         </Link>{" "}
-        to pick any two managers and see every meeting, lineup, and trade between them.
+        to pick any two managers and see every meeting, lineup, and trade
+        between them.
       </div>
     </div>
   );

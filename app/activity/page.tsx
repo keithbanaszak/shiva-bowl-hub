@@ -5,7 +5,10 @@ import { activity, events, seasons } from "@/lib/data/activity";
 import { activeManagers } from "@/lib/marts";
 
 export default function ActivityPage() {
-  const managers = activeManagers().map((m) => ({ userId: m.userId, label: m.label }));
+  const managers = activeManagers().map((m) => ({
+    userId: m.userId,
+    label: m.label,
+  }));
 
   // Rows are rendered on the server (they resolve player + manager names from the
   // marts); the client component only picks which indices to show.
@@ -30,13 +33,19 @@ export default function ActivityPage() {
 
       <div className="mb-6">
         <Note title="Reading the feed">
-          Rank chips like <strong>WR7</strong> are that player&rsquo;s <strong>in-league</strong> positional finish for
-          the season the move happened — how he actually scored among players rostered in this league, not an NFL-wide
-          ranking. Dollar amounts are winning FAAB bids.
+          Rank chips like <strong>WR7</strong> are that player’s{" "}
+          <strong>in-league</strong> positional finish for the season the move
+          happened — how he actually scored among players rostered in this
+          league, not an NFL-wide ranking. Dollar amounts are winning FAAB bids.
         </Note>
       </div>
 
-      <ActivityFeed events={events} rows={rows} managers={managers} seasons={seasons()} />
+      <ActivityFeed
+        events={events}
+        rows={rows}
+        managers={managers}
+        seasons={seasons()}
+      />
     </div>
   );
 }

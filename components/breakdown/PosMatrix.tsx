@@ -12,7 +12,11 @@ export type MatrixCell = {
   totalPpw: number; // all-time total per week (0 for PICKS)
   stance: "surplus" | "need" | "balanced";
 };
-export type MatrixRow = { userId: string; label: string; cells: Record<MatrixCol, MatrixCell> };
+export type MatrixRow = {
+  userId: string;
+  label: string;
+  cells: Record<MatrixCol, MatrixCell>;
+};
 
 const COLS: MatrixCol[] = ["QB", "RB", "WR", "TE", "PICKS"];
 const METRICS = [
@@ -72,7 +76,9 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
             key={m.key}
             onClick={() => setMetric(m.key)}
             className={`rounded-lg px-3 py-1.5 text-xs transition ${
-              metric === m.key ? "bg-accent/15 text-accent" : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
+              metric === m.key
+                ? "bg-accent/15 text-accent"
+                : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
             }`}
           >
             {m.label}
@@ -93,7 +99,9 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
                     style={{ color: colColor(c) }}
                   >
                     {c}
-                    <span className="text-[9px] opacity-70">{sortCol === c ? "▾" : ""}</span>
+                    <span className="text-[9px] opacity-70">
+                      {sortCol === c ? "▾" : ""}
+                    </span>
                   </button>
                 </th>
               ))}
@@ -103,7 +111,10 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
             {sorted.map((r) => (
               <tr key={r.userId} className="border-t border-[var(--border)]">
                 <td className="px-3 py-1.5">
-                  <Link href={`/managers/${r.userId}`} className="flex items-center gap-2 hover:text-[var(--accent)]">
+                  <Link
+                    href={`/managers/${r.userId}`}
+                    className="flex items-center gap-2 hover:text-[var(--accent)]"
+                  >
                     <Avatar userId={r.userId} size={20} />
                     <span className="min-w-0 truncate">{r.label}</span>
                   </Link>
@@ -117,13 +128,17 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
                     <td key={c} className="px-1.5 py-1.5 text-center">
                       <div
                         className="relative mx-auto flex h-9 min-w-[44px] items-center justify-center rounded-md font-mono text-xs font-semibold tabular-nums"
-                        style={{ backgroundColor: `${colColor(c)}${alphaHex(t)}` }}
+                        style={{
+                          backgroundColor: `${colColor(c)}${alphaHex(t)}`,
+                        }}
                       >
                         {fmt(v, metric, isPicks)}
                         {r.cells[c].stance !== "balanced" && (
                           <span
                             className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full"
-                            style={{ backgroundColor: STANCE_DOT[r.cells[c].stance] }}
+                            style={{
+                              backgroundColor: STANCE_DOT[r.cells[c].stance],
+                            }}
                             title={r.cells[c].stance}
                           />
                         )}
@@ -138,12 +153,23 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
       </div>
       <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-[var(--muted)]">
         <span className="flex items-center gap-1">
-          <span className="h-2 w-2 rounded-full" style={{ background: STANCE_DOT.surplus }} /> surplus
+          <span
+            className="h-2 w-2 rounded-full"
+            style={{ background: STANCE_DOT.surplus }}
+          />{" "}
+          surplus
         </span>
         <span className="flex items-center gap-1">
-          <span className="h-2 w-2 rounded-full" style={{ background: STANCE_DOT.need }} /> need
+          <span
+            className="h-2 w-2 rounded-full"
+            style={{ background: STANCE_DOT.need }}
+          />{" "}
+          need
         </span>
-        <span>PICKS column = future draft capital (0–100). Cells colored by relative value within each column.</span>
+        <span>
+          PICKS column = future draft capital (0–100). Cells colored by relative
+          value within each column.
+        </span>
       </div>
     </div>
   );

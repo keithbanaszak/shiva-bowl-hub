@@ -13,9 +13,22 @@ const playerPic = (id: string) =>
     : `https://sleepercdn.com/images/team_logos/nfl/${id.toLowerCase()}.png`;
 
 const fmtDate = (ms: number | null) =>
-  ms ? new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
+  ms
+    ? new Date(ms).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      })
+    : "";
 
-function Pic({ url, pos, size = 26 }: { url: string | null; pos?: string | null; size?: number }) {
+function Pic({
+  url,
+  pos,
+  size = 26,
+}: {
+  url: string | null;
+  pos?: string | null;
+  size?: number;
+}) {
   return (
     <span
       aria-hidden
@@ -53,7 +66,10 @@ function AssetRow({
         </span>
         <PickBadge round={a.round} size={26} />
         <span className="min-w-0 flex-1">
-          <span className="block truncate" style={{ color: roundColor(a.round) }}>
+          <span
+            className="block truncate"
+            style={{ color: roundColor(a.round) }}
+          >
             {a.season} Round {a.round}
           </span>
           <span className="block truncate text-[10px] text-[var(--muted)]">
@@ -80,7 +96,7 @@ function AssetRow({
               {a.ppg != null ? ` · ${a.ppg} ppg` : ""}
             </>
           ) : (
-            a.position ?? "—"
+            (a.position ?? "—")
           )}
         </span>
       </span>
@@ -129,49 +145,73 @@ export function TradeReceipt({
           {t.season} · Wk {t.week}
           {t.dateMs ? ` · ${fmtDate(t.dateMs)}` : ""}
         </span>
-        {verdict && <span className={`font-semibold uppercase tracking-wide ${verdict.cls}`}>{verdict.text}</span>}
+        {verdict && (
+          <span
+            className={`font-semibold uppercase tracking-wide ${verdict.cls}`}
+          >
+            {verdict.text}
+          </span>
+        )}
       </div>
 
       {proposer && (
         <div className="mb-3 flex items-center gap-1.5 text-[11px] text-[var(--muted)]">
           <span>Proposed by</span>
           <Pic url={proposer.avatarUrl} size={16} />
-          <span className="truncate font-medium text-[var(--foreground)]">{proposer.label}</span>
+          <span className="truncate font-medium text-[var(--foreground)]">
+            {proposer.label}
+          </span>
         </div>
       )}
 
       {/* content grows; the bar below stays anchored */}
       <div className="flex-1">
-        <div className={`grid gap-2 ${t.sides.length > 2 ? "sm:grid-cols-3" : "grid-cols-[1fr_auto_1fr]"}`}>
+        <div
+          className={`grid gap-2 ${t.sides.length > 2 ? "sm:grid-cols-3" : "grid-cols-[1fr_auto_1fr]"}`}
+        >
           {t.sides.map((s, i) => {
             const m = mgrMap.get(s.userId);
             const r = t.realized?.[s.userId];
-            const isProposer = t.creatorUserId != null && s.userId === t.creatorUserId;
+            const isProposer =
+              t.creatorUserId != null && s.userId === t.creatorUserId;
             return (
               <div key={s.userId} className="contents">
                 <div
                   className={`min-w-0 rounded-xl border bg-[var(--inset)] p-2.5 ${
-                    isProposer ? "border-[var(--accent-2-border)]" : "border-[var(--border)]"
+                    isProposer
+                      ? "border-[var(--accent-2-border)]"
+                      : "border-[var(--border)]"
                   }`}
                 >
                   <div className="mb-2 flex items-center gap-1.5">
                     <Pic url={m?.avatarUrl ?? null} size={20} />
-                    <span className="min-w-0 truncate text-xs font-medium">{m?.label ?? s.userId}</span>
+                    <span className="min-w-0 truncate text-xs font-medium">
+                      {m?.label ?? s.userId}
+                    </span>
                   </div>
                   <ul className="space-y-1.5">
                     {s.received.map((a, j) => (
                       <AssetRow key={`in${j}`} a={a} dir="in" mgrMap={mgrMap} />
                     ))}
                     {s.sent.map((a, j) => (
-                      <AssetRow key={`out${j}`} a={a} dir="out" mgrMap={mgrMap} />
+                      <AssetRow
+                        key={`out${j}`}
+                        a={a}
+                        dir="out"
+                        mgrMap={mgrMap}
+                      />
                     ))}
                     {s.faabReceived > 0 && (
-                      <li className="pl-4 text-[11px] text-[var(--gold)]">← ${s.faabReceived} FAAB</li>
+                      <li className="pl-4 text-[11px] text-[var(--gold)]">
+                        ← ${s.faabReceived} FAAB
+                      </li>
                     )}
                   </ul>
                   {r && (
                     <div className="mt-2 border-t border-[var(--border)] pt-1.5 text-[10px] text-[var(--muted)]">
-                      <span className="font-mono text-sm font-semibold text-[var(--foreground)]">{r[key]}</span>{" "}
+                      <span className="font-mono text-sm font-semibold text-[var(--foreground)]">
+                        {r[key]}
+                      </span>{" "}
                       {basis === "career" ? "career pts" : "ROS pts"}
                     </div>
                   )}
@@ -179,7 +219,10 @@ export function TradeReceipt({
 
                 {/* swap gutter, only between the two sides of a 2-team deal */}
                 {t.sides.length === 2 && i === 0 && (
-                  <div aria-hidden className="grid place-items-center px-0.5 text-sm text-[var(--faint)]">
+                  <div
+                    aria-hidden
+                    className="grid place-items-center px-0.5 text-sm text-[var(--faint)]"
+                  >
                     ⇄
                   </div>
                 )}
@@ -194,13 +237,25 @@ export function TradeReceipt({
         {twoSide && (
           <>
             <div className="flex h-2 overflow-hidden rounded-full bg-[var(--chip)]">
-              <div className="bg-[var(--accent-2)]" style={{ width: `${aShare}%` }} />
-              <div className="bg-[var(--bad)]" style={{ width: `${100 - aShare}%` }} />
+              <div
+                className="bg-[var(--accent-2)]"
+                style={{ width: `${aShare}%` }}
+              />
+              <div
+                className="bg-[var(--bad)]"
+                style={{ width: `${100 - aShare}%` }}
+              />
             </div>
             <div className="mt-1 flex justify-between gap-2 text-[10px] text-[var(--muted)]">
-              <span className="min-w-0 truncate">{mgrMap.get(t.sides[0].userId)?.label}</span>
-              <span className="shrink-0">{basis === "career" ? "career" : "ROS"} split</span>
-              <span className="min-w-0 truncate text-right">{mgrMap.get(t.sides[1].userId)?.label}</span>
+              <span className="min-w-0 truncate">
+                {mgrMap.get(t.sides[0].userId)?.label}
+              </span>
+              <span className="shrink-0">
+                {basis === "career" ? "career" : "ROS"} split
+              </span>
+              <span className="min-w-0 truncate text-right">
+                {mgrMap.get(t.sides[1].userId)?.label}
+              </span>
             </div>
           </>
         )}

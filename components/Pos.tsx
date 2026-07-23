@@ -1,7 +1,13 @@
 import { posColor } from "@/lib/positions";
 
 /** Small position chip in the position's Sleeper color. */
-export function PosBadge({ pos, className = "" }: { pos: string | null | undefined; className?: string }) {
+export function PosBadge({
+  pos,
+  className = "",
+}: {
+  pos: string | null | undefined;
+  className?: string;
+}) {
   if (!pos) return null;
   const c = posColor(pos);
   return (

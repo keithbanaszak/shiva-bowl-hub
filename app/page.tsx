@@ -15,16 +15,41 @@ import { home } from "@/lib/data/home";
 import { events } from "@/lib/data/activity";
 import type { ScheduleMatchup } from "@/lib/stats/types";
 
-function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-[var(--border)] bg-[var(--card)] p-3 ${className}`}>{children}</div>;
+function Panel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border border-[var(--border)] bg-[var(--card)] p-3 ${className}`}
+    >
+      {children}
+    </div>
+  );
 }
 
-function SectionHead({ title, href, linkText }: { title: ReactNode; href?: string; linkText?: string }) {
+function SectionHead({
+  title,
+  href,
+  linkText,
+}: {
+  title: ReactNode;
+  href?: string;
+  linkText?: string;
+}) {
   return (
     <div className="mb-3 flex items-end justify-between gap-3 border-b border-[var(--border)] pb-2">
-      <h2 className="font-display text-lg font-semibold tracking-tight">{title}</h2>
+      <h2 className="font-display text-lg font-semibold tracking-tight">
+        {title}
+      </h2>
       {href && (
-        <Link href={href} className="shrink-0 text-xs text-[var(--accent)] hover:underline">
+        <Link
+          href={href}
+          className="shrink-0 text-xs text-[var(--accent)] hover:underline"
+        >
           {linkText ?? "see all"} →
         </Link>
       )}
@@ -38,29 +63,50 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
   return (
     <Card className="flex h-full flex-col justify-center">
       <div className="mb-3 flex items-center justify-between text-xs">
-        <span className="font-display uppercase tracking-widest text-[var(--accent-2)]">★ Game of the Week</span>
+        <span className="font-display uppercase tracking-widest text-[var(--accent-2)]">
+          ★ Game of the Week
+        </span>
         <span className="text-[var(--muted)]">
           {m.season} · Wk {m.week}
           {m.isPlayoff ? " · Playoffs" : ""}
         </span>
       </div>
       <div className="flex items-center justify-between gap-3">
-        <div className={`flex min-w-0 flex-1 items-center gap-2 ${aWin ? "" : "opacity-70"}`}>
+        <div
+          className={`flex min-w-0 flex-1 items-center gap-2 ${aWin ? "" : "opacity-70"}`}
+        >
           <Avatar userId={m.aUserId} size={32} />
-          <span className="truncate text-sm font-medium">{label(m.aUserId)}</span>
+          <span className="truncate text-sm font-medium">
+            {label(m.aUserId)}
+          </span>
         </div>
         <div className="shrink-0 text-center font-mono tabular-nums">
-          <span className={aWin ? "font-bold text-[var(--accent)]" : ""}>{m.aPoints}</span>
+          <span className={aWin ? "font-bold text-[var(--accent)]" : ""}>
+            {m.aPoints}
+          </span>
           <span className="mx-1 text-[var(--muted)]">–</span>
-          <span className={bWin ? "font-bold text-[var(--accent)]" : ""}>{m.bPoints}</span>
+          <span className={bWin ? "font-bold text-[var(--accent)]" : ""}>
+            {m.bPoints}
+          </span>
         </div>
-        <div className={`flex min-w-0 flex-1 items-center justify-end gap-2 text-right ${bWin ? "" : "opacity-70"}`}>
-          <span className="truncate text-sm font-medium">{label(m.bUserId)}</span>
+        <div
+          className={`flex min-w-0 flex-1 items-center justify-end gap-2 text-right ${bWin ? "" : "opacity-70"}`}
+        >
+          <span className="truncate text-sm font-medium">
+            {label(m.bUserId)}
+          </span>
           <Avatar userId={m.bUserId} size={32} />
         </div>
       </div>
-      {m.reason && <div className="mt-3 text-center text-xs text-[var(--muted)]">{m.reason}</div>}
-      <Link href={`/schedule/${m.season}`} className="mt-3 text-center text-xs text-[var(--accent)] hover:underline">
+      {m.reason && (
+        <div className="mt-3 text-center text-xs text-[var(--muted)]">
+          {m.reason}
+        </div>
+      )}
+      <Link
+        href={`/schedule/${m.season}`}
+        className="mt-3 text-center text-xs text-[var(--accent)] hover:underline"
+      >
         full schedule →
       </Link>
     </Card>
@@ -75,7 +121,10 @@ export default function Home() {
 
   const latestGotw = [...schedule]
     .filter((m) => m.isGameOfWeek)
-    .sort((a, b) => Number(b.season) * 100 + b.week - (Number(a.season) * 100 + a.week))[0];
+    .sort(
+      (a, b) =>
+        Number(b.season) * 100 + b.week - (Number(a.season) * 100 + a.week),
+    )[0];
 
   const seasonStandings = standingsForSeason(latest);
   const maxPf = Math.max(...seasonStandings.map((r) => r.pointsFor), 0);
@@ -89,28 +138,42 @@ export default function Home() {
       {/* hero: champion + marquee game */}
       <div className="mb-8 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
         <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
-          <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">🏆</div>
+          <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">
+            🏆
+          </div>
           <div className="font-display text-xs uppercase tracking-widest text-[var(--gold)]">
             Reigning Champion · {latest}
           </div>
           <div className="mt-3 flex items-center gap-3">
             <Avatar userId={champ} size={52} />
-            <Link href={`/managers/${champ}`} className="text-lg font-semibold text-[var(--gold)] hover:underline">
+            <Link
+              href={`/managers/${champ}`}
+              className="text-lg font-semibold text-[var(--gold)] hover:underline"
+            >
               {label(champ)}
             </Link>
           </div>
-          <Link href={`/awards/${latest}`} className="mt-3 inline-block text-xs text-[var(--gold)] hover:underline">
+          <Link
+            href={`/awards/${latest}`}
+            className="mt-3 inline-block text-xs text-[var(--gold)] hover:underline"
+          >
             {latest} awards →
           </Link>
         </Card>
-        <div className="lg:col-span-2">{latestGotw && <GameOfWeekCard m={latestGotw} />}</div>
+        <div className="lg:col-span-2">
+          {latestGotw && <GameOfWeekCard m={latestGotw} />}
+        </div>
       </div>
 
       {/* activity feed + standings */}
       <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0 space-y-8">
           <section>
-            <SectionHead title="⚡ Latest activity" href="/activity" linkText="full feed" />
+            <SectionHead
+              title="⚡ Latest activity"
+              href="/activity"
+              linkText="full feed"
+            />
             <div className="space-y-1.5">
               {recent.map((e) => (
                 <ActivityRow key={e.id} e={e} />
@@ -132,9 +195,16 @@ export default function Home() {
                       {a.emoji} {a.title}
                     </div>
                     <div className="mt-1.5">
-                      <ManagerChip userId={a.userId} href={`/managers/${a.userId}`} size={22} className="font-medium" />
+                      <ManagerChip
+                        userId={a.userId}
+                        href={`/managers/${a.userId}`}
+                        size={22}
+                        className="font-medium"
+                      />
                     </div>
-                    <div className="mt-1.5 font-mono text-xs text-[var(--gold)]">{a.value}</div>
+                    <div className="mt-1.5 font-mono text-xs text-[var(--gold)]">
+                      {a.value}
+                    </div>
                   </Panel>
                 ))}
               </div>
@@ -147,10 +217,15 @@ export default function Home() {
                     >
                       <PosBadge pos={p.pos} />
                       <PlayerAvatar playerId={p.playerId} size={22} />
-                      <Link href={`/players/${p.playerId}`} className="text-xs hover:text-[var(--accent)]">
+                      <Link
+                        href={`/players/${p.playerId}`}
+                        className="text-xs hover:text-[var(--accent)]"
+                      >
                         {p.name}
                       </Link>
-                      <span className="font-mono text-xs font-semibold text-[var(--accent)]">{p.points}</span>
+                      <span className="font-mono text-xs font-semibold text-[var(--accent)]">
+                        {p.points}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -169,11 +244,15 @@ export default function Home() {
                     href={`/awards/${season}`}
                     className="group rounded-xl border border-[var(--border)] bg-[var(--card)] p-3 text-center transition hover:border-[var(--gold-border)]"
                   >
-                    <div className="text-xs uppercase tracking-widest text-[var(--muted)]">{season}</div>
+                    <div className="text-xs uppercase tracking-widest text-[var(--muted)]">
+                      {season}
+                    </div>
                     <div className="mx-auto my-2 w-fit">
                       <Avatar userId={po?.championUserId} size={40} />
                     </div>
-                    <div className="truncate text-sm font-medium text-[var(--gold)]">{label(po?.championUserId)}</div>
+                    <div className="truncate text-sm font-medium text-[var(--gold)]">
+                      {label(po?.championUserId)}
+                    </div>
                   </Link>
                 );
               })}
@@ -183,19 +262,53 @@ export default function Home() {
           <section>
             <SectionHead title="Explore" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              <TileLink href="/activity" emoji="⚡" title="League Activity" desc="Every trade, add and drop, in order." />
-              <TileLink href="/integrity" emoji="🔍" title="Lineup Integrity" desc="Tank watch — lineups vs projections." />
-              <TileLink href="/breakdown" emoji="🎛️" title="Breakdown" desc="Scoring by position and lineup slot." />
-              <TileLink href="/rivalries" emoji="🔥" title="Rivalries" desc="The league's hottest feuds, ranked." />
-              <TileLink href="/draft" emoji="🎯" title="Draft Room" desc="Rookie-draft steals and busts." />
-              <TileLink href="/records" emoji="📈" title="Record Book" desc="Top weeks, blowouts, bench heists." />
+              <TileLink
+                href="/activity"
+                emoji="⚡"
+                title="League Activity"
+                desc="Every trade, add and drop, in order."
+              />
+              <TileLink
+                href="/integrity"
+                emoji="🔍"
+                title="Lineup Integrity"
+                desc="Tank watch — lineups vs projections."
+              />
+              <TileLink
+                href="/breakdown"
+                emoji="🎛️"
+                title="Breakdown"
+                desc="Scoring by position and lineup slot."
+              />
+              <TileLink
+                href="/rivalries"
+                emoji="🔥"
+                title="Rivalries"
+                desc="The league's hottest feuds, ranked."
+              />
+              <TileLink
+                href="/draft"
+                emoji="🎯"
+                title="Draft Room"
+                desc="Rookie-draft steals and busts."
+              />
+              <TileLink
+                href="/records"
+                emoji="📈"
+                title="Record Book"
+                desc="Top weeks, blowouts, bench heists."
+              />
             </div>
           </section>
         </div>
 
         {/* standings sidebar */}
         <aside className="lg:sticky lg:top-20 lg:self-start">
-          <SectionHead title={`📊 ${latest} Standings`} href={`/luck/${latest}`} linkText="luck" />
+          <SectionHead
+            title={`📊 ${latest} Standings`}
+            href={`/luck/${latest}`}
+            linkText="luck"
+          />
           <Panel>
             <div className="mb-2 flex items-center justify-between px-1 text-[10px] uppercase tracking-wider text-[var(--muted)]">
               <span>Team</span>
@@ -214,9 +327,14 @@ export default function Home() {
                       style={{ width: `${share}%` }}
                     />
                     <div className="relative flex items-center gap-2 text-sm">
-                      <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">{i + 1}</span>
+                      <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">
+                        {i + 1}
+                      </span>
                       <Avatar userId={r.userId} size={20} />
-                      <Link href={`/managers/${r.userId}`} className="min-w-0 flex-1 text-xs hover:text-[var(--accent)]">
+                      <Link
+                        href={`/managers/${r.userId}`}
+                        className="min-w-0 flex-1 text-xs hover:text-[var(--accent)]"
+                      >
                         <FitText fits={17}>{label(r.userId)}</FitText>
                       </Link>
                       {r.champion && <span title="Champion">🏆</span>}

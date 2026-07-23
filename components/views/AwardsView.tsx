@@ -37,13 +37,25 @@ export function AwardsView({ season }: { season: string }) {
 
   const find = (key: string) => awards.find((a) => a.key === key);
   const headlines: string[] = [];
-  if (po?.championUserId) headlines.push(`${label(po.championUserId)} are your ${season} Shiva Bowl champions.`);
+  if (po?.championUserId)
+    headlines.push(
+      `${label(po.championUserId)} are your ${season} Shiva Bowl champions.`,
+    );
   const merch = find("schedule_merchant");
-  if (merch) headlines.push(`${label(merch.userId)} wins Schedule Merchant after finishing ${merch.value} above expectation.`);
+  if (merch)
+    headlines.push(
+      `${label(merch.userId)} wins Schedule Merchant after finishing ${merch.value} above expectation.`,
+    );
   const trader = find("best_trader");
-  if (trader) headlines.push(`${label(trader.userId)} fleeced the league for ${trader.value}.`);
+  if (trader)
+    headlines.push(
+      `${label(trader.userId)} fleeced the league for ${trader.value}.`,
+    );
   const bench = find("bench_billionaire");
-  if (bench) headlines.push(`${label(bench.userId)} left ${bench.value} on the bench — a league record of regret.`);
+  if (bench)
+    headlines.push(
+      `${label(bench.userId)} left ${bench.value} on the bench — a league record of regret.`,
+    );
 
   return (
     <div>
@@ -55,10 +67,15 @@ export function AwardsView({ season }: { season: string }) {
           <div className="flex items-center gap-3">
             <div className="text-4xl">🏆</div>
             <div>
-              <div className="text-xs uppercase tracking-widest text-[var(--gold)]">{season} Champion</div>
-              <div className="text-xl font-semibold text-[var(--gold)]">{label(po.championUserId)}</div>
+              <div className="text-xs uppercase tracking-widest text-[var(--gold)]">
+                {season} Champion
+              </div>
+              <div className="text-xl font-semibold text-[var(--gold)]">
+                {label(po.championUserId)}
+              </div>
               <div className="text-sm text-[var(--muted)]">
-                def. {label(po.runnerUpUserId)} · 3rd {label(po.thirdUserId)} · 🚽 {label(po.toiletUserId)}
+                def. {label(po.runnerUpUserId)} · 3rd {label(po.thirdUserId)} ·
+                🚽 {label(po.toiletUserId)}
               </div>
             </div>
           </div>
@@ -109,17 +126,28 @@ export function AwardsView({ season }: { season: string }) {
             {finalOrder.map((r) => (
               <tr key={r.userId} className="border-t border-[var(--border)]">
                 <td className="py-2 pr-3 tabular-nums">
-                  {r.finish ? (r.finish === 1 ? "🏆 1st" : ordinal(r.finish)) : "—"}
+                  {r.finish
+                    ? r.finish === 1
+                      ? "🏆 1st"
+                      : ordinal(r.finish)
+                    : "—"}
                 </td>
                 <td className="px-3">
-                  <ManagerChip userId={r.userId} href={`/wrapped/${season}/${r.userId}`} />
+                  <ManagerChip
+                    userId={r.userId}
+                    href={`/wrapped/${season}/${r.userId}`}
+                  />
                 </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.seed ?? "—"}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.seed ?? "—"}
+                </td>
                 <td className="px-3 tabular-nums">
                   {r.wins}-{r.losses}
                   {r.ties ? `-${r.ties}` : ""}
                 </td>
-                <td className="px-3 tabular-nums text-[var(--muted)]">{r.pointsFor}</td>
+                <td className="px-3 tabular-nums text-[var(--muted)]">
+                  {r.pointsFor}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -127,7 +155,10 @@ export function AwardsView({ season }: { season: string }) {
       </Card>
 
       <div className="mt-6">
-        <Link href={`/wrapped/${season}`} className="text-sm text-[var(--accent)] hover:underline">
+        <Link
+          href={`/wrapped/${season}`}
+          className="text-sm text-[var(--accent)] hover:underline"
+        >
           See individual Dynasty Wrapped cards for {season} →
         </Link>
       </div>

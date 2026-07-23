@@ -28,12 +28,16 @@ export function ActivityBySeason({ events }: { events: ActivityEvent[] }) {
   }
 
   const seasons = [...bySeason.keys()].sort((a, b) => Number(a) - Number(b));
-  const totals = seasons.map((s) => Object.values(bySeason.get(s) ?? {}).reduce((a, b) => a + b, 0));
+  const totals = seasons.map((s) =>
+    Object.values(bySeason.get(s) ?? {}).reduce((a, b) => a + b, 0),
+  );
   const max = Math.max(1, ...totals);
 
   return (
     <figure className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
-      <figcaption className="mb-1 font-display text-sm font-semibold">Moves per season</figcaption>
+      <figcaption className="mb-1 font-display text-sm font-semibold">
+        Moves per season
+      </figcaption>
       <p className="mb-4 text-xs text-[var(--muted)]">
         Every trade, claim, signing and cut. 2026 is the offseason so far.
       </p>
@@ -41,7 +45,10 @@ export function ActivityBySeason({ events }: { events: ActivityEvent[] }) {
       {/* legend — always present for 2+ series, so identity is never color-alone */}
       <div className="mb-4 flex flex-wrap gap-x-4 gap-y-1.5">
         {SERIES.map((s) => (
-          <span key={s.kind} className="flex items-center gap-1.5 text-[11px] text-[var(--muted)]">
+          <span
+            key={s.kind}
+            className="flex items-center gap-1.5 text-[11px] text-[var(--muted)]"
+          >
             <span
               aria-hidden
               className="h-2.5 w-2.5 rounded-sm"
@@ -58,9 +65,14 @@ export function ActivityBySeason({ events }: { events: ActivityEvent[] }) {
           const total = totals[i];
           return (
             <div key={season} className="flex items-center gap-3">
-              <span className="w-9 shrink-0 font-mono text-xs tabular-nums text-[var(--muted)]">{season}</span>
+              <span className="w-9 shrink-0 font-mono text-xs tabular-nums text-[var(--muted)]">
+                {season}
+              </span>
               {/* 2px surface gaps between segments keep adjacent fills legible */}
-              <div className="flex h-6 flex-1 gap-[2px]" style={{ width: `${(total / max) * 100}%` }}>
+              <div
+                className="flex h-6 flex-1 gap-[2px]"
+                style={{ width: `${(total / max) * 100}%` }}
+              >
                 {SERIES.map((s, si) => {
                   const v = row[s.kind] ?? 0;
                   if (!v) return null;
@@ -72,7 +84,10 @@ export function ActivityBySeason({ events }: { events: ActivityEvent[] }) {
                       className={`group relative grid place-items-center overflow-hidden ${
                         si === 0 ? "rounded-l" : ""
                       } ${si === SERIES.length - 1 ? "rounded-r" : ""}`}
-                      style={{ width: `${pct}%`, backgroundColor: `var(${s.varName})` }}
+                      style={{
+                        width: `${pct}%`,
+                        backgroundColor: `var(${s.varName})`,
+                      }}
                     >
                       {/* direct label — required relief for the low-contrast slots */}
                       {pct > 9 && (
@@ -84,7 +99,9 @@ export function ActivityBySeason({ events }: { events: ActivityEvent[] }) {
                   );
                 })}
               </div>
-              <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums">{total}</span>
+              <span className="w-8 shrink-0 text-right font-mono text-xs tabular-nums">
+                {total}
+              </span>
             </div>
           );
         })}

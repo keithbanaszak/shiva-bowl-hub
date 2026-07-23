@@ -5,9 +5,18 @@ import { pname } from "@/lib/data/players-dict";
 import type { IntegrityWeek, LineupSlotEntry } from "@/lib/stats/types";
 
 const LEVEL: Record<string, { text: string; cls: string }> = {
-  severe: { text: "Severe", cls: "bg-[var(--bad-soft)] text-[var(--bad)] ring-[var(--bad-border)]" },
-  notable: { text: "Notable", cls: "bg-[var(--gold-soft)] text-[var(--gold)] ring-[var(--gold-border)]" },
-  minor: { text: "Minor", cls: "bg-[var(--chip)] text-[var(--muted)] ring-[var(--border)]" },
+  severe: {
+    text: "Severe",
+    cls: "bg-[var(--bad-soft)] text-[var(--bad)] ring-[var(--bad-border)]",
+  },
+  notable: {
+    text: "Notable",
+    cls: "bg-[var(--gold-soft)] text-[var(--gold)] ring-[var(--gold-border)]",
+  },
+  minor: {
+    text: "Minor",
+    cls: "bg-[var(--chip)] text-[var(--muted)] ring-[var(--border)]",
+  },
 };
 
 const REASON: Record<string, string> = {
@@ -18,8 +27,12 @@ const REASON: Record<string, string> = {
 
 function SlotRow({ e, dim = false }: { e: LineupSlotEntry; dim?: boolean }) {
   return (
-    <li className={`flex items-center gap-2 py-0.5 text-xs ${dim ? "opacity-70" : ""}`}>
-      <span className="w-[74px] shrink-0 font-mono text-[10px] uppercase text-[var(--faint)]">{e.slot}</span>
+    <li
+      className={`flex items-center gap-2 py-0.5 text-xs ${dim ? "opacity-70" : ""}`}
+    >
+      <span className="w-[74px] shrink-0 font-mono text-[10px] uppercase text-[var(--faint)]">
+        {e.slot}
+      </span>
       {e.playerId ? (
         <>
           <PlayerAvatar playerId={e.playerId} size={18} />
@@ -32,10 +45,14 @@ function SlotRow({ e, dim = false }: { e: LineupSlotEntry; dim?: boolean }) {
               out
             </span>
           )}
-          <span className="w-11 shrink-0 text-right font-mono tabular-nums text-[var(--muted)]">{e.proj}</span>
+          <span className="w-11 shrink-0 text-right font-mono tabular-nums text-[var(--muted)]">
+            {e.proj}
+          </span>
         </>
       ) : (
-        <span className="min-w-0 flex-1 truncate text-[var(--bad)]">— empty slot —</span>
+        <span className="min-w-0 flex-1 truncate text-[var(--bad)]">
+          — empty slot —
+        </span>
       )}
     </li>
   );
@@ -47,21 +64,31 @@ export function WeekReceipt({ w }: { w: IntegrityWeek }) {
   return (
     <details className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] open:bg-[var(--panel)]">
       <summary className="flex cursor-pointer flex-wrap items-center gap-2 p-4 [&::-webkit-details-marker]:hidden">
-        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ring-1 ring-inset ${lv.cls}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ring-1 ring-inset ${lv.cls}`}
+        >
           {lv.text}
         </span>
         <Avatar userId={w.userId} size={22} />
         <span className="font-medium">{label(w.userId)}</span>
         <span className="text-xs text-[var(--muted)]">
           {w.season} · Wk {w.week}
-          {w.recordBefore && ` · ${w.recordBefore.w}-${w.recordBefore.l} at the time`}
+          {w.recordBefore &&
+            ` · ${w.recordBefore.w}-${w.recordBefore.l} at the time`}
         </span>
         <span className="ml-auto flex items-center gap-3">
           <span className="text-right">
-            <span className="block font-mono text-sm font-semibold text-[var(--bad)]">−{w.gapPts}</span>
-            <span className="block text-[10px] text-[var(--muted)]">{w.gapPct}% below best</span>
+            <span className="block font-mono text-sm font-semibold text-[var(--bad)]">
+              −{w.gapPts}
+            </span>
+            <span className="block text-[10px] text-[var(--muted)]">
+              {w.gapPct}% below best
+            </span>
           </span>
-          <span aria-hidden className="text-[var(--faint)] transition group-open:rotate-180">
+          <span
+            aria-hidden
+            className="text-[var(--faint)] transition group-open:rotate-180"
+          >
             ▾
           </span>
         </span>
@@ -69,8 +96,9 @@ export function WeekReceipt({ w }: { w: IntegrityWeek }) {
 
       <div className="border-t border-[var(--border)] p-4 pt-3">
         <div className="mb-3 text-xs text-[var(--muted)]">
-          {REASON[w.reason]} · projected {w.startedProj} with the lineup started vs {w.bestProj} with the best legal
-          lineup available · actually scored {w.actualPoints}
+          {REASON[w.reason]} · projected {w.startedProj} with the lineup started
+          vs {w.bestProj} with the best legal lineup available · actually scored{" "}
+          {w.actualPoints}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">

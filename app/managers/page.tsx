@@ -21,18 +21,26 @@ export default function ManagersPage() {
             <div className="flex items-center gap-3">
               <Avatar userId={r.userId} size={44} />
               <div className="min-w-0">
-                <div className="truncate font-semibold group-hover:text-[var(--accent)]">{label(r.userId)}</div>
+                <div className="truncate font-semibold group-hover:text-[var(--accent)]">
+                  {label(r.userId)}
+                </div>
                 <div className="text-xs text-[var(--muted)]">
                   {r.wins}-{r.losses}
                   {r.ties ? `-${r.ties}` : ""} · {(r.winPct * 100).toFixed(0)}%
                 </div>
               </div>
-              {r.championships > 0 && <span className="ml-auto text-lg">{"🏆".repeat(Math.min(r.championships, 3))}</span>}
+              {r.championships > 0 && (
+                <span className="ml-auto text-lg">
+                  {"🏆".repeat(Math.min(r.championships, 3))}
+                </span>
+              )}
             </div>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <Badge>IQ {(r.careerEfficiency * 100).toFixed(0)}%</Badge>
               <Badge>All-play {(r.allPlayWinPct * 100).toFixed(0)}%</Badge>
-              {r.bestFinish && <Badge tone="gold">Best {ordinal(r.bestFinish)}</Badge>}
+              {r.bestFinish && (
+                <Badge tone="gold">Best {ordinal(r.bestFinish)}</Badge>
+              )}
             </div>
           </Link>
         ))}

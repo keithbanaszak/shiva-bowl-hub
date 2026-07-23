@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Card, PageHeader, SectionTitle, Stat, Badge, Note, signed } from "@/components/ui";
+import {
+  Card,
+  PageHeader,
+  SectionTitle,
+  Stat,
+  Badge,
+  Note,
+  signed,
+} from "@/components/ui";
 import { ManagerChip } from "@/components/Manager";
 import { SeasonPills } from "@/components/SeasonPills";
 import { LuckScatter, type LuckPoint } from "@/components/charts/LuckScatter";
@@ -13,7 +21,9 @@ export function LuckView({ season }: { season: string }) {
 
   const luckiest = [...rows].sort((a, b) => b.luck - a.luck)[0];
   const cursed = [...rows].sort((a, b) => a.luck - b.luck)[0];
-  const avgPf = rows.length ? rows.reduce((s, r) => s + r.pointsFor, 0) / rows.length : 0;
+  const avgPf = rows.length
+    ? rows.reduce((s, r) => s + r.pointsFor, 0) / rows.length
+    : 0;
 
   const points: LuckPoint[] = rows.map((r) => ({
     label: label(r.userId),
@@ -33,10 +43,15 @@ export function LuckView({ season }: { season: string }) {
 
       <div className="mb-6">
         <Note title="All-play & luck, explained">
-          <strong>All-play</strong>: pretend each team played everyone else every week — beating all who scored
-          less. <strong>Expected wins</strong> = your share of all-play wins; <strong>luck</strong> = actual wins
-          minus expected. Positive luck = won more than your scoring earned.{" "}
-          <Link href="/glossary" className="text-[var(--accent)] hover:underline">
+          <strong>All-play</strong>: pretend each team played everyone else
+          every week — beating all who scored less.{" "}
+          <strong>Expected wins</strong> = your share of all-play wins;{" "}
+          <strong>luck</strong> = actual wins minus expected. Positive luck =
+          won more than your scoring earned.{" "}
+          <Link
+            href="/glossary"
+            className="text-[var(--accent)] hover:underline"
+          >
             full methodology →
           </Link>
         </Note>
@@ -64,7 +79,8 @@ export function LuckView({ season }: { season: string }) {
       <SectionTitle>Points For vs Wins</SectionTitle>
       <Card className="mb-8">
         <p className="mb-2 text-xs text-[var(--muted)]">
-          Dashed line = league-average PF. Up-and-left of it = winning without scoring (fraud). Down-and-right = scoring without winning (cursed).
+          Dashed line = league-average PF. Up-and-left of it = winning without
+          scoring (fraud). Down-and-right = scoring without winning (cursed).
         </p>
         <LuckScatter points={points} avgPf={Math.round(avgPf)} />
       </Card>
@@ -88,7 +104,11 @@ export function LuckView({ season }: { season: string }) {
           <tbody>
             {byAllPlay.map((r) => {
               const verdict =
-                r.luck >= 1.5 ? <Badge tone="bad">Fraud</Badge> : r.luck <= -1.5 ? <Badge tone="info">Cursed</Badge> : null;
+                r.luck >= 1.5 ? (
+                  <Badge tone="bad">Fraud</Badge>
+                ) : r.luck <= -1.5 ? (
+                  <Badge tone="info">Cursed</Badge>
+                ) : null;
               return (
                 <tr key={r.userId} className="border-t border-[var(--border)]">
                   <td className="py-2 pr-3">
@@ -102,11 +122,15 @@ export function LuckView({ season }: { season: string }) {
                   <td className="px-3 tabular-nums text-[var(--muted)]">
                     {r.allPlayWins}-{r.allPlayLosses}
                   </td>
-                  <td className="px-3 tabular-nums">{(r.allPlayWinPct * 100).toFixed(0)}%</td>
+                  <td className="px-3 tabular-nums">
+                    {(r.allPlayWinPct * 100).toFixed(0)}%
+                  </td>
                   <td className="px-3 tabular-nums text-[var(--muted)]">
                     {r.medianWins}-{r.medianLosses}
                   </td>
-                  <td className="px-3 tabular-nums text-[var(--muted)]">{r.expectedWins}</td>
+                  <td className="px-3 tabular-nums text-[var(--muted)]">
+                    {r.expectedWins}
+                  </td>
                   <td
                     className={`px-3 tabular-nums ${r.luck > 0 ? "text-[var(--accent)]" : r.luck < 0 ? "text-[var(--bad)]" : ""}`}
                   >

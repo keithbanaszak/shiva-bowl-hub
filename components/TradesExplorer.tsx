@@ -2,16 +2,34 @@
 
 import { useMemo, useState } from "react";
 import type { Trade, TradeAsset } from "@/lib/stats/types";
-import { TradeReceipt, type Basis, type Mgr } from "@/components/trades/TradeReceipt";
+import {
+  TradeReceipt,
+  type Basis,
+  type Mgr,
+} from "@/components/trades/TradeReceipt";
 
 function assetText(a: TradeAsset): string {
-  return a.kind === "player" ? a.name : `${a.season} R${a.round}${a.becameName ? ` → ${a.becameName}` : ""}`;
+  return a.kind === "player"
+    ? a.name
+    : `${a.season} R${a.round}${a.becameName ? ` → ${a.becameName}` : ""}`;
 }
 
-export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers: Mgr[] }) {
-  const mgrMap = useMemo(() => new Map(managers.map((m) => [m.userId, m])), [managers]);
+export function TradesExplorer({
+  trades,
+  managers,
+}: {
+  trades: Trade[];
+  managers: Mgr[];
+}) {
+  const mgrMap = useMemo(
+    () => new Map(managers.map((m) => [m.userId, m])),
+    [managers],
+  );
   const seasons = useMemo(
-    () => [...new Set(trades.map((t) => t.season))].sort((a, b) => Number(b) - Number(a)),
+    () =>
+      [...new Set(trades.map((t) => t.season))].sort(
+        (a, b) => Number(b) - Number(a),
+      ),
     [trades],
   );
 
@@ -34,24 +52,37 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
       if (season !== "all" && t.season !== season) return false;
       if (!needle) return true;
       const inAssets = t.sides.some((s) =>
-        [...s.received, ...s.sent].some((a) => assetText(a).toLowerCase().includes(needle)),
+        [...s.received, ...s.sent].some((a) =>
+          assetText(a).toLowerCase().includes(needle),
+        ),
       );
-      const inMgr = t.sides.some((s) => (mgrMap.get(s.userId)?.label ?? "").toLowerCase().includes(needle));
+      const inMgr = t.sides.some((s) =>
+        (mgrMap.get(s.userId)?.label ?? "").toLowerCase().includes(needle),
+      );
       return inAssets || inMgr;
     });
-    if (sort === "new") list = [...list].sort((a, b) => (b.dateMs ?? 0) - (a.dateMs ?? 0));
+    if (sort === "new")
+      list = [...list].sort((a, b) => (b.dateMs ?? 0) - (a.dateMs ?? 0));
     if (sort === "lopsided")
-      list = [...list].filter((t) => diff(t) != null).sort((a, b) => (diff(b) ?? 0) - (diff(a) ?? 0));
+      list = [...list]
+        .filter((t) => diff(t) != null)
+        .sort((a, b) => (diff(b) ?? 0) - (diff(a) ?? 0));
     if (sort === "even")
       list = [...list]
-        .filter((t) => diff(t) != null && Object.values(t.realized!).every((r) => r[key] > 0))
+        .filter(
+          (t) =>
+            diff(t) != null &&
+            Object.values(t.realized!).every((r) => r[key] > 0),
+        )
         .sort((a, b) => (diff(a) ?? 0) - (diff(b) ?? 0));
     return list;
   }, [trades, q, season, sort, basis, mgrMap]);
 
   const seg = (on: boolean) =>
     `rounded-md px-2.5 py-1.5 transition ${
-      on ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"
+      on
+        ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+        : "text-[var(--muted)] hover:text-[var(--foreground)]"
     }`;
 
   return (
@@ -80,8 +111,18 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
           </select>
 
           <div className="flex rounded-lg border border-[var(--border)] p-0.5 text-xs">
-            {([["new", "Newest"], ["lopsided", "Most lopsided"], ["even", "Most even"]] as const).map(([k, lab]) => (
-              <button key={k} onClick={() => setSort(k)} className={seg(sort === k)}>
+            {(
+              [
+                ["new", "Newest"],
+                ["lopsided", "Most lopsided"],
+                ["even", "Most even"],
+              ] as const
+            ).map(([k, lab]) => (
+              <button
+                key={k}
+                onClick={() => setSort(k)}
+                className={seg(sort === k)}
+              >
                 {lab}
               </button>
             ))}
@@ -95,17 +136,32 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
           >
             {(
               [
-                ["career", "Career", "All points since the trade, across seasons"],
-                ["ros", "ROS", "Rest-of-season only — points before that season ended"],
+                [
+                  "career",
+                  "Career",
+                  "All points since the trade, across seasons",
+                ],
+                [
+                  "ros",
+                  "ROS",
+                  "Rest-of-season only — points before that season ended",
+                ],
               ] as const
             ).map(([k, lab, title]) => (
-              <button key={k} onClick={() => setBasis(k)} className={seg(basis === k)} title={title}>
+              <button
+                key={k}
+                onClick={() => setBasis(k)}
+                className={seg(basis === k)}
+                title={title}
+              >
                 {lab}
               </button>
             ))}
           </div>
 
-          <span className="ml-auto text-xs text-[var(--muted)]">{filtered.length} trades</span>
+          <span className="ml-auto text-xs text-[var(--muted)]">
+            {filtered.length} trades
+          </span>
         </div>
       </div>
 
@@ -116,7 +172,11 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
           <TradeReceipt key={t.id} t={t} mgrMap={mgrMap} basis={basis} />
         ))}
       </div>
-      {filtered.length === 0 && <div className="py-12 text-center text-sm text-[var(--muted)]">No trades match.</div>}
+      {filtered.length === 0 && (
+        <div className="py-12 text-center text-sm text-[var(--muted)]">
+          No trades match.
+        </div>
+      )}
     </div>
   );
 }

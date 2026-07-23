@@ -52,7 +52,9 @@ export function ActivityFeed({
 
   const seg = (on: boolean) =>
     `rounded-md px-2.5 py-1.5 text-xs transition ${
-      on ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"
+      on
+        ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+        : "text-[var(--muted)] hover:text-[var(--foreground)]"
     }`;
 
   return (
@@ -119,10 +121,15 @@ export function ActivityFeed({
           onClick={() => setLimit((l) => l + PAGE)}
           className="mt-4 w-full rounded-xl border border-[var(--border)] py-2.5 text-sm text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
         >
-          Show {Math.min(PAGE, visible.length - shown.length)} more · {visible.length - shown.length} remaining
+          Show {Math.min(PAGE, visible.length - shown.length)} more ·{" "}
+          {visible.length - shown.length} remaining
         </button>
       )}
-      {visible.length === 0 && <div className="py-12 text-center text-sm text-[var(--muted)]">No moves match.</div>}
+      {visible.length === 0 && (
+        <div className="py-12 text-center text-sm text-[var(--muted)]">
+          No moves match.
+        </div>
+      )}
     </div>
   );
 }

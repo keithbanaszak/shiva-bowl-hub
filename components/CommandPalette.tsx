@@ -12,8 +12,16 @@ import { posColor } from "@/lib/positions";
  * the RSC payload of the ~600 prerendered pages.
  */
 
-const KIND_ORDER: Record<SearchDoc["kind"], number> = { page: 0, manager: 1, player: 2 };
-const KIND_LABEL: Record<SearchDoc["kind"], string> = { page: "Pages", manager: "Managers", player: "Players" };
+const KIND_ORDER: Record<SearchDoc["kind"], number> = {
+  page: 0,
+  manager: 1,
+  player: 2,
+};
+const KIND_LABEL: Record<SearchDoc["kind"], string> = {
+  page: "Pages",
+  manager: "Managers",
+  player: "Players",
+};
 const MAX_RESULTS = 24;
 
 /** Higher is better; -1 means no match. */
@@ -29,7 +37,13 @@ function rank(doc: SearchDoc, q: string): number {
   return -1;
 }
 
-export function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function CommandPalette({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   const router = useRouter();
   const [docs, setDocs] = useState<SearchDoc[] | null>(null);
   const [q, setQ] = useState("");
@@ -41,7 +55,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
     if (!open || docs) return;
     let cancelled = false;
     fetch("/search-index.json")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((r) =>
+        r.ok ? r.json() : Promise.reject(new Error(String(r.status))),
+      )
       .then((data: SearchIndex) => {
         if (!cancelled) setDocs(data.docs);
       })
@@ -107,7 +123,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
 
   // keep the highlighted row in view while arrowing
   useEffect(() => {
-    listRef.current?.querySelector<HTMLElement>('[data-active="true"]')?.scrollIntoView({ block: "nearest" });
+    listRef.current
+      ?.querySelector<HTMLElement>('[data-active="true"]')
+      ?.scrollIntoView({ block: "nearest" });
   }, [active]);
 
   if (!open) return null;
@@ -146,42 +164,66 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
           </kbd>
         </div>
 
-        <div ref={listRef} className="scroll-thin max-h-[52vh] overflow-y-auto p-1.5">
-          {docs === null && <div className="px-3 py-6 text-center text-sm text-[var(--muted)]">Loading…</div>}
+        <div
+          ref={listRef}
+          className="scroll-thin max-h-[52vh] overflow-y-auto p-1.5"
+        >
+          {docs === null && (
+            <div className="px-3 py-6 text-center text-sm text-[var(--muted)]">
+              Loading…
+            </div>
+          )}
           {docs !== null && results.length === 0 && (
-            <div className="px-3 py-6 text-center text-sm text-[var(--muted)]">No matches.</div>
+            <div className="px-3 py-6 text-center text-sm text-[var(--muted)]">
+              No matches.
+            </div>
           )}
           {results.map((d, i) => {
-            const header = d.kind !== lastKind ? ((lastKind = d.kind), KIND_LABEL[d.kind]) : null;
+            const header =
+              d.kind !== lastKind
+                ? ((lastKind = d.kind), KIND_LABEL[d.kind])
+                : null;
             return (
               <div key={`${d.kind}:${d.id}`}>
                 {header && (
-                  <div className="px-3 pb-1 pt-2 text-[10px] uppercase tracking-wider text-[var(--faint)]">{header}</div>
+                  <div className="px-3 pb-1 pt-2 text-[10px] uppercase tracking-wider text-[var(--faint)]">
+                    {header}
+                  </div>
                 )}
                 <button
                   data-active={i === active}
                   onMouseMove={() => setActive(i)}
                   onClick={() => go(d)}
                   className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left transition ${
-                    i === active ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "hover:bg-[var(--card-2)]"
+                    i === active
+                      ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
+                      : "hover:bg-[var(--card-2)]"
                   }`}
                 >
                   {d.kind === "player" && d.pos ? (
                     <span
                       aria-hidden
-                      style={{ backgroundColor: `${posColor(d.pos)}22`, color: posColor(d.pos) }}
+                      style={{
+                        backgroundColor: `${posColor(d.pos)}22`,
+                        color: posColor(d.pos),
+                      }}
                       className="grid h-6 w-8 shrink-0 place-items-center rounded text-[9px] font-bold"
                     >
                       {d.pos}
                     </span>
                   ) : (
-                    <span aria-hidden className="grid h-6 w-8 shrink-0 place-items-center text-xs text-[var(--muted)]">
+                    <span
+                      aria-hidden
+                      className="grid h-6 w-8 shrink-0 place-items-center text-xs text-[var(--muted)]"
+                    >
                       {d.kind === "manager" ? "◆" : "→"}
                     </span>
                   )}
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm">{d.label}</span>
-                    <span className="block truncate text-[11px] text-[var(--muted)]">{d.sub}</span>
+                    <span className="block truncate text-[11px] text-[var(--muted)]">
+                      {d.sub}
+                    </span>
                   </span>
                 </button>
               </div>
@@ -192,7 +234,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
         <div className="flex items-center gap-3 border-t border-[var(--border)] px-4 py-2 text-[10px] text-[var(--faint)]">
           <span>↑↓ navigate</span>
           <span>↵ open</span>
-          <span className="ml-auto">{results.length} result{results.length === 1 ? "" : "s"}</span>
+          <span className="ml-auto">
+            {results.length} result{results.length === 1 ? "" : "s"}
+          </span>
         </div>
       </div>
     </div>

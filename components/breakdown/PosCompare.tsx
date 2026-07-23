@@ -7,7 +7,10 @@ import { posColor } from "@/lib/positions";
 
 type Pos = "QB" | "RB" | "WR" | "TE";
 export type CompareDatum = {
-  positions: Record<Pos, { startedPpg: number; benchPpg: number; strength: number }>;
+  positions: Record<
+    Pos,
+    { startedPpg: number; benchPpg: number; strength: number }
+  >;
   picks: { capital: number };
 };
 const POS: Pos[] = ["QB", "RB", "WR", "TE"];
@@ -32,9 +35,16 @@ function Row({
       <div className="flex items-center justify-end gap-2">
         <span className="font-mono text-xs tabular-nums">
           {a.val.toFixed(isPicks ? 0 : 1)}
-          {a.str != null && <span className="ml-1 text-[10px] text-[var(--muted)]">·{Math.round(a.str)}</span>}
+          {a.str != null && (
+            <span className="ml-1 text-[10px] text-[var(--muted)]">
+              ·{Math.round(a.str)}
+            </span>
+          )}
         </span>
-        <div className="h-3 rounded" style={{ width: w(a.val), backgroundColor: `${color}cc` }} />
+        <div
+          className="h-3 rounded"
+          style={{ width: w(a.val), backgroundColor: `${color}cc` }}
+        />
       </div>
       <div className="w-14 text-center">
         {isPicks ? (
@@ -46,9 +56,16 @@ function Row({
         )}
       </div>
       <div className="flex items-center gap-2">
-        <div className="h-3 rounded" style={{ width: w(b.val), backgroundColor: `${color}cc` }} />
+        <div
+          className="h-3 rounded"
+          style={{ width: w(b.val), backgroundColor: `${color}cc` }}
+        />
         <span className="font-mono text-xs tabular-nums">
-          {b.str != null && <span className="mr-1 text-[10px] text-[var(--muted)]">{Math.round(b.str)}·</span>}
+          {b.str != null && (
+            <span className="mr-1 text-[10px] text-[var(--muted)]">
+              {Math.round(b.str)}·
+            </span>
+          )}
           {b.val.toFixed(isPicks ? 0 : 1)}
         </span>
       </div>
@@ -86,12 +103,18 @@ export function PosCompare({
     <div>
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="flex-1">
-          <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager A</div>
+          <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">
+            Manager A
+          </div>
           {select(a, setA)}
         </div>
-        <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-[var(--chip)] text-xs font-bold">VS</div>
+        <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-[var(--chip)] text-xs font-bold">
+          VS
+        </div>
         <div className="flex-1">
-          <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager B</div>
+          <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">
+            Manager B
+          </div>
           {select(b, setB)}
         </div>
       </div>
@@ -109,18 +132,35 @@ export function PosCompare({
                 key={p}
                 pos={p}
                 color={posColor(p)}
-                a={{ val: da.positions[p].startedPpg, str: da.positions[p].strength }}
-                b={{ val: db.positions[p].startedPpg, str: db.positions[p].strength }}
+                a={{
+                  val: da.positions[p].startedPpg,
+                  str: da.positions[p].strength,
+                }}
+                b={{
+                  val: db.positions[p].startedPpg,
+                  str: db.positions[p].strength,
+                }}
               />
             ))}
-            <Row pos="PICKS" isPicks color="#22d3ee" a={{ val: da.picks.capital }} b={{ val: db.picks.capital }} />
+            <Row
+              pos="PICKS"
+              isPicks
+              color="#22d3ee"
+              a={{ val: da.picks.capital }}
+              b={{ val: db.picks.capital }}
+            />
           </div>
-          <Link href={`/compare/${a}/${b}`} className="mt-4 inline-block text-xs text-[var(--accent)] hover:underline">
+          <Link
+            href={`/compare/${a}/${b}`}
+            className="mt-4 inline-block text-xs text-[var(--accent)] hover:underline"
+          >
             Full head-to-head →
           </Link>
         </>
       ) : (
-        <div className="text-sm text-[var(--muted)]">Pick two different managers to compare.</div>
+        <div className="text-sm text-[var(--muted)]">
+          Pick two different managers to compare.
+        </div>
       )}
     </div>
   );

@@ -17,14 +17,18 @@ export default function AwardsIndex() {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {seasons.map((season) => {
           const po = playoffsForSeason(season);
-          const merch = awardsForSeason(season).find((a) => a.key === "schedule_merchant");
+          const merch = awardsForSeason(season).find(
+            (a) => a.key === "schedule_merchant",
+          );
           return (
             <Link
               key={season}
               href={`/awards/${season}`}
               className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 transition hover:border-[var(--gold-border)] hover:bg-[var(--card-2)]"
             >
-              <div className="text-xs uppercase tracking-widest text-[var(--muted)]">{season}</div>
+              <div className="text-xs uppercase tracking-widest text-[var(--muted)]">
+                {season}
+              </div>
               <div className="mt-2 flex items-center gap-2">
                 <span className="text-2xl">🏆</span>
                 <Avatar userId={po?.championUserId} size={32} />
