@@ -1,0 +1,7187 @@
+{
+  "17": {
+    "player_id": "17",
+    "full_name": "Matt Prater",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 41,
+    "years_exp": 20
+  },
+  "19": {
+    "player_id": "19",
+    "full_name": "Joe Flacco",
+    "position": "QB",
+    "team": "CIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 41,
+    "years_exp": 18
+  },
+  "24": {
+    "player_id": "24",
+    "full_name": "Matt Ryan",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 37,
+    "years_exp": 15
+  },
+  "49": {
+    "player_id": "49",
+    "full_name": "Robbie Gould",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 40,
+    "years_exp": 18
+  },
+  "59": {
+    "player_id": "59",
+    "full_name": "Mason Crosby",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 39,
+    "years_exp": 17
+  },
+  "96": {
+    "player_id": "96",
+    "full_name": "Aaron Rodgers",
+    "position": "QB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 42,
+    "years_exp": 21
+  },
+  "138": {
+    "player_id": "138",
+    "full_name": "Ben Roethlisberger",
+    "position": "QB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 39,
+    "years_exp": 18
+  },
+  "147": {
+    "player_id": "147",
+    "full_name": "DeSean Jackson",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 36,
+    "years_exp": 14
+  },
+  "167": {
+    "player_id": "167",
+    "full_name": "Tom Brady",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 45,
+    "years_exp": 23
+  },
+  "260": {
+    "player_id": "260",
+    "full_name": "Josh Johnson",
+    "position": "QB",
+    "team": "CIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 40,
+    "years_exp": 18
+  },
+  "289": {
+    "player_id": "289",
+    "full_name": "Drew Brees",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 42,
+    "years_exp": 20
+  },
+  "331": {
+    "player_id": "331",
+    "full_name": "Philip Rivers",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 44,
+    "years_exp": 22
+  },
+  "345": {
+    "player_id": "345",
+    "full_name": "Brian Hoyer",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 38,
+    "years_exp": 15
+  },
+  "391": {
+    "player_id": "391",
+    "full_name": "Ryan Succop",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 36,
+    "years_exp": 14
+  },
+  "421": {
+    "player_id": "421",
+    "full_name": "Matthew Stafford",
+    "position": "QB",
+    "team": "LAR",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 38,
+    "years_exp": 17
+  },
+  "503": {
+    "player_id": "503",
+    "full_name": "Graham Gano",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 38,
+    "years_exp": 17
+  },
+  "515": {
+    "player_id": "515",
+    "full_name": "Rob Gronkowski",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 32,
+    "years_exp": 12
+  },
+  "533": {
+    "player_id": "533",
+    "full_name": "Colt McCoy",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 36,
+    "years_exp": 13
+  },
+  "650": {
+    "player_id": "650",
+    "full_name": "Nick Folk",
+    "position": "K",
+    "team": "ATL",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 41,
+    "years_exp": 19
+  },
+  "827": {
+    "player_id": "827",
+    "full_name": "Tyrod Taylor",
+    "position": "QB",
+    "team": "GB",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 36,
+    "years_exp": 15
+  },
+  "829": {
+    "player_id": "829",
+    "full_name": "Andy Dalton",
+    "position": "QB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 38,
+    "years_exp": 15
+  },
+  "830": {
+    "player_id": "830",
+    "full_name": "A.J. Green",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 34,
+    "years_exp": 12
+  },
+  "928": {
+    "player_id": "928",
+    "full_name": "Randall Cobb",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 13
+  },
+  "947": {
+    "player_id": "947",
+    "full_name": "Julio Jones",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 35,
+    "years_exp": 13
+  },
+  "956": {
+    "player_id": "956",
+    "full_name": "Mark Ingram",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 33,
+    "years_exp": 12
+  },
+  "1029": {
+    "player_id": "1029",
+    "full_name": "Nick Foles",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 34,
+    "years_exp": 11
+  },
+  "1049": {
+    "player_id": "1049",
+    "full_name": "Ryan Tannehill",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 35,
+    "years_exp": 12
+  },
+  "1067": {
+    "player_id": "1067",
+    "full_name": "Marvin Jones",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 11
+  },
+  "1166": {
+    "player_id": "1166",
+    "full_name": "Kirk Cousins",
+    "position": "QB",
+    "team": "LV",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 37,
+    "years_exp": 14
+  },
+  "1234": {
+    "player_id": "1234",
+    "full_name": "Russell Wilson",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 37,
+    "years_exp": 14
+  },
+  "1264": {
+    "player_id": "1264",
+    "full_name": "Justin Tucker",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 35,
+    "years_exp": 13
+  },
+  "1266": {
+    "player_id": "1266",
+    "full_name": "Greg Zuerlein",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 37,
+    "years_exp": 13
+  },
+  "1339": {
+    "player_id": "1339",
+    "full_name": "Zach Ertz",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 35,
+    "years_exp": 13
+  },
+  "1348": {
+    "player_id": "1348",
+    "full_name": "Dustin Hopkins",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 34,
+    "years_exp": 12
+  },
+  "1352": {
+    "player_id": "1352",
+    "full_name": "Robert Woods",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 12
+  },
+  "1373": {
+    "player_id": "1373",
+    "full_name": "Geno Smith",
+    "position": "QB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 35,
+    "years_exp": 13
+  },
+  "1387": {
+    "player_id": "1387",
+    "full_name": "Rex Burkhead",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "1426": {
+    "player_id": "1426",
+    "full_name": "DeAndre Hopkins",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 13
+  },
+  "1433": {
+    "player_id": "1433",
+    "full_name": "Brandon McManus",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 34,
+    "years_exp": 13
+  },
+  "1466": {
+    "player_id": "1466",
+    "full_name": "Travis Kelce",
+    "position": "TE",
+    "team": "KC",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 36,
+    "years_exp": 13
+  },
+  "1476": {
+    "player_id": "1476",
+    "full_name": "Latavius Murray",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 34,
+    "years_exp": 11
+  },
+  "1479": {
+    "player_id": "1479",
+    "full_name": "Keenan Allen",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 13
+  },
+  "1535": {
+    "player_id": "1535",
+    "full_name": "Cordarrelle Patterson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 34,
+    "years_exp": 12
+  },
+  "1689": {
+    "player_id": "1689",
+    "full_name": "Adam Thielen",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 35,
+    "years_exp": 13
+  },
+  "1737": {
+    "player_id": "1737",
+    "full_name": "Case Keenum",
+    "position": "QB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 38,
+    "years_exp": 14
+  },
+  "1817": {
+    "player_id": "1817",
+    "full_name": "Sammy Watkins",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "1825": {
+    "player_id": "1825",
+    "full_name": "Jarvis Landry",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "1837": {
+    "player_id": "1837",
+    "full_name": "Jimmy Garoppolo",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 34,
+    "years_exp": 12
+  },
+  "1945": {
+    "player_id": "1945",
+    "full_name": "Chris Boswell",
+    "position": "K",
+    "team": "PIT",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 35,
+    "years_exp": 12
+  },
+  "1992": {
+    "player_id": "1992",
+    "full_name": "Allen Robinson",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 11
+  },
+  "2020": {
+    "player_id": "2020",
+    "full_name": "Cairo Santos",
+    "position": "K",
+    "team": "CHI",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 34,
+    "years_exp": 12
+  },
+  "2028": {
+    "player_id": "2028",
+    "full_name": "Derek Carr",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 34,
+    "years_exp": 11
+  },
+  "2078": {
+    "player_id": "2078",
+    "full_name": "Odell Beckham",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 12
+  },
+  "2133": {
+    "player_id": "2133",
+    "full_name": "Davante Adams",
+    "position": "WR",
+    "team": "LAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 12
+  },
+  "2152": {
+    "player_id": "2152",
+    "full_name": "Teddy Bridgewater",
+    "position": "QB",
+    "team": "DET",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 33,
+    "years_exp": 12
+  },
+  "2161": {
+    "player_id": "2161",
+    "full_name": "Jerick McKinnon",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "2197": {
+    "player_id": "2197",
+    "full_name": "Brandin Cooks",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 12
+  },
+  "2214": {
+    "player_id": "2214",
+    "full_name": "Cameron Brate",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "2216": {
+    "player_id": "2216",
+    "full_name": "Mike Evans",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 12
+  },
+  "2251": {
+    "player_id": "2251",
+    "full_name": "Logan Thomas",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "2306": {
+    "player_id": "2306",
+    "full_name": "Jameis Winston",
+    "position": "QB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 11
+  },
+  "2307": {
+    "player_id": "2307",
+    "full_name": "Marcus Mariota",
+    "position": "QB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 11
+  },
+  "2309": {
+    "player_id": "2309",
+    "full_name": "Amari Cooper",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "2319": {
+    "player_id": "2319",
+    "full_name": "DeVante Parker",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "2320": {
+    "player_id": "2320",
+    "full_name": "Melvin Gordon",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "2359": {
+    "player_id": "2359",
+    "full_name": "Ameer Abdullah",
+    "position": "RB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 32,
+    "years_exp": 11
+  },
+  "2374": {
+    "player_id": "2374",
+    "full_name": "Tyler Lockett",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 11
+  },
+  "2378": {
+    "player_id": "2378",
+    "full_name": "Tevin Coleman",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "2410": {
+    "player_id": "2410",
+    "full_name": "Jamison Crowder",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "2431": {
+    "player_id": "2431",
+    "full_name": "Mike Davis",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "2449": {
+    "player_id": "2449",
+    "full_name": "Stefon Diggs",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 11
+  },
+  "2505": {
+    "player_id": "2505",
+    "full_name": "Darren Waller",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 33,
+    "years_exp": 11
+  },
+  "2711": {
+    "player_id": "2711",
+    "full_name": "Taylor Heinicke",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "2747": {
+    "player_id": "2747",
+    "full_name": "Jason Myers",
+    "position": "K",
+    "team": "SEA",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 35,
+    "years_exp": 11
+  },
+  "2749": {
+    "player_id": "2749",
+    "full_name": "Raheem Mostert",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 33,
+    "years_exp": 11
+  },
+  "2750": {
+    "player_id": "2750",
+    "full_name": "DeAndre Carter",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 11
+  },
+  "3157": {
+    "player_id": "3157",
+    "full_name": "William Fuller",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "3161": {
+    "player_id": "3161",
+    "full_name": "Carson Wentz",
+    "position": "QB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "3163": {
+    "player_id": "3163",
+    "full_name": "Jared Goff",
+    "position": "QB",
+    "team": "DET",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3164": {
+    "player_id": "3164",
+    "full_name": "Ezekiel Elliott",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "3198": {
+    "player_id": "3198",
+    "full_name": "Derrick Henry",
+    "position": "RB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "3199": {
+    "player_id": "3199",
+    "full_name": "Michael Thomas",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "3200": {
+    "player_id": "3200",
+    "full_name": "Sterling Shepard",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "3202": {
+    "player_id": "3202",
+    "full_name": "Austin Hooper",
+    "position": "TE",
+    "team": "ATL",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3214": {
+    "player_id": "3214",
+    "full_name": "Hunter Henry",
+    "position": "TE",
+    "team": "NE",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3225": {
+    "player_id": "3225",
+    "full_name": "Tyler Boyd",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "3242": {
+    "player_id": "3242",
+    "full_name": "Kenyan Drake",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "3257": {
+    "player_id": "3257",
+    "full_name": "Jacoby Brissett",
+    "position": "QB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "3271": {
+    "player_id": "3271",
+    "full_name": "Tyler Higbee",
+    "position": "TE",
+    "team": "LAR",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "3286": {
+    "player_id": "3286",
+    "full_name": "Demarcus Robinson",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3294": {
+    "player_id": "3294",
+    "full_name": "Dak Prescott",
+    "position": "QB",
+    "team": "DAL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "3321": {
+    "player_id": "3321",
+    "full_name": "Tyreek Hill",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3357": {
+    "player_id": "3357",
+    "full_name": "Brandon Allen",
+    "position": "QB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 33,
+    "years_exp": 10
+  },
+  "3423": {
+    "player_id": "3423",
+    "full_name": "Robbie Chosen",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "3451": {
+    "player_id": "3451",
+    "full_name": "Ka'imi Fairbairn",
+    "position": "K",
+    "team": "HOU",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 32,
+    "years_exp": 10
+  },
+  "3634": {
+    "player_id": "3634",
+    "full_name": "Kalif Raymond",
+    "position": "WR",
+    "team": "CHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3664": {
+    "player_id": "3664",
+    "full_name": "J.D. McKissic",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "3678": {
+    "player_id": "3678",
+    "full_name": "Wil Lutz",
+    "position": "K",
+    "team": "DEN",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 31,
+    "years_exp": 10
+  },
+  "3969": {
+    "player_id": "3969",
+    "full_name": "Leonard Fournette",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "3976": {
+    "player_id": "3976",
+    "full_name": "Mitchell Trubisky",
+    "position": "QB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4017": {
+    "player_id": "4017",
+    "full_name": "Deshaun Watson",
+    "position": "QB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4018": {
+    "player_id": "4018",
+    "full_name": "Joe Mixon",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "4029": {
+    "player_id": "4029",
+    "full_name": "Dalvin Cook",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4033": {
+    "player_id": "4033",
+    "full_name": "David Njoku",
+    "position": "TE",
+    "team": "LAC",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "4034": {
+    "player_id": "4034",
+    "full_name": "Christian McCaffrey",
+    "position": "RB",
+    "team": "SF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4035": {
+    "player_id": "4035",
+    "full_name": "Alvin Kamara",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4036": {
+    "player_id": "4036",
+    "full_name": "Corey Davis",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "4037": {
+    "player_id": "4037",
+    "full_name": "Chris Godwin",
+    "position": "WR",
+    "team": "TB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4039": {
+    "player_id": "4039",
+    "full_name": "Cooper Kupp",
+    "position": "WR",
+    "team": "SEA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4040": {
+    "player_id": "4040",
+    "full_name": "JuJu Smith-Schuster",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "4046": {
+    "player_id": "4046",
+    "full_name": "Patrick Mahomes",
+    "position": "QB",
+    "team": "KC",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4054": {
+    "player_id": "4054",
+    "full_name": "Mo Alie-Cox",
+    "position": "TE",
+    "team": "IND",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4066": {
+    "player_id": "4066",
+    "full_name": "Evan Engram",
+    "position": "TE",
+    "team": "DEN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4068": {
+    "player_id": "4068",
+    "full_name": "Mike Williams",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "4080": {
+    "player_id": "4080",
+    "full_name": "Zay Jones",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4082": {
+    "player_id": "4082",
+    "full_name": "Curtis Samuel",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 9
+  },
+  "4089": {
+    "player_id": "4089",
+    "full_name": "Gerald Everett",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "4098": {
+    "player_id": "4098",
+    "full_name": "Kareem Hunt",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4111": {
+    "player_id": "4111",
+    "full_name": "D'Onta Foreman",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 8
+  },
+  "4127": {
+    "player_id": "4127",
+    "full_name": "C.J. Beathard",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4131": {
+    "player_id": "4131",
+    "full_name": "Kenny Golladay",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "4137": {
+    "player_id": "4137",
+    "full_name": "James Conner",
+    "position": "RB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4144": {
+    "player_id": "4144",
+    "full_name": "Jonnu Smith",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4147": {
+    "player_id": "4147",
+    "full_name": "Samaje Perine",
+    "position": "RB",
+    "team": "CIN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4149": {
+    "player_id": "4149",
+    "full_name": "Jamaal Williams",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4152": {
+    "player_id": "4152",
+    "full_name": "Marlon Mack",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "4171": {
+    "player_id": "4171",
+    "full_name": "Josh Reynolds",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4177": {
+    "player_id": "4177",
+    "full_name": "Mack Hollins",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4179": {
+    "player_id": "4179",
+    "full_name": "Joshua Dobbs",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4195": {
+    "player_id": "4195",
+    "full_name": "Jake Elliott",
+    "position": "K",
+    "team": "PHI",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4197": {
+    "player_id": "4197",
+    "full_name": "Isaiah McKenzie",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4199": {
+    "player_id": "4199",
+    "full_name": "Aaron Jones",
+    "position": "RB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4217": {
+    "player_id": "4217",
+    "full_name": "George Kittle",
+    "position": "TE",
+    "team": "SF",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4219": {
+    "player_id": "4219",
+    "full_name": "Jeremy McNichols",
+    "position": "RB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4227": {
+    "player_id": "4227",
+    "full_name": "Harrison Butker",
+    "position": "K",
+    "team": "KC",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4234": {
+    "player_id": "4234",
+    "full_name": "Noah Brown",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4273": {
+    "player_id": "4273",
+    "full_name": "Chris Carson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "4335": {
+    "player_id": "4335",
+    "full_name": "P.J. Walker",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "4351": {
+    "player_id": "4351",
+    "full_name": "Tim Patrick",
+    "position": "WR",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4381": {
+    "player_id": "4381",
+    "full_name": "Taysom Hill",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 35,
+    "years_exp": 9
+  },
+  "4454": {
+    "player_id": "4454",
+    "full_name": "Kendrick Bourne",
+    "position": "WR",
+    "team": "ARI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4455": {
+    "player_id": "4455",
+    "full_name": "Matt Breida",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "4464": {
+    "player_id": "4464",
+    "full_name": "Nick Mullens",
+    "position": "QB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4574": {
+    "player_id": "4574",
+    "full_name": "Cooper Rush",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4602": {
+    "player_id": "4602",
+    "full_name": "Robert Tonyan",
+    "position": "TE",
+    "team": "PIT",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 32,
+    "years_exp": 9
+  },
+  "4663": {
+    "player_id": "4663",
+    "full_name": "Austin Ekeler",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 9
+  },
+  "4666": {
+    "player_id": "4666",
+    "full_name": "Younghoe Koo",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 31,
+    "years_exp": 9
+  },
+  "4866": {
+    "player_id": "4866",
+    "full_name": "Saquon Barkley",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4881": {
+    "player_id": "4881",
+    "full_name": "Lamar Jackson",
+    "position": "QB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4892": {
+    "player_id": "4892",
+    "full_name": "Baker Mayfield",
+    "position": "QB",
+    "team": "TB",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "4943": {
+    "player_id": "4943",
+    "full_name": "Sam Darnold",
+    "position": "QB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4950": {
+    "player_id": "4950",
+    "full_name": "Christian Kirk",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4951": {
+    "player_id": "4951",
+    "full_name": "DJ Chark",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "4958": {
+    "player_id": "4958",
+    "full_name": "Brett Maher",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 34,
+    "years_exp": 11
+  },
+  "4962": {
+    "player_id": "4962",
+    "full_name": "Sony Michel",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "4972": {
+    "player_id": "4972",
+    "full_name": "Mason Rudolph",
+    "position": "QB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "4973": {
+    "player_id": "4973",
+    "full_name": "Hayden Hurst",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 7
+  },
+  "4981": {
+    "player_id": "4981",
+    "full_name": "Calvin Ridley",
+    "position": "WR",
+    "team": "TEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "4983": {
+    "player_id": "4983",
+    "full_name": "DJ Moore",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "4984": {
+    "player_id": "4984",
+    "full_name": "Josh Allen",
+    "position": "QB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "4985": {
+    "player_id": "4985",
+    "full_name": "Rashaad Penny",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "4988": {
+    "player_id": "4988",
+    "full_name": "Nick Chubb",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "4993": {
+    "player_id": "4993",
+    "full_name": "Mike Gesicki",
+    "position": "TE",
+    "team": "CIN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5000": {
+    "player_id": "5000",
+    "full_name": "Chase Edmonds",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "5001": {
+    "player_id": "5001",
+    "full_name": "Dalton Schultz",
+    "position": "TE",
+    "team": "HOU",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "5010": {
+    "player_id": "5010",
+    "full_name": "Will Dissly",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "5012": {
+    "player_id": "5012",
+    "full_name": "Mark Andrews",
+    "position": "TE",
+    "team": "BAL",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5022": {
+    "player_id": "5022",
+    "full_name": "Dallas Goedert",
+    "position": "TE",
+    "team": "PHI",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "5038": {
+    "player_id": "5038",
+    "full_name": "Michael Gallup",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5045": {
+    "player_id": "5045",
+    "full_name": "Courtland Sutton",
+    "position": "WR",
+    "team": "DEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5046": {
+    "player_id": "5046",
+    "full_name": "Royce Freeman",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "5052": {
+    "player_id": "5052",
+    "full_name": "Ronald Jones",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "5086": {
+    "player_id": "5086",
+    "full_name": "Marquez Valdes-Scantling",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "5089": {
+    "player_id": "5089",
+    "full_name": "Mike White",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5095": {
+    "player_id": "5095",
+    "full_name": "Daniel Carlson",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "5096": {
+    "player_id": "5096",
+    "full_name": "Ray-Ray McCloud",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5110": {
+    "player_id": "5110",
+    "full_name": "Russell Gage",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5113": {
+    "player_id": "5113",
+    "full_name": "Cedrick Wilson",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5119": {
+    "player_id": "5119",
+    "full_name": "Jason Sanders",
+    "position": "K",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5121": {
+    "player_id": "5121",
+    "full_name": "Braxton Berrios",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5127": {
+    "player_id": "5127",
+    "full_name": "Kyle Allen",
+    "position": "QB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5133": {
+    "player_id": "5133",
+    "full_name": "Tyler Conklin",
+    "position": "TE",
+    "team": "DET",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5137": {
+    "player_id": "5137",
+    "full_name": "Richie James",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "5185": {
+    "player_id": "5185",
+    "full_name": "Allen Lazard",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5189": {
+    "player_id": "5189",
+    "full_name": "Eddy Pineiro",
+    "position": "K",
+    "team": "SF",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5209": {
+    "player_id": "5209",
+    "full_name": "Mike Boone",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5230": {
+    "player_id": "5230",
+    "full_name": "Michael Badgley",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5248": {
+    "player_id": "5248",
+    "full_name": "Gus Edwards",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5257": {
+    "player_id": "5257",
+    "full_name": "Tim Boyle",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5284": {
+    "player_id": "5284",
+    "full_name": "Jeff Wilson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5347": {
+    "player_id": "5347",
+    "full_name": "Nyheim Miller-Hines",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 8
+  },
+  "5374": {
+    "player_id": "5374",
+    "full_name": "Justin Watson",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5409": {
+    "player_id": "5409",
+    "full_name": "Tanner Hudson",
+    "position": "TE",
+    "team": "CIN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 31,
+    "years_exp": 8
+  },
+  "5536": {
+    "player_id": "5536",
+    "full_name": "Dontrell Hilliard",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "5549": {
+    "player_id": "5549",
+    "full_name": "Darrel Williams",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "5695": {
+    "player_id": "5695",
+    "full_name": "Brandon Powell",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5806": {
+    "player_id": "5806",
+    "full_name": "John Wolford",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 8
+  },
+  "5844": {
+    "player_id": "5844",
+    "full_name": "T.J. Hockenson",
+    "position": "TE",
+    "team": "MIN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5846": {
+    "player_id": "5846",
+    "full_name": "DK Metcalf",
+    "position": "WR",
+    "team": "PIT",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5848": {
+    "player_id": "5848",
+    "full_name": "Marquise Brown",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5849": {
+    "player_id": "5849",
+    "full_name": "Kyler Murray",
+    "position": "QB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5850": {
+    "player_id": "5850",
+    "full_name": "Josh Jacobs",
+    "position": "RB",
+    "team": "GB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5854": {
+    "player_id": "5854",
+    "full_name": "Drew Lock",
+    "position": "QB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5857": {
+    "player_id": "5857",
+    "full_name": "Noah Fant",
+    "position": "TE",
+    "team": "NO",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5859": {
+    "player_id": "5859",
+    "full_name": "A.J. Brown",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5870": {
+    "player_id": "5870",
+    "full_name": "Daniel Jones",
+    "position": "QB",
+    "team": "IND",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5872": {
+    "player_id": "5872",
+    "full_name": "Deebo Samuel",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5880": {
+    "player_id": "5880",
+    "full_name": "Parris Campbell",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5890": {
+    "player_id": "5890",
+    "full_name": "Damien Harris",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "5892": {
+    "player_id": "5892",
+    "full_name": "David Montgomery",
+    "position": "RB",
+    "team": "HOU",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5906": {
+    "player_id": "5906",
+    "full_name": "Dawson Knox",
+    "position": "TE",
+    "team": "BUF",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5916": {
+    "player_id": "5916",
+    "full_name": "Darrell Henderson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "5917": {
+    "player_id": "5917",
+    "full_name": "Mecole Hardman",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5927": {
+    "player_id": "5927",
+    "full_name": "Terry McLaurin",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5937": {
+    "player_id": "5937",
+    "full_name": "Diontae Johnson",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "5947": {
+    "player_id": "5947",
+    "full_name": "Jakobi Meyers",
+    "position": "WR",
+    "team": "JAX",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5955": {
+    "player_id": "5955",
+    "full_name": "Hunter Renfrow",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "5967": {
+    "player_id": "5967",
+    "full_name": "Tony Pollard",
+    "position": "RB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5970": {
+    "player_id": "5970",
+    "full_name": "Greg Dortch",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "5985": {
+    "player_id": "5985",
+    "full_name": "Foster Moreau",
+    "position": "TE",
+    "team": "HOU",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "5987": {
+    "player_id": "5987",
+    "full_name": "Alexander Mattison",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 7
+  },
+  "5995": {
+    "player_id": "5995",
+    "full_name": "Justice Hill",
+    "position": "RB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "6011": {
+    "player_id": "6011",
+    "full_name": "Gardner Minshew",
+    "position": "QB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "6039": {
+    "player_id": "6039",
+    "full_name": "Ty Johnson",
+    "position": "RB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "6083": {
+    "player_id": "6083",
+    "full_name": "Matt Gay",
+    "position": "K",
+    "team": "LV",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 32,
+    "years_exp": 7
+  },
+  "6111": {
+    "player_id": "6111",
+    "full_name": "Jake Browning",
+    "position": "QB",
+    "team": "TB",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "6126": {
+    "player_id": "6126",
+    "full_name": "Irv Smith",
+    "position": "TE",
+    "team": null,
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6130": {
+    "player_id": "6130",
+    "full_name": "Devin Singletary",
+    "position": "RB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "6149": {
+    "player_id": "6149",
+    "full_name": "Darius Slayton",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "6151": {
+    "player_id": "6151",
+    "full_name": "Miles Sanders",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 7
+  },
+  "6219": {
+    "player_id": "6219",
+    "full_name": "Austin Seibert",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6421": {
+    "player_id": "6421",
+    "full_name": "Jalen Guyton",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "6528": {
+    "player_id": "6528",
+    "full_name": "Joey Slye",
+    "position": "K",
+    "team": "TEN",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "6650": {
+    "player_id": "6650",
+    "full_name": "Chase McLaughlin",
+    "position": "K",
+    "team": "TB",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 30,
+    "years_exp": 7
+  },
+  "6659": {
+    "player_id": "6659",
+    "full_name": "Craig Reynolds",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "6694": {
+    "player_id": "6694",
+    "full_name": "D'Ernest Johnson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 7
+  },
+  "6768": {
+    "player_id": "6768",
+    "full_name": "Tua Tagovailoa",
+    "position": "QB",
+    "team": "ATL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6770": {
+    "player_id": "6770",
+    "full_name": "Joe Burrow",
+    "position": "QB",
+    "team": "CIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "6783": {
+    "player_id": "6783",
+    "full_name": "Jerry Jeudy",
+    "position": "WR",
+    "team": "CLE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6786": {
+    "player_id": "6786",
+    "full_name": "CeeDee Lamb",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6790": {
+    "player_id": "6790",
+    "full_name": "D'Andre Swift",
+    "position": "RB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6794": {
+    "player_id": "6794",
+    "full_name": "Justin Jefferson",
+    "position": "WR",
+    "team": "MIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 6
+  },
+  "6797": {
+    "player_id": "6797",
+    "full_name": "Justin Herbert",
+    "position": "QB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6801": {
+    "player_id": "6801",
+    "full_name": "Tee Higgins",
+    "position": "WR",
+    "team": "CIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6803": {
+    "player_id": "6803",
+    "full_name": "Brandon Aiyuk",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6804": {
+    "player_id": "6804",
+    "full_name": "Jordan Love",
+    "position": "QB",
+    "team": "GB",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6805": {
+    "player_id": "6805",
+    "full_name": "KJ Hamler",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "6806": {
+    "player_id": "6806",
+    "full_name": "J.K. Dobbins",
+    "position": "RB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6813": {
+    "player_id": "6813",
+    "full_name": "Jonathan Taylor",
+    "position": "RB",
+    "team": "IND",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6814": {
+    "player_id": "6814",
+    "full_name": "Laviska Shenault",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "6819": {
+    "player_id": "6819",
+    "full_name": "Michael Pittman",
+    "position": "WR",
+    "team": "PIT",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6820": {
+    "player_id": "6820",
+    "full_name": "Clyde Edwards-Helaire",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 6
+  },
+  "6824": {
+    "player_id": "6824",
+    "full_name": "Donovan Peoples-Jones",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "6826": {
+    "player_id": "6826",
+    "full_name": "Cole Kmet",
+    "position": "TE",
+    "team": "CHI",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6828": {
+    "player_id": "6828",
+    "full_name": "AJ Dillon",
+    "position": "RB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6843": {
+    "player_id": "6843",
+    "full_name": "Albert Okwuegbunam",
+    "position": "TE",
+    "team": "LV",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6845": {
+    "player_id": "6845",
+    "full_name": "Zack Moss",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "6847": {
+    "player_id": "6847",
+    "full_name": "Devin Duvernay",
+    "position": "WR",
+    "team": "ARI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6853": {
+    "player_id": "6853",
+    "full_name": "Van Jefferson",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "6865": {
+    "player_id": "6865",
+    "full_name": "Colby Parkinson",
+    "position": "TE",
+    "team": "LAR",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6869": {
+    "player_id": "6869",
+    "full_name": "Adam Trautman",
+    "position": "TE",
+    "team": "DEN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "6870": {
+    "player_id": "6870",
+    "full_name": "Bryan Edwards",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "6885": {
+    "player_id": "6885",
+    "full_name": "Ke'Shawn Vaughn",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "6886": {
+    "player_id": "6886",
+    "full_name": "Chase Claypool",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "6904": {
+    "player_id": "6904",
+    "full_name": "Jalen Hurts",
+    "position": "QB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6918": {
+    "player_id": "6918",
+    "full_name": "Salvon Ahmed",
+    "position": "RB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6920": {
+    "player_id": "6920",
+    "full_name": "Isaiah Hodgins",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6931": {
+    "player_id": "6931",
+    "full_name": "DeeJay Dallas",
+    "position": "RB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6938": {
+    "player_id": "6938",
+    "full_name": "Cam Akers",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 6
+  },
+  "6943": {
+    "player_id": "6943",
+    "full_name": "Gabe Davis",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 6
+  },
+  "6945": {
+    "player_id": "6945",
+    "full_name": "Antonio Gibson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6951": {
+    "player_id": "6951",
+    "full_name": "Eno Benjamin",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "6955": {
+    "player_id": "6955",
+    "full_name": "James Robinson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "6957": {
+    "player_id": "6957",
+    "full_name": "James Proche",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "6960": {
+    "player_id": "6960",
+    "full_name": "Tyler Johnson",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "6963": {
+    "player_id": "6963",
+    "full_name": "Patrick Taylor",
+    "position": "RB",
+    "team": "SF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "6984": {
+    "player_id": "6984",
+    "full_name": "Tony Jones",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "6996": {
+    "player_id": "6996",
+    "full_name": "JaMycal Hasty",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "7002": {
+    "player_id": "7002",
+    "full_name": "Juwan Johnson",
+    "position": "TE",
+    "team": "NO",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "7021": {
+    "player_id": "7021",
+    "full_name": "Rico Dowdle",
+    "position": "RB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 6
+  },
+  "7042": {
+    "player_id": "7042",
+    "full_name": "Tyler Bass",
+    "position": "K",
+    "team": "BUF",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "7045": {
+    "player_id": "7045",
+    "full_name": "Joshua Kelley",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7049": {
+    "player_id": "7049",
+    "full_name": "Jauan Jennings",
+    "position": "WR",
+    "team": "MIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "7062": {
+    "player_id": "7062",
+    "full_name": "Rodrigo Blankenship",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "7066": {
+    "player_id": "7066",
+    "full_name": "K.J. Osborn",
+    "position": "WR",
+    "team": "TEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "7083": {
+    "player_id": "7083",
+    "full_name": "Tyler Huntley",
+    "position": "QB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "7090": {
+    "player_id": "7090",
+    "full_name": "Darnell Mooney",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 6
+  },
+  "7335": {
+    "player_id": "7335",
+    "full_name": "Bryce Perkins",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "7496": {
+    "player_id": "7496",
+    "full_name": "Nick Westbrook-Ikhine",
+    "position": "WR",
+    "team": "IND",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 6
+  },
+  "7523": {
+    "player_id": "7523",
+    "full_name": "Trevor Lawrence",
+    "position": "QB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7525": {
+    "player_id": "7525",
+    "full_name": "DeVonta Smith",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7526": {
+    "player_id": "7526",
+    "full_name": "Jaylen Waddle",
+    "position": "WR",
+    "team": "DEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7527": {
+    "player_id": "7527",
+    "full_name": "Mac Jones",
+    "position": "QB",
+    "team": "SF",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7528": {
+    "player_id": "7528",
+    "full_name": "Najee Harris",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7537": {
+    "player_id": "7537",
+    "full_name": "Jaret Patterson",
+    "position": "RB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7538": {
+    "player_id": "7538",
+    "full_name": "Zach Wilson",
+    "position": "QB",
+    "team": "NO",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7540": {
+    "player_id": "7540",
+    "full_name": "Amari Rodgers",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "7543": {
+    "player_id": "7543",
+    "full_name": "Travis Etienne",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7547": {
+    "player_id": "7547",
+    "full_name": "Amon-Ra St. Brown",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7551": {
+    "player_id": "7551",
+    "full_name": "Deon Jackson",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "7553": {
+    "player_id": "7553",
+    "full_name": "Kyle Pitts",
+    "position": "TE",
+    "team": "ATL",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 5
+  },
+  "7561": {
+    "player_id": "7561",
+    "full_name": "Elijah Mitchell",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "7562": {
+    "player_id": "7562",
+    "full_name": "Tutu Atwell",
+    "position": "WR",
+    "team": "MIA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7564": {
+    "player_id": "7564",
+    "full_name": "Ja'Marr Chase",
+    "position": "WR",
+    "team": "CIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7565": {
+    "player_id": "7565",
+    "full_name": "Terrace Marshall",
+    "position": "WR",
+    "team": "MIA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7567": {
+    "player_id": "7567",
+    "full_name": "Kenneth Gainwell",
+    "position": "RB",
+    "team": "TB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7568": {
+    "player_id": "7568",
+    "full_name": "Brevin Jordan",
+    "position": "TE",
+    "team": "HOU",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 5
+  },
+  "7569": {
+    "player_id": "7569",
+    "full_name": "Nico Collins",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7571": {
+    "player_id": "7571",
+    "full_name": "Rashod Bateman",
+    "position": "WR",
+    "team": "BAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7581": {
+    "player_id": "7581",
+    "full_name": "Kellen Mond",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "7583": {
+    "player_id": "7583",
+    "full_name": "Sam Ehlinger",
+    "position": "QB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7585": {
+    "player_id": "7585",
+    "full_name": "Davis Mills",
+    "position": "QB",
+    "team": "HOU",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7587": {
+    "player_id": "7587",
+    "full_name": "Dyami Brown",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7588": {
+    "player_id": "7588",
+    "full_name": "Javonte Williams",
+    "position": "RB",
+    "team": "DAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7591": {
+    "player_id": "7591",
+    "full_name": "Justin Fields",
+    "position": "QB",
+    "team": "KC",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7593": {
+    "player_id": "7593",
+    "full_name": "Trey Sermon",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7594": {
+    "player_id": "7594",
+    "full_name": "Chuba Hubbard",
+    "position": "RB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7596": {
+    "player_id": "7596",
+    "full_name": "Elijah Moore",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7600": {
+    "player_id": "7600",
+    "full_name": "Pat Freiermuth",
+    "position": "TE",
+    "team": "PIT",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7601": {
+    "player_id": "7601",
+    "full_name": "Rondale Moore",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 5
+  },
+  "7605": {
+    "player_id": "7605",
+    "full_name": "Kyle Trask",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7606": {
+    "player_id": "7606",
+    "full_name": "Kadarius Toney",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "7607": {
+    "player_id": "7607",
+    "full_name": "Michael Carter",
+    "position": "RB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7608": {
+    "player_id": "7608",
+    "full_name": "Khalil Herbert",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7610": {
+    "player_id": "7610",
+    "full_name": "Trey Lance",
+    "position": "QB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7611": {
+    "player_id": "7611",
+    "full_name": "Rhamondre Stevenson",
+    "position": "RB",
+    "team": "NE",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "7617": {
+    "player_id": "7617",
+    "full_name": "Matt Ammendola",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K",
+      "P"
+    ],
+    "age": 27,
+    "years_exp": 2
+  },
+  "7670": {
+    "player_id": "7670",
+    "full_name": "Joshua Palmer",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7694": {
+    "player_id": "7694",
+    "full_name": "Tommy Tremble",
+    "position": "TE",
+    "team": "CAR",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7741": {
+    "player_id": "7741",
+    "full_name": "Caleb Huntley",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "7757": {
+    "player_id": "7757",
+    "full_name": "Ben Skowronek",
+    "position": "WR",
+    "team": "PIT",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 5
+  },
+  "7771": {
+    "player_id": "7771",
+    "full_name": "Jake Funk",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "7794": {
+    "player_id": "7794",
+    "full_name": "Chris Evans",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "7828": {
+    "player_id": "7828",
+    "full_name": "Noah Gray",
+    "position": "TE",
+    "team": "KC",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7839": {
+    "player_id": "7839",
+    "full_name": "Evan McPherson",
+    "position": "K",
+    "team": "CIN",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "7891": {
+    "player_id": "7891",
+    "full_name": "Brock Wright",
+    "position": "TE",
+    "team": "DET",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 5
+  },
+  "7922": {
+    "player_id": "7922",
+    "full_name": "Riley Patterson",
+    "position": "K",
+    "team": "MIA",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 26,
+    "years_exp": 5
+  },
+  "8110": {
+    "player_id": "8110",
+    "full_name": "Jake Ferguson",
+    "position": "TE",
+    "team": "DAL",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8111": {
+    "player_id": "8111",
+    "full_name": "Cade Otton",
+    "position": "TE",
+    "team": "TB",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8112": {
+    "player_id": "8112",
+    "full_name": "Drake London",
+    "position": "WR",
+    "team": "ATL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 4
+  },
+  "8116": {
+    "player_id": "8116",
+    "full_name": "Pierre Strong",
+    "position": "RB",
+    "team": "GB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8117": {
+    "player_id": "8117",
+    "full_name": "Jalen Tolbert",
+    "position": "WR",
+    "team": "MIA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8118": {
+    "player_id": "8118",
+    "full_name": "David Bell",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "8119": {
+    "player_id": "8119",
+    "full_name": "Jahan Dotson",
+    "position": "WR",
+    "team": "ATL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8121": {
+    "player_id": "8121",
+    "full_name": "Romeo Doubs",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8122": {
+    "player_id": "8122",
+    "full_name": "Zonovan Knight",
+    "position": "RB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8123": {
+    "player_id": "8123",
+    "full_name": "Hassan Haskins",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8125": {
+    "player_id": "8125",
+    "full_name": "Calvin Austin",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8126": {
+    "player_id": "8126",
+    "full_name": "Wan'Dale Robinson",
+    "position": "WR",
+    "team": "TEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8129": {
+    "player_id": "8129",
+    "full_name": "Dameon Pierce",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8130": {
+    "player_id": "8130",
+    "full_name": "Trey McBride",
+    "position": "TE",
+    "team": "ARI",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8131": {
+    "player_id": "8131",
+    "full_name": "Isaiah Likely",
+    "position": "TE",
+    "team": "NYG",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8132": {
+    "player_id": "8132",
+    "full_name": "Tyler Allgeier",
+    "position": "RB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8134": {
+    "player_id": "8134",
+    "full_name": "Khalil Shakir",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8135": {
+    "player_id": "8135",
+    "full_name": "Treylon Burks",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8136": {
+    "player_id": "8136",
+    "full_name": "Rachaad White",
+    "position": "RB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8137": {
+    "player_id": "8137",
+    "full_name": "George Pickens",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8138": {
+    "player_id": "8138",
+    "full_name": "James Cook",
+    "position": "RB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8139": {
+    "player_id": "8139",
+    "full_name": "Zamir White",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8140": {
+    "player_id": "8140",
+    "full_name": "Justyn Ross",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "8142": {
+    "player_id": "8142",
+    "full_name": "Alec Pierce",
+    "position": "WR",
+    "team": "IND",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8143": {
+    "player_id": "8143",
+    "full_name": "Jerome Ford",
+    "position": "RB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8144": {
+    "player_id": "8144",
+    "full_name": "Chris Olave",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8146": {
+    "player_id": "8146",
+    "full_name": "Garrett Wilson",
+    "position": "WR",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8147": {
+    "player_id": "8147",
+    "full_name": "John Metchie",
+    "position": "WR",
+    "team": "CAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8148": {
+    "player_id": "8148",
+    "full_name": "Jameson Williams",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8150": {
+    "player_id": "8150",
+    "full_name": "Kyren Williams",
+    "position": "RB",
+    "team": "LAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8151": {
+    "player_id": "8151",
+    "full_name": "Kenneth Walker",
+    "position": "RB",
+    "team": "KC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8153": {
+    "player_id": "8153",
+    "full_name": "Isaiah Spiller",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 3
+  },
+  "8154": {
+    "player_id": "8154",
+    "full_name": "Brian Robinson",
+    "position": "RB",
+    "team": "ATL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8155": {
+    "player_id": "8155",
+    "full_name": "Breece Hall",
+    "position": "RB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8157": {
+    "player_id": "8157",
+    "full_name": "Bailey Zappe",
+    "position": "QB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8159": {
+    "player_id": "8159",
+    "full_name": "Desmond Ridder",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8160": {
+    "player_id": "8160",
+    "full_name": "Kenny Pickett",
+    "position": "QB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 4
+  },
+  "8161": {
+    "player_id": "8161",
+    "full_name": "Malik Willis",
+    "position": "QB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8162": {
+    "player_id": "8162",
+    "full_name": "Sam Howell",
+    "position": "QB",
+    "team": "DAL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8164": {
+    "player_id": "8164",
+    "full_name": "Matt Corral",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "8167": {
+    "player_id": "8167",
+    "full_name": "Christian Watson",
+    "position": "WR",
+    "team": "GB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8168": {
+    "player_id": "8168",
+    "full_name": "Skyy Moore",
+    "position": "WR",
+    "team": "GB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8171": {
+    "player_id": "8171",
+    "full_name": "Kyle Philips",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "8172": {
+    "player_id": "8172",
+    "full_name": "Greg Dulcich",
+    "position": "TE",
+    "team": "MIA",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8174": {
+    "player_id": "8174",
+    "full_name": "Kevin Harris",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "8176": {
+    "player_id": "8176",
+    "full_name": "Danny Gray",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8179": {
+    "player_id": "8179",
+    "full_name": "Snoop Conner",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "8180": {
+    "player_id": "8180",
+    "full_name": "Jalen Nailor",
+    "position": "WR",
+    "team": "LV",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8181": {
+    "player_id": "8181",
+    "full_name": "Connor Heyward",
+    "position": "TE",
+    "team": "LV",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8183": {
+    "player_id": "8183",
+    "full_name": "Brock Purdy",
+    "position": "QB",
+    "team": "SF",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8188": {
+    "player_id": "8188",
+    "full_name": "Tyquan Thornton",
+    "position": "WR",
+    "team": "KC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8190": {
+    "player_id": "8190",
+    "full_name": "Abram Smith",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "8195": {
+    "player_id": "8195",
+    "full_name": "Ronnie Rivers",
+    "position": "RB",
+    "team": "LAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8205": {
+    "player_id": "8205",
+    "full_name": "Isiah Pacheco",
+    "position": "RB",
+    "team": "DET",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8206": {
+    "player_id": "8206",
+    "full_name": "Skylar Thompson",
+    "position": "QB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 29,
+    "years_exp": 4
+  },
+  "8207": {
+    "player_id": "8207",
+    "full_name": "Tyler Goodson",
+    "position": "RB",
+    "team": "ATL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8208": {
+    "player_id": "8208",
+    "full_name": "Tyler Badie",
+    "position": "RB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8210": {
+    "player_id": "8210",
+    "full_name": "Chig Okonkwo",
+    "position": "TE",
+    "team": "WAS",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8211": {
+    "player_id": "8211",
+    "full_name": "Tyrion Davis-Price",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "8219": {
+    "player_id": "8219",
+    "full_name": "Jelani Woods",
+    "position": "TE",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8220": {
+    "player_id": "8220",
+    "full_name": "Sincere McCormick",
+    "position": "RB",
+    "team": "SF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8221": {
+    "player_id": "8221",
+    "full_name": "Keaontay Ingram",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8223": {
+    "player_id": "8223",
+    "full_name": "Velus Jones",
+    "position": "WR",
+    "team": "SEA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 29,
+    "years_exp": 4
+  },
+  "8225": {
+    "player_id": "8225",
+    "full_name": "Daniel Bellinger",
+    "position": "TE",
+    "team": "TEN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8228": {
+    "player_id": "8228",
+    "full_name": "Jaylen Warren",
+    "position": "RB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8230": {
+    "player_id": "8230",
+    "full_name": "Ty Chandler",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 28,
+    "years_exp": 4
+  },
+  "8255": {
+    "player_id": "8255",
+    "full_name": "Raheem Blackshear",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8258": {
+    "player_id": "8258",
+    "full_name": "Cade York",
+    "position": "K",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 25,
+    "years_exp": 4
+  },
+  "8259": {
+    "player_id": "8259",
+    "full_name": "Cameron Dicker",
+    "position": "K",
+    "team": "LAC",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8408": {
+    "player_id": "8408",
+    "full_name": "Jordan Mason",
+    "position": "RB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8475": {
+    "player_id": "8475",
+    "full_name": "Montrell Washington",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "8670": {
+    "player_id": "8670",
+    "full_name": "Parker Romo",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 28,
+    "years_exp": 2
+  },
+  "8676": {
+    "player_id": "8676",
+    "full_name": "Rashid Shaheed",
+    "position": "WR",
+    "team": "SEA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "8698": {
+    "player_id": "8698",
+    "full_name": "Jake Tonges",
+    "position": "TE",
+    "team": "SF",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 4
+  },
+  "8917": {
+    "player_id": "8917",
+    "full_name": "KaVontae Turpin",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 29,
+    "years_exp": 4
+  },
+  "9221": {
+    "player_id": "9221",
+    "full_name": "Jahmyr Gibbs",
+    "position": "RB",
+    "team": "DET",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9222": {
+    "player_id": "9222",
+    "full_name": "Zach Evans",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "9224": {
+    "player_id": "9224",
+    "full_name": "Chase Brown",
+    "position": "RB",
+    "team": "CIN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "9225": {
+    "player_id": "9225",
+    "full_name": "Tank Bigsby",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 3
+  },
+  "9226": {
+    "player_id": "9226",
+    "full_name": "De'Von Achane",
+    "position": "RB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9227": {
+    "player_id": "9227",
+    "full_name": "Israel Abanikanda",
+    "position": "RB",
+    "team": "DAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 3
+  },
+  "9228": {
+    "player_id": "9228",
+    "full_name": "Bryce Young",
+    "position": "QB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9229": {
+    "player_id": "9229",
+    "full_name": "Anthony Richardson",
+    "position": "QB",
+    "team": "IND",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9231": {
+    "player_id": "9231",
+    "full_name": "Jaren Hall",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 2
+  },
+  "9479": {
+    "player_id": "9479",
+    "full_name": "Darnell Washington",
+    "position": "TE",
+    "team": "PIT",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9480": {
+    "player_id": "9480",
+    "full_name": "Brenton Strange",
+    "position": "TE",
+    "team": "JAX",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9481": {
+    "player_id": "9481",
+    "full_name": "Luke Musgrave",
+    "position": "TE",
+    "team": "GB",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9482": {
+    "player_id": "9482",
+    "full_name": "Michael Mayer",
+    "position": "TE",
+    "team": "LV",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9484": {
+    "player_id": "9484",
+    "full_name": "Tucker Kraft",
+    "position": "TE",
+    "team": "GB",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9486": {
+    "player_id": "9486",
+    "full_name": "Dontayvion Wicks",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9487": {
+    "player_id": "9487",
+    "full_name": "Parker Washington",
+    "position": "WR",
+    "team": "JAX",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9488": {
+    "player_id": "9488",
+    "full_name": "Jaxon Smith-Njigba",
+    "position": "WR",
+    "team": "SEA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9492": {
+    "player_id": "9492",
+    "full_name": "Trey Palmer",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9493": {
+    "player_id": "9493",
+    "full_name": "Puka Nacua",
+    "position": "WR",
+    "team": "LAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9494": {
+    "player_id": "9494",
+    "full_name": "Marvin Mims",
+    "position": "WR",
+    "team": "DEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9497": {
+    "player_id": "9497",
+    "full_name": "Jalin Hyatt",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9500": {
+    "player_id": "9500",
+    "full_name": "Josh Downs",
+    "position": "WR",
+    "team": "IND",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9501": {
+    "player_id": "9501",
+    "full_name": "DeMario Douglas",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9502": {
+    "player_id": "9502",
+    "full_name": "Tank Dell",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "9504": {
+    "player_id": "9504",
+    "full_name": "Kayshon Boutte",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9505": {
+    "player_id": "9505",
+    "full_name": "Deuce Vaughn",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9506": {
+    "player_id": "9506",
+    "full_name": "Sean Tucker",
+    "position": "RB",
+    "team": "TB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9508": {
+    "player_id": "9508",
+    "full_name": "Tyjae Spears",
+    "position": "RB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9509": {
+    "player_id": "9509",
+    "full_name": "Bijan Robinson",
+    "position": "RB",
+    "team": "ATL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9511": {
+    "player_id": "9511",
+    "full_name": "Keaton Mitchell",
+    "position": "RB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9512": {
+    "player_id": "9512",
+    "full_name": "DeWayne McBride",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "9753": {
+    "player_id": "9753",
+    "full_name": "Zach Charbonnet",
+    "position": "RB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9754": {
+    "player_id": "9754",
+    "full_name": "Quentin Johnston",
+    "position": "WR",
+    "team": "LAC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9756": {
+    "player_id": "9756",
+    "full_name": "Jordan Addison",
+    "position": "WR",
+    "team": "MIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9757": {
+    "player_id": "9757",
+    "full_name": "Kendre Miller",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9758": {
+    "player_id": "9758",
+    "full_name": "C.J. Stroud",
+    "position": "QB",
+    "team": "HOU",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 3
+  },
+  "9997": {
+    "player_id": "9997",
+    "full_name": "Zay Flowers",
+    "position": "WR",
+    "team": "BAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "9998": {
+    "player_id": "9998",
+    "full_name": "Hendon Hooker",
+    "position": "QB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 3
+  },
+  "9999": {
+    "player_id": "9999",
+    "full_name": "Will Levis",
+    "position": "QB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10213": {
+    "player_id": "10213",
+    "full_name": "Tre Tucker",
+    "position": "WR",
+    "team": "LV",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "10216": {
+    "player_id": "10216",
+    "full_name": "Kenny McIntosh",
+    "position": "RB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10217": {
+    "player_id": "10217",
+    "full_name": "Clayton Tune",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "10218": {
+    "player_id": "10218",
+    "full_name": "Xavier Hutchinson",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10219": {
+    "player_id": "10219",
+    "full_name": "Chris Rodriguez",
+    "position": "RB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10221": {
+    "player_id": "10221",
+    "full_name": "Ronnie Bell",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10222": {
+    "player_id": "10222",
+    "full_name": "Jayden Reed",
+    "position": "WR",
+    "team": "GB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10225": {
+    "player_id": "10225",
+    "full_name": "Jonathan Mingo",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "10226": {
+    "player_id": "10226",
+    "full_name": "Andrei Iosivas",
+    "position": "WR",
+    "team": "CIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10229": {
+    "player_id": "10229",
+    "full_name": "Rashee Rice",
+    "position": "WR",
+    "team": "KC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10232": {
+    "player_id": "10232",
+    "full_name": "Michael Wilson",
+    "position": "WR",
+    "team": "ARI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10235": {
+    "player_id": "10235",
+    "full_name": "Roschon Johnson",
+    "position": "RB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "10236": {
+    "player_id": "10236",
+    "full_name": "Dalton Kincaid",
+    "position": "TE",
+    "team": "BUF",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10444": {
+    "player_id": "10444",
+    "full_name": "Cedric Tillman",
+    "position": "WR",
+    "team": "CLE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "10857": {
+    "player_id": "10857",
+    "full_name": "Stetson Bennett",
+    "position": "QB",
+    "team": "LAR",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 28,
+    "years_exp": 3
+  },
+  "10859": {
+    "player_id": "10859",
+    "full_name": "Sam LaPorta",
+    "position": "TE",
+    "team": "DET",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "10860": {
+    "player_id": "10860",
+    "full_name": "Malik Cunningham",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "10862": {
+    "player_id": "10862",
+    "full_name": "Dorian Thompson-Robinson",
+    "position": "QB",
+    "team": null,
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "10866": {
+    "player_id": "10866",
+    "full_name": "Aidan O'Connell",
+    "position": "QB",
+    "team": "LV",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "10870": {
+    "player_id": "10870",
+    "full_name": "Deneric Prince",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "10871": {
+    "player_id": "10871",
+    "full_name": "Luke Schoonmaker",
+    "position": "TE",
+    "team": "DAL",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "10937": {
+    "player_id": "10937",
+    "full_name": "Jake Moody",
+    "position": "K",
+    "team": "WAS",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "11058": {
+    "player_id": "11058",
+    "full_name": "Blake Grupe",
+    "position": "K",
+    "team": "IND",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11068": {
+    "player_id": "11068",
+    "full_name": "Mitch Tinsley",
+    "position": "WR",
+    "team": "CIN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "11199": {
+    "player_id": "11199",
+    "full_name": "Emari Demercado",
+    "position": "RB",
+    "team": "KC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11256": {
+    "player_id": "11256",
+    "full_name": "Tyson Bagent",
+    "position": "QB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "11261": {
+    "player_id": "11261",
+    "full_name": "Andre Szmyt",
+    "position": "K",
+    "team": "CLE",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 27,
+    "years_exp": 4
+  },
+  "11292": {
+    "player_id": "11292",
+    "full_name": "Tommy DeVito",
+    "position": "QB",
+    "team": "NE",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11311": {
+    "player_id": "11311",
+    "full_name": "Jason Brownlee",
+    "position": "WR",
+    "team": "KC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11377": {
+    "player_id": "11377",
+    "full_name": "Tyrell Shavers",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "11378": {
+    "player_id": "11378",
+    "full_name": "Jordan Mims",
+    "position": "RB",
+    "team": "SF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 3
+  },
+  "11435": {
+    "player_id": "11435",
+    "full_name": "Emanuel Wilson",
+    "position": "RB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11439": {
+    "player_id": "11439",
+    "full_name": "Jaleel McLaughlin",
+    "position": "RB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 3
+  },
+  "11533": {
+    "player_id": "11533",
+    "full_name": "Brandon Aubrey",
+    "position": "K",
+    "team": "DAL",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 31,
+    "years_exp": 3
+  },
+  "11539": {
+    "player_id": "11539",
+    "full_name": "Jake Bates",
+    "position": "K",
+    "team": "DET",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 27,
+    "years_exp": 3
+  },
+  "11559": {
+    "player_id": "11559",
+    "full_name": "Michael Penix",
+    "position": "QB",
+    "team": "ATL",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11560": {
+    "player_id": "11560",
+    "full_name": "Caleb Williams",
+    "position": "QB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11562": {
+    "player_id": "11562",
+    "full_name": "Spencer Rattler",
+    "position": "QB",
+    "team": "NO",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11563": {
+    "player_id": "11563",
+    "full_name": "Bo Nix",
+    "position": "QB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11564": {
+    "player_id": "11564",
+    "full_name": "Drake Maye",
+    "position": "QB",
+    "team": "NE",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11565": {
+    "player_id": "11565",
+    "full_name": "J.J. McCarthy",
+    "position": "QB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11566": {
+    "player_id": "11566",
+    "full_name": "Jayden Daniels",
+    "position": "QB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11570": {
+    "player_id": "11570",
+    "full_name": "Rasheen Ali",
+    "position": "RB",
+    "team": "BAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11571": {
+    "player_id": "11571",
+    "full_name": "Isaiah Davis",
+    "position": "RB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11573": {
+    "player_id": "11573",
+    "full_name": "Frank Gore",
+    "position": "RB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11574": {
+    "player_id": "11574",
+    "full_name": "Dylan Laube",
+    "position": "RB",
+    "team": "LV",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11575": {
+    "player_id": "11575",
+    "full_name": "Ray Davis",
+    "position": "RB",
+    "team": "BUF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11576": {
+    "player_id": "11576",
+    "full_name": "Braelon Allen",
+    "position": "RB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 2
+  },
+  "11577": {
+    "player_id": "11577",
+    "full_name": "Will Shipley",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11579": {
+    "player_id": "11579",
+    "full_name": "Audric Estime",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 2
+  },
+  "11581": {
+    "player_id": "11581",
+    "full_name": "MarShawn Lloyd",
+    "position": "RB",
+    "team": "GB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11582": {
+    "player_id": "11582",
+    "full_name": "Carson Steele",
+    "position": "RB",
+    "team": "PHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11583": {
+    "player_id": "11583",
+    "full_name": "Jonathon Brooks",
+    "position": "RB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 2
+  },
+  "11584": {
+    "player_id": "11584",
+    "full_name": "Bucky Irving",
+    "position": "RB",
+    "team": "TB",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11586": {
+    "player_id": "11586",
+    "full_name": "Blake Corum",
+    "position": "RB",
+    "team": "LAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11588": {
+    "player_id": "11588",
+    "full_name": "Jawhar Jordan",
+    "position": "RB",
+    "team": "HOU",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11589": {
+    "player_id": "11589",
+    "full_name": "Trey Benson",
+    "position": "RB",
+    "team": "ARI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11592": {
+    "player_id": "11592",
+    "full_name": "Erick All",
+    "position": "TE",
+    "team": "CIN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11596": {
+    "player_id": "11596",
+    "full_name": "Ben Sinnott",
+    "position": "TE",
+    "team": "WAS",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11597": {
+    "player_id": "11597",
+    "full_name": "Theo Johnson",
+    "position": "TE",
+    "team": "NYG",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11599": {
+    "player_id": "11599",
+    "full_name": "Cade Stover",
+    "position": "TE",
+    "team": "HOU",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11600": {
+    "player_id": "11600",
+    "full_name": "Ja'Tavion Sanders",
+    "position": "TE",
+    "team": "CAR",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11603": {
+    "player_id": "11603",
+    "full_name": "AJ Barner",
+    "position": "TE",
+    "team": "SEA",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11604": {
+    "player_id": "11604",
+    "full_name": "Brock Bowers",
+    "position": "TE",
+    "team": "LV",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11605": {
+    "player_id": "11605",
+    "full_name": "Jaheim Bell",
+    "position": "TE",
+    "team": "PIT",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11610": {
+    "player_id": "11610",
+    "full_name": "Malik Washington",
+    "position": "WR",
+    "team": "MIA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11617": {
+    "player_id": "11617",
+    "full_name": "Malachi Corley",
+    "position": "WR",
+    "team": "CLE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11618": {
+    "player_id": "11618",
+    "full_name": "Jalen McMillan",
+    "position": "WR",
+    "team": "TB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11619": {
+    "player_id": "11619",
+    "full_name": "Ja'Lynn Polk",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11620": {
+    "player_id": "11620",
+    "full_name": "Rome Odunze",
+    "position": "WR",
+    "team": "CHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11621": {
+    "player_id": "11621",
+    "full_name": "Brenden Rice",
+    "position": "WR",
+    "team": "GB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11623": {
+    "player_id": "11623",
+    "full_name": "Jordan Whittington",
+    "position": "WR",
+    "team": "LAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11624": {
+    "player_id": "11624",
+    "full_name": "Xavier Worthy",
+    "position": "WR",
+    "team": "KC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11625": {
+    "player_id": "11625",
+    "full_name": "Adonai Mitchell",
+    "position": "WR",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11626": {
+    "player_id": "11626",
+    "full_name": "Xavier Legette",
+    "position": "WR",
+    "team": "CAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11627": {
+    "player_id": "11627",
+    "full_name": "Troy Franklin",
+    "position": "WR",
+    "team": "DEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11628": {
+    "player_id": "11628",
+    "full_name": "Marvin Harrison",
+    "position": "WR",
+    "team": "ARI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11629": {
+    "player_id": "11629",
+    "full_name": "Devontez Walker",
+    "position": "WR",
+    "team": "BAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11630": {
+    "player_id": "11630",
+    "full_name": "Roman Wilson",
+    "position": "WR",
+    "team": "PIT",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11631": {
+    "player_id": "11631",
+    "full_name": "Brian Thomas",
+    "position": "WR",
+    "team": "JAX",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11632": {
+    "player_id": "11632",
+    "full_name": "Malik Nabers",
+    "position": "WR",
+    "team": "NYG",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 22,
+    "years_exp": 2
+  },
+  "11635": {
+    "player_id": "11635",
+    "full_name": "Ladd McConkey",
+    "position": "WR",
+    "team": "LAC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11636": {
+    "player_id": "11636",
+    "full_name": "Johnny Wilson",
+    "position": "WR",
+    "team": "PHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11637": {
+    "player_id": "11637",
+    "full_name": "Keon Coleman",
+    "position": "WR",
+    "team": "BUF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11638": {
+    "player_id": "11638",
+    "full_name": "Ricky Pearsall",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11640": {
+    "player_id": "11640",
+    "full_name": "Jermaine Burton",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "11643": {
+    "player_id": "11643",
+    "full_name": "Jaylen Wright",
+    "position": "RB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11645": {
+    "player_id": "11645",
+    "full_name": "Javon Baker",
+    "position": "WR",
+    "team": null,
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 2
+  },
+  "11646": {
+    "player_id": "11646",
+    "full_name": "Jalen Coker",
+    "position": "WR",
+    "team": "CAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11647": {
+    "player_id": "11647",
+    "full_name": "Kimani Vidal",
+    "position": "RB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11650": {
+    "player_id": "11650",
+    "full_name": "Luke McCaffrey",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11651": {
+    "player_id": "11651",
+    "full_name": "Isaac Guerendo",
+    "position": "RB",
+    "team": "SF",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11652": {
+    "player_id": "11652",
+    "full_name": "Louis Rees-Zammit",
+    "position": "RB",
+    "team": null,
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "11655": {
+    "player_id": "11655",
+    "full_name": "Tyrone Tracy",
+    "position": "RB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11729": {
+    "player_id": "11729",
+    "full_name": "Sione Vaki",
+    "position": "RB",
+    "team": "DET",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11748": {
+    "player_id": "11748",
+    "full_name": "Bub Means",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11783": {
+    "player_id": "11783",
+    "full_name": "Ryan Flournoy",
+    "position": "WR",
+    "team": "DAL",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 26,
+    "years_exp": 2
+  },
+  "11786": {
+    "player_id": "11786",
+    "full_name": "Cam Little",
+    "position": "K",
+    "team": "JAX",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 22,
+    "years_exp": 2
+  },
+  "11789": {
+    "player_id": "11789",
+    "full_name": "Joshua Karty",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 24,
+    "years_exp": 2
+  },
+  "11792": {
+    "player_id": "11792",
+    "full_name": "Will Reichard",
+    "position": "K",
+    "team": "MIN",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11834": {
+    "player_id": "11834",
+    "full_name": "Devaughn Vele",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 28,
+    "years_exp": 2
+  },
+  "11895": {
+    "player_id": "11895",
+    "full_name": "Mason Tipton",
+    "position": "WR",
+    "team": "NO",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11921": {
+    "player_id": "11921",
+    "full_name": "Xavier Weaver",
+    "position": "WR",
+    "team": "ARI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 25,
+    "years_exp": 2
+  },
+  "11949": {
+    "player_id": "11949",
+    "full_name": "Brayden Narveson",
+    "position": "K",
+    "team": null,
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12185": {
+    "player_id": "12185",
+    "full_name": "Spencer Shrader",
+    "position": "K",
+    "team": "IND",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 27,
+    "years_exp": 2
+  },
+  "12455": {
+    "player_id": "12455",
+    "full_name": "Brashard Smith",
+    "position": "RB",
+    "team": "KC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12457": {
+    "player_id": "12457",
+    "full_name": "Jaydon Blue",
+    "position": "RB",
+    "team": "DAL",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12469": {
+    "player_id": "12469",
+    "full_name": "Dylan Sampson",
+    "position": "RB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 21,
+    "years_exp": 1
+  },
+  "12471": {
+    "player_id": "12471",
+    "full_name": "DJ Giddens",
+    "position": "RB",
+    "team": "IND",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12472": {
+    "player_id": "12472",
+    "full_name": "Raheim Sanders",
+    "position": "RB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12474": {
+    "player_id": "12474",
+    "full_name": "Woody Marks",
+    "position": "RB",
+    "team": "HOU",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12476": {
+    "player_id": "12476",
+    "full_name": "Devin Neal",
+    "position": "RB",
+    "team": "NO",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12481": {
+    "player_id": "12481",
+    "full_name": "Cam Skattebo",
+    "position": "RB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12483": {
+    "player_id": "12483",
+    "full_name": "Jack Bech",
+    "position": "WR",
+    "team": "LV",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12484": {
+    "player_id": "12484",
+    "full_name": "Jayden Higgins",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12485": {
+    "player_id": "12485",
+    "full_name": "Tez Johnson",
+    "position": "WR",
+    "team": "TB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12486": {
+    "player_id": "12486",
+    "full_name": "Dillon Gabriel",
+    "position": "QB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12487": {
+    "player_id": "12487",
+    "full_name": "Terrance Ferguson",
+    "position": "TE",
+    "team": "LAR",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12489": {
+    "player_id": "12489",
+    "full_name": "RJ Harvey",
+    "position": "RB",
+    "team": "DEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12490": {
+    "player_id": "12490",
+    "full_name": "Bhayshul Tuten",
+    "position": "RB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12492": {
+    "player_id": "12492",
+    "full_name": "Pat Bryant",
+    "position": "WR",
+    "team": "DEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12493": {
+    "player_id": "12493",
+    "full_name": "Oronde Gadsden",
+    "position": "TE",
+    "team": "LAC",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12495": {
+    "player_id": "12495",
+    "full_name": "Ollie Gordon",
+    "position": "RB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12497": {
+    "player_id": "12497",
+    "full_name": "Tory Horton",
+    "position": "WR",
+    "team": "SEA",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12498": {
+    "player_id": "12498",
+    "full_name": "Mason Taylor",
+    "position": "TE",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12499": {
+    "player_id": "12499",
+    "full_name": "Elic Ayomanor",
+    "position": "WR",
+    "team": "TEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12500": {
+    "player_id": "12500",
+    "full_name": "Quinn Ewers",
+    "position": "QB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12501": {
+    "player_id": "12501",
+    "full_name": "Matthew Golden",
+    "position": "WR",
+    "team": "GB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12502": {
+    "player_id": "12502",
+    "full_name": "Gunnar Helm",
+    "position": "TE",
+    "team": "TEN",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12503": {
+    "player_id": "12503",
+    "full_name": "Isaiah Bond",
+    "position": "WR",
+    "team": "CLE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12504": {
+    "player_id": "12504",
+    "full_name": "Kaleb Johnson",
+    "position": "RB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12505": {
+    "player_id": "12505",
+    "full_name": "Jalen Royals",
+    "position": "WR",
+    "team": "KC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12506": {
+    "player_id": "12506",
+    "full_name": "Harold Fannin",
+    "position": "TE",
+    "team": "CLE",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 21,
+    "years_exp": 1
+  },
+  "12507": {
+    "player_id": "12507",
+    "full_name": "Omarion Hampton",
+    "position": "RB",
+    "team": "LAC",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12508": {
+    "player_id": "12508",
+    "full_name": "Jaxson Dart",
+    "position": "QB",
+    "team": "NYG",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12509": {
+    "player_id": "12509",
+    "full_name": "Tre' Harris",
+    "position": "WR",
+    "team": "LAC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12510": {
+    "player_id": "12510",
+    "full_name": "Jalen Milroe",
+    "position": "QB",
+    "team": "SEA",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12511": {
+    "player_id": "12511",
+    "full_name": "Will Howard",
+    "position": "QB",
+    "team": "PIT",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12512": {
+    "player_id": "12512",
+    "full_name": "Quinshon Judkins",
+    "position": "RB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12514": {
+    "player_id": "12514",
+    "full_name": "Emeka Egbuka",
+    "position": "WR",
+    "team": "TB",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12515": {
+    "player_id": "12515",
+    "full_name": "Donovan Edwards",
+    "position": "RB",
+    "team": "MIA",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12516": {
+    "player_id": "12516",
+    "full_name": "Kalel Mullings",
+    "position": "RB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12517": {
+    "player_id": "12517",
+    "full_name": "Colston Loveland",
+    "position": "TE",
+    "team": "CHI",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12518": {
+    "player_id": "12518",
+    "full_name": "Tyler Warren",
+    "position": "TE",
+    "team": "IND",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12519": {
+    "player_id": "12519",
+    "full_name": "Luther Burden",
+    "position": "WR",
+    "team": "CHI",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12521": {
+    "player_id": "12521",
+    "full_name": "Elijah Arroyo",
+    "position": "TE",
+    "team": "SEA",
+    "fantasy_positions": [
+      "TE"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12522": {
+    "player_id": "12522",
+    "full_name": "Cam Ward",
+    "position": "QB",
+    "team": "TEN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12523": {
+    "player_id": "12523",
+    "full_name": "Jimmy Horn",
+    "position": "WR",
+    "team": "CAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12524": {
+    "player_id": "12524",
+    "full_name": "Shedeur Sanders",
+    "position": "QB",
+    "team": "CLE",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12526": {
+    "player_id": "12526",
+    "full_name": "Tetairoa McMillan",
+    "position": "WR",
+    "team": "CAR",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12527": {
+    "player_id": "12527",
+    "full_name": "Ashton Jeanty",
+    "position": "RB",
+    "team": "LV",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 22,
+    "years_exp": 1
+  },
+  "12529": {
+    "player_id": "12529",
+    "full_name": "TreVeyon Henderson",
+    "position": "RB",
+    "team": "NE",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12530": {
+    "player_id": "12530",
+    "full_name": "Travis Hunter",
+    "position": "WR",
+    "team": "JAX",
+    "fantasy_positions": [
+      "DB",
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12531": {
+    "player_id": "12531",
+    "full_name": "Trevor Etienne",
+    "position": "RB",
+    "team": "CAR",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 21,
+    "years_exp": 1
+  },
+  "12533": {
+    "player_id": "12533",
+    "full_name": "Jacory Croskey-Merritt",
+    "position": "RB",
+    "team": "WAS",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12534": {
+    "player_id": "12534",
+    "full_name": "Kyle Monangai",
+    "position": "RB",
+    "team": "CHI",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12535": {
+    "player_id": "12535",
+    "full_name": "Isaac TeSlaa",
+    "position": "WR",
+    "team": "DET",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12536": {
+    "player_id": "12536",
+    "full_name": "Jaylin Noel",
+    "position": "WR",
+    "team": "HOU",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12538": {
+    "player_id": "12538",
+    "full_name": "Brady Cook",
+    "position": "QB",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12540": {
+    "player_id": "12540",
+    "full_name": "Chimere Dike",
+    "position": "WR",
+    "team": "TEN",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12541": {
+    "player_id": "12541",
+    "full_name": "Dont'e Thornton",
+    "position": "WR",
+    "team": "LV",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12544": {
+    "player_id": "12544",
+    "full_name": "LeQuint Allen",
+    "position": "RB",
+    "team": "JAX",
+    "fantasy_positions": [
+      "RB"
+    ],
+    "age": 21,
+    "years_exp": 1
+  },
+  "12545": {
+    "player_id": "12545",
+    "full_name": "Tyler Shough",
+    "position": "QB",
+    "team": "NO",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 26,
+    "years_exp": 1
+  },
+  "12547": {
+    "player_id": "12547",
+    "full_name": "Kyle Williams",
+    "position": "WR",
+    "team": "NE",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 23,
+    "years_exp": 1
+  },
+  "12634": {
+    "player_id": "12634",
+    "full_name": "Jordan Watkins",
+    "position": "WR",
+    "team": "SF",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12641": {
+    "player_id": "12641",
+    "full_name": "Jaylin Lane",
+    "position": "WR",
+    "team": "WAS",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12670": {
+    "player_id": "12670",
+    "full_name": "KeAndre Lambert-Smith",
+    "position": "WR",
+    "team": "LAC",
+    "fantasy_positions": [
+      "WR"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12711": {
+    "player_id": "12711",
+    "full_name": "Tyler Loop",
+    "position": "K",
+    "team": "BAL",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 24,
+    "years_exp": 1
+  },
+  "12775": {
+    "player_id": "12775",
+    "full_name": "Max Brosmer",
+    "position": "QB",
+    "team": "MIN",
+    "fantasy_positions": [
+      "QB"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "12961": {
+    "player_id": "12961",
+    "full_name": "Ryan Fitzgerald",
+    "position": "K",
+    "team": "CAR",
+    "fantasy_positions": [
+      "K"
+    ],
+    "age": 25,
+    "years_exp": 1
+  },
+  "HOU": {
+    "player_id": "HOU",
+    "full_name": "Houston Texans",
+    "position": "DEF",
+    "team": "HOU",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "NE": {
+    "player_id": "NE",
+    "full_name": "New England Patriots",
+    "position": "DEF",
+    "team": "NE",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "BAL": {
+    "player_id": "BAL",
+    "full_name": "Baltimore Ravens",
+    "position": "DEF",
+    "team": "BAL",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "PIT": {
+    "player_id": "PIT",
+    "full_name": "Pittsburgh Steelers",
+    "position": "DEF",
+    "team": "PIT",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "IND": {
+    "player_id": "IND",
+    "full_name": "Indianapolis Colts",
+    "position": "DEF",
+    "team": "IND",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "ARI": {
+    "player_id": "ARI",
+    "full_name": "Arizona Cardinals",
+    "position": "DEF",
+    "team": "ARI",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "SEA": {
+    "player_id": "SEA",
+    "full_name": "Seattle Seahawks",
+    "position": "DEF",
+    "team": "SEA",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "LV": {
+    "player_id": "LV",
+    "full_name": "Las Vegas Raiders",
+    "position": "DEF",
+    "team": "LV",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "NYJ": {
+    "player_id": "NYJ",
+    "full_name": "New York Jets",
+    "position": "DEF",
+    "team": "NYJ",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "DAL": {
+    "player_id": "DAL",
+    "full_name": "Dallas Cowboys",
+    "position": "DEF",
+    "team": "DAL",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "WAS": {
+    "player_id": "WAS",
+    "full_name": "Washington Commanders",
+    "position": "DEF",
+    "team": "WAS",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "LAC": {
+    "player_id": "LAC",
+    "full_name": "Los Angeles Chargers",
+    "position": "DEF",
+    "team": "LAC",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "TB": {
+    "player_id": "TB",
+    "full_name": "Tampa Bay Buccaneers",
+    "position": "DEF",
+    "team": "TB",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "CLE": {
+    "player_id": "CLE",
+    "full_name": "Cleveland Browns",
+    "position": "DEF",
+    "team": "CLE",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "ATL": {
+    "player_id": "ATL",
+    "full_name": "Atlanta Falcons",
+    "position": "DEF",
+    "team": "ATL",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "CAR": {
+    "player_id": "CAR",
+    "full_name": "Carolina Panthers",
+    "position": "DEF",
+    "team": "CAR",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "JAX": {
+    "player_id": "JAX",
+    "full_name": "Jacksonville Jaguars",
+    "position": "DEF",
+    "team": "JAX",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "LAR": {
+    "player_id": "LAR",
+    "full_name": "Los Angeles Rams",
+    "position": "DEF",
+    "team": "LAR",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "NO": {
+    "player_id": "NO",
+    "full_name": "New Orleans Saints",
+    "position": "DEF",
+    "team": "NO",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "GB": {
+    "player_id": "GB",
+    "full_name": "Green Bay Packers",
+    "position": "DEF",
+    "team": "GB",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "MIA": {
+    "player_id": "MIA",
+    "full_name": "Miami Dolphins",
+    "position": "DEF",
+    "team": "MIA",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "DET": {
+    "player_id": "DET",
+    "full_name": "Detroit Lions",
+    "position": "DEF",
+    "team": "DET",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "BUF": {
+    "player_id": "BUF",
+    "full_name": "Buffalo Bills",
+    "position": "DEF",
+    "team": "BUF",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "PHI": {
+    "player_id": "PHI",
+    "full_name": "Philadelphia Eagles",
+    "position": "DEF",
+    "team": "PHI",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "SF": {
+    "player_id": "SF",
+    "full_name": "San Francisco 49ers",
+    "position": "DEF",
+    "team": "SF",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "NYG": {
+    "player_id": "NYG",
+    "full_name": "New York Giants",
+    "position": "DEF",
+    "team": "NYG",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "TEN": {
+    "player_id": "TEN",
+    "full_name": "Tennessee Titans",
+    "position": "DEF",
+    "team": "TEN",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "CHI": {
+    "player_id": "CHI",
+    "full_name": "Chicago Bears",
+    "position": "DEF",
+    "team": "CHI",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "CIN": {
+    "player_id": "CIN",
+    "full_name": "Cincinnati Bengals",
+    "position": "DEF",
+    "team": "CIN",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "DEN": {
+    "player_id": "DEN",
+    "full_name": "Denver Broncos",
+    "position": "DEF",
+    "team": "DEN",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "KC": {
+    "player_id": "KC",
+    "full_name": "Kansas City Chiefs",
+    "position": "DEF",
+    "team": "KC",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  },
+  "MIN": {
+    "player_id": "MIN",
+    "full_name": "Minnesota Vikings",
+    "position": "DEF",
+    "team": "MIN",
+    "fantasy_positions": [
+      "DEF"
+    ],
+    "age": null,
+    "years_exp": null
+  }
+}

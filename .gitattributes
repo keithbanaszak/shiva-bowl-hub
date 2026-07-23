@@ -1,0 +1,11 @@
+# Normalize to LF in the repo. The weekly refresh Action checks out on ubuntu and
+# rewrites data/**; without this, every refresh would show up as a whole-file diff.
+* text=auto eol=lf
+
+# Generated data — keep diffs readable but don't try to merge them.
+data/**/*.json text eol=lf
+package-lock.json text eol=lf merge=ours
+
+*.png binary
+*.jpg binary
+*.ico binary

@@ -1,0 +1,41 @@
+name: Refresh Sleeper data
+
+# Weekly in-season refresh. Tuesday 13:17 UTC (after Monday Night Football
+# settles), Sept–Jan only. Off-:00 minute to dodge GitHub's high-load delays.
+# Also runnable on demand.
+on:
+  schedule:
+    - cron: "17 13 * 9-12,1 2"
+  workflow_dispatch:
+
+# allow the job to push the refreshed data commit
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # ingest current week + rebuild marts
+      - run: npm run data:refresh
+
+      - name: Commit refreshed data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): weekly Sleeper refresh"
+          file_pattern: "data/**"
+          commit_user_name: shiva-bowl-bot
+          commit_user_email: actions@github.com

@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08090f;
+  --foreground: #e8ecf4;
+  --muted: #8b95a7;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-2: rgba(255, 255, 255, 0.06); /* hover / elevated surface */
+  --border: rgba(255, 255, 255, 0.1);
+  --border-glow: rgba(52, 211, 153, 0.2);
+  --accent: #34d399; /* emerald — primary, load-bearing */
+  --accent-2: #22d3ee; /* cyan — neon secondary */
+  --bad: #fb7185; /* rose-red */
+  --warn: #fbbf24; /* amber */
+  --gold: #fcd34d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-bad: var(--bad);
+  --color-warn: var(--warn);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(1100px 560px at 82% -14%, rgba(52, 211, 153, 0.05), transparent),
+    radial-gradient(820px 460px at -8% 6%, rgba(34, 211, 238, 0.04), transparent),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---- minimal futuristic arcade utilities ------------------------------- */
+
+/* Geometric display face for logo / headings / kickers. */
+.font-display {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Very faint emerald sheen for hero titles / logo — restrained, not neon. */
+.text-glow {
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.13);
+}
+
+/* Hairline border with a whisper of outer glow (logo / dropdown only). */
+.glow-border {
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 0 12px -10px var(--border-glow);
+}
+
+/* Animated 1px cyan edge sweep on hover — pure CSS, no JS. */
+.edge-accent {
+  position: relative;
+}
+.edge-accent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent 40%, var(--accent-2) 50%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.group:hover .edge-accent::before,
+.edge-accent:hover::before {
+  opacity: 0.7;
+}
+
+/* Opt-in scanline texture — ONLY for small hero/logo areas, never tables. */
+.scanline {
+  position: relative;
+}
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+/* thin scrollbars for wide tables */
+.scroll-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
