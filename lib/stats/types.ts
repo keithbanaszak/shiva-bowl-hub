@@ -191,6 +191,10 @@ export type AllTimeRow = {
   championships: number;
   runnerUps: number;
   playoffAppearances: number;
+  // postseason record, kept separate from the regular-season W-L above
+  playoffWins: number;
+  playoffLosses: number;
+  playoffWinPct: number;
   bestFinish: number | null;
   avgFinish: number | null;
   // schedule-luck-adjusted
@@ -429,6 +433,8 @@ export type RecordEntry = {
   week: number;
   userId: string;
   opponentUserId: string | null;
+  opponentPoints: number | null;
+  isPlayoff: boolean;
   value: number;
   note?: string;
 };

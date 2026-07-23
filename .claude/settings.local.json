@@ -15,7 +15,9 @@
       "Bash(xargs echo \"entities remaining:\")",
       "Bash(grep -o \"</strong>the[^<]\\\\{0,40\\\\}\")",
       "Bash(curl -s http://localhost:3000/glossary)",
-      "Bash(grep -o \"</strong>career[^<]\\\\{0,30\\\\}\\\\|</strong>with[^<]\\\\{0,30\\\\}\")"
+      "Bash(grep -o \"</strong>career[^<]\\\\{0,30\\\\}\\\\|</strong>with[^<]\\\\{0,30\\\\}\")",
+      "Bash(python3 -)",
+      "Bash(git commit -q -m 'Add sortable fixed-width DataTable; record book excludes non-games, shows playoff record *)"
     ]
   }
 }

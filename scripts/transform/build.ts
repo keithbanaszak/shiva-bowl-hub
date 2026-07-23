@@ -37,6 +37,8 @@ import { round2 } from "../../lib/stats/util";
 
 function buildAllTime(standings: SeasonStanding[], playoffs: SeasonPlayoffs[]): AllTimeRow[] {
   const champs = new Map<string, number>();
+  const poW = new Map<string, number>();
+  const poL = new Map<string, number>();
   const runners = new Map<string, number>();
   const apps = new Map<string, number>();
   const best = new Map<string, number>();
@@ -53,6 +55,12 @@ function buildAllTime(standings: SeasonStanding[], playoffs: SeasonPlayoffs[]): 
       finishSum.set(uid, f);
     }
     for (const uid of Object.keys(p.seeds)) apps.set(uid, (apps.get(uid) ?? 0) + 1);
+    // only the winners bracket counts as "playoffs"; the losers bracket is consolation
+    for (const g of p.games) {
+      if (g.bracket !== "winners") continue;
+      if (g.winnerUserId) poW.set(g.winnerUserId, (poW.get(g.winnerUserId) ?? 0) + 1);
+      if (g.loserUserId) poL.set(g.loserUserId, (poL.get(g.loserUserId) ?? 0) + 1);
+    }
   }
 
   type Acc = AllTimeRow & { _fpts: number; _ppts: number };
@@ -74,6 +82,9 @@ function buildAllTime(standings: SeasonStanding[], playoffs: SeasonPlayoffs[]): 
         championships: champs.get(s.userId) ?? 0,
         runnerUps: runners.get(s.userId) ?? 0,
         playoffAppearances: apps.get(s.userId) ?? 0,
+        playoffWins: poW.get(s.userId) ?? 0,
+        playoffLosses: poL.get(s.userId) ?? 0,
+        playoffWinPct: 0,
         bestFinish: best.get(s.userId) ?? null,
         avgFinish: null,
         allPlayWins: 0,
@@ -113,6 +124,8 @@ function buildAllTime(standings: SeasonStanding[], playoffs: SeasonPlayoffs[]): 
       r.totalLuck = round2(r.totalLuck);
       r.benchPointsTotal = round2(r.benchPointsTotal);
       r.careerEfficiency = r._ppts > 0 ? round2(r._fpts / r._ppts) : 0;
+      const pg = r.playoffWins + r.playoffLosses;
+      r.playoffWinPct = pg > 0 ? round2(r.playoffWins / pg) : 0;
       const f = finishSum.get(r.userId);
       r.avgFinish = f && f.n > 0 ? round2(f.sum / f.n) : null;
       const { _fpts, _ppts, ...rest } = r;

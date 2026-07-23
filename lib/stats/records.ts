@@ -2,17 +2,29 @@ import type { RecordEntry, Records, TeamWeek } from "./types";
 
 const N = 15;
 
+/**
+ * The record book, built only from weeks that were ACTUAL GAMES.
+ *
+ * Sleeper still reports rosters and player points for week 18, but this league's
+ * season ends at week 17 — there is no matchup, so nobody sets a lineup and
+ * nothing is at stake. Those weeks were dominating "lowest scoring" and "most
+ * points left on bench" with scores nobody was trying to avoid. A week only
+ * counts here if it had an opponent.
+ */
 export function computeRecords(teamWeeks: TeamWeek[]): Records {
   const base = (t: TeamWeek, value: number, note?: string): RecordEntry => ({
     season: t.season,
     week: t.week,
     userId: t.userId,
     opponentUserId: t.opponentUserId,
+    opponentPoints: t.opponentPoints,
+    isPlayoff: t.isPlayoff,
     value,
     note,
   });
 
-  const played = teamWeeks.filter((t) => t.points > 0);
+  // a real game: an opponent to play, and points on the board
+  const played = teamWeeks.filter((t) => t.points > 0 && t.opponentUserId != null);
 
   const topWeeks = [...played]
     .sort((a, b) => b.points - a.points)
