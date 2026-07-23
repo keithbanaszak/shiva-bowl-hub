@@ -37,7 +37,7 @@ export default function RivalriesPage() {
           <Link
             key={`${p.aUserId}-${p.bUserId}`}
             href={`/compare/${p.aUserId}/${p.bUserId}`}
-            className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 transition hover:border-red-400/40 hover:bg-white/[0.06]"
+            className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 transition hover:border-[var(--bad-border)] hover:bg-[var(--card-2)]"
           >
             <div className="flex items-center justify-between">
               <Badge tone={heatTone(p.heat)}>Heat {p.heat}</Badge>
@@ -59,7 +59,7 @@ export default function RivalriesPage() {
             <div className="mt-3 flex items-center justify-between text-xs text-[var(--muted)]">
               <span>avg margin {p.avgMargin}</span>
               {p.playoffAWins + p.playoffBWins > 0 && <span>playoffs {p.playoffAWins}-{p.playoffBWins}</span>}
-              <span className="text-emerald-300 group-hover:underline">compare →</span>
+              <span className="text-[var(--accent)] group-hover:underline">compare →</span>
             </div>
           </Link>
         ))}
@@ -67,7 +67,7 @@ export default function RivalriesPage() {
 
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 text-sm text-[var(--muted)]">
         Want any specific matchup? Head to{" "}
-        <Link href="/compare" className="text-emerald-300 hover:underline">
+        <Link href="/compare" className="text-[var(--accent)] hover:underline">
           Compare Managers
         </Link>{" "}
         to pick any two managers and see every meeting, lineup, and trade between them.

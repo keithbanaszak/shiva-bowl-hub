@@ -22,13 +22,13 @@ export default function AwardsIndex() {
             <Link
               key={season}
               href={`/awards/${season}`}
-              className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 transition hover:border-amber-400/40 hover:bg-white/[0.06]"
+              className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 transition hover:border-[var(--gold-border)] hover:bg-[var(--card-2)]"
             >
               <div className="text-xs uppercase tracking-widest text-[var(--muted)]">{season}</div>
               <div className="mt-2 flex items-center gap-2">
                 <span className="text-2xl">🏆</span>
                 <Avatar userId={po?.championUserId} size={32} />
-                <span className="truncate font-semibold text-amber-200 group-hover:text-amber-100">
+                <span className="truncate font-semibold text-[var(--gold)] group-hover:text-[var(--gold)]">
                   {label(po?.championUserId)}
                 </span>
               </div>

@@ -22,7 +22,7 @@ function RecordTable({
   tone?: "default" | "good" | "bad" | "gold";
 }) {
   const valueClass =
-    tone === "good" ? "text-emerald-300" : tone === "bad" ? "text-red-400" : tone === "gold" ? "text-amber-300" : "text-white";
+    tone === "good" ? "text-[var(--accent)]" : tone === "bad" ? "text-[var(--bad)]" : tone === "gold" ? "text-[var(--gold)]" : "text-[var(--foreground)]";
   return (
     <div>
       <SectionTitle>
@@ -127,7 +127,7 @@ export default function RecordsPage() {
                 <td className="px-3 tabular-nums">{(r.winPct * 100).toFixed(1)}%</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{(r.allPlayWinPct * 100).toFixed(1)}%</td>
                 <td className="px-3 tabular-nums">{(r.careerEfficiency * 100).toFixed(1)}%</td>
-                <td className={`px-3 tabular-nums ${r.totalLuck > 0 ? "text-emerald-300" : r.totalLuck < 0 ? "text-red-400" : ""}`}>
+                <td className={`px-3 tabular-nums ${r.totalLuck > 0 ? "text-[var(--accent)]" : r.totalLuck < 0 ? "text-[var(--bad)]" : ""}`}>
                   {signed(r.totalLuck)}
                 </td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{r.pointsPerGame}</td>
@@ -141,7 +141,7 @@ export default function RecordsPage() {
 
       <div className="mb-2 text-sm text-[var(--muted)]">
         Want one manager&rsquo;s full story?{" "}
-        <Link href="/managers" className="text-emerald-300 hover:underline">
+        <Link href="/managers" className="text-[var(--accent)] hover:underline">
           Browse manager profiles →
         </Link>
       </div>

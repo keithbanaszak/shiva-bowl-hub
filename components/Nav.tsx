@@ -50,10 +50,10 @@ export function Nav() {
   const groupActive = (g: Group) => g.items.some((i) => active(i.href));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[#07090e]/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--nav-bg)] backdrop-blur">
       <nav className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-3">
         <Link href="/" onClick={() => setOpen(null)} className="mr-2 flex items-center gap-2 font-display font-bold tracking-tight">
-          <span className="scanline grid h-7 w-7 place-items-center rounded-lg bg-emerald-400/15 text-[11px] font-bold text-emerald-300 glow-border">
+          <span className="scanline grid h-7 w-7 place-items-center rounded-lg bg-[var(--accent-soft)] text-[11px] font-bold text-[var(--accent)] glow-border">
             SB
           </span>
           <span className="hidden text-glow sm:inline">The Shiva Bowl</span>
@@ -63,7 +63,7 @@ export function Nav() {
           <Link
             href="/"
             className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-sm transition ${
-              pathname === "/" ? "bg-accent/15 text-accent" : "text-[var(--muted)] hover:bg-white/5 hover:text-white"
+              pathname === "/" ? "bg-accent/15 text-accent" : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
             }`}
           >
             Home
@@ -76,21 +76,21 @@ export function Nav() {
                 className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm transition ${
                   groupActive(g) || open === g.label
                     ? "bg-accent/15 text-accent"
-                    : "text-[var(--muted)] hover:bg-white/5 hover:text-white"
+                    : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
                 }`}
               >
                 {g.label}
                 <span className={`text-[10px] transition ${open === g.label ? "rotate-180" : ""}`}>▾</span>
               </button>
               {open === g.label && (
-                <div className="absolute left-0 top-full z-50 mt-1 w-52 rounded-xl border border-[var(--border)] bg-[#0b0e15] p-1 shadow-xl glow-border">
+                <div className="absolute left-0 top-full z-50 mt-1 w-52 rounded-xl border border-[var(--border)] bg-[var(--overlay)] p-1 shadow-xl glow-border">
                   {g.items.map((i) => (
                     <Link
                       key={i.href}
                       href={i.href}
                       onClick={() => setOpen(null)}
                       className={`block rounded-lg px-3 py-2 text-sm transition ${
-                        active(i.href) ? "bg-emerald-400/15 text-emerald-200" : "text-[var(--muted)] hover:bg-white/5 hover:text-white"
+                        active(i.href) ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
                       }`}
                     >
                       {i.label}
@@ -105,7 +105,7 @@ export function Nav() {
             href={SLEEPER_URL}
             target="_blank"
             rel="noreferrer"
-            className="ml-auto whitespace-nowrap rounded-lg px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-white/5 hover:text-white"
+            className="ml-auto whitespace-nowrap rounded-lg px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
           >
             Sleeper ↗
           </a>

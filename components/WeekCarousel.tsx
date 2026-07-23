@@ -21,7 +21,7 @@ export function WeekCarousel({
         <button
           onClick={() => setI((x) => Math.max(0, x - 1))}
           disabled={i === 0}
-          className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] text-lg transition hover:bg-white/10 disabled:opacity-30"
+          className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] text-lg transition hover:bg-[var(--chip)] disabled:opacity-30"
           aria-label="Previous week"
         >
           ‹
@@ -30,7 +30,7 @@ export function WeekCarousel({
         <button
           onClick={() => setI((x) => Math.min(nodes.length - 1, x + 1))}
           disabled={i === nodes.length - 1}
-          className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] text-lg transition hover:bg-white/10 disabled:opacity-30"
+          className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] text-lg transition hover:bg-[var(--chip)] disabled:opacity-30"
           aria-label="Next week"
         >
           ›

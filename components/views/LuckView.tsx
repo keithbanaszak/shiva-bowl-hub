@@ -36,7 +36,7 @@ export function LuckView({ season }: { season: string }) {
           <strong>All-play</strong>: pretend each team played everyone else every week — beating all who scored
           less. <strong>Expected wins</strong> = your share of all-play wins; <strong>luck</strong> = actual wins
           minus expected. Positive luck = won more than your scoring earned.{" "}
-          <Link href="/glossary" className="text-emerald-300 hover:underline">
+          <Link href="/glossary" className="text-[var(--accent)] hover:underline">
             full methodology →
           </Link>
         </Note>
@@ -108,7 +108,7 @@ export function LuckView({ season }: { season: string }) {
                   </td>
                   <td className="px-3 tabular-nums text-[var(--muted)]">{r.expectedWins}</td>
                   <td
-                    className={`px-3 tabular-nums ${r.luck > 0 ? "text-emerald-300" : r.luck < 0 ? "text-red-400" : ""}`}
+                    className={`px-3 tabular-nums ${r.luck > 0 ? "text-[var(--accent)]" : r.luck < 0 ? "text-[var(--bad)]" : ""}`}
                   >
                     {signed(r.luck)}
                   </td>

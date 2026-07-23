@@ -16,22 +16,22 @@ const POS_TINT: Record<string, string> = {
 function NowOwned({ userId }: { userId: string }) {
   return (
     <div className="mt-1 flex items-center gap-1 rounded bg-amber-400/10 px-1 py-0.5">
-      <span className="text-[8px] font-semibold uppercase tracking-wide text-amber-300/70">now</span>
+      <span className="text-[8px] font-semibold uppercase tracking-wide text-[var(--gold)]/70">now</span>
       <Avatar userId={userId} size={12} />
-      <span className="truncate text-[9px] font-medium text-amber-200">{label(userId)}</span>
+      <span className="truncate text-[9px] font-medium text-[var(--gold)]">{label(userId)}</span>
     </div>
   );
 }
 
 function Cell({ c }: { c: DraftBoardCell }) {
-  const tint = (c.position && POS_TINT[c.position]) || "bg-white/[0.02] border-[var(--border)]";
+  const tint = (c.position && POS_TINT[c.position]) || "bg-[var(--panel)] border-[var(--border)]";
   // A pick is "traded" only when its current owner differs from the column's original owner.
   const traded = c.isTraded && !!c.ownerUserId && c.ownerUserId !== c.slotOwnerUserId;
 
   return (
     <div
       className={`min-h-[64px] rounded-lg border p-1.5 ${
-        c.playerId ? tint : "border-[var(--border)] bg-white/[0.015]"
+        c.playerId ? tint : "border-[var(--border)] bg-[var(--panel)]"
       } ${traded ? "ring-1 ring-inset ring-amber-400/30" : ""}`}
     >
       <div className="flex items-center justify-between font-mono text-[9px] text-[var(--muted)]">
@@ -54,7 +54,7 @@ function Cell({ c }: { c: DraftBoardCell }) {
         // Future pick that was traded away: show the team that now owns it.
         <div className="mt-1 flex items-center gap-1.5">
           <Avatar userId={c.ownerUserId} size={18} />
-          <span className="min-w-0 truncate text-[11px] font-medium leading-tight text-amber-200">
+          <span className="min-w-0 truncate text-[11px] font-medium leading-tight text-[var(--gold)]">
             {label(c.ownerUserId)}
           </span>
         </div>

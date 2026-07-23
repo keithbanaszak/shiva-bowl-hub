@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 function Term({ title, children }: { title: string; children: ReactNode }) {
   return (
     <Card>
-      <h3 className="mb-2 font-semibold text-emerald-300">{title}</h3>
+      <h3 className="mb-2 font-semibold text-[var(--accent)]">{title}</h3>
       <div className="space-y-2 text-sm leading-relaxed text-[var(--muted)]">{children}</div>
     </Card>
   );

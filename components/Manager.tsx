@@ -28,7 +28,7 @@ export function Avatar({ userId, size = 28 }: { userId: string | null | undefine
   return (
     <div
       style={dim}
-      className="grid shrink-0 place-items-center rounded-full border border-[var(--border)] bg-white/10 text-[10px] font-semibold text-white/70"
+      className="grid shrink-0 place-items-center rounded-full border border-[var(--border)] bg-[var(--chip)] text-[10px] font-semibold text-[var(--muted)]"
     >
       {m ? initials(m.label) : "?"}
     </div>
@@ -56,7 +56,7 @@ export function ManagerChip({
   );
   if (href && userId) {
     return (
-      <Link href={href} className="hover:text-emerald-300">
+      <Link href={href} className="hover:text-[var(--accent)]">
         {inner}
       </Link>
     );

@@ -43,7 +43,7 @@ export default async function ComparePairPage({
 
   return (
     <div>
-      <Link href="/compare" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-emerald-300">
+      <Link href="/compare" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]">
         ← Compare
       </Link>
 
@@ -92,7 +92,7 @@ export default async function ComparePairPage({
 
       {pair.currentStreak && (
         <p className="mb-8 text-sm text-[var(--muted)]">
-          Current streak: <span className="text-white">{label(pair.currentStreak.holder)}</span> has won the last{" "}
+          Current streak: <span className="text-[var(--foreground)]">{label(pair.currentStreak.holder)}</span> has won the last{" "}
           {pair.currentStreak.length}.
         </p>
       )}
@@ -109,7 +109,7 @@ export default async function ComparePairPage({
                   {t.sides
                     .filter((s) => s.userId === a || s.userId === b)
                     .map((s) => (
-                      <div key={s.userId} className="rounded-lg border border-[var(--border)] bg-white/[0.02] p-2.5">
+                      <div key={s.userId} className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5">
                         <div className="mb-1 truncate text-xs font-medium">{label(s.userId)} got</div>
                         <ul className="space-y-0.5 text-xs">
                           {s.received.map((as, i) => (
@@ -148,9 +148,9 @@ export default async function ComparePairPage({
                   {g.isPlayoff && <Badge tone="gold">PO</Badge>}
                 </span>
                 <span className="flex items-center gap-3 font-mono tabular-nums">
-                  <span className={aWon ? "font-semibold text-emerald-300" : ""}>{g.points}</span>
+                  <span className={aWon ? "font-semibold text-[var(--accent)]" : ""}>{g.points}</span>
                   <span className="text-[var(--muted)]">–</span>
-                  <span className={g.result === "L" ? "font-semibold text-emerald-300" : ""}>{g.opponentPoints}</span>
+                  <span className={g.result === "L" ? "font-semibold text-[var(--accent)]" : ""}>{g.opponentPoints}</span>
                 </span>
                 <span className="hidden w-28 text-right text-xs text-[var(--muted)] sm:block">
                   {g.result === "W" ? `${label(a)} won` : g.result === "L" ? `${label(b)} won` : "tie"}

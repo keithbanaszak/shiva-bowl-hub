@@ -9,8 +9,8 @@ const fmtDate = (ms: number | null) =>
 
 function PickChip({ a }: { a: Extract<TradeAsset, { kind: "pick" }> }) {
   return (
-    <span className="inline-flex max-w-full items-center gap-1.5 rounded-md border border-cyan-400/25 bg-cyan-400/[0.06] px-1.5 py-1 text-xs">
-      <span className="grid h-5 w-5 shrink-0 place-items-center rounded bg-cyan-400/15 font-mono text-[10px] font-bold text-cyan-300">
+    <span className="inline-flex max-w-full items-center gap-1.5 rounded-md border border-cyan-400/25 bg-[var(--accent-2)]/[0.06] px-1.5 py-1 text-xs">
+      <span className="grid h-5 w-5 shrink-0 place-items-center rounded bg-[var(--accent-2-soft)] font-mono text-[10px] font-bold text-[var(--accent-2)]">
         {a.round}
       </span>
       <span className="shrink-0 text-[var(--muted)]">
@@ -46,17 +46,17 @@ export function TradeCard({ t, realized = true }: { t: Trade; realized?: boolean
         {t.sides.map((s) => {
           const net = realized ? t.realized?.[s.userId]?.career : undefined;
           return (
-            <div key={s.userId} className="min-w-[170px] flex-1 rounded-lg border border-[var(--border)] bg-white/[0.02] p-2.5">
+            <div key={s.userId} className="min-w-[170px] flex-1 rounded-lg border border-[var(--border)] bg-[var(--panel)] p-2.5">
               <div className="mb-2 flex items-center justify-between gap-2 border-b border-[var(--border)] pb-2">
                 <ManagerChip userId={s.userId} href={`/managers/${s.userId}`} size={20} className="font-semibold" />
-                {net != null && net > 0 && <span className="shrink-0 font-mono text-xs text-emerald-300">{net} pts</span>}
+                {net != null && net > 0 && <span className="shrink-0 font-mono text-xs text-[var(--accent)]">{net} pts</span>}
               </div>
               <div className="space-y-1.5">
                 {s.received.map((a, i) => (
                   <Asset key={i} a={a} />
                 ))}
                 {s.faabReceived > 0 && (
-                  <span className="inline-flex items-center rounded-md border border-amber-400/25 bg-amber-400/[0.06] px-1.5 py-1 text-xs text-amber-300">
+                  <span className="inline-flex items-center rounded-md border border-amber-400/25 bg-amber-400/[0.06] px-1.5 py-1 text-xs text-[var(--gold)]">
                     ${s.faabReceived} FAAB
                   </span>
                 )}

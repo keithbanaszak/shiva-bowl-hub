@@ -15,7 +15,7 @@ function Pic({ url, size = 24 }: { url: string | null; size?: number }) {
     <span
       aria-hidden
       style={{ width: size, height: size, backgroundImage: url ? `url(${url})` : undefined }}
-      className="inline-block shrink-0 rounded-full border border-white/10 bg-white/[0.06] bg-cover bg-top"
+      className="inline-block shrink-0 rounded-full border border-[var(--border)] bg-[var(--card-2)] bg-cover bg-top"
     />
   );
 }
@@ -67,13 +67,13 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search a player or manager…"
-          className="w-full rounded-xl border border-[var(--border)] bg-[#11131a] px-4 py-2.5 text-sm outline-none focus:border-emerald-400/50 sm:max-w-xs"
+          className="w-full rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2.5 text-sm outline-none focus:border-[var(--border-glow)] sm:max-w-xs"
         />
         <div className="flex flex-1 flex-wrap items-center gap-2">
           <select
             value={season}
             onChange={(e) => setSeason(e.target.value)}
-            className="rounded-lg border border-[var(--border)] bg-[#11131a] px-3 py-2 text-sm"
+            className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
           >
             <option value="all">All seasons</option>
             {seasons.map((s) => (
@@ -87,7 +87,7 @@ export function TradesExplorer({ trades, managers }: { trades: Trade[]; managers
               <button
                 key={k}
                 onClick={() => setSort(k)}
-                className={`rounded-md px-2.5 py-1.5 transition ${sort === k ? "bg-emerald-400/20 text-emerald-200" : "text-[var(--muted)] hover:text-white"}`}
+                className={`rounded-md px-2.5 py-1.5 transition ${sort === k ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"}`}
               >
                 {lab}
               </button>
@@ -122,16 +122,16 @@ function TradeCard({ t, mgrMap }: { t: Trade; mgrMap: Map<string, Mgr> }) {
       tot === 0
         ? { text: "No points yet", tone: "text-[var(--muted)]" }
         : diffPct < 0.15
-          ? { text: "Even swap", tone: "text-emerald-300" }
+          ? { text: "Even swap", tone: "text-[var(--accent)]" }
           : diffPct > 0.5
-            ? { text: "Lopsided", tone: "text-red-300" }
-            : { text: "Competitive", tone: "text-amber-300" };
+            ? { text: "Lopsided", tone: "text-[var(--bad)]" }
+            : { text: "Competitive", tone: "text-[var(--gold)]" };
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-gradient-to-b from-white/[0.04] to-transparent p-4 transition hover:border-emerald-400/30">
+    <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 transition hover:border-[var(--border-glow)]">
       <div className="mb-3 flex items-center justify-between text-[11px] text-[var(--muted)]">
-        <span className="rounded-full bg-white/10 px-2 py-0.5 font-medium">
+        <span className="rounded-full bg-[var(--chip)] px-2 py-0.5 font-medium">
           {t.season} · Wk {t.week}
         </span>
         {verdict && <span className={`font-semibold uppercase tracking-wide ${verdict.tone}`}>{verdict.text}</span>}
@@ -142,7 +142,7 @@ function TradeCard({ t, mgrMap }: { t: Trade; mgrMap: Map<string, Mgr> }) {
           const m = mgrMap.get(s.userId);
           const r = t.realized?.[s.userId];
           return (
-            <div key={s.userId} className="min-w-0 rounded-xl border border-[var(--border)] bg-black/20 p-2.5">
+            <div key={s.userId} className="min-w-0 rounded-xl border border-[var(--border)] bg-[var(--inset)] p-2.5">
               <div className="mb-2 flex items-center gap-1.5">
                 <Pic url={m?.avatarUrl ?? null} size={20} />
                 <span className="min-w-0 truncate text-xs font-medium">{m?.label ?? s.userId}</span>
@@ -158,7 +158,7 @@ function TradeCard({ t, mgrMap }: { t: Trade; mgrMap: Map<string, Mgr> }) {
               </ul>
               {r && (
                 <div className="mt-2 text-[10px] text-[var(--muted)]">
-                  {r.season} rest · <span className="text-white">{r.career}</span> career
+                  {r.season} rest · <span className="text-[var(--foreground)]">{r.career}</span> career
                 </div>
               )}
             </div>
@@ -168,7 +168,7 @@ function TradeCard({ t, mgrMap }: { t: Trade; mgrMap: Map<string, Mgr> }) {
 
       {twoSide && (
         <div className="mt-3">
-          <div className="flex h-2 overflow-hidden rounded-full bg-white/5">
+          <div className="flex h-2 overflow-hidden rounded-full bg-[var(--card-2)]">
             <div className="bg-blue-500/60" style={{ width: `${aShare}%` }} />
             <div className="bg-red-500/60" style={{ width: `${100 - aShare}%` }} />
           </div>

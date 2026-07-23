@@ -22,7 +22,7 @@ export function BoardCarousel({
             key={idx}
             onClick={() => setI(idx)}
             className={`rounded-lg px-3 py-1.5 text-sm transition ${
-              idx === i ? "bg-emerald-400/20 text-emerald-200" : "border border-[var(--border)] text-[var(--muted)] hover:bg-white/5 hover:text-white"
+              idx === i ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]" : "border border-[var(--border)] text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
             }`}
           >
             {l}

@@ -26,7 +26,7 @@ export default function ComparePage() {
           <Link
             key={`${p.aUserId}-${p.bUserId}`}
             href={`/compare/${p.aUserId}/${p.bUserId}`}
-            className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm transition hover:border-emerald-400/40 hover:bg-white/[0.06]"
+            className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-3 text-sm transition hover:border-[var(--border-glow)] hover:bg-[var(--card-2)]"
           >
             <span className="truncate">
               {label(p.aUserId)} <span className="text-[var(--muted)]">vs</span> {label(p.bUserId)}

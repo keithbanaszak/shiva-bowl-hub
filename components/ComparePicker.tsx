@@ -16,7 +16,7 @@ export function ComparePicker({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-[var(--border)] bg-[#11131a] px-3 py-2 text-sm"
+      className="w-full rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
     >
       {managers.map((m) => (
         <option key={m.userId} value={m.userId}>
@@ -32,7 +32,7 @@ export function ComparePicker({
         <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager A</div>
         {select(a, setA)}
       </div>
-      <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-white/10 text-xs font-bold">
+      <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-[var(--chip)] text-xs font-bold">
         VS
       </div>
       <div className="flex-1">
@@ -42,7 +42,7 @@ export function ComparePicker({
       <button
         onClick={() => a && b && a !== b && router.push(`/compare/${a}/${b}`)}
         disabled={a === b}
-        className="rounded-lg bg-emerald-400/20 px-4 py-2 text-sm font-medium text-emerald-200 transition hover:bg-emerald-400/30 disabled:opacity-40"
+        className="rounded-lg bg-[var(--accent-soft)] px-4 py-2 text-sm font-medium text-[var(--accent-strong)] transition hover:bg-[var(--accent)]/30 disabled:opacity-40"
       >
         Compare
       </button>

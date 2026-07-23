@@ -61,7 +61,7 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
 
   return (
     <div>
-      <Link href="/managers" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-emerald-300">
+      <Link href="/managers" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]">
         ← All managers
       </Link>
 
@@ -114,21 +114,21 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {nemesis && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-red-300/80">Nemesis</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--bad)]">Nemesis</div>
             <div className="mt-2"><ManagerChip userId={nemesis.oppId} href={`/compare/${userId}/${nemesis.oppId}`} /></div>
             <div className="mt-1 text-sm text-[var(--muted)]">{nemesis.myWins}-{nemesis.oppWins} vs them</div>
           </Card>
         )}
         {freeLunch && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-emerald-300/80">Free lunch</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--accent)]">Free lunch</div>
             <div className="mt-2"><ManagerChip userId={freeLunch.oppId} href={`/compare/${userId}/${freeLunch.oppId}`} /></div>
             <div className="mt-1 text-sm text-[var(--muted)]">{freeLunch.myWins}-{freeLunch.oppWins} vs them</div>
           </Card>
         )}
         {krypt && (
           <Card>
-            <div className="text-xs uppercase tracking-wider text-amber-300/80">Kryptonite</div>
+            <div className="text-xs uppercase tracking-wider text-[var(--gold)]">Kryptonite</div>
             <div className="mt-2 flex items-center gap-2">
               <PlayerAvatar playerId={krypt.playerId} size={28} />
               <span className="truncate text-sm font-medium">{pname(krypt.playerId)}</span>
@@ -167,10 +167,10 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
                 <td className="px-3 tabular-nums">{s.finish ? (s.finish === 1 ? "🏆 1st" : ordinal(s.finish)) : "—"}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{s.pointsFor}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{(s.allPlayWinPct * 100).toFixed(0)}%</td>
-                <td className={`px-3 tabular-nums ${s.luck > 0 ? "text-emerald-300" : s.luck < 0 ? "text-red-400" : ""}`}>{signed(s.luck)}</td>
+                <td className={`px-3 tabular-nums ${s.luck > 0 ? "text-[var(--accent)]" : s.luck < 0 ? "text-[var(--bad)]" : ""}`}>{signed(s.luck)}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{(s.efficiency * 100).toFixed(0)}%</td>
                 <td className="px-3">
-                  <Link href={`/wrapped/${s.season}/${userId}`} className="text-xs text-emerald-300 hover:underline">
+                  <Link href={`/wrapped/${s.season}/${userId}`} className="text-xs text-[var(--accent)] hover:underline">
                     wrapped →
                   </Link>
                 </td>
@@ -214,19 +214,19 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
                     .find((s) => s.userId === userId)
                     ?.received.map((a, i) =>
                       a.kind === "player" ? (
-                        <span key={i} className="flex items-center gap-1.5 rounded-full bg-white/5 px-2 py-1 text-xs">
+                        <span key={i} className="flex items-center gap-1.5 rounded-full bg-[var(--card-2)] px-2 py-1 text-xs">
                           <PlayerAvatar playerId={a.playerId} size={18} />
                           {a.name}
                         </span>
                       ) : (
-                        <span key={i} className="rounded-full bg-white/5 px-2 py-1 text-xs text-[var(--muted)]">
+                        <span key={i} className="rounded-full bg-[var(--card-2)] px-2 py-1 text-xs text-[var(--muted)]">
                           {a.season} R{a.round}
                           {a.becameName ? ` → ${a.becameName}` : ""}
                         </span>
                       ),
                     )}
                 </div>
-                <Link href="/trades" className="mt-3 inline-block text-xs text-emerald-300 hover:underline">
+                <Link href="/trades" className="mt-3 inline-block text-xs text-[var(--accent)] hover:underline">
                   all trades →
                 </Link>
               </div>
@@ -240,7 +240,7 @@ export default async function ManagerProfile({ params }: { params: Promise<{ use
       {topRival && (
         <p className="mt-6 text-sm text-[var(--muted)]">
           Fiercest rivalry:{" "}
-          <Link href={`/compare/${userId}/${topRival.oppId}`} className="text-emerald-300 hover:underline">
+          <Link href={`/compare/${userId}/${topRival.oppId}`} className="text-[var(--accent)] hover:underline">
             {label(topRival.oppId)}
           </Link>{" "}
           (heat {topRival.heat}, {topRival.myWins}-{topRival.oppWins}).

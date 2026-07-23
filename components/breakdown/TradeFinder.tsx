@@ -5,9 +5,9 @@ import { label } from "@/lib/marts";
 import { managerStances, bestFits, type Stance } from "@/lib/data/tradeFinder";
 
 const STANCE_STYLE: Record<Stance, string> = {
-  surplus: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
-  need: "border-rose-400/30 bg-rose-400/10 text-rose-300",
-  balanced: "border-[var(--border)] bg-white/[0.03] text-[var(--muted)]",
+  surplus: "border-[var(--border-glow)] bg-[var(--accent-soft)] text-[var(--accent)]",
+  need: "border-rose-400/30 bg-rose-400/10 text-[var(--bad)]",
+  balanced: "border-[var(--border)] bg-[var(--panel)] text-[var(--muted)]",
 };
 const STANCE_MARK: Record<Stance, string> = { surplus: "▲", need: "▼", balanced: "·" };
 
@@ -32,7 +32,7 @@ export function TradeFinder() {
           <Card key={s.userId}>
             <div className="mb-3 flex items-center gap-2">
               <Avatar userId={s.userId} size={32} />
-              <Link href={`/managers/${s.userId}`} className="min-w-0 flex-1 truncate font-display font-semibold hover:text-emerald-300">
+              <Link href={`/managers/${s.userId}`} className="min-w-0 flex-1 truncate font-display font-semibold hover:text-[var(--accent)]">
                 {label(s.userId)}
               </Link>
               {axisBadge(s.picks.axis)}
@@ -60,7 +60,7 @@ export function TradeFinder() {
                     <li key={f.partnerId} className="text-xs">
                       <div className="flex items-center justify-between gap-2">
                         <ManagerChip userId={f.partnerId} size={16} />
-                        <Link href={`/compare/${s.userId}/${f.partnerId}`} className="shrink-0 text-emerald-300 hover:underline">
+                        <Link href={`/compare/${s.userId}/${f.partnerId}`} className="shrink-0 text-[var(--accent)] hover:underline">
                           compare →
                         </Link>
                       </div>

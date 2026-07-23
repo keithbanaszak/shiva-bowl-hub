@@ -32,7 +32,7 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
 
   return (
     <div>
-      <Link href="/players" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-emerald-300">
+      <Link href="/players" className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]">
         ← All players
       </Link>
 
@@ -74,7 +74,7 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
               {p.timeline.map((s, i) => (
                 <li key={i} className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                   <Avatar userId={s.userId} size={22} />
-                  <Link href={`/managers/${s.userId}`} className="font-medium hover:text-emerald-300">
+                  <Link href={`/managers/${s.userId}`} className="font-medium hover:text-[var(--accent)]">
                     {label(s.userId)}
                   </Link>
                   <Badge tone={ACQ_TONE[s.acquisition]}>{ACQ_LABEL[s.acquisition]}</Badge>
@@ -115,7 +115,7 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
                     </td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">{o.weeks}</td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">{o.starts}</td>
-                    <td className="px-3 tabular-nums font-semibold text-emerald-300">{o.points}</td>
+                    <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{o.points}</td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">{o.starterPoints}</td>
                     <td className="px-3 tabular-nums">{o.ppg}</td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">
@@ -141,9 +141,9 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
                     {p.revengeGames.map((g, i) => (
                       <li key={i} className="flex items-center justify-between gap-2">
                         <span>
-                          <span className="font-mono font-semibold text-amber-300">{g.points}</span> for{" "}
+                          <span className="font-mono font-semibold text-[var(--gold)]">{g.points}</span> for{" "}
                           {label(g.forUserId)} vs former owner{" "}
-                          <Link href={`/managers/${g.formerOwnerUserId}`} className="hover:text-emerald-300">
+                          <Link href={`/managers/${g.formerOwnerUserId}`} className="hover:text-[var(--accent)]">
                             {label(g.formerOwnerUserId)}
                           </Link>
                         </span>
@@ -165,7 +165,7 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
                   {p.boomWeeks.map((g, i) => (
                     <li key={i} className="flex items-center justify-between gap-2">
                       <span className="flex items-center gap-2">
-                        <span className="font-mono font-semibold text-emerald-300">{g.points}</span>
+                        <span className="font-mono font-semibold text-[var(--accent)]">{g.points}</span>
                         for {label(g.userId)}
                         {!g.started && <Tag>bench</Tag>}
                       </span>
@@ -184,11 +184,11 @@ export default async function PlayerLegacyPage({ params }: { params: Promise<{ p
               <SectionTitle>🩹 Most painful drop</SectionTitle>
               <Card>
                 <div className="text-sm">
-                  <Link href={`/managers/${p.mostPainfulDrop.droppedByUserId}`} className="font-medium hover:text-emerald-300">
+                  <Link href={`/managers/${p.mostPainfulDrop.droppedByUserId}`} className="font-medium hover:text-[var(--accent)]">
                     {label(p.mostPainfulDrop.droppedByUserId)}
                   </Link>{" "}
                   dropped him in {p.mostPainfulDrop.season} Wk{p.mostPainfulDrop.week} — he then scored{" "}
-                  <span className="font-mono font-semibold text-red-400">{p.mostPainfulDrop.afterPoints}</span> points for
+                  <span className="font-mono font-semibold text-[var(--bad)]">{p.mostPainfulDrop.afterPoints}</span> points for
                   other teams.
                 </div>
               </Card>

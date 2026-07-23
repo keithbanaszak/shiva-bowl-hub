@@ -16,7 +16,7 @@ function seriesText(m: ScheduleMatchup): string {
 
 function GameOfWeek({ m }: { m: ScheduleMatchup }) {
   return (
-    <Card className="relative mb-3 overflow-hidden border-amber-400/30 bg-amber-400/[0.04]">
+    <Card className="relative mb-3 overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
       <div className="pointer-events-none absolute -right-4 -top-6 text-6xl opacity-10">⭐</div>
       <div className="mb-3 flex items-center gap-2">
         <Badge tone="gold">Game of the Week</Badge>
@@ -33,7 +33,7 @@ function GameOfWeek({ m }: { m: ScheduleMatchup }) {
         href={`/compare/${m.aUserId}/${m.bUserId}`}
         featured
       />
-      <div className="mt-3 text-sm text-amber-200">{m.reason}</div>
+      <div className="mt-3 text-sm text-[var(--gold)]">{m.reason}</div>
       <div className="mt-0.5 text-xs text-[var(--muted)]">{seriesText(m)}</div>
     </Card>
   );

@@ -18,7 +18,7 @@ function LeaderTile({
   metric: (a: Acquisition) => string;
 }) {
   return (
-    <div className="rounded-xl border border-[var(--border)] bg-white/[0.02] p-3">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-3">
       <div className="mb-1 text-[11px] uppercase tracking-wider text-[var(--muted)]">{title}</div>
       {a ? (
         <>
@@ -100,7 +100,7 @@ export default function WaiversPage() {
                 </td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{g.adds}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">${g.faabSpent}</td>
-                <td className="px-3 tabular-nums font-semibold text-emerald-300">{g.pointsGained}</td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{g.pointsGained}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{g.starterPointsGained}</td>
                 <td className="px-3 tabular-nums">{g.pointsPerFaab}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{g.freeAddPoints}</td>

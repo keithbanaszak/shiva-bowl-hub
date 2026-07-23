@@ -28,7 +28,7 @@ function SectionHead({ title, href, linkText }: { title: ReactNode; href?: strin
     <div className="mb-3 flex items-end justify-between gap-3 border-b border-[var(--border)] pb-2">
       <h2 className="font-display text-lg font-semibold tracking-tight">{title}</h2>
       {href && (
-        <Link href={href} className="shrink-0 text-xs text-emerald-300 hover:underline">
+        <Link href={href} className="shrink-0 text-xs text-[var(--accent)] hover:underline">
           {linkText ?? "see all"} →
         </Link>
       )}
@@ -54,9 +54,9 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
           <span className="truncate text-sm font-medium">{label(m.aUserId)}</span>
         </div>
         <div className="shrink-0 text-center font-mono tabular-nums">
-          <span className={aWin ? "font-bold text-emerald-300" : ""}>{m.aPoints}</span>
+          <span className={aWin ? "font-bold text-[var(--accent)]" : ""}>{m.aPoints}</span>
           <span className="mx-1 text-[var(--muted)]">–</span>
-          <span className={bWin ? "font-bold text-emerald-300" : ""}>{m.bPoints}</span>
+          <span className={bWin ? "font-bold text-[var(--accent)]" : ""}>{m.bPoints}</span>
         </div>
         <div className={`flex min-w-0 flex-1 items-center justify-end gap-2 text-right ${bWin ? "" : "opacity-70"}`}>
           <span className="truncate text-sm font-medium">{label(m.bUserId)}</span>
@@ -64,7 +64,7 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
         </div>
       </div>
       {m.reason && <div className="mt-3 text-center text-xs text-[var(--muted)]">{m.reason}</div>}
-      <Link href={`/schedule/${m.season}`} className="mt-3 text-center text-xs text-emerald-300 hover:underline">
+      <Link href={`/schedule/${m.season}`} className="mt-3 text-center text-xs text-[var(--accent)] hover:underline">
         full schedule →
       </Link>
     </Card>
@@ -75,12 +75,12 @@ function MoveItem({ m }: { m: WaiverMove }) {
   const pid = m.addPlayerId ?? m.dropPlayerId;
   const isAdd = !!m.addPlayerId;
   return (
-    <div className="flex items-center justify-between gap-2 rounded-xl border border-[var(--border)] bg-white/[0.02] p-2.5">
+    <div className="flex items-center justify-between gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel)] p-2.5">
       <div className="flex min-w-0 items-center gap-2">
         {pid && <PlayerAvatar playerId={pid} size={26} />}
         <div className="min-w-0">
           {pid && (
-            <div className={`truncate text-sm ${isAdd ? "text-emerald-300" : "text-rose-300/80"}`}>
+            <div className={`truncate text-sm ${isAdd ? "text-[var(--accent)]" : "text-[var(--bad)]"}`}>
               {isAdd ? "+" : "−"} {pname(pid)}
             </div>
           )}
@@ -90,7 +90,7 @@ function MoveItem({ m }: { m: WaiverMove }) {
         </div>
       </div>
       <div className="shrink-0 text-right text-[11px] text-[var(--muted)]">
-        {m.faab > 0 ? <div className="font-mono text-amber-300">${m.faab}</div> : <div>{isAdd ? "free" : "drop"}</div>}
+        {m.faab > 0 ? <div className="font-mono text-[var(--gold)]">${m.faab}</div> : <div>{isAdd ? "free" : "drop"}</div>}
         <div>{fmtDate(m.dateMs)}</div>
       </div>
     </div>
@@ -120,18 +120,18 @@ export default function Home() {
 
       {/* hero: champion + marquee game */}
       <div className="mb-10 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
-        <Card className="relative flex flex-col justify-center overflow-hidden border-amber-400/30 bg-amber-400/[0.04]">
+        <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
           <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">🏆</div>
-          <div className="font-display text-xs uppercase tracking-widest text-amber-300/80">
+          <div className="font-display text-xs uppercase tracking-widest text-[var(--gold)]">
             Reigning Champion · {latest}
           </div>
           <div className="mt-3 flex items-center gap-3">
             <Avatar userId={champ} size={52} />
-            <Link href={`/managers/${champ}`} className="text-lg font-semibold text-amber-200 hover:underline">
+            <Link href={`/managers/${champ}`} className="text-lg font-semibold text-[var(--gold)] hover:underline">
               {label(champ)}
             </Link>
           </div>
-          <Link href={`/awards/${latest}`} className="mt-3 inline-block text-xs text-amber-300/80 hover:underline">
+          <Link href={`/awards/${latest}`} className="mt-3 inline-block text-xs text-[var(--gold)] hover:underline">
             {latest} awards →
           </Link>
         </Card>
@@ -149,11 +149,11 @@ export default function Home() {
                 <Panel key={p.pos}>
                   <div className="mb-1 flex items-center justify-between">
                     <PosBadge pos={p.pos} />
-                    <span className="font-mono text-sm font-semibold text-emerald-300">{p.points}</span>
+                    <span className="font-mono text-sm font-semibold text-[var(--accent)]">{p.points}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <PlayerAvatar playerId={p.playerId} size={24} />
-                    <Link href={`/players/${p.playerId}`} className="min-w-0 truncate text-xs hover:text-emerald-300">
+                    <Link href={`/players/${p.playerId}`} className="min-w-0 truncate text-xs hover:text-[var(--accent)]">
                       {p.name}
                     </Link>
                   </div>
@@ -174,7 +174,7 @@ export default function Home() {
                     <ManagerChip userId={a.userId} href={`/managers/${a.userId}`} size={22} className="font-medium" />
                   </div>
                   <div className="mt-1.5 flex flex-wrap items-center gap-1 text-xs">
-                    <span className="font-mono text-amber-300">{a.value}</span>
+                    <span className="font-mono text-[var(--gold)]">{a.value}</span>
                     {a.detail && (
                       <span className="flex items-center gap-1 text-[var(--muted)]">
                         vs <Avatar userId={a.detail} size={16} /> {label(a.detail)}
@@ -203,15 +203,15 @@ export default function Home() {
           <section>
             <SectionHead title="🔁 Recent moves" href="/waivers" linkText="waiver hub" />
             {bestAdd?.playerId && (
-              <div className="mb-3 flex items-center justify-between rounded-xl border border-emerald-400/20 bg-emerald-400/[0.05] p-2.5 text-sm">
+              <div className="mb-3 flex items-center justify-between rounded-xl border border-[var(--border-glow)] bg-[var(--accent-soft)] p-2.5 text-sm">
                 <span className="flex min-w-0 items-center gap-2">
                   <PlayerAvatar playerId={bestAdd.playerId} size={26} />
                   <span className="min-w-0">
-                    <span className="truncate font-medium text-emerald-200">{pname(bestAdd.playerId)}</span>
+                    <span className="truncate font-medium text-[var(--accent-strong)]">{pname(bestAdd.playerId)}</span>
                     <span className="block text-[11px] text-[var(--muted)]">Best free add · {latest}</span>
                   </span>
                 </span>
-                <span className="shrink-0 font-mono text-sm text-emerald-300">{bestAdd.realizedSeason} pts</span>
+                <span className="shrink-0 font-mono text-sm text-[var(--accent)]">{bestAdd.realizedSeason} pts</span>
               </div>
             )}
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -230,13 +230,13 @@ export default function Home() {
                   <Link
                     key={season}
                     href={`/awards/${season}`}
-                    className="group rounded-xl border border-[var(--border)] bg-[var(--card)] p-3 text-center transition hover:border-amber-400/40"
+                    className="group rounded-xl border border-[var(--border)] bg-[var(--card)] p-3 text-center transition hover:border-[var(--gold-border)]"
                   >
                     <div className="text-xs uppercase tracking-widest text-[var(--muted)]">{season}</div>
                     <div className="mx-auto my-2 w-fit">
                       <Avatar userId={po?.championUserId} size={40} />
                     </div>
-                    <div className="truncate text-sm font-medium text-amber-200">{label(po?.championUserId)}</div>
+                    <div className="truncate text-sm font-medium text-[var(--gold)]">{label(po?.championUserId)}</div>
                   </Link>
                 );
               })}
@@ -269,7 +269,7 @@ export default function Home() {
                 <div key={r.userId} className="flex items-center gap-2 rounded-lg px-1 py-1 text-sm">
                   <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">{i + 1}</span>
                   <Avatar userId={r.userId} size={20} />
-                  <Link href={`/managers/${r.userId}`} className="min-w-0 flex-1 truncate text-xs hover:text-emerald-300">
+                  <Link href={`/managers/${r.userId}`} className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]">
                     {label(r.userId)}
                   </Link>
                   {r.champion && <span title="Champion">🏆</span>}

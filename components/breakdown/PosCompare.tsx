@@ -38,7 +38,7 @@ function Row({
       </div>
       <div className="w-14 text-center">
         {isPicks ? (
-          <span className="rounded border border-cyan-400/40 bg-cyan-400/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-cyan-300">
+          <span className="rounded border border-cyan-400/40 bg-[var(--accent-2-soft)] px-1.5 py-0.5 text-[10px] font-bold uppercase text-[var(--accent-2)]">
             Picks
           </span>
         ) : (
@@ -72,7 +72,7 @@ export function PosCompare({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-[var(--border)] bg-[#11131a] px-3 py-2 text-sm"
+      className="w-full rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
     >
       {managers.map((m) => (
         <option key={m.userId} value={m.userId}>
@@ -89,7 +89,7 @@ export function PosCompare({
           <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager A</div>
           {select(a, setA)}
         </div>
-        <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-white/10 text-xs font-bold">VS</div>
+        <div className="grid h-9 w-9 shrink-0 place-items-center self-center rounded-full bg-[var(--chip)] text-xs font-bold">VS</div>
         <div className="flex-1">
           <div className="mb-1 text-xs uppercase tracking-wider text-[var(--muted)]">Manager B</div>
           {select(b, setB)}
@@ -115,7 +115,7 @@ export function PosCompare({
             ))}
             <Row pos="PICKS" isPicks color="#22d3ee" a={{ val: da.picks.capital }} b={{ val: db.picks.capital }} />
           </div>
-          <Link href={`/compare/${a}/${b}`} className="mt-4 inline-block text-xs text-emerald-300 hover:underline">
+          <Link href={`/compare/${a}/${b}`} className="mt-4 inline-block text-xs text-[var(--accent)] hover:underline">
             Full head-to-head →
           </Link>
         </>

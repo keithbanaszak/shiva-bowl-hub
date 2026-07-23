@@ -12,7 +12,7 @@ import { hasLegacy } from "@/lib/data/playerLegacy";
 function PlayerLink({ id, children }: { id: string; children: ReactNode }) {
   if (!hasLegacy(id)) return <>{children}</>;
   return (
-    <Link href={`/players/${id}`} className="hover:text-emerald-300">
+    <Link href={`/players/${id}`} className="hover:text-[var(--accent)]">
       {children}
     </Link>
   );
@@ -69,7 +69,7 @@ export default function PlayersPage() {
                 <td className="px-3 tabular-nums">
                   {r.wins}-{r.losses}
                 </td>
-                <td className="px-3 tabular-nums font-semibold text-emerald-300">{(r.winPct * 100).toFixed(0)}%</td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{(r.winPct * 100).toFixed(0)}%</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{r.pointsWhileStarting}</td>
                 <td className="px-3">
                   <ManagerChip userId={r.topManagerUserId} size={18} />
@@ -103,7 +103,7 @@ export default function PlayersPage() {
                   </span>
                 </td>
                 <td className="px-3 text-[var(--muted)]">{ppos(b.playerId) ?? "—"}</td>
-                <td className="px-3 tabular-nums font-semibold text-amber-300">{b.benchPoints}</td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--gold)]">{b.benchPoints}</td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{b.benchWeeks}</td>
                 <td className="px-3">
                   <ManagerChip userId={b.topManagerUserId} size={18} />
@@ -134,7 +134,7 @@ export default function PlayersPage() {
               </div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="font-mono text-sm font-semibold text-amber-300">{n.avgVs}</div>
+              <div className="font-mono text-sm font-semibold text-[var(--gold)]">{n.avgVs}</div>
               <div className="text-[10px] text-[var(--muted)]">{signed(n.diff)} · {n.games}g</div>
             </div>
           </Card>

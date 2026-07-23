@@ -15,12 +15,12 @@ export function BarLeaderboard({ rows }: { rows: BarRow[] }) {
             <Avatar userId={r.userId} size={20} />
             <span className="min-w-0 truncate text-sm">{label(r.userId)}</span>
           </div>
-          <div className="ml-6 h-6 overflow-hidden rounded-md bg-white/5">
+          <div className="ml-6 h-6 overflow-hidden rounded-md bg-[var(--card-2)]">
             <div
               className="flex h-full items-center rounded-md bg-gradient-to-r from-sky-500/50 to-emerald-400/60 px-2"
               style={{ width: `${Math.max(8, (r.pct / max) * 100)}%` }}
             >
-              <span className="font-mono text-[11px] font-semibold tabular-nums text-white">{r.display}</span>
+              <span className="font-mono text-[11px] font-semibold tabular-nums text-[var(--foreground)]">{r.display}</span>
             </div>
           </div>
         </div>

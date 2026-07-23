@@ -51,12 +51,12 @@ export function AwardsView({ season }: { season: string }) {
       <SeasonPills base="/awards" active={season} seasons={seasons} />
 
       {po?.championUserId && (
-        <Card className="mb-8 border-amber-400/30 bg-amber-400/[0.04]">
+        <Card className="mb-8 border-[var(--gold-border)] bg-[var(--gold-soft)]">
           <div className="flex items-center gap-3">
             <div className="text-4xl">🏆</div>
             <div>
-              <div className="text-xs uppercase tracking-widest text-amber-300/80">{season} Champion</div>
-              <div className="text-xl font-semibold text-amber-200">{label(po.championUserId)}</div>
+              <div className="text-xs uppercase tracking-widest text-[var(--gold)]">{season} Champion</div>
+              <div className="text-xl font-semibold text-[var(--gold)]">{label(po.championUserId)}</div>
               <div className="text-sm text-[var(--muted)]">
                 def. {label(po.runnerUpUserId)} · 3rd {label(po.thirdUserId)} · 🚽 {label(po.toiletUserId)}
               </div>
@@ -71,7 +71,7 @@ export function AwardsView({ season }: { season: string }) {
           <ul className="space-y-2">
             {headlines.map((h, i) => (
               <li key={i} className="text-sm">
-                <span className="mr-2 text-emerald-300">▸</span>
+                <span className="mr-2 text-[var(--accent)]">▸</span>
                 {h}
               </li>
             ))}
@@ -127,7 +127,7 @@ export function AwardsView({ season }: { season: string }) {
       </Card>
 
       <div className="mt-6">
-        <Link href={`/wrapped/${season}`} className="text-sm text-emerald-300 hover:underline">
+        <Link href={`/wrapped/${season}`} className="text-sm text-[var(--accent)] hover:underline">
           See individual Dynasty Wrapped cards for {season} →
         </Link>
       </div>

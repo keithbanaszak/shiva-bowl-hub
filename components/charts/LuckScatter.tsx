@@ -28,7 +28,7 @@ function LuckTooltip({ active, payload }: { active?: boolean; payload?: TooltipP
     <div className="rounded-lg border border-[var(--border)] bg-[#0a0b0f] px-3 py-2 text-xs shadow-lg">
       <div className="font-semibold">{p.label}</div>
       <div className="text-[var(--muted)]">PF {p.pointsFor} · {p.wins} wins</div>
-      <div className={p.luck > 0 ? "text-emerald-300" : p.luck < 0 ? "text-red-400" : ""}>
+      <div className={p.luck > 0 ? "text-[var(--accent)]" : p.luck < 0 ? "text-[var(--bad)]" : ""}>
         luck {p.luck > 0 ? "+" : ""}
         {p.luck}
       </div>

@@ -67,7 +67,7 @@ export default function DraftPage() {
                   </span>
                 </td>
                 <td className="px-3 tabular-nums text-[var(--muted)]">{d.picks}</td>
-                <td className="px-3 tabular-nums font-semibold text-emerald-300">{d.totalRealized}</td>
+                <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{d.totalRealized}</td>
                 <td className="px-3 tabular-nums">{d.pointsPerPick}</td>
                 <td className="px-3 text-[var(--muted)]">
                   {d.bestPick ? `${d.bestPick.name} (${d.bestPick.realizedCareer})` : "—"}
@@ -108,7 +108,7 @@ export default function DraftPage() {
                       <ManagerChip userId={p.userId} size={18} />
                     </td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">{p.realizedCareer}</td>
-                    <td className="px-3 tabular-nums font-semibold text-emerald-300">{signed(p.stealScore)}</td>
+                    <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">{signed(p.stealScore)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -143,7 +143,7 @@ export default function DraftPage() {
                     <td className="px-3">
                       <ManagerChip userId={p.userId} size={18} />
                     </td>
-                    <td className="px-3 tabular-nums font-semibold text-red-400">{p.realizedCareer}</td>
+                    <td className="px-3 tabular-nums font-semibold text-[var(--bad)]">{p.realizedCareer}</td>
                   </tr>
                 ))}
               </tbody>

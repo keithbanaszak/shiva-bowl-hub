@@ -23,12 +23,12 @@ export function WrappedGrid({ season }: { season: string }) {
           <Link
             key={c.userId}
             href={`/wrapped/${season}/${c.userId}`}
-            className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 transition hover:border-emerald-400/40 hover:bg-white/[0.06]"
+            className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 transition hover:border-[var(--border-glow)] hover:bg-[var(--card-2)]"
           >
             <div className="flex items-center gap-3">
               <Avatar userId={c.userId} size={40} />
               <div className="min-w-0">
-                <div className="truncate font-semibold group-hover:text-emerald-300">{c.label}</div>
+                <div className="truncate font-semibold group-hover:text-[var(--accent)]">{c.label}</div>
                 <div className="text-xs text-[var(--muted)]">
                   {c.record} · {c.finish ? ordinal(c.finish) : "—"}
                 </div>

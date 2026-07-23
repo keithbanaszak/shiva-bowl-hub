@@ -72,7 +72,7 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
             key={m.key}
             onClick={() => setMetric(m.key)}
             className={`rounded-lg px-3 py-1.5 text-xs transition ${
-              metric === m.key ? "bg-accent/15 text-accent" : "text-[var(--muted)] hover:bg-white/5 hover:text-white"
+              metric === m.key ? "bg-accent/15 text-accent" : "text-[var(--muted)] hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
             }`}
           >
             {m.label}
@@ -89,7 +89,7 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
                 <th key={c} className="px-2 py-2.5 text-center">
                   <button
                     onClick={() => setSortCol(sortCol === c ? null : c)}
-                    className="inline-flex items-center gap-1 hover:text-white"
+                    className="inline-flex items-center gap-1 hover:text-[var(--foreground)]"
                     style={{ color: colColor(c) }}
                   >
                     {c}
@@ -103,7 +103,7 @@ export function PosMatrix({ rows }: { rows: MatrixRow[] }) {
             {sorted.map((r) => (
               <tr key={r.userId} className="border-t border-[var(--border)]">
                 <td className="px-3 py-1.5">
-                  <Link href={`/managers/${r.userId}`} className="flex items-center gap-2 hover:text-emerald-300">
+                  <Link href={`/managers/${r.userId}`} className="flex items-center gap-2 hover:text-[var(--accent)]">
                     <Avatar userId={r.userId} size={20} />
                     <span className="min-w-0 truncate">{r.label}</span>
                   </Link>

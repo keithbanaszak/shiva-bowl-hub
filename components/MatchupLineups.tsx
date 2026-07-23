@@ -8,7 +8,7 @@ function Side({ p, side, win }: { p: LineupPlayer | undefined; side: "l" | "r"; 
   const meta = [ppos(p.playerId), pteam(p.playerId)].filter(Boolean).join(" · ");
   const score = (
     <span className="shrink-0 font-mono leading-tight">
-      <span className={`block text-sm tabular-nums ${win ? "font-semibold text-emerald-300" : ""}`}>{p.points}</span>
+      <span className={`block text-sm tabular-nums ${win ? "font-semibold text-[var(--accent)]" : ""}`}>{p.points}</span>
       {p.proj != null && <span className="block text-[10px] text-[var(--muted)]">{p.proj}</span>}
     </span>
   );

@@ -32,7 +32,7 @@ export function PlayerAvatar({
         borderWidth: ring ? 2 : undefined,
         borderStyle: ring ? "solid" : undefined,
       }}
-      className={`inline-block shrink-0 rounded-full bg-white/[0.06] bg-cover bg-top ${ring ? "" : "border border-[var(--border)]"}`}
+      className={`inline-block shrink-0 rounded-full bg-[var(--card-2)] bg-cover bg-top ${ring ? "" : "border border-[var(--border)]"}`}
     />
   );
 }
