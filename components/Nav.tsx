@@ -38,6 +38,7 @@ const GROUPS: Group[] = [
   {
     label: "Seasons",
     items: [
+      { href: "/playoffs", label: "Playoff Picture", desc: "Seeding, draft order, timeline" },
       { href: "/schedule", label: "Schedule & GOTW", desc: "Week by week" },
       { href: "/awards", label: "Awards", desc: "Season superlatives" },
       { href: "/wrapped", label: "Dynasty Wrapped", desc: "Per-manager recap" },
@@ -65,6 +66,7 @@ const GROUPS: Group[] = [
       { href: "/draft", label: "Draft Room", desc: "Rookie boards" },
       { href: "/players", label: "Players", desc: "Every player's legacy" },
       { href: "/integrity", label: "Lineup Integrity", desc: "Tank watch" },
+      { href: "/rules", label: "League Rules", desc: "House rules and open votes" },
       { href: "/glossary", label: "Glossary", desc: "What every stat means" },
     ],
   },

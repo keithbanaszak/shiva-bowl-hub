@@ -10,8 +10,9 @@
     "ingest:backfill": "tsx scripts/ingest/backfill.ts",
     "ingest:refresh": "tsx scripts/ingest/refresh.ts",
     "data:build": "tsx scripts/transform/build.ts",
-    "data:all": "npm run ingest:backfill && npm run data:build",
-    "data:refresh": "npm run ingest:refresh && npm run data:build"
+    "data:all": "npm run ingest:backfill && npm run config:pull && npm run data:build",
+    "data:refresh": "npm run ingest:refresh && npm run config:pull && npm run data:build",
+    "config:pull": "tsx scripts/ingest/sheet.ts"
   },
   "dependencies": {
     "next": "16.2.7",

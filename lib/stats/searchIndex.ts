@@ -25,6 +25,8 @@ const ROUTES: Array<{ label: string; sub: string; href: string }> = [
   { label: "Draft Room", sub: "Rookie draft boards", href: "/draft" },
   { label: "Players", sub: "Every player's league legacy", href: "/players" },
   { label: "Lineup Integrity", sub: "Tank watch and lineup gaps", href: "/integrity" },
+  { label: "League Rules", sub: "House rules and open votes", href: "/rules" },
+  { label: "Playoff Picture", sub: "Seeding, projected draft order", href: "/playoffs" },
   { label: "Glossary", sub: "What every stat means", href: "/glossary" },
 ];
 

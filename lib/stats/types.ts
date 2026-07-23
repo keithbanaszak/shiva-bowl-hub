@@ -772,3 +772,84 @@ export type SlotScoringRow = {
 };
 
 export type SlotScoringMart = { scopes: string[]; slots: string[]; rows: SlotScoringRow[] };
+
+// ---- league config, maintained in a Google Sheet ---------------------------
+
+export type LeagueRule = {
+  id: string;
+  category: string;
+  rule: string;
+  detail: string;
+  /** proposed = on the ballot; retired = kept for the record. */
+  status: "active" | "proposed" | "retired";
+  /** ISO date the vote closes, for proposed rules. */
+  voteCloses: string | null;
+  sortOrder: number;
+  pinned: boolean;
+};
+
+export type ManagerProfileRow = {
+  userId: string;
+  realName?: string;
+  nickname?: string;
+  joined?: string;
+  favoriteTeam?: string;
+  bio?: string;
+};
+
+export type LeagueConfigMart = {
+  fetchedAtMs: number;
+  rules: LeagueRule[];
+  profiles: ManagerProfileRow[];
+};
+
+// ---- playoff picture, projected draft order, standings timeline -------------
+
+export type PlayoffSeedRow = {
+  userId: string;
+  /** Live seeding rank on record, then points-for. */
+  rank: number;
+  /** Final playoff seed once the season is decided. */
+  seed: number | null;
+  wins: number;
+  losses: number;
+  ties: number;
+  pointsFor: number;
+  /** Max possible points — every optimal lineup. Drives the 1.01 rule. */
+  maxPointsFor: number;
+  efficiency: number;
+  inPlayoffs: boolean;
+  onBubble: boolean;
+  gamesLeft: number;
+  finish: number | null;
+};
+
+export type DraftOrderPick = {
+  pick: number;
+  userId: string;
+  /** Plain-English justification, shown in the table. */
+  reason: string;
+};
+
+export type StandingsTimelineRow = {
+  season: string;
+  week: number;
+  userId: string;
+  rank: number;
+  wins: number;
+  losses: number;
+  pointsFor: number;
+};
+
+export type PlayoffPictureMart = {
+  season: string;
+  lastWeek: number;
+  regSeasonWeeks: number;
+  complete: boolean;
+  playoffTeams: number;
+  seeds: PlayoffSeedRow[];
+  draftOrder: DraftOrderPick[];
+  /** False while any tier is still undecided — the UI labels it a projection. */
+  draftOrderFinal: boolean;
+  timeline: StandingsTimelineRow[];
+};

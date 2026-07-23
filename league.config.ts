@@ -14,6 +14,22 @@ export const leagueConfig = {
    * covers the regular season + playoffs for any reasonable config.
    */
   maxWeek: 18,
+
+  /**
+   * League rules + manager profiles live in a Google Sheet so they can be edited
+   * without touching code. File > Share > Publish to web, then copy the id out
+   * of the sheet URL and the gid out of each tab's URL.
+   *
+   *   https://docs.google.com/spreadsheets/d/<SHEET_ID>/edit#gid=<GID>
+   *
+   * Leave sheetId empty and the site simply falls back to whatever is already in
+   * data/league-config.json.
+   */
+  configSheet: {
+    sheetId: "",
+    rulesGid: "0",
+    managersGid: "",
+  },
 } as const;
 
 export type LeagueConfig = typeof leagueConfig;

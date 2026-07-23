@@ -1,11 +1,19 @@
 import type { Dynasty, Manager } from "./model";
 import { avatarUrl } from "./model";
 import { managerProfiles } from "../league.managers";
+import leagueConfigJson from "../data/league-config.json";
+
+/** Profiles pulled from the Google Sheet take precedence over the local file. */
+const sheetProfiles = new Map(
+  ((leagueConfigJson as { profiles?: Array<Record<string, string>> }).profiles ?? []).map((p) => [p.userId, p]),
+);
 
 /** Merge the hand-maintained profile onto a manager, ignoring blank fields. */
 function withProfile(m: Manager): Manager {
-  const p = managerProfiles[m.userId];
-  if (!p) return m;
+  const sheet = sheetProfiles.get(m.userId);
+  const local = managerProfiles[m.userId];
+  const p = { ...local, ...(sheet ?? {}) };
+  if (!local && !sheet) return m;
   const clean = <T,>(v: T | undefined): T | undefined =>
     typeof v === "string" ? ((v.trim() || undefined) as T | undefined) : v;
   return {

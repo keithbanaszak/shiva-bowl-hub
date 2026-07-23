@@ -1,0 +1,96 @@
+{
+  "fetchedAtMs": 0,
+  "rules": [
+    {
+      "id": "faab-season-budget",
+      "category": "FAAB",
+      "rule": "$100 for the entire league year",
+      "detail": "One $100 budget covers the whole year — offseason, in-season waivers and the playoffs, right through the championship game. There are no refills and no reset at any point.",
+      "status": "active",
+      "voteCloses": null,
+      "sortOrder": 10,
+      "pinned": true
+    },
+    {
+      "id": "faab-tradeable",
+      "category": "FAAB",
+      "rule": "FAAB can be traded",
+      "detail": "Remaining budget may be included in trades. Whatever you send is gone for the rest of the year.",
+      "status": "active",
+      "voteCloses": null,
+      "sortOrder": 20,
+      "pinned": false
+    },
+    {
+      "id": "draft-order-1",
+      "category": "Draft order",
+      "rule": "Pick 1.01 — non-playoff team with the lowest max PF",
+      "detail": "Of the six teams that miss the playoffs, the one with the LOWEST maximum possible points (every optimal lineup, all season) gets the first pick. Max PF is used rather than actual points so that a team can't tank its way to 1.01 by benching starters.",
+      "status": "proposed",
+      "voteCloses": "",
+      "sortOrder": 30,
+      "pinned": true
+    },
+    {
+      "id": "draft-order-2-6",
+      "category": "Draft order",
+      "rule": "Picks 2–6 — reverse regular-season standings",
+      "detail": "The remaining five non-playoff teams pick in reverse order of the regular-season standings (worst record picks first).",
+      "status": "proposed",
+      "voteCloses": "",
+      "sortOrder": 40,
+      "pinned": false
+    },
+    {
+      "id": "draft-order-7-8",
+      "category": "Draft order",
+      "rule": "Picks 7–8 — first two playoff losers",
+      "detail": "The two teams eliminated in the opening playoff round, ordered by regular-season ranking (lower seed picks first).",
+      "status": "proposed",
+      "voteCloses": "",
+      "sortOrder": 50,
+      "pinned": false
+    },
+    {
+      "id": "draft-order-9-12",
+      "category": "Draft order",
+      "rule": "Picks 9–12 — reverse playoff finish",
+      "detail": "The final four pick in reverse order of playoff finish, so the champion picks 1.12.",
+      "status": "proposed",
+      "voteCloses": "",
+      "sortOrder": 60,
+      "pinned": false
+    },
+    {
+      "id": "roster-template",
+      "category": "Rosters",
+      "rule": "QB / RB×2 / WR×2 / TE / FLEX×2 / SUPERFLEX / K / DEF",
+      "detail": "Eleven starters since 2025, when a second FLEX was added. FLEX is RB/WR/TE; SUPERFLEX also allows a QB.",
+      "status": "active",
+      "voteCloses": null,
+      "sortOrder": 70,
+      "pinned": false
+    },
+    {
+      "id": "playoffs-format",
+      "category": "Playoffs",
+      "rule": "6 teams, weeks 15–17",
+      "detail": "Top two seeds get a first-round bye. The regular season is weeks 1–14.",
+      "status": "active",
+      "voteCloses": null,
+      "sortOrder": 80,
+      "pinned": false
+    },
+    {
+      "id": "tanking",
+      "category": "Integrity",
+      "rule": "No blatant tanking",
+      "detail": "Starting players who are on bye, injured or otherwise not playing, in order to lose, is not allowed. See the Lineup Integrity page for how weeks are flagged — it measures lineups against pre-game projections, so bad luck is never punished.",
+      "status": "proposed",
+      "voteCloses": "",
+      "sortOrder": 90,
+      "pinned": true
+    }
+  ],
+  "profiles": []
+}

@@ -32,6 +32,7 @@ import { computePlayerRanks } from "../../lib/stats/playerRanks";
 import { computeActivity } from "../../lib/stats/activity";
 import { computeIntegrity } from "../../lib/stats/integrity";
 import { computeSlotScoring } from "../../lib/stats/slotScoring";
+import { computePlayoffPicture } from "../../lib/stats/playoffPicture";
 import type { AllTimeRow, SeasonPlayoffs, SeasonStanding, TeamWeek } from "../../lib/stats/types";
 import { round2 } from "../../lib/stats/util";
 
@@ -189,6 +190,7 @@ function main() {
   const activity = computeActivity(trades, waivers);
   const integrity = computeIntegrity(dynasty, identity, teamWeeks);
   const slotScoring = computeSlotScoring(dynasty, identity);
+  const playoffPicture = computePlayoffPicture(dynasty, standings, playoffs, teamWeeks);
 
   // ---- write per-domain marts
   const w = (name: string, data: unknown) => writeJson(path.join(MARTS_DIR, `${name}.json`), data);
@@ -222,6 +224,7 @@ function main() {
   w("activity", activity);
   w("integrity", integrity);
   w("slotScoring", slotScoring);
+  w("playoffPicture", playoffPicture);
 
   // Served as a static asset, not imported — see PUBLIC_DIR in lib/paths.ts.
   const searchIndex = buildSearchIndex(identity, playerLegacy);
