@@ -5,6 +5,8 @@ import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PosBadge } from "@/components/Pos";
 import { ActivityRow } from "@/components/activity/ActivityRow";
+import { ActivityBySeason } from "@/components/charts/ActivityBySeason";
+import { FitText } from "@/components/FitText";
 import { completedSeasons, label } from "@/lib/marts";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { standingsForSeason } from "@/lib/data/standings";
@@ -76,15 +78,16 @@ export default function Home() {
     .sort((a, b) => Number(b.season) * 100 + b.week - (Number(a.season) * 100 + a.week))[0];
 
   const seasonStandings = standingsForSeason(latest);
+  const maxPf = Math.max(...seasonStandings.map((r) => r.pointsFor), 0);
   const lp = home.lastPlayed;
-  const recent = events.slice(0, 9);
+  const recent = events.slice(0, 14);
 
   return (
     <div>
       <PageHeader kicker={`Dynasty hub · ${span}`} title="The Shiva Bowl" />
 
       {/* hero: champion + marquee game */}
-      <div className="mb-10 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
+      <div className="mb-8 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
         <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
           <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">🏆</div>
           <div className="font-display text-xs uppercase tracking-widest text-[var(--gold)]">
@@ -104,11 +107,11 @@ export default function Home() {
       </div>
 
       {/* activity feed + standings */}
-      <div className="grid gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,1fr)_300px]">
-        <div className="min-w-0 space-y-10">
+      <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="min-w-0 space-y-8">
           <section>
             <SectionHead title="⚡ Latest activity" href="/activity" linkText="full feed" />
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {recent.map((e) => (
                 <ActivityRow key={e.id} e={e} />
               ))}
@@ -198,31 +201,43 @@ export default function Home() {
               <span>Team</span>
               <span>Rec · PF</span>
             </div>
-            <div className="space-y-1">
-              {seasonStandings.map((r, i) => (
-                <div key={r.userId} className="flex items-center gap-2 rounded-lg px-1 py-1 text-sm">
-                  <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">{i + 1}</span>
-                  <Avatar userId={r.userId} size={20} />
-                  <Link
-                    href={`/managers/${r.userId}`}
-                    className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]"
-                  >
-                    {label(r.userId)}
-                  </Link>
-                  {r.champion && <span title="Champion">🏆</span>}
-                  <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--muted)]">
-                    {r.wins}-{r.losses}
-                  </span>
-                  <span className="w-12 shrink-0 text-right font-mono text-[11px] tabular-nums">
-                    {Math.round(r.pointsFor)}
-                  </span>
-                </div>
-              ))}
+            <div className="space-y-0.5">
+              {seasonStandings.map((r, i) => {
+                // magnitude encoding: bar length is points-for against the league
+                // leader, so the scoring spread is visible without reading numbers
+                const share = maxPf > 0 ? (r.pointsFor / maxPf) * 100 : 0;
+                return (
+                  <div key={r.userId} className="relative rounded-lg px-1 py-1">
+                    <div
+                      aria-hidden
+                      className="absolute inset-y-0 left-0 rounded-lg bg-[var(--accent-soft)]"
+                      style={{ width: `${share}%` }}
+                    />
+                    <div className="relative flex items-center gap-2 text-sm">
+                      <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">{i + 1}</span>
+                      <Avatar userId={r.userId} size={20} />
+                      <Link href={`/managers/${r.userId}`} className="min-w-0 flex-1 text-xs hover:text-[var(--accent)]">
+                        <FitText fits={17}>{label(r.userId)}</FitText>
+                      </Link>
+                      {r.champion && <span title="Champion">🏆</span>}
+                      <span className="shrink-0 font-mono text-[11px] tabular-nums text-[var(--muted)]">
+                        {r.wins}-{r.losses}
+                      </span>
+                      <span className="w-10 shrink-0 text-right font-mono text-[11px] tabular-nums">
+                        {Math.round(r.pointsFor)}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             <div className="mt-2 border-t border-[var(--border)] px-1 pt-2 text-[10px] text-[var(--muted)]">
-              Sorted by record, then points for.
+              Bar length is points for, against the league leader.
             </div>
           </Panel>
+          <div className="mt-6">
+            <ActivityBySeason events={events} />
+          </div>
         </aside>
       </div>
     </div>

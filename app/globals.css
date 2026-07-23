@@ -44,8 +44,14 @@
   --accent-strong: light-dark(#0a7a52, #6ee7b7);
   --accent-soft: light-dark(rgba(15, 157, 107, 0.12), rgba(52, 211, 153, 0.15));
   --accent-2: light-dark(#0891b2, #22d3ee);
-  --accent-2-soft: light-dark(rgba(8, 145, 178, 0.12), rgba(34, 211, 238, 0.15));
-  --accent-2-border: light-dark(rgba(8, 145, 178, 0.3), rgba(34, 211, 238, 0.3));
+  --accent-2-soft: light-dark(
+    rgba(8, 145, 178, 0.12),
+    rgba(34, 211, 238, 0.15)
+  );
+  --accent-2-border: light-dark(
+    rgba(8, 145, 178, 0.3),
+    rgba(34, 211, 238, 0.3)
+  );
 
   --bad: light-dark(#d0364d, #fb7185);
   --bad-soft: light-dark(rgba(208, 54, 77, 0.1), rgba(251, 113, 133, 0.15));
@@ -54,6 +60,20 @@
   --gold: light-dark(#a16207, #fcd34d);
   --gold-soft: light-dark(rgba(161, 98, 7, 0.12), rgba(252, 211, 77, 0.14));
   --gold-border: light-dark(rgba(161, 98, 7, 0.35), rgba(252, 211, 77, 0.35));
+
+  /*
+   * Chart series. Fixed order, never cycled — slot 1 is always trades, slot 4
+   * always drops, so a filter that removes a series never repaints the others.
+   * These are the validated categorical steps (blue / orange / aqua / yellow);
+   * both modes pass the lightness, chroma, CVD-separation, normal-vision and
+   * contrast checks. Do not substitute "nicer" hues without re-running
+   * scripts/validate_palette.js — the emerald/cyan/gold/rose set that reads well
+   * as UI accents fails CVD separation badly as a series palette.
+   */
+  --series-1: light-dark(#2a78d6, #3987e5);
+  --series-2: light-dark(#eb6834, #d95926);
+  --series-3: light-dark(#1baf7a, #199e70);
+  --series-4: light-dark(#eda100, #c98500);
 
   --nav-bg: light-dark(rgba(246, 247, 249, 0.85), rgba(10, 12, 18, 0.8));
   --overlay: light-dark(#ffffff, #0d1017);
@@ -98,157 +118,178 @@
   --font-display: var(--font-display);
 }
 
-body {
-  position: relative;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  min-height: 100dvh;
-}
-
 /*
- * The page wash. This used to be `background-attachment: fixed` on <body>,
- * which pins the gradient to the VIEWPORT — so the identical green bloom
- * reappeared at every scroll position and read as a tiling background.
- * Now it is a one-shot decoration anchored to the top of the document that you
- * simply scroll past. no-repeat is explicit so it can never tile.
+ * EVERYTHING BELOW LIVES IN A @layer.
+ *
+ * Tailwind v4 puts its utilities in `@layer utilities`, and unlayered CSS beats
+ * every layered rule regardless of specificity. An unlayered `body > *` rule
+ * here once overrode `.fixed`, `.sticky` and every `z-*` utility in the app —
+ * which silently broke the ⌘K overlay and buried every nav dropdown under the
+ * page content. Keeping our own rules in `base`/`utilities` means a normal
+ * Tailwind class can always win where you'd expect it to.
  */
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: min(1100px, 120vh);
-  background:
-    radial-gradient(1100px 560px at 82% -14%, var(--wash-1), transparent 70%),
-    radial-gradient(820px 460px at -8% 6%, var(--wash-2), transparent 70%);
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 0;
-}
 
-body > * {
-  position: relative;
-  z-index: 1;
-}
-
-a {
-  color: inherit;
-}
-
-/* ---- restrained arcade accents ----------------------------------------- */
-
-/* Geometric display face for logo / headings / kickers. */
-.font-display {
-  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
-  letter-spacing: 0.02em;
-}
-
-/* Emerald sheen for hero titles / logo. Fades to nothing in light mode. */
-.text-glow {
-  text-shadow: 0 0 8px var(--glow-color);
-}
-
-/* Hairline border with a whisper of outer glow (logo / dropdown only). */
-.glow-border {
-  box-shadow:
-    0 0 0 1px var(--border),
-    0 0 12px -10px var(--border-glow);
-}
-
-/* Animated 1px cyan edge sweep on hover — pure CSS, no JS. */
-.edge-accent {
-  position: relative;
-}
-.edge-accent::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(120deg, transparent 40%, var(--accent-2) 50%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-.group:hover .edge-accent::before,
-.edge-accent:hover::before {
-  opacity: 0.7;
-}
-
-/* Opt-in scanline texture — ONLY for small hero/logo areas, never tables. */
-.scanline {
-  position: relative;
-}
-.scanline::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03) 0,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-}
-
-/* thin scrollbars for wide tables */
-.scroll-thin::-webkit-scrollbar {
-  height: 8px;
-  width: 8px;
-}
-.scroll-thin::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 9999px;
-}
-
-/*
- * Theme-toggle icon swap, done in CSS rather than JS. Both icons ship in the
- * markup and the cascade picks one, so the button is correct on first paint
- * (before hydration) and there is no server/client mismatch to suppress.
- */
-.theme-icon-dark {
-  display: none;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-icon-dark {
-    display: block;
+@layer base {
+  html {
+    /* the page color lives here so body::before can sit behind the content */
+    background: var(--background);
   }
-  :root:not([data-theme="light"]) .theme-icon-light {
+
+  body {
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    min-height: 100dvh;
+  }
+
+  /*
+   * The page wash. This used to be `background-attachment: fixed`, which pinned
+   * the gradient to the VIEWPORT — the identical green bloom reappeared at every
+   * scroll position and read as a tiling background. It is now a one-shot
+   * decoration anchored to the top of the document that you scroll past.
+   *
+   * z-index:-1 puts it behind all content without needing to touch the stacking
+   * of body's children. body must NOT create a stacking context for this to
+   * work, so it deliberately has no position/z-index/transform of its own.
+   */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: min(1100px, 120vh);
+    background:
+      radial-gradient(1100px 560px at 82% -14%, var(--wash-1), transparent 70%),
+      radial-gradient(820px 460px at -8% 6%, var(--wash-2), transparent 70%);
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+@layer utilities {
+  /* ---- restrained arcade accents ----------------------------------------- */
+
+  /* Geometric display face for logo / headings / kickers. */
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  /* Emerald sheen for hero titles / logo. Fades to nothing in light mode. */
+  .text-glow {
+    text-shadow: 0 0 8px var(--glow-color);
+  }
+
+  /* Hairline border with a whisper of outer glow (logo / dropdown only). */
+  .glow-border {
+    box-shadow:
+      0 0 0 1px var(--border),
+      0 0 12px -10px var(--border-glow);
+  }
+
+  /* Animated 1px cyan edge sweep on hover — pure CSS, no JS. */
+  .edge-accent {
+    position: relative;
+  }
+  .edge-accent::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      120deg,
+      transparent 40%,
+      var(--accent-2) 50%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .group:hover .edge-accent::before,
+  .edge-accent:hover::before {
+    opacity: 0.7;
+  }
+
+  /* Opt-in scanline texture — ONLY for small hero/logo areas, never tables. */
+  .scanline {
+    position: relative;
+  }
+  .scanline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+
+  /* thin scrollbars for wide tables */
+  .scroll-thin::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 9999px;
+  }
+
+  /*
+   * Theme-toggle icon swap, done in CSS rather than JS. Both icons ship in the
+   * markup and the cascade picks one, so the button is correct on first paint
+   * (before hydration) and there is no server/client mismatch to suppress.
+   */
+  .theme-icon-dark {
     display: none;
   }
-}
-:root[data-theme="dark"] .theme-icon-dark {
-  display: block;
-}
-:root[data-theme="dark"] .theme-icon-light {
-  display: none;
-}
-:root[data-theme="light"] .theme-icon-light {
-  display: block;
-}
-:root[data-theme="light"] .theme-icon-dark {
-  display: none;
-}
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-icon-dark {
+      display: block;
+    }
+    :root:not([data-theme="light"]) .theme-icon-light {
+      display: none;
+    }
+  }
+  :root[data-theme="dark"] .theme-icon-dark {
+    display: block;
+  }
+  :root[data-theme="dark"] .theme-icon-light {
+    display: none;
+  }
+  :root[data-theme="light"] .theme-icon-light {
+    display: block;
+  }
+  :root[data-theme="light"] .theme-icon-dark {
+    display: none;
+  }
 
-:where(a, button, input, select, [tabindex]):focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
+  :where(a, button, input, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

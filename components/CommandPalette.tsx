@@ -209,6 +209,9 @@ export function usePaletteHotkey() {
         e.preventDefault();
         setOpen((v) => !v);
       }
+      // Escape is handled globally, not just on the input: if focus ever lands
+      // outside the field the palette must still be dismissable.
+      if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
