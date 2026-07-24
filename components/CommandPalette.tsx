@@ -24,6 +24,13 @@ const KIND_LABEL: Record<SearchDoc["kind"], string> = {
 };
 const MAX_RESULTS = 24;
 
+/**
+ * Cached across mounts. The palette is unmounted when closed (so its query and
+ * selection reset naturally, instead of via a setState-in-effect that triggers
+ * a cascading render), and this keeps that from refetching the index each time.
+ */
+let cachedDocs: SearchDoc[] | null = null;
+
 /** Higher is better; -1 means no match. */
 function rank(doc: SearchDoc, q: string): number {
   const label = doc.label.toLowerCase();
@@ -37,44 +44,33 @@ function rank(doc: SearchDoc, q: string): number {
   return -1;
 }
 
-export function CommandPalette({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export function CommandPalette({ onClose }: { onClose: () => void }) {
   const router = useRouter();
-  const [docs, setDocs] = useState<SearchDoc[] | null>(null);
+  const [docs, setDocs] = useState<SearchDoc[] | null>(cachedDocs);
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // fetch once, on first open
+  // fetch once, ever
   useEffect(() => {
-    if (!open || docs) return;
+    if (docs) return;
     let cancelled = false;
     fetch("/search-index.json")
       .then((r) =>
         r.ok ? r.json() : Promise.reject(new Error(String(r.status))),
       )
       .then((data: SearchIndex) => {
+        cachedDocs = data.docs;
         if (!cancelled) setDocs(data.docs);
       })
       .catch(() => {
+        cachedDocs = [];
         if (!cancelled) setDocs([]); // fail quiet — palette just shows "no results"
       });
     return () => {
       cancelled = true;
     };
-  }, [open, docs]);
-
-  useEffect(() => {
-    if (open) {
-      setQ("");
-      setActive(0);
-    }
-  }, [open]);
+  }, [docs]);
 
   const results = useMemo(() => {
     if (!docs) return [];
@@ -128,9 +124,6 @@ export function CommandPalette({
       ?.scrollIntoView({ block: "nearest" });
   }, [active]);
 
-  if (!open) return null;
-
-  let lastKind: string | null = null;
 
   return (
     <div
@@ -179,10 +172,9 @@ export function CommandPalette({
             </div>
           )}
           {results.map((d, i) => {
-            const header =
-              d.kind !== lastKind
-                ? ((lastKind = d.kind), KIND_LABEL[d.kind])
-                : null;
+            // group header whenever the kind changes — derived from the previous
+            // item rather than a mutable cursor, which reassigns during render
+            const header = d.kind !== results[i - 1]?.kind ? KIND_LABEL[d.kind] : null;
             return (
               <div key={`${d.kind}:${d.id}`}>
                 {header && (

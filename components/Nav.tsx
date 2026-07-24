@@ -312,10 +312,8 @@ export function Nav() {
         </div>
       )}
 
-      <CommandPalette
-        open={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-      />
+      {/* mounted only while open, so its query and selection reset naturally */}
+      {paletteOpen && <CommandPalette onClose={() => setPaletteOpen(false)} />}
     </>
   );
 }

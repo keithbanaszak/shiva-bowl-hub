@@ -172,7 +172,7 @@ export function TradeReceipt({
           return (
             <div key={s.userId} className="contents">
               <div
-                className={`min-w-0 rounded-xl border bg-[var(--inset)] p-2 ${
+                className={`flex h-full min-w-0 flex-col rounded-xl border bg-[var(--inset)] p-2 ${
                   isProposer
                     ? "border-[var(--accent-2-border)]"
                     : "border-[var(--border)]"
@@ -184,7 +184,7 @@ export function TradeReceipt({
                     {m?.label ?? s.userId}
                   </span>
                 </div>
-                <ul className="space-y-1">
+                <ul className="flex-1 space-y-1">
                   {s.received.map((a, j) => (
                     <GotRow key={j} a={a} mgrMap={mgrMap} />
                   ))}

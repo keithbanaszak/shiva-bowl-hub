@@ -65,6 +65,16 @@ export function computeWaivers(
         for (const [pid, rid] of Object.entries(t.adds ?? {})) {
           const userId = uid(rid);
           const r = realizedFor(index, userId, pid, s.season, week);
+          // rate + immediacy, so a week-12 pickup is judged fairly against a week-1 one
+          const log = index.byPlayer.get(pid) ?? [];
+          const fromOrder = orderOf(s.season, week);
+          let wAfter = 0;
+          let first4 = 0;
+          for (const pw of log) {
+            if (pw.order <= fromOrder || pw.userId !== userId || pw.season !== s.season) continue;
+            wAfter++;
+            if (pw.week <= week + 4) first4 += pw.points;
+          }
           acquisitions.push({
             id: `${t.transaction_id}:${pid}`,
             season: s.season,
@@ -80,6 +90,9 @@ export function computeWaivers(
             starterSeason: r.starterSeason,
             weeksRostered: r.weeksRosteredCareer,
             pointsPerFaab: faabBid > 0 ? round2(r.realizedSeason / faabBid) : null,
+            weeksAfter: wAfter,
+            ppgAfter: wAfter > 0 ? round2(r.realizedSeason / wAfter) : 0,
+            next4: round2(first4),
           });
         }
       }
@@ -142,7 +155,16 @@ export function computeWaivers(
     }))
     .sort((a, b) => b.pointsGained - a.pointsGained);
 
-  // ---- drop regret: what a dropped player went on to do for someone else
+  /*
+   * Drop regret.
+   *
+   * Ranking by rest-of-season TOTAL is badly biased toward week 1: a week-1 cut
+   * has thirteen weeks to accumulate while a week-12 cut has two, so the table
+   * filled up entirely with opening-week drops regardless of how bad they were.
+   * We therefore also record the RATE (points per game after) and the IMMEDIATE
+   * sting (the next four weeks), which are both time-invariant, plus his average
+   * BEFORE the drop so you can tell a genuine breakout from a known quantity.
+   */
   const dropRegrets: DropRegret[] = [];
   for (const m of moves) {
     if (m.action !== "drop") continue;
@@ -151,11 +173,22 @@ export function computeWaivers(
 
     let afterSeason = 0;
     let afterCareer = 0;
+    let weeksAfter = 0;
+    let next4 = 0;
+    let beforePts = 0;
+    let beforeWeeks = 0;
     let nextUserId: string | null = null;
     let reacquired = false;
 
     for (const pw of log) {
-      if (pw.order <= from) continue;
+      if (pw.order <= from) {
+        // his form before you cut him, same season only
+        if (pw.season === m.season) {
+          beforePts += pw.points;
+          beforeWeeks++;
+        }
+        continue;
+      }
       if (pw.userId === m.userId) {
         // he came back to the same manager — the "regret" window closes here
         reacquired = true;
@@ -163,7 +196,11 @@ export function computeWaivers(
       }
       if (nextUserId === null) nextUserId = pw.userId;
       afterCareer += pw.points;
-      if (pw.season === m.season) afterSeason += pw.points;
+      if (pw.season === m.season) {
+        afterSeason += pw.points;
+        weeksAfter++;
+        if (pw.week <= m.week + 4) next4 += pw.points;
+      }
     }
 
     if (afterCareer <= 0) continue;
@@ -175,11 +212,26 @@ export function computeWaivers(
       playerId: m.playerId,
       pointsAfterSeason: round2(afterSeason),
       pointsAfterCareer: round2(afterCareer),
+      weeksAfter,
+      ppgAfter: weeksAfter > 0 ? round2(afterSeason / weeksAfter) : 0,
+      next4: round2(next4),
+      ppgBefore: beforeWeeks > 0 ? round2(beforePts / beforeWeeks) : 0,
       nextUserId,
       reacquired,
     });
   }
-  dropRegrets.sort((a, b) => b.pointsAfterSeason - a.pointsAfterSeason || b.pointsAfterCareer - a.pointsAfterCareer);
+  /*
+   * Default order is RATE, so a late-season cut of a genuinely good player
+   * outranks a week-1 cut of a streamer who merely had time to pile up totals.
+   * Two games minimum: a single big week after a drop is noise, not regret.
+   */
+  const MIN_GAMES_FOR_RATE = 2;
+  dropRegrets.sort((a, b) => {
+    const aOk = a.weeksAfter >= MIN_GAMES_FOR_RATE;
+    const bOk = b.weeksAfter >= MIN_GAMES_FOR_RATE;
+    if (aOk !== bOk) return aOk ? -1 : 1;
+    return b.ppgAfter - a.ppgAfter || b.pointsAfterSeason - a.pointsAfterSeason;
+  });
 
   // ---- roster churn per manager
   const churnMap = new Map<string, ManagerChurn>();

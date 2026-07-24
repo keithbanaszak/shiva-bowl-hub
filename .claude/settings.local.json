@@ -29,7 +29,12 @@
       "Bash(curl -s -o /dev/null -m 5 -w \"HTTP %{http_code}\\\\n\" \"http://[::1]:3000/\")",
       "PowerShell(Stop-Process -Id 165220 -Force -ErrorAction SilentlyContinue; Start-Sleep -Seconds 2; $c = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { \"STILL HELD by PID \" + $c[0].OwningProcess } else { \"port 3000 free\" })",
       "Bash(curl -s -o /dev/null -m 8 -w \"port 3001: HTTP %{http_code} in %{time_total}s\\\\n\" http://localhost:3001/)",
-      "Bash(curl -s -m 8 http://localhost:3001/)"
+      "Bash(curl -s -m 8 http://localhost:3001/)",
+      "Bash(sed -n '/function pickReason/,/^}/p' lib/stats/schedule.ts)",
+      "Bash(sed -n '/type Ctx\\\\|function computeSchedule/,/^\\) /p' lib/stats/schedule.ts)",
+      "Bash(npx eslint *)",
+      "Bash(sed -i '/let lastKind: string | null = null;/d' components/CommandPalette.tsx)",
+      "Bash(grep -n '<Card className=\"mb-8 overflow-x-auto scroll-thin\">\\\\|{/\\\\* ---- season highlights' app/waivers/page.tsx)"
     ]
   }
 }

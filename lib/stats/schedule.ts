@@ -16,27 +16,47 @@ type Ctx = {
   pfRank: Map<string, number>; // `${season}:${userId}` -> pfRank
   finalsPrior: Map<string, string[]>; // pairKey -> seasons (any) they met in a final
   champPair: Map<string, string>; // season -> pairKey of that season's final
+  /** `${season}:${week}:${userId}` -> signed streak ENTERING that week (+3 = won 3) */
+  streak: Map<string, number>;
 };
+
+/** A run only reads as a streak from three games; below that it's noise. */
+export function streakPhrase(n: number): string | null {
+  if (n >= 3) return `${n}-game win streak`;
+  if (n <= -3) return `${Math.abs(n)}-game skid`;
+  return null;
+}
 
 function pickReason(
   m: ScheduleMatchup,
   ctx: Ctx,
-  factors: { heat: number; recentTrade: Trade | null; tradeGap: number; rematchYear: string | null; combined: number; bothTop: boolean },
+  factors: {
+    heat: number;
+    recentTrade: Trade | null;
+    tradeGap: number;
+    rematchYear: string | null;
+    combined: number;
+    bothTop: boolean;
+    streakNote: string | null;
+  },
 ): string {
   const key = pairKey(m.aUserId, m.bUserId);
   const isFinal = ctx.champPair.get(m.season) === key && m.isPlayoff;
   if (isFinal) return `🏆 The ${m.season} championship`;
   if (m.isPlayoff) return `Playoff showdown`;
   if (factors.rematchYear) return `Rematch of the ${factors.rematchYear} final`;
-  if (factors.recentTrade) {
-    return factors.tradeGap <= 0
-      ? `They swung a trade this very week`
-      : `Fresh off a trade ${factors.tradeGap} week${factors.tradeGap === 1 ? "" : "s"} earlier`;
+  // A trade only frames the game while it is still fresh. An eight-week-old swap
+  // says nothing about why THIS matchup mattered, and it used to outrank every
+  // genuinely interesting reason below.
+  if (factors.recentTrade && factors.tradeGap <= 1) {
+    return factors.tradeGap <= 0 ? `They swung a trade this very week` : `Traded with each other last week`;
   }
   if (factors.bothTop && factors.combined >= 260) return `Two heavyweights — ${Math.round(factors.combined)} combined points`;
   if (factors.heat >= 70) return `Bad blood — rivalry heat ${factors.heat}`;
+  if (factors.streakNote) return factors.streakNote;
   if (Math.abs(m.margin) <= 3) return `Instant classic — decided by ${Math.abs(m.margin)}`;
   if (factors.bothTop) return `Two of the season's top scorers`;
+  if (factors.recentTrade) return `Trade partners earlier this season`;
   return `Match of the week`;
 }
 
@@ -79,7 +99,25 @@ export function computeSchedule(
     }
   }
 
-  const ctx: Ctx = { heat, tradesByPair, pfRank, finalsPrior, champPair };
+  /*
+   * Form entering each week: a signed run length (+3 = won the last three).
+   * Built from every team-week in order, and recorded BEFORE the week's own
+   * result is folded in, so it describes what a team carried into the game
+   * rather than what it left with.
+   */
+  const streak = new Map<string, number>();
+  const runStreak = new Map<string, number>();
+  for (const t of [...teamWeeks]
+    .filter((t) => t.result != null && t.opponentUserId != null)
+    .sort((a, b) => Number(a.season) - Number(b.season) || a.week - b.week)) {
+    const key = `${t.season}:${t.userId}`;
+    const cur = runStreak.get(key) ?? 0;
+    streak.set(`${t.season}:${t.week}:${t.userId}`, cur);
+    if (t.result === "W") runStreak.set(key, cur >= 0 ? cur + 1 : 1);
+    else if (t.result === "L") runStreak.set(key, cur <= 0 ? cur - 1 : -1);
+  }
+
+  const ctx: Ctx = { heat, tradesByPair, pfRank, finalsPrior, champPair, streak };
 
   // ---- build matchups (one row per game), chronological, with running H2H
   const games = teamWeeks
@@ -135,16 +173,25 @@ export function computeSchedule(
 
     const isFinal = champPair.get(t.season) === key && t.isPlayoff;
 
+    // form each side carried INTO this game
+    const aStreak = ctx.streak.get(t.season + ":" + t.week + ":" + a) ?? 0;
+    const bStreak = ctx.streak.get(t.season + ":" + t.week + ":" + b) ?? 0;
+
     let vitality = 0;
     vitality += hv * 0.6;
-    if (recentTrade) vitality += Math.max(0, 45 - tradeGap * 4);
-    else if (everTraded) vitality += 10;
+    // decays fast: only a trade in the last couple of weeks should sway this
+    if (recentTrade) vitality += Math.max(0, 40 - tradeGap * 13);
+    else if (everTraded) vitality += 6;
     if (bothTop) vitality += 22;
     vitality += Math.max(0, (combined - 230) / 4);
     if (t.isPlayoff) vitality += 40;
     if (isFinal) vitality += 90;
     if (rematchYear) vitality += 35;
     vitality += Math.max(0, 16 - Math.abs(margin));
+    // a hot team, and especially two of them, is a real story
+    vitality += Math.min(20, Math.max(0, Math.abs(aStreak) - 2) * 7);
+    vitality += Math.min(20, Math.max(0, Math.abs(bStreak) - 2) * 7);
+    if (aStreak >= 3 && bStreak >= 3) vitality += 25;
 
     const m: ScheduleMatchup = {
       season: t.season,
@@ -160,11 +207,21 @@ export function computeSchedule(
       winnerUserId: winner,
       margin,
       seriesBefore,
+      aStreak,
+      bStreak,
       vitality: round2(vitality),
       reason: null,
       isGameOfWeek: false,
     };
-    m.reason = pickReason(m, ctx, { heat: hv, recentTrade, tradeGap, rematchYear, combined, bothTop });
+    m.reason = pickReason(m, ctx, {
+      heat: hv,
+      recentTrade,
+      tradeGap,
+      rematchYear,
+      combined,
+      bothTop,
+      streakNote: streakNoteFor(m, aStreak, bStreak),
+    });
     out.push(m);
 
     // update running series
@@ -183,4 +240,20 @@ export function computeSchedule(
   for (const m of bestKey.values()) m.isGameOfWeek = true;
 
   return out;
+}
+
+/**
+ * Turns the two entering streaks into a headline, preferring the more dramatic
+ * framing: two hot teams > one hot team > a team in freefall.
+ */
+function streakNoteFor(m: ScheduleMatchup, aStreak: number, bStreak: number): string | null {
+  const a = streakPhrase(aStreak);
+  const b = streakPhrase(bStreak);
+  if (aStreak >= 3 && bStreak >= 3) return `🔥 Two hot teams — ${aStreak} and ${bStreak} straight wins`;
+  const hotA = aStreak >= 3 ? aStreak : 0;
+  const hotB = bStreak >= 3 ? bStreak : 0;
+  if (hotA || hotB) return `🔥 Riding a ${Math.max(hotA, hotB)}-game win streak`;
+  if (aStreak <= -3 && bStreak <= -3) return `🧊 Both sides ice cold`;
+  if (a || b) return `🧊 ${a ?? b} on the line`;
+  return null;
 }

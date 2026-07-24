@@ -287,6 +287,12 @@ export type Acquisition = {
   starterSeason: number;
   weeksRostered: number;
   pointsPerFaab: number | null;
+  /** Games played for this manager in the add season. */
+  weeksAfter: number;
+  /** Points per game while rostered — comparable across a week 1 and week 12 add. */
+  ppgAfter: number;
+  /** Points in the four weeks right after the add. */
+  next4: number;
 };
 
 export type WaiverSeasonLeaders = {
@@ -334,6 +340,14 @@ export type DropRegret = {
   playerId: string;
   /** Points he scored for ANYONE after the drop, within the same season. */
   pointsAfterSeason: number;
+  /** Games he actually played after the drop — the denominator that was missing. */
+  weeksAfter: number;
+  /** Points per game after the drop. Time-invariant, so a week 12 cut competes. */
+  ppgAfter: number;
+  /** Points in the FOUR WEEKS right after — did he go off immediately? */
+  next4: number;
+  /** His per-game average BEFORE the drop, for an is-this-actually-new read. */
+  ppgBefore: number;
   /** …and across the rest of his career in this league. */
   pointsAfterCareer: number;
   /** Who picked him up next, if anyone did. */
@@ -416,6 +430,9 @@ export type ScheduleMatchup = {
   winnerUserId: string | null;
   margin: number;
   seriesBefore: { aWins: number; bWins: number } | null; // h2h coming in (a/b orientation)
+  /** Signed run each side carried INTO the game (+3 = won three straight). */
+  aStreak: number;
+  bStreak: number;
   vitality: number;
   reason: string | null;
   isGameOfWeek: boolean;

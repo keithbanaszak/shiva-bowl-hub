@@ -37,6 +37,8 @@ function GameOfWeek({ m }: { m: ScheduleMatchup }) {
         bPoints={m.bPoints}
         aProj={m.aProj}
         bProj={m.bProj}
+        aStreak={m.aStreak}
+        bStreak={m.bStreak}
         winnerUserId={m.winnerUserId}
         href={`/compare/${m.aUserId}/${m.bUserId}`}
         featured
@@ -64,6 +66,8 @@ function WeekSection({ season, week }: { season: string; week: number }) {
             bPoints={m.bPoints}
             aProj={m.aProj}
             bProj={m.bProj}
+            aStreak={m.aStreak}
+            bStreak={m.bStreak}
             winnerUserId={m.winnerUserId}
             href={`/compare/${m.aUserId}/${m.bUserId}`}
           />

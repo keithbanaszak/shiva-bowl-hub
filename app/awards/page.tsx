@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
 import { Avatar } from "@/components/Manager";
 import { completedSeasons, label } from "@/lib/marts";
 import { playoffsForSeason } from "@/lib/data/playoffs";

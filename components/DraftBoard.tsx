@@ -1,7 +1,11 @@
 import { Avatar } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { DraftBoardGrid, type BoardCellData, type BoardSlot } from "@/components/DraftBoardGrid";
-import { label } from "@/lib/marts";
+import { label, getManager } from "@/lib/marts";
+
+/** Sleeper handle when we have one — shorter than a team name, and stable. */
+const handle = (userId: string | null | undefined): string =>
+  (userId && getManager(userId)?.displayName) || label(userId);
 import { posColor } from "@/lib/positions";
 import type { DraftBoard as Board, DraftBoardCell } from "@/lib/stats/types";
 
@@ -10,7 +14,7 @@ function NowOwned({ userId }: { userId: string }) {
   return (
     <div className="mt-0.5 flex items-center gap-0.5 rounded bg-[var(--gold-soft)] px-0.5">
       <Avatar userId={userId} size={10} />
-      <span className="truncate text-[8px] font-medium leading-tight text-[var(--gold)]">{label(userId)}</span>
+      <span className="truncate text-[8px] font-medium leading-tight text-[var(--gold)]">{handle(userId)}</span>
     </div>
   );
 }
@@ -46,7 +50,7 @@ function Cell({ c }: { c: DraftBoardCell }) {
         <div className="mt-1 flex items-center gap-1">
           <Avatar userId={c.ownerUserId} size={14} />
           <span className="min-w-0 truncate text-[10px] font-medium leading-tight text-[var(--gold)]">
-            {label(c.ownerUserId)}
+            {handle(c.ownerUserId)}
           </span>
         </div>
       ) : (

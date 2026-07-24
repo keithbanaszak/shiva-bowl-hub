@@ -9,6 +9,8 @@ import {
 } from "@/components/ui";
 import { ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
+import { ManagerCell, PlayerCell, WhenCell, whenOrder } from "@/components/cells";
 import { waivers } from "@/lib/data/waivers";
 import { pname } from "@/lib/data/players-dict";
 import { label } from "@/lib/marts";
@@ -52,10 +54,108 @@ function LeaderTile({
   );
 }
 
+const regretCols: ColumnSpec[] = [
+  {
+    key: "player",
+    header: "Player",
+    width: "20%",
+    sortable: true,
+    descFirst: false,
+  },
+  {
+    key: "by",
+    header: "Dropped by",
+    width: "17%",
+    sortable: true,
+    descFirst: false,
+  },
+  { key: "when", header: "When", width: "11%", sortable: true },
+  {
+    key: "next",
+    header: "Picked up by",
+    width: "17%",
+    sortable: true,
+    descFirst: false,
+  },
+  {
+    key: "ppg",
+    header: "PPG after",
+    width: "9%",
+    align: "right",
+    sortable: true,
+    headerTitle:
+      "Points per game after the drop — time-invariant, so a late cut competes fairly",
+  },
+  {
+    key: "n4",
+    header: "Next 4wk",
+    width: "9%",
+    align: "right",
+    sortable: true,
+    headerTitle: "Points in the four weeks right after you dropped him",
+  },
+  {
+    key: "before",
+    header: "PPG before",
+    width: "9%",
+    align: "right",
+    sortable: true,
+    headerTitle:
+      "His average while you still had him — is this a breakout or a known quantity?",
+  },
+  {
+    key: "tot",
+    header: "Total after",
+    width: "8%",
+    align: "right",
+    sortable: true,
+  },
+];
+
 export default function WaiversPage() {
   const grades = waivers.managerGrades;
-  const regrets = waivers.dropRegrets.slice(0, 12);
+  const regrets = waivers.dropRegrets.slice(0, 25);
   const churn = waivers.churn;
+
+  const regretRows: TableRow[] = regrets.map((d) => ({
+    key: d.id,
+    cells: {
+      player: <PlayerCell playerId={d.playerId} size={22} />,
+      by: <ManagerCell userId={d.userId} size={18} />,
+      when: <WhenCell season={d.season} week={d.week} />,
+      next: <ManagerCell userId={d.nextUserId} size={18} />,
+      ppg: (
+        <span className="font-mono font-semibold tabular-nums text-[var(--bad)]">
+          {d.ppgAfter}
+        </span>
+      ),
+      n4: (
+        <span className="font-mono tabular-nums text-[var(--muted)]">
+          {d.next4}
+        </span>
+      ),
+      before: (
+        <span className="font-mono tabular-nums text-[var(--faint)]">
+          {d.ppgBefore}
+        </span>
+      ),
+      tot: (
+        <span className="font-mono tabular-nums text-[var(--muted)]">
+          {d.pointsAfterSeason}
+        </span>
+      ),
+    },
+    sort: {
+      player: pname(d.playerId),
+      by: label(d.userId),
+      when: whenOrder(d.season, d.week),
+      next: d.nextUserId ? label(d.nextUserId) : null,
+      ppg: d.ppgAfter,
+      n4: d.next4,
+      before: d.ppgBefore,
+      tot: d.pointsAfterSeason,
+    },
+  }));
 
   const totalAdds = churn.reduce((s, c) => s + c.adds, 0);
   const totalDrops = churn.reduce((s, c) => s + c.drops, 0);
@@ -95,72 +195,16 @@ export default function WaiversPage() {
       <SectionTitle>🪤 The ones that got away</SectionTitle>
       <p className="mb-3 text-sm text-[var(--muted)]">
         Players dropped who then scored for <em>somebody else</em>.
-        Rest-of-season points after the drop.
       </p>
-      <Card className="mb-8 overflow-x-auto scroll-thin">
-        <table className="w-full min-w-[680px] text-sm">
-          <thead>
-            <tr className="text-left text-xs uppercase tracking-wider text-[var(--muted)]">
-              <th className="py-2 pr-3">Player</th>
-              <th className="px-3">Dropped by</th>
-              <th className="px-3">When</th>
-              <th className="px-3">Picked up by</th>
-              <th className="px-3 text-right">Pts after (ROS)</th>
-              <th className="px-3 text-right">Career</th>
-            </tr>
-          </thead>
-          <tbody>
-            {regrets.map((d) => (
-              <tr key={d.id} className="border-t border-[var(--border)]">
-                <td className="py-2 pr-3">
-                  <Link
-                    href={`/players/${d.playerId}`}
-                    className="flex items-center gap-2 hover:text-[var(--accent)]"
-                  >
-                    <PlayerAvatar playerId={d.playerId} size={24} />
-                    <span className="truncate">{pname(d.playerId)}</span>
-                    {d.reacquired && (
-                      <span
-                        title="This manager later re-acquired him"
-                        className="shrink-0 rounded bg-[var(--chip)] px-1 text-[9px] uppercase text-[var(--muted)]"
-                      >
-                        re-added
-                      </span>
-                    )}
-                  </Link>
-                </td>
-                <td className="px-3">
-                  <ManagerChip
-                    userId={d.userId}
-                    href={`/managers/${d.userId}`}
-                    size={18}
-                  />
-                </td>
-                <td className="whitespace-nowrap px-3 text-xs text-[var(--muted)]">
-                  {d.season} · Wk {d.week}
-                </td>
-                <td className="px-3">
-                  {d.nextUserId ? (
-                    <ManagerChip
-                      userId={d.nextUserId}
-                      href={`/managers/${d.nextUserId}`}
-                      size={18}
-                    />
-                  ) : (
-                    <span className="text-xs text-[var(--muted)]">—</span>
-                  )}
-                </td>
-                <td className="px-3 text-right font-mono font-semibold tabular-nums text-[var(--bad)]">
-                  {d.pointsAfterSeason}
-                </td>
-                <td className="px-3 text-right font-mono tabular-nums text-[var(--muted)]">
-                  {d.pointsAfterCareer}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+      <div className="mb-8">
+        <DataTable
+          rows={regretRows}
+          columns={regretCols}
+          rank
+          initialSort={{ key: "ppg", dir: "desc" }}
+          caption="Ranked by points per game AFTER the drop rather than the raw total — otherwise week-1 cuts win purely on having more weeks left to accumulate. Every column sorts."
+        />
+      </div>
 
       {/* ---- season highlights ---- */}
       <SectionTitle>Season highlights</SectionTitle>
