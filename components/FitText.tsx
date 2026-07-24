@@ -14,6 +14,11 @@
  * inherited size, so short names never inflate and long ones never vanish.
  *
  * Overflow still ellipsises as a final backstop for pathological input.
+ *
+ * CALLER CONTRACT: the parent must give this a definite width — a flex item with
+ * flex-1, a grid track, or a block in a sized box. container-type implies
+ * contain: inline-size, so in a shrink-to-fit parent the box computes to ZERO
+ * width and the text vanishes completely.
  */
 export function FitText({
   children,

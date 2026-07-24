@@ -34,7 +34,12 @@
       "Bash(sed -n '/type Ctx\\\\|function computeSchedule/,/^\\) /p' lib/stats/schedule.ts)",
       "Bash(npx eslint *)",
       "Bash(sed -i '/let lastKind: string | null = null;/d' components/CommandPalette.tsx)",
-      "Bash(grep -n '<Card className=\"mb-8 overflow-x-auto scroll-thin\">\\\\|{/\\\\* ---- season highlights' app/waivers/page.tsx)"
+      "Bash(grep -n '<Card className=\"mb-8 overflow-x-auto scroll-thin\">\\\\|{/\\\\* ---- season highlights' app/waivers/page.tsx)",
+      "Bash(xargs echo \"lint issues:\")",
+      "Bash(sed -i 's/^import type { PlayerOwnerStint } from \"@\\\\/lib\\\\/stats\\\\/types\";$//' 'app/players/[playerId]/page.tsx')",
+      "Bash(sed -i 's/^import { chain } from \"@\\\\/lib\\\\/marts\";$//' 'app/players/[playerId]/page.tsx')",
+      "Bash(sed -i 's/^import { label } from \"@\\\\/lib\\\\/marts\";$/import { chain, label } from \"@\\\\/lib\\\\/marts\";/' 'app/players/[playerId]/page.tsx')",
+      "Bash(xargs echo \"lint errors:\")"
     ]
   }
 }

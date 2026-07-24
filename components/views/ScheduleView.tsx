@@ -93,7 +93,7 @@ export function ScheduleView({ season }: { season: string }) {
 
       <div className="mb-6">
         <Note title="Game of the Week">
-          Each week's most compelling matchup — chosen from rivalry heat, recent
+          Each week’s most compelling matchup — chosen from rivalry heat, recent
           trades between the two, championship-rematch history, both being top
           scorers, playoff stakes, and final margin.
         </Note>

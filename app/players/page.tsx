@@ -17,16 +17,16 @@ export default function PlayersPage() {
 
   // ---- best record while started
   const startCols: ColumnSpec[] = [
-    { key: "player", header: "Player", width: "22%", sortable: true, descFirst: false },
-    { key: "pos", header: "Pos", width: "7%", align: "center", sortable: true, descFirst: false },
-    { key: "starts", header: "Starts", width: "9%", align: "right", sortable: true },
-    { key: "record", header: "Record", width: "11%", align: "right", sortable: true },
-    { key: "winpct", header: "Win%", width: "9%", align: "right", sortable: true },
-    { key: "pts", header: "Pts started", width: "12%", align: "right", sortable: true },
+    { key: "player", header: "Player", width: "26%", sortable: true, descFirst: false },
+    { key: "pos", header: "Pos", width: "6%", align: "center", sortable: true, descFirst: false },
+    { key: "starts", header: "Starts", width: "8%", align: "right", sortable: true },
+    { key: "record", header: "Record", width: "10%", align: "right", sortable: true },
+    { key: "winpct", header: "Win%", width: "8%", align: "right", sortable: true },
+    { key: "pts", header: "Pts started", width: "10%", align: "right", sortable: true },
     {
       key: "top",
       header: "Started most by",
-      width: "30%",
+      width: "32%",
       sortable: true,
       descFirst: false,
       headerTitle: "The manager who started him most — and their record in those weeks",

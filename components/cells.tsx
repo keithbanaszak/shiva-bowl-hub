@@ -26,7 +26,7 @@ export function ManagerCell({
   if (!userId) return <span className="text-[var(--faint)]">—</span>;
   const former = getManager(userId)?.active === false;
   const inner = (
-    <span className="flex min-w-0 items-center gap-1.5">
+    <span className="flex w-full min-w-0 items-center gap-1.5">
       <Avatar userId={userId} size={size} />
       <FitText>{label(userId)}</FitText>
       {former && (
@@ -41,7 +41,7 @@ export function ManagerCell({
     </span>
   );
   return href ? (
-    <Link href={`/managers/${userId}`} className="block min-w-0 hover:text-[var(--accent)]">
+    <Link href={`/managers/${userId}`} className="block w-full min-w-0 hover:text-[var(--accent)]">
       {inner}
     </Link>
   ) : (
@@ -62,9 +62,15 @@ export function PlayerCell({
   sub?: string | null;
 }) {
   const inner = (
-    <span className="flex min-w-0 items-center gap-1.5">
+    <span className="flex w-full min-w-0 items-center gap-1.5">
       <PlayerAvatar playerId={playerId} size={size} />
-      <span className="min-w-0">
+      {/*
+        flex-1 is REQUIRED, not cosmetic. FitText declares container-type:
+        inline-size, which implies contain: inline-size — the box is sized as if
+        it had no contents. In a shrink-to-fit wrapper that resolves to zero and
+        the name disappears entirely. It must always be given a definite width.
+      */}
+      <span className="min-w-0 flex-1">
         <FitText>{pname(playerId)}</FitText>
         {sub && <span className="block truncate text-[10px] text-[var(--muted)]">{sub}</span>}
       </span>

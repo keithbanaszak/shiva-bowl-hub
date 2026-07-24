@@ -11,30 +11,14 @@ import {
 } from "@/components/ui";
 import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
-import { label } from "@/lib/marts";
+import { PlayerTimeline } from "@/components/charts/PlayerTimeline";
+
+import { chain, label } from "@/lib/marts";
 import { legacyFor, legacyIds } from "@/lib/data/playerLegacy";
-import type { PlayerOwnerStint } from "@/lib/stats/types";
 
 export function generateStaticParams() {
   return legacyIds().map((playerId) => ({ playerId }));
 }
-
-const ACQ_LABEL: Record<PlayerOwnerStint["acquisition"], string> = {
-  draft: "Drafted",
-  trade: "Trade",
-  waiver: "Waiver / FA",
-  "—": "—",
-};
-
-const ACQ_TONE: Record<
-  PlayerOwnerStint["acquisition"],
-  "good" | "info" | "gold" | "default"
-> = {
-  draft: "good",
-  trade: "info",
-  waiver: "gold",
-  "—": "default",
-};
 
 export default async function PlayerLegacyPage({
   params,
@@ -44,6 +28,11 @@ export default async function PlayerLegacyPage({
   const { playerId } = await params;
   const p = legacyFor(playerId);
   if (!p) notFound();
+
+  // oldest first, so league time runs left to right on the timeline
+  const allSeasons = [...chain.map((c) => c.season)].sort(
+    (a, b) => Number(a) - Number(b),
+  );
 
   return (
     <div>
@@ -96,36 +85,9 @@ export default async function PlayerLegacyPage({
 
           {/* ownership timeline */}
           <SectionTitle>🧬 Ownership timeline</SectionTitle>
-          <Card className="mb-8">
-            <ol className="space-y-3">
-              {p.timeline.map((s, i) => (
-                <li
-                  key={i}
-                  className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"
-                >
-                  <Avatar userId={s.userId} size={22} />
-                  <Link
-                    href={`/managers/${s.userId}`}
-                    className="font-medium hover:text-[var(--accent)]"
-                  >
-                    {label(s.userId)}
-                  </Link>
-                  <Badge tone={ACQ_TONE[s.acquisition]}>
-                    {ACQ_LABEL[s.acquisition]}
-                  </Badge>
-                  <span className="text-[var(--muted)]">
-                    {s.fromSeason} Wk{s.fromWeek}
-                    {s.toSeason !== s.fromSeason || s.toWeek !== s.fromWeek
-                      ? ` → ${s.toSeason} Wk${s.toWeek}`
-                      : ""}
-                  </span>
-                  <span className="ml-auto font-mono tabular-nums text-[var(--muted)]">
-                    {s.points} pts · {s.weeks}w
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </Card>
+          <div className="mb-8">
+            <PlayerTimeline stints={p.timeline} seasons={allSeasons} />
+          </div>
 
           {/* points by manager */}
           <SectionTitle>📊 Points by manager</SectionTitle>

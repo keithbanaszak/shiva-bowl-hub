@@ -38,7 +38,11 @@ const GROUPS: Group[] = [
   {
     label: "Seasons",
     items: [
-      { href: "/playoffs", label: "Playoff Picture", desc: "Seeding, draft order, timeline" },
+      {
+        href: "/playoffs",
+        label: "Playoff Picture",
+        desc: "Seeding, draft order, timeline",
+      },
       { href: "/schedule", label: "Schedule & GOTW", desc: "Week by week" },
       { href: "/awards", label: "Awards", desc: "Season superlatives" },
       { href: "/wrapped", label: "Dynasty Wrapped", desc: "Per-manager recap" },
@@ -66,7 +70,11 @@ const GROUPS: Group[] = [
       { href: "/draft", label: "Draft Room", desc: "Rookie boards" },
       { href: "/players", label: "Players", desc: "Every player's legacy" },
       { href: "/integrity", label: "Lineup Integrity", desc: "Tank watch" },
-      { href: "/rules", label: "League Rules", desc: "House rules and open votes" },
+      {
+        href: "/rules",
+        label: "League Rules",
+        desc: "House rules and open votes",
+      },
       { href: "/glossary", label: "Glossary", desc: "What every stat means" },
     ],
   },
@@ -76,20 +84,26 @@ const SLEEPER_URL = `https://sleeper.com/leagues/${leagueConfig.currentLeagueId}
 
 export function Nav() {
   const pathname = usePathname();
-  const [open, setOpen] = useState<string | null>(null);
-  const [drawer, setDrawer] = useState(false);
+  // menus are scoped to the path they were opened on, so navigating closes them
+  // without a setState-in-effect
+  const [menu, setMenu] = useState<{
+    path: string;
+    group: string | null;
+    drawer: boolean;
+  } | null>(null);
+  const live = menu && menu.path === pathname ? menu : null;
+  const open = live?.group ?? null;
+  const drawer = live?.drawer ?? false;
+  const setOpen = (g: string | null) =>
+    setMenu({ path: pathname, group: g, drawer: false });
+  const setDrawer = (d: boolean) =>
+    setMenu({ path: pathname, group: null, drawer: d });
   const { open: paletteOpen, setOpen: setPaletteOpen } = usePaletteHotkey();
   const navRef = useRef<HTMLElement>(null);
 
   const active = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
   const groupActive = (g: Group) => g.items.some((i) => active(i.href));
-
-  // close menus on navigation
-  useEffect(() => {
-    setOpen(null);
-    setDrawer(false);
-  }, [pathname]);
 
   // close the dropdown on Escape or a click outside the header
   useEffect(() => {
