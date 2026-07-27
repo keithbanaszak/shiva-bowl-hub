@@ -71,6 +71,11 @@ const GROUPS: Group[] = [
       { href: "/players", label: "Players", desc: "Every player's legacy" },
       { href: "/integrity", label: "Lineup Integrity", desc: "Tank watch" },
       {
+        href: "/what-if",
+        label: "What If?",
+        desc: "Perfect-lineup counterfactual",
+      },
+      {
         href: "/rules",
         label: "League Rules",
         desc: "House rules and open votes",

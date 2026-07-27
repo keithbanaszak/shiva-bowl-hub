@@ -836,6 +836,64 @@ export type RosterAgeMart = {
   teams: RosterAgeTeam[];
 };
 
+// ---- what-if: perfect-lineup counterfactual --------------------------------
+
+export type WhatIfSwap = {
+  slot: string;
+  /** Started player who sits in the optimal lineup (null = an empty slot got filled). */
+  outPlayerId: string | null;
+  outPoints: number;
+  /** Bench player the optimal lineup starts instead. */
+  inPlayerId: string;
+  inPoints: number;
+  /** inPoints − outPoints; the points this one change adds. */
+  gain: number;
+};
+
+export type WhatIfWeek = {
+  id: string;
+  season: string;
+  week: number;
+  userId: string;
+  opponentUserId: string | null;
+  actualPoints: number;
+  /** Highest legal total from the players rostered, scored on ACTUAL points. */
+  optimalPoints: number;
+  opponentPoints: number | null;
+  actualResult: "W" | "L" | "T" | null;
+  /** Optimal lineup vs the opponent's ACTUAL score. */
+  optimalResult: "W" | "L" | "T" | null;
+  /** Didn't win, but the perfect lineup beats the opponent — a stolen win. */
+  flip: boolean;
+  /** Sit→start changes turning the started lineup into the optimal one, biggest gain first. */
+  swaps: WhatIfSwap[];
+};
+
+export type WhatIfManagerSeason = {
+  userId: string;
+  /** A season, or "all" for career. */
+  scope: string;
+  actualW: number;
+  actualL: number;
+  actualT: number;
+  optimalW: number;
+  optimalL: number;
+  optimalT: number;
+  /** Games a perfect lineup flips from not-a-win to a win. */
+  flips: number;
+  /** Points left on the bench across the scope (optimal − actual). */
+  pointsLeftOnBench: number;
+  /** actual ÷ optimal points, 0..1. */
+  efficiency: number;
+};
+
+export type WhatIfMart = {
+  seasons: string[];
+  managerSeasons: WhatIfManagerSeason[];
+  /** Stolen-win receipts (flips only), most impactful first. */
+  flipWeeks: WhatIfWeek[];
+};
+
 // ---- league config, maintained in a Google Sheet ---------------------------
 
 export type LeagueRule = {
