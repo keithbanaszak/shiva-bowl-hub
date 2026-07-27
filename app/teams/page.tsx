@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   Card,
   PageHeader,
@@ -9,9 +10,134 @@ import {
 } from "@/components/ui";
 import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
+import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
 import { label } from "@/lib/marts";
 import { teamPower } from "@/lib/data/teamPower";
+import { rosterAge } from "@/lib/data/rosterAge";
 import type { TeamPower } from "@/lib/stats/types";
+
+// Age columns cover the skill positions where a dynasty age curve actually
+// means something; K/DEF still count toward roster size and the overall average.
+const AGE_COLS = ["QB", "RB", "WR", "TE"] as const;
+
+/**
+ * Diverging tint around the league mean at THIS position: cooler (accent-2) the
+ * younger a room is, warmer (gold) the older, neutral within ~half a year of the
+ * mean. A relative read is the only meaningful one — a 24-yo QB room and a 24-yo
+ * RB room are worlds apart. The number is always shown; the tint is a secondary
+ * cue only.
+ */
+function ageTint(age: number | null, mean: number | undefined): string | undefined {
+  if (age == null || mean == null) return undefined;
+  const dev = age - mean; // negative = younger than the league at this slot
+  const mag = Math.min(1, Math.abs(dev) / 3); // 3 years off the mean = full intensity
+  if (mag < 0.15) return undefined; // hugging the mean → no tint
+  const hue = dev < 0 ? "var(--accent-2)" : "var(--gold)";
+  const pct = (12 + mag * 30).toFixed(0); // 12%..42% over the surface
+  return `color-mix(in oklab, ${hue} ${pct}%, transparent)`;
+}
+
+function AgeCell({
+  age,
+  count,
+  mean,
+}: {
+  age: number | null;
+  count: number;
+  mean: number | undefined;
+}) {
+  if (age == null || count === 0)
+    return <span className="text-[var(--faint)]">—</span>;
+  return (
+    <span
+      className="inline-flex min-w-[2.6rem] items-center justify-center rounded-md px-1.5 py-0.5 font-mono text-[13px] tabular-nums"
+      style={{ background: ageTint(age, mean) }}
+      title={`${count} rostered · league avg ${mean ?? "—"}`}
+    >
+      {age.toFixed(1)}
+    </span>
+  );
+}
+
+function AgeByPosition() {
+  const { teams, positions, leagueAvgByPos, leagueAvgAge, season } = rosterAge;
+  const cols = AGE_COLS.filter((p) => positions.includes(p));
+
+  const columns: ColumnSpec[] = [
+    { key: "team", header: "Team", width: "30%", sortable: true, descFirst: false },
+    {
+      key: "size",
+      header: "Size",
+      width: "12%",
+      align: "right",
+      sortable: true,
+      headerTitle: "Players rostered",
+      hideBelow: "sm",
+    },
+    {
+      key: "avg",
+      header: "Avg age",
+      width: "16%",
+      align: "right",
+      sortable: true,
+      headerTitle: "Mean age across the whole roster",
+    },
+    ...cols.map(
+      (p): ColumnSpec => ({
+        key: p,
+        header: p,
+        width: "10.5%",
+        align: "right",
+        sortable: true,
+        headerTitle: `Average age of rostered ${p}s · league avg ${leagueAvgByPos[p] ?? "—"}`,
+      }),
+    ),
+  ];
+
+  const rows: TableRow[] = teams.map((t) => {
+    const byPos = new Map(t.byPos.map((b) => [b.pos, b]));
+    const cells: Record<string, ReactNode> = {
+      team: (
+        <ManagerChip userId={t.userId} href={`/managers/${t.userId}`} size={22} />
+      ),
+      size: <span className="font-mono text-[13px] tabular-nums text-[var(--muted)]">{t.players}</span>,
+      avg: (
+        <span className="font-mono text-[13px] font-semibold tabular-nums">
+          {t.avgAge != null ? t.avgAge.toFixed(1) : "—"}
+        </span>
+      ),
+    };
+    const sort: Record<string, number | string | null> = {
+      team: label(t.userId).toLowerCase(),
+      size: t.players,
+      avg: t.avgAge,
+    };
+    for (const p of cols) {
+      const b = byPos.get(p);
+      cells[p] = <AgeCell age={b?.avgAge ?? null} count={b?.count ?? 0} mean={leagueAvgByPos[p]} />;
+      sort[p] = b?.avgAge ?? null;
+    }
+    return { key: t.userId, cells, sort };
+  });
+
+  return (
+    <DataTable
+      columns={columns}
+      rows={rows}
+      rank
+      initialSort={{ key: "avg", dir: "asc" }}
+      minWidth="40rem"
+      caption={
+        <>
+          Current dynasty rosters ({season}). Bluer = younger than the league at
+          that position, gold = older; the league averages {leagueAvgAge ?? "—"}{" "}
+          overall. Age columns cover QB/RB/WR/TE — kickers count toward the
+          overall average and team defenses toward roster size only.
+        </>
+      }
+    />
+  );
+}
 
 function Bar({
   value,
@@ -231,6 +357,12 @@ export default function TeamsPage() {
           ))}
         </div>
       </Card>
+
+      {/* age by position */}
+      <SectionTitle>🎂 Age by position</SectionTitle>
+      <div className="mb-8">
+        <AgeByPosition />
+      </div>
 
       {/* per-team cards */}
       <SectionTitle>🛠️ Front offices</SectionTitle>

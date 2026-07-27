@@ -790,6 +790,44 @@ export type SlotScoringRow = {
 
 export type SlotScoringMart = { scopes: string[]; slots: string[]; rows: SlotScoringRow[] };
 
+// ---- roster age (current dynasty holds, by position) ------------------------
+
+export type RosterAgePlayer = { playerId: string; name: string; age: number };
+
+export type RosterAgePos = {
+  pos: string;
+  /** Players rostered at this position (whether or not their age is known). */
+  count: number;
+  /** Mean age over the players with a known age; null if none. */
+  avgAge: number | null;
+  youngest: RosterAgePlayer | null;
+  oldest: RosterAgePlayer | null;
+};
+
+export type RosterAgeTeam = {
+  userId: string;
+  /** Total players rostered. */
+  players: number;
+  /** Players with a known age (the age averages' denominator). */
+  agedPlayers: number;
+  /** Mean age across the whole roster; null if no ages are known. */
+  avgAge: number | null;
+  byPos: RosterAgePos[];
+};
+
+export type RosterAgeMart = {
+  /** Season these rosters reflect — the current dynasty holds. */
+  season: string;
+  /** Positions actually present, in canonical order. */
+  positions: string[];
+  /** League-wide mean age per position (for relative tinting). */
+  leagueAvgByPos: Record<string, number>;
+  /** League-wide mean age across every rostered player. */
+  leagueAvgAge: number | null;
+  /** One row per team, youngest roster first. */
+  teams: RosterAgeTeam[];
+};
+
 // ---- league config, maintained in a Google Sheet ---------------------------
 
 export type LeagueRule = {

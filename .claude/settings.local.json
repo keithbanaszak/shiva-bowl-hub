@@ -58,7 +58,11 @@
       "Bash(git push *)",
       "Bash(git fetch *)",
       "Bash(git restore *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Bash(node -e \"const p=require\\('./data/players.json'\\); const k=Object.keys\\(p\\); console.log\\('count',k.length\\); console.log\\(JSON.stringify\\(p[k[0]]\\)\\); console.log\\(JSON.stringify\\(p[k[1]]\\)\\);\")",
+      "Bash(node -e \"const p=require\\('./data/players.json'\\); const k=Object.keys\\(p\\); let withAge=0; for\\(const id of k\\){if\\(p[id].age!=null\\)withAge++;} console.log\\('withAge',withAge,'of',k.length\\);\")",
+      "Bash(node -e \"const r=require\\('./data/raw/2025/rosters.json'\\); console.log\\(Array.isArray\\(r\\)?'array len '+r.length:'obj'\\); console.log\\(JSON.stringify\\(r[0]\\).slice\\(0,400\\)\\);\")",
+      "Bash(node -e \"const m=require\\('./data/marts/rosterAge.json'\\); console.log\\('season',m.season,'positions',m.positions,'leagueAvgAge',m.leagueAvgAge\\); console.log\\('leagueAvgByPos',JSON.stringify\\(m.leagueAvgByPos\\)\\); console.log\\('teams',m.teams.length\\); const t=m.teams[0]; console.log\\('youngest team avgAge',t.avgAge,'players',t.players,'aged',t.agedPlayers\\); console.log\\('byPos', t.byPos.map\\(p=>p.pos+':'+p.avgAge+'\\('+p.count+'\\)'\\).join\\(' '\\)\\);\")"
     ]
   }
 }
