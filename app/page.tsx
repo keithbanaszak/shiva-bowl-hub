@@ -222,9 +222,7 @@ export default function Home() {
                         href={`/players/${p.playerId}`}
                         className="min-w-0 flex-1 hover:text-[var(--accent)]"
                       >
-                        <FitText className="text-[11px]">
-                          {p.name}
-                        </FitText>
+                        <FitText className="text-[11px]">{p.name}</FitText>
                       </Link>
                       <span className="shrink-0 font-mono text-[11px] font-semibold text-[var(--accent)]">
                         {p.points}
@@ -313,12 +311,15 @@ export default function Home() {
             linkText="luck"
           />
           <Panel>
-            <div className="mb-2 flex items-center justify-between px-1 text-[10px] uppercase tracking-wider text-[var(--muted)]">
+            <div className="mb-2 flex items-center justify-between px-1 text-[11px] uppercase tracking-wider text-[var(--muted)]">
               <span>Team</span>
               <span className="flex gap-2">
                 <span className="w-8 text-right">Rec</span>
                 <span className="w-10 text-right">PF</span>
-                <span className="w-10 text-right" title="Maximum possible points — every optimal lineup, all season">
+                <span
+                  className="hidden w-10 text-right sm:inline-block"
+                  title="Maximum possible points — every optimal lineup, all season"
+                >
                   Max
                 </span>
               </span>
@@ -355,7 +356,7 @@ export default function Home() {
                       </span>
                       {/* max PF = every week's optimal lineup; the gap is what start/sit cost */}
                       <span
-                        className="w-10 shrink-0 text-right font-mono text-[11px] tabular-nums text-[var(--muted)]"
+                        className="hidden w-10 shrink-0 text-right font-mono text-[11px] tabular-nums text-[var(--muted)] sm:inline-block"
                         title={`Max possible ${Math.round(r.seasonPpts)} · left ${Math.round(r.benchPoints)} on the bench (${(r.efficiency * 100).toFixed(0)}% efficiency)`}
                       >
                         {Math.round(r.seasonPpts)}
@@ -366,7 +367,8 @@ export default function Home() {
               })}
             </div>
             <div className="mt-2 border-t border-[var(--border)] px-1 pt-2 text-[10px] text-[var(--muted)]">
-              Bar = points for vs the league leader. Max = every optimal lineup, so the PF/Max gap is what start-sit decisions cost.
+              Bar = points for vs the league leader. Max = every optimal lineup,
+              so the PF/Max gap is what start-sit decisions cost.
             </div>
           </Panel>
           <div className="mt-6">

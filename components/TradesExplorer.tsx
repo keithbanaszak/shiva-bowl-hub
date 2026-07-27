@@ -79,7 +79,7 @@ export function TradesExplorer({
   }, [trades, q, season, sort, basis, mgrMap]);
 
   const seg = (on: boolean) =>
-    `rounded-md px-2.5 py-1.5 transition ${
+    `inline-flex min-h-10 items-center justify-center rounded-md px-2.5 py-1.5 transition sm:min-h-0 ${
       on
         ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
         : "text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -93,7 +93,7 @@ export function TradesExplorer({
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search a player or manager…"
           aria-label="Search trades"
-          className="w-full rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2.5 text-sm outline-none focus:border-[var(--border-glow)] lg:max-w-xs"
+          className="w-full rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2.5 text-base outline-none focus:border-[var(--border-glow)] sm:text-sm lg:max-w-xs"
         />
         <div className="flex flex-1 flex-wrap items-center gap-2">
           <select

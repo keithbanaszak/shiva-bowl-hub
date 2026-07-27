@@ -42,7 +42,10 @@ export function FitText({
     // flex-1 + min-w-0 matter: as a bare flex item this would size to its own
     // content, so `cqi` would measure the text rather than the space available
     // and nothing would ever shrink. Outside a flex row both are inert.
-    <Tag className={`block min-w-0 flex-1 ${className}`} style={{ containerType: "inline-size" }}>
+    <Tag
+      className={`block min-w-0 flex-1 ${className}`}
+      style={{ containerType: "inline-size" }}
+    >
       <span
         className="block truncate"
         style={{ fontSize: `clamp(${min}em, ${cqi}cqi, 1em)` }}

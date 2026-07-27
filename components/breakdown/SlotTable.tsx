@@ -72,7 +72,7 @@ export function SlotTable({
   };
 
   const seg = (on: boolean) =>
-    `rounded-md px-2.5 py-1.5 text-xs transition ${
+    `whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs transition ${
       on
         ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
         : "text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -81,7 +81,7 @@ export function SlotTable({
   return (
     <div>
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <div className="flex flex-wrap rounded-lg border border-[var(--border)] p-0.5">
+        <div className="scroll-thin flex max-w-full overflow-x-auto rounded-lg border border-[var(--border)] p-0.5">
           {mart.scopes.map((s) => (
             <button
               key={s}
@@ -132,7 +132,9 @@ export function SlotTable({
         <table className="w-full min-w-[720px] text-sm">
           <thead>
             <tr className="border-b border-[var(--border)] text-xs uppercase tracking-wider text-[var(--muted)]">
-              <th className="p-2.5 text-left">Manager</th>
+              <th className="sticky left-0 z-10 bg-[var(--card)] p-2.5 text-left">
+                Manager
+              </th>
               {mart.slots.map((s) => (
                 <th key={s} className="p-2.5 text-right">
                   <button
@@ -153,7 +155,7 @@ export function SlotTable({
                 key={userId}
                 className="border-b border-[var(--border)] last:border-0"
               >
-                <td className="whitespace-nowrap p-2.5 font-medium">
+                <td className="sticky left-0 z-10 bg-[var(--card)] whitespace-nowrap p-2.5 font-medium">
                   {nameOf.get(userId) ?? userId}
                 </td>
                 {mart.slots.map((s) => {

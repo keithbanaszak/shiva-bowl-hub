@@ -3,7 +3,11 @@
 import { useMemo, useState } from "react";
 import type { StandingsTimelineRow } from "@/lib/stats/types";
 
-export type TimelineTeam = { userId: string; label: string; avatarUrl: string | null };
+export type TimelineTeam = {
+  userId: string;
+  label: string;
+  avatarUrl: string | null;
+};
 
 /**
  * Bump chart: standings position, week by week.
@@ -74,7 +78,12 @@ export function StandingsTimeline({
       </p>
 
       <div className="scroll-thin overflow-x-auto">
-        <svg width={w} height={h} role="img" aria-label={`${season} weekly standings positions`}>
+        <svg
+          width={w}
+          height={h}
+          role="img"
+          aria-label={`${season} weekly standings positions`}
+        >
           {/* rank gridlines */}
           {Array.from({ length: n }, (_, i) => i + 1).map((r) => (
             <g key={r}>
@@ -86,7 +95,12 @@ export function StandingsTimeline({
                 stroke="var(--border)"
                 strokeWidth={1}
               />
-              <text x={padL - 8} y={y(r) + 3} textAnchor="end" className="fill-[var(--faint)] text-[9px]">
+              <text
+                x={padL - 8}
+                y={y(r) + 3}
+                textAnchor="end"
+                className="fill-[var(--faint)] text-[9px]"
+              >
                 {r}
               </text>
             </g>
@@ -94,7 +108,13 @@ export function StandingsTimeline({
 
           {/* week labels */}
           {weeks.map((wk) => (
-            <text key={wk} x={x(wk)} y={h - 8} textAnchor="middle" className="fill-[var(--faint)] text-[9px]">
+            <text
+              key={wk}
+              x={x(wk)}
+              y={h - 8}
+              textAnchor="middle"
+              className="fill-[var(--faint)] text-[9px]"
+            >
               {wk}
             </text>
           ))}
@@ -102,7 +122,9 @@ export function StandingsTimeline({
           {/* lines — dimmed neutral unless focused */}
           {ordered.map((t) => {
             const pts = series.get(t.userId)!;
-            const d = pts.map((p, i) => `${i === 0 ? "M" : "L"}${x(p.week)},${y(p.rank)}`).join(" ");
+            const d = pts
+              .map((p, i) => `${i === 0 ? "M" : "L"}${x(p.week)},${y(p.rank)}`)
+              .join(" ");
             const on = focus === t.userId;
             const dim = focus != null && !on;
             return (

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PageHeader, SectionTitle, Note, Card } from "@/components/ui";
-import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
+import {
+  DataTable,
+  type ColumnSpec,
+  type TableRow,
+} from "@/components/DataTable";
 import { ManagerCell } from "@/components/cells";
 import { StandingsTimeline } from "@/components/charts/StandingsTimeline";
 import { PlayoffBracket } from "@/components/PlayoffBracket";
@@ -11,10 +15,13 @@ import { getManager, label } from "@/lib/marts";
 
 export const metadata = {
   title: "Playoff Picture — The Shiva Bowl",
-  description: "Live seeding, the projected draft order, and week-by-week standings.",
+  description:
+    "Live seeding, the projected draft order, and week-by-week standings.",
 };
 
-const mono = (v: ReactNode, cls = "") => <span className={`font-mono tabular-nums ${cls}`}>{v}</span>;
+const mono = (v: ReactNode, cls = "") => (
+  <span className={`font-mono tabular-nums ${cls}`}>{v}</span>
+);
 
 export default function PlayoffsPage() {
   const p = playoffPicture;
@@ -33,19 +40,52 @@ export default function PlayoffsPage() {
 
   // ---- seeding table
   const seedCols: ColumnSpec[] = [
-    { key: "mgr", header: "Manager", width: "30%", sortable: true, descFirst: false },
-    { key: "rec", header: "Record", width: "12%", align: "right", sortable: true },
-    { key: "pf", header: "PF", width: "12%", align: "right", sortable: true },
+    {
+      key: "mgr",
+      header: "Manager",
+      width: "30%",
+      sortable: true,
+      descFirst: false,
+    },
+    {
+      key: "rec",
+      header: "Record",
+      width: "12%",
+      align: "right",
+      sortable: true,
+    },
+    {
+      key: "pf",
+      hideBelow: "sm",
+      header: "PF",
+      width: "12%",
+      align: "right",
+      sortable: true,
+    },
     {
       key: "max",
+      hideBelow: "sm",
       header: "Max PF",
       width: "12%",
       align: "right",
       sortable: true,
       headerTitle: "Every optimal lineup — what the roster could have scored",
     },
-    { key: "eff", header: "Lineup IQ", width: "12%", align: "right", sortable: true },
-    { key: "status", header: "Status", width: "22%", sortable: true, descFirst: false },
+    {
+      key: "eff",
+      hideBelow: "sm",
+      header: "Lineup IQ",
+      width: "12%",
+      align: "right",
+      sortable: true,
+    },
+    {
+      key: "status",
+      header: "Status",
+      width: "22%",
+      sortable: true,
+      descFirst: false,
+    },
   ];
 
   const seedRows: TableRow[] = p.seeds.map((s) => ({
@@ -79,8 +119,20 @@ export default function PlayoffsPage() {
 
   // ---- projected draft order
   const orderCols: ColumnSpec[] = [
-    { key: "pick", header: "Pick", width: "10%", sortable: true, descFirst: false },
-    { key: "mgr", header: "Manager", width: "30%", sortable: true, descFirst: false },
+    {
+      key: "pick",
+      header: "Pick",
+      width: "10%",
+      sortable: true,
+      descFirst: false,
+    },
+    {
+      key: "mgr",
+      header: "Manager",
+      width: "30%",
+      sortable: true,
+      descFirst: false,
+    },
     { key: "why", header: "Why", width: "60%", sortable: false },
   ];
 
@@ -88,7 +140,10 @@ export default function PlayoffsPage() {
     key: `${d.pick}`,
     inactive: getManager(d.userId)?.active === false,
     cells: {
-      pick: mono(`1.${String(d.pick).padStart(2, "0")}`, d.pick === 1 ? "font-semibold text-[var(--gold)]" : ""),
+      pick: mono(
+        `1.${String(d.pick).padStart(2, "0")}`,
+        d.pick === 1 ? "font-semibold text-[var(--gold)]" : "",
+      ),
       mgr: <ManagerCell userId={d.userId} />,
       why: <span className="text-xs text-[var(--muted)]">{d.reason}</span>,
     },
@@ -97,7 +152,11 @@ export default function PlayoffsPage() {
 
   const teams = p.seeds.map((s) => {
     const m = getManager(s.userId);
-    return { userId: s.userId, label: m?.label ?? s.userId, avatarUrl: m?.avatarUrl ?? null };
+    return {
+      userId: s.userId,
+      label: m?.label ?? s.userId,
+      avatarUrl: m?.avatarUrl ?? null,
+    };
   });
 
   return (
@@ -111,8 +170,9 @@ export default function PlayoffsPage() {
       {!p.complete && (
         <div className="mb-6">
           <Note title="Season in progress">
-            Seeding is live — record first, points-for breaking ties. The draft order below is a{" "}
-            <strong>projection</strong>; the playoff tiers can’t be settled until the bracket is played.
+            Seeding is live — record first, points-for breaking ties. The draft
+            order below is a <strong>projection</strong>; the playoff tiers
+            can’t be settled until the bracket is played.
           </Note>
         </div>
       )}
@@ -142,20 +202,29 @@ export default function PlayoffsPage() {
         </>
       )}
 
-      <SectionTitle>🎯 {p.draftOrderFinal ? "Draft order" : "Projected draft order"}</SectionTitle>
+      <SectionTitle>
+        🎯 {p.draftOrderFinal ? "Draft order" : "Projected draft order"}
+      </SectionTitle>
       <div className="mb-3">
         <Note title="Under the proposed rule">
-          <strong>1.01</strong> goes to the non-playoff team with the <strong>lowest max PF</strong> — best possible
-          lineup all season, not actual points — so a team can’t bench its way to the top pick.{" "}
-          <strong>2–6</strong> are the rest of the non-playoff teams by reverse standings, <strong>7–8</strong> the two
-          first-round losers, and <strong>9–12</strong> reverse playoff finish. This is still{" "}
+          <strong>1.01</strong> goes to the non-playoff team with the{" "}
+          <strong>lowest max PF</strong> — best possible lineup all season, not
+          actual points — so a team can’t bench its way to the top pick.{" "}
+          <strong>2–6</strong> are the rest of the non-playoff teams by reverse
+          standings, <strong>7–8</strong> the two first-round losers, and{" "}
+          <strong>9–12</strong> reverse playoff finish. This is still{" "}
           <Link href="/rules" className="text-[var(--accent)] hover:underline">
             on the ballot
           </Link>
           .
         </Note>
       </div>
-      <DataTable rows={orderRows} columns={orderCols} initialSort={{ key: "pick", dir: "asc" }} minWidth="36rem" />
+      <DataTable
+        rows={orderRows}
+        columns={orderCols}
+        initialSort={{ key: "pick", dir: "asc" }}
+        minWidth="20rem"
+      />
     </div>
   );
 }

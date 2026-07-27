@@ -41,7 +41,10 @@ export function ManagerCell({
     </span>
   );
   return href ? (
-    <Link href={`/managers/${userId}`} className="block w-full min-w-0 hover:text-[var(--accent)]">
+    <Link
+      href={`/managers/${userId}`}
+      className="block w-full min-w-0 hover:text-[var(--accent)]"
+    >
       {inner}
     </Link>
   ) : (
@@ -72,12 +75,19 @@ export function PlayerCell({
       */}
       <span className="min-w-0 flex-1">
         <FitText>{pname(playerId)}</FitText>
-        {sub && <span className="block truncate text-[10px] text-[var(--muted)]">{sub}</span>}
+        {sub && (
+          <span className="block truncate text-[10px] text-[var(--muted)]">
+            {sub}
+          </span>
+        )}
       </span>
     </span>
   );
   return href ? (
-    <Link href={`/players/${playerId}`} className="block min-w-0 hover:text-[var(--accent)]">
+    <Link
+      href={`/players/${playerId}`}
+      className="block min-w-0 hover:text-[var(--accent)]"
+    >
       {inner}
     </Link>
   ) : (
@@ -90,7 +100,15 @@ export function PlayerCell({
  * to two lines only when the opponent name happened to be long, so the column
  * looked ragged down the page.
  */
-export function WhenCell({ season, week, isPlayoff }: { season: string; week: number; isPlayoff?: boolean }) {
+export function WhenCell({
+  season,
+  week,
+  isPlayoff,
+}: {
+  season: string;
+  week: number;
+  isPlayoff?: boolean;
+}) {
   return (
     <span className="whitespace-nowrap font-mono text-xs tabular-nums text-[var(--muted)]">
       {season} <span className="text-[var(--faint)]">·</span> wk{week}
@@ -100,4 +118,5 @@ export function WhenCell({ season, week, isPlayoff }: { season: string; week: nu
 }
 
 /** Sort key that orders (season, week) chronologically. */
-export const whenOrder = (season: string, week: number): number => Number(season) * 100 + week;
+export const whenOrder = (season: string, week: number): number =>
+  Number(season) * 100 + week;

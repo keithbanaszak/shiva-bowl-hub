@@ -9,8 +9,17 @@ import {
 } from "@/components/ui";
 import { ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
-import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
-import { ManagerCell, PlayerCell, WhenCell, whenOrder } from "@/components/cells";
+import {
+  DataTable,
+  type ColumnSpec,
+  type TableRow,
+} from "@/components/DataTable";
+import {
+  ManagerCell,
+  PlayerCell,
+  WhenCell,
+  whenOrder,
+} from "@/components/cells";
 import { waivers } from "@/lib/data/waivers";
 import { pname } from "@/lib/data/players-dict";
 import { label } from "@/lib/marts";
@@ -64,12 +73,19 @@ const regretCols: ColumnSpec[] = [
   },
   {
     key: "by",
+    hideBelow: "sm",
     header: "Dropped by",
     width: "17%",
     sortable: true,
     descFirst: false,
   },
-  { key: "when", header: "When", width: "11%", sortable: true },
+  {
+    key: "when",
+    hideBelow: "sm",
+    header: "When",
+    width: "11%",
+    sortable: true,
+  },
   {
     key: "next",
     header: "Picked up by",
@@ -88,6 +104,7 @@ const regretCols: ColumnSpec[] = [
   },
   {
     key: "n4",
+    hideBelow: "sm",
     header: "Next 4wk",
     width: "9%",
     align: "right",
@@ -96,6 +113,7 @@ const regretCols: ColumnSpec[] = [
   },
   {
     key: "before",
+    hideBelow: "sm",
     header: "PPG before",
     width: "9%",
     align: "right",
@@ -105,6 +123,7 @@ const regretCols: ColumnSpec[] = [
   },
   {
     key: "tot",
+    hideBelow: "sm",
     header: "Total after",
     width: "8%",
     align: "right",

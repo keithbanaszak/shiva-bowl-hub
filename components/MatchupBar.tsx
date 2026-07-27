@@ -67,7 +67,7 @@ export function MatchupBar({
   const aWon = winnerUserId === aUserId;
   const bWon = winnerUserId === bUserId;
   const av = featured ? 36 : 24;
-  const scoreCls = featured ? "text-2xl" : "text-base";
+  const scoreCls = featured ? "text-xl sm:text-2xl" : "text-base";
 
   // left = blue family, right = red family; the winner's side is more saturated
   const leftTint = aWon
@@ -83,7 +83,9 @@ export function MatchupBar({
   const body = (
     <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-stretch overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card)] transition group-hover:border-[var(--border-strong)]">
       {/* left team */}
-      <div className={`flex min-w-0 items-center gap-2 py-2.5 pl-3 pr-2 ${leftTint}`}>
+      <div
+        className={`flex min-w-0 items-center gap-2 py-2.5 pl-3 pr-2 ${leftTint}`}
+      >
         <Avatar userId={aUserId} size={av} />
         <StreakIcon streak={aStreak} />
         <span className={`min-w-0 flex-1 ${nameCls(aWon)}`}>
@@ -94,24 +96,38 @@ export function MatchupBar({
       {/* scores — the centre track, so they never drift */}
       <div className="flex shrink-0 items-center justify-center gap-2 px-2 font-mono leading-none">
         <span className="text-right">
-          <span className={`${scoreCls} tabular-nums ${aWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}>
+          <span
+            className={`${scoreCls} tabular-nums ${aWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+          >
             {aPoints}
           </span>
-          {aProj != null && <span className="mt-0.5 block text-[10px] text-[var(--faint)]">{aProj}</span>}
+          {aProj != null && (
+            <span className="mt-0.5 block text-[10px] text-[var(--faint)]">
+              {aProj}
+            </span>
+          )}
         </span>
         <span aria-hidden className="text-xs text-[var(--faint)]">
           –
         </span>
         <span className="text-left">
-          <span className={`${scoreCls} tabular-nums ${bWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}>
+          <span
+            className={`${scoreCls} tabular-nums ${bWon ? "text-[var(--foreground)]" : "text-[var(--muted)]"}`}
+          >
             {bPoints}
           </span>
-          {bProj != null && <span className="mt-0.5 block text-[10px] text-[var(--faint)]">{bProj}</span>}
+          {bProj != null && (
+            <span className="mt-0.5 block text-[10px] text-[var(--faint)]">
+              {bProj}
+            </span>
+          )}
         </span>
       </div>
 
       {/* right team */}
-      <div className={`flex min-w-0 items-center justify-end gap-2 py-2.5 pl-2 pr-3 ${rightTint}`}>
+      <div
+        className={`flex min-w-0 items-center justify-end gap-2 py-2.5 pl-2 pr-3 ${rightTint}`}
+      >
         <span className={`min-w-0 flex-1 text-right ${nameCls(bWon)}`}>
           <FitText>{label(bUserId)}</FitText>
         </span>

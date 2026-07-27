@@ -106,32 +106,37 @@ export function PlayoffBracket({ po }: { po: SeasonPlayoffs }) {
   const rounds = [...new Set(games.map((g) => g.round))].sort((a, b) => a - b);
 
   return (
-    <div
-      className="grid gap-3"
-      style={{
-        gridTemplateColumns: `repeat(${rounds.length}, minmax(0, 1fr))`,
-      }}
-    >
-      {rounds.map((r) => {
-        const inRound = games.filter((g) => g.round === r);
-        const week = inRound[0]?.week;
-        return (
-          <div key={r} className="min-w-0">
-            <div className="mb-1.5 text-center text-[10px] uppercase tracking-wider text-[var(--muted)]">
-              Round {r}
-              {week != null && (
-                <span className="text-[var(--faint)]"> · wk{week}</span>
-              )}
+    // 8rem per round-column: at ≥sm the 3–4 columns fit within 640px so 1fr wins
+    // and this stops scrolling (desktop unchanged); below that it scrolls rather
+    // than crushing team names to ~8px.
+    <div className="scroll-thin -mx-1 overflow-x-auto px-1 sm:mx-0 sm:overflow-visible sm:px-0">
+      <div
+        className="grid gap-3"
+        style={{
+          gridTemplateColumns: `repeat(${rounds.length}, minmax(8rem, 1fr))`,
+        }}
+      >
+        {rounds.map((r) => {
+          const inRound = games.filter((g) => g.round === r);
+          const week = inRound[0]?.week;
+          return (
+            <div key={r} className="min-w-0">
+              <div className="mb-1.5 text-center text-[10px] uppercase tracking-wider text-[var(--muted)]">
+                Round {r}
+                {week != null && (
+                  <span className="text-[var(--faint)]"> · wk{week}</span>
+                )}
+              </div>
+              {/* centred so later rounds line up against the pair that fed them */}
+              <div className="flex h-[calc(100%-1.5rem)] flex-col justify-around gap-2">
+                {inRound.map((g, i) => (
+                  <Game key={`${r}:${i}`} g={g} seeds={po.seeds} />
+                ))}
+              </div>
             </div>
-            {/* centred so later rounds line up against the pair that fed them */}
-            <div className="flex h-[calc(100%-1.5rem)] flex-col justify-around gap-2">
-              {inRound.map((g, i) => (
-                <Game key={`${r}:${i}`} g={g} seeds={po.seeds} />
-              ))}
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

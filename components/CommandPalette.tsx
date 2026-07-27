@@ -124,7 +124,6 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
       ?.scrollIntoView({ block: "nearest" });
   }, [active]);
 
-
   return (
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center bg-black/50 p-4 pt-[12vh] backdrop-blur-sm"
@@ -150,11 +149,18 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
             onKeyDown={onKeyDown}
             placeholder="Search managers, players, pages…"
             aria-label="Search"
-            className="w-full bg-transparent py-3.5 text-sm outline-none placeholder:text-[var(--faint)]"
+            className="w-full bg-transparent py-3.5 text-base outline-none placeholder:text-[var(--faint)] sm:text-sm"
           />
           <kbd className="hidden shrink-0 rounded border border-[var(--border)] px-1.5 py-0.5 text-[10px] text-[var(--muted)] sm:block">
             esc
           </kbd>
+          <button
+            onClick={onClose}
+            aria-label="Close search"
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-[var(--muted)] hover:bg-[var(--card-2)] sm:hidden"
+          >
+            ✕
+          </button>
         </div>
 
         <div
@@ -174,7 +180,8 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
           {results.map((d, i) => {
             // group header whenever the kind changes — derived from the previous
             // item rather than a mutable cursor, which reassigns during render
-            const header = d.kind !== results[i - 1]?.kind ? KIND_LABEL[d.kind] : null;
+            const header =
+              d.kind !== results[i - 1]?.kind ? KIND_LABEL[d.kind] : null;
             return (
               <div key={`${d.kind}:${d.id}`}>
                 {header && (

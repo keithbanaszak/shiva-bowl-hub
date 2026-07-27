@@ -81,7 +81,7 @@ export function Stat({
         {label}
       </div>
       <div
-        className={`mt-0.5 font-mono text-xl font-semibold tabular-nums ${toneClass}`}
+        className={`mt-0.5 font-mono text-lg font-semibold tabular-nums sm:text-xl ${toneClass}`}
       >
         {value}
       </div>
@@ -175,7 +175,7 @@ export function Explain({ term, def }: { term: string; def: string }) {
 
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded bg-[var(--chip)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--muted)]">
+    <span className="rounded bg-[var(--chip)] px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-[var(--muted)]">
       {children}
     </span>
   );

@@ -40,7 +40,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label="Toggle light or dark theme"
       title="Toggle theme"
-      className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] ${className}`}
+      className={`grid h-10 w-10 shrink-0 place-items-center sm:h-8 sm:w-8 rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] ${className}`}
     >
       {/* sun — shown while the page is in light mode */}
       <svg

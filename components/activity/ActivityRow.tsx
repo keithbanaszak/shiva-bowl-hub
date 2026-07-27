@@ -42,7 +42,7 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
   const col = pid ? posColor(ppos(pid)) : null;
 
   return (
-    <div className="grid grid-cols-[1.5rem_minmax(0,1fr)_minmax(0,11rem)_3rem_5.5rem] items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--panel)] px-2 py-1">
+    <div className="grid grid-cols-[1.25rem_minmax(0,1fr)_minmax(0,6.5rem)_2.5rem_4rem] items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--panel)] px-2 py-1 sm:grid-cols-[1.5rem_minmax(0,1fr)_minmax(0,11rem)_3rem_5.5rem] sm:gap-2">
       <span
         aria-hidden
         title={meta.label}
@@ -106,11 +106,11 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
         </>
       )}
 
-      <span className="text-right font-mono text-[10px] text-[var(--gold)]">
+      <span className="text-right font-mono text-[11px] text-[var(--gold)]">
         {e.faab > 0 ? `$${e.faab}` : ""}
       </span>
 
-      <span className="whitespace-nowrap text-right font-mono text-[10px] leading-tight text-[var(--muted)]">
+      <span className="whitespace-nowrap text-right font-mono text-[11px] leading-tight text-[var(--muted)]">
         {e.season} wk{e.week}
         <span className="block text-[var(--faint)]">{shortDate(e.dateMs)}</span>
       </span>

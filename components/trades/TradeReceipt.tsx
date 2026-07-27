@@ -162,7 +162,7 @@ export function TradeReceipt({
       </div>
 
       <div
-        className={`grid gap-2 ${t.sides.length > 2 ? "sm:grid-cols-3" : "grid-cols-[1fr_auto_1fr]"}`}
+        className={`grid gap-2 ${t.sides.length > 2 ? "sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-[1fr_auto_1fr]"}`}
       >
         {t.sides.map((s, i) => {
           const m = mgrMap.get(s.userId);
@@ -214,7 +214,7 @@ export function TradeReceipt({
               {t.sides.length === 2 && i === 0 && (
                 <div
                   aria-hidden
-                  className="grid place-items-center px-0.5 text-sm text-[var(--faint)]"
+                  className="hidden place-items-center px-0.5 text-sm text-[var(--faint)] sm:grid"
                 >
                   ⇄
                 </div>

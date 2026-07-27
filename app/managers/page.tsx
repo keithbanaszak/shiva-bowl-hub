@@ -32,13 +32,17 @@ function Cards() {
                 </div>
               </div>
               {r.championships > 0 && (
-                <span className="ml-auto shrink-0 text-lg">{"🏆".repeat(Math.min(r.championships, 3))}</span>
+                <span className="ml-auto shrink-0 text-lg">
+                  {"🏆".repeat(Math.min(r.championships, 3))}
+                </span>
               )}
             </div>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <Badge>IQ {(r.careerEfficiency * 100).toFixed(0)}%</Badge>
               <Badge>All-play {(r.allPlayWinPct * 100).toFixed(0)}%</Badge>
-              {r.bestFinish && <Badge tone="gold">Best {ordinal(r.bestFinish)}</Badge>}
+              {r.bestFinish && (
+                <Badge tone="gold">Best {ordinal(r.bestFinish)}</Badge>
+              )}
               {m?.active === false && <Badge>✦ former</Badge>}
             </div>
           </Link>
@@ -60,16 +64,21 @@ export default function ManagersPage() {
       <div className="mb-4">
         <Note title="One table, two views">
           This is the same all-time table the{" "}
-          <Link href="/records" className="text-[var(--accent)] hover:underline">
+          <Link
+            href="/records"
+            className="text-[var(--accent)] hover:underline"
+          >
             Record Book
           </Link>{" "}
-          shows, so the numbers can never drift apart. Every column sorts; the ✦ marks managers who have left the
-          league, and the checkbox hides them.
+          shows, so the numbers can never drift apart. Every column sorts; the ✦
+          marks managers who have left the league, and the checkbox hides them.
         </Note>
       </div>
 
       <ManagerViews
-        table={<AllTimeTable caption="Sorted by regular-season win%. Click any header to re-sort." />}
+        table={
+          <AllTimeTable caption="Sorted by regular-season win%. Click any header to re-sort." />
+        }
         cards={<Cards />}
       />
     </div>

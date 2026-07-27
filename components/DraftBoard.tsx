@@ -1,6 +1,10 @@
 import { Avatar } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
-import { DraftBoardGrid, type BoardCellData, type BoardSlot } from "@/components/DraftBoardGrid";
+import {
+  DraftBoardGrid,
+  type BoardCellData,
+  type BoardSlot,
+} from "@/components/DraftBoardGrid";
 import { label, getManager } from "@/lib/marts";
 
 /** Sleeper handle when we have one — shorter than a team name, and stable. */
@@ -14,7 +18,9 @@ function NowOwned({ userId }: { userId: string }) {
   return (
     <div className="mt-0.5 flex items-center gap-0.5 rounded bg-[var(--gold-soft)] px-0.5">
       <Avatar userId={userId} size={10} />
-      <span className="truncate text-[8px] font-medium leading-tight text-[var(--gold)]">{handle(userId)}</span>
+      <span className="truncate text-[10px] font-medium leading-tight text-[var(--gold)]">
+        {handle(userId)}
+      </span>
     </div>
   );
 }
@@ -22,27 +28,36 @@ function NowOwned({ userId }: { userId: string }) {
 function Cell({ c }: { c: DraftBoardCell }) {
   const col = c.position ? posColor(c.position) : null;
   // A pick is "traded" only when its current owner differs from the column's original owner.
-  const traded = c.isTraded && !!c.ownerUserId && c.ownerUserId !== c.slotOwnerUserId;
+  const traded =
+    c.isTraded && !!c.ownerUserId && c.ownerUserId !== c.slotOwnerUserId;
 
   return (
     <div
-      style={col ? { backgroundColor: `${col}1f`, borderColor: `${col}4d` } : undefined}
+      style={
+        col
+          ? { backgroundColor: `${col}1f`, borderColor: `${col}4d` }
+          : undefined
+      }
       className={`min-h-[54px] rounded-md border p-1 ${col ? "" : "border-[var(--border)] bg-[var(--panel)]"} ${
         traded ? "ring-1 ring-inset ring-[var(--gold-border)]" : ""
       }`}
     >
-      <div className="flex items-center justify-between font-mono text-[8px] leading-none text-[var(--muted)]">
+      <div className="flex items-center justify-between font-mono text-[10px] leading-none text-[var(--muted)]">
         <span>
           {c.round}.{String(c.slot).padStart(2, "0")}
         </span>
-        {c.position && <span style={col ? { color: col } : undefined}>{c.position}</span>}
+        {c.position && (
+          <span style={col ? { color: col } : undefined}>{c.position}</span>
+        )}
       </div>
 
       {c.playerId ? (
         <>
           <div className="mt-1 flex items-center gap-1">
             <PlayerAvatar playerId={c.playerId} size={16} ring={false} />
-            <span className="min-w-0 truncate text-[10px] leading-tight">{c.name}</span>
+            <span className="min-w-0 truncate text-[10px] leading-tight">
+              {c.name}
+            </span>
           </div>
           {traded && c.ownerUserId && <NowOwned userId={c.ownerUserId} />}
         </>
@@ -54,7 +69,7 @@ function Cell({ c }: { c: DraftBoardCell }) {
           </span>
         </div>
       ) : (
-        <div className="mt-1.5 text-[9px] text-[var(--faint)]">—</div>
+        <div className="mt-1.5 text-[10px] text-[var(--faint)]">—</div>
       )}
     </div>
   );
@@ -69,7 +84,9 @@ function Cell({ c }: { c: DraftBoardCell }) {
  * only the click-to-spotlight state.
  */
 export function DraftBoard({ board }: { board: Board }) {
-  const rounds = [...new Set(board.cells.map((c) => c.round))].sort((a, b) => a - b);
+  const rounds = [...new Set(board.cells.map((c) => c.round))].sort(
+    (a, b) => a - b,
+  );
 
   const order: BoardSlot[] = board.order.map((o) => ({
     slot: o.slot,
@@ -86,5 +103,12 @@ export function DraftBoard({ board }: { board: Board }) {
     node: <Cell c={c} />,
   }));
 
-  return <DraftBoardGrid slots={board.slots} order={order} rounds={rounds} cells={cells} />;
+  return (
+    <DraftBoardGrid
+      slots={board.slots}
+      order={order}
+      rounds={rounds}
+      cells={cells}
+    />
+  );
 }

@@ -1,11 +1,17 @@
 import type { ReactNode } from "react";
-import { DataTable, type ColumnSpec, type TableRow } from "@/components/DataTable";
+import {
+  DataTable,
+  type ColumnSpec,
+  type TableRow,
+} from "@/components/DataTable";
 import { ManagerCell } from "@/components/cells";
 import { allTime, label, ordinal, getManager } from "@/lib/marts";
 import { signed } from "@/components/ui";
 
 const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
-const num = (v: ReactNode, cls = "") => <span className={`font-mono tabular-nums ${cls}`}>{v}</span>;
+const num = (v: ReactNode, cls = "") => (
+  <span className={`font-mono tabular-nums ${cls}`}>{v}</span>
+);
 
 /**
  * The single all-time manager table. Lives here so /managers and the Record Book
@@ -13,12 +19,26 @@ const num = (v: ReactNode, cls = "") => <span className={`font-mono tabular-nums
  */
 export function AllTimeTable({ caption }: { caption?: string }) {
   const columns: ColumnSpec[] = [
-    { key: "mgr", header: "Manager", width: "22%", sortable: true, descFirst: false },
+    {
+      key: "mgr",
+      header: "Manager",
+      width: "22%",
+      sortable: true,
+      descFirst: false,
+    },
     // ---- regular season
-    { key: "rec", header: "Reg record", width: "8%", align: "right", sortable: true, headerTitle: "Regular-season record" },
+    {
+      key: "rec",
+      header: "Reg record",
+      width: "8%",
+      align: "right",
+      sortable: true,
+      headerTitle: "Regular-season record",
+    },
     { key: "win", header: "Win%", width: "7%", align: "right", sortable: true },
     {
       key: "allplay",
+      hideBelow: "md",
       header: "All-play%",
       width: "7.5%",
       align: "right",
@@ -28,27 +48,74 @@ export function AllTimeTable({ caption }: { caption?: string }) {
     // ---- postseason
     {
       key: "porec",
+      hideBelow: "md",
       header: "PO record",
       width: "8%",
       align: "right",
       sortable: true,
-      headerTitle: "Playoff record — winners bracket only, so consolation games don't pad it",
+      headerTitle:
+        "Playoff record — winners bracket only, so consolation games don't pad it",
     },
-    { key: "apps", header: "PO apps", width: "7%", align: "right", sortable: true },
-    { key: "titles", header: "Titles", width: "6%", align: "right", sortable: true },
-    { key: "fin", header: "Avg fin", width: "7%", align: "right", sortable: true, descFirst: false },
-    { key: "best", header: "Best", width: "6%", align: "right", sortable: true, descFirst: false },
+    {
+      key: "apps",
+      hideBelow: "md",
+      header: "PO apps",
+      width: "7%",
+      align: "right",
+      sortable: true,
+    },
+    {
+      key: "titles",
+      hideBelow: "md",
+      header: "Titles",
+      width: "6%",
+      align: "right",
+      sortable: true,
+    },
+    {
+      key: "fin",
+      hideBelow: "md",
+      header: "Avg fin",
+      width: "7%",
+      align: "right",
+      sortable: true,
+      descFirst: false,
+    },
+    {
+      key: "best",
+      hideBelow: "md",
+      header: "Best",
+      width: "6%",
+      align: "right",
+      sortable: true,
+      descFirst: false,
+    },
     // ---- quality
     {
       key: "iq",
+      hideBelow: "md",
       header: "Lineup IQ",
       width: "7.5%",
       align: "right",
       sortable: true,
       headerTitle: "Points started / points available",
     },
-    { key: "luck", header: "Luck", width: "7%", align: "right", sortable: true },
-    { key: "pfg", header: "PF/g", width: "7%", align: "right", sortable: true },
+    {
+      key: "luck",
+      hideBelow: "md",
+      header: "Luck",
+      width: "7%",
+      align: "right",
+      sortable: true,
+    },
+    {
+      key: "pfg",
+      hideBelow: "md",
+      header: "PF/g",
+      width: "7%",
+      align: "right",
+      sortable: true,
+    },
   ];
 
   const rows: TableRow[] = allTime.map((r) => ({
@@ -68,11 +135,18 @@ export function AllTimeTable({ caption }: { caption?: string }) {
       apps: num(r.playoffAppearances, "text-[var(--muted)]"),
       titles: num(r.championships || "—", "text-[var(--gold)]"),
       fin: num(r.avgFinish ?? "—", "text-[var(--muted)]"),
-      best: num(r.bestFinish ? ordinal(r.bestFinish) : "—", "text-[var(--muted)]"),
+      best: num(
+        r.bestFinish ? ordinal(r.bestFinish) : "—",
+        "text-[var(--muted)]",
+      ),
       iq: num(pct(r.careerEfficiency)),
       luck: num(
         signed(r.totalLuck),
-        r.totalLuck > 0 ? "text-[var(--accent)]" : r.totalLuck < 0 ? "text-[var(--bad)]" : "",
+        r.totalLuck > 0
+          ? "text-[var(--accent)]"
+          : r.totalLuck < 0
+            ? "text-[var(--bad)]"
+            : "",
       ),
       pfg: num(r.pointsPerGame, "text-[var(--muted)]"),
     },
@@ -92,5 +166,13 @@ export function AllTimeTable({ caption }: { caption?: string }) {
     },
   }));
 
-  return <DataTable rows={rows} columns={columns} rank initialSort={{ key: "win", dir: "desc" }} caption={caption} />;
+  return (
+    <DataTable
+      rows={rows}
+      columns={columns}
+      rank
+      initialSort={{ key: "win", dir: "desc" }}
+      caption={caption}
+    />
+  );
 }

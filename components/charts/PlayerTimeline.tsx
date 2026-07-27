@@ -20,24 +20,52 @@ import type { PlayerOwnerStint } from "@/lib/stats/types";
 
 const WEEKS_PER_SEASON = 18;
 
-type Marker = { kind: "draft" | "waiver" | "trade" | "drop"; glyph: string; cls: string; label: string };
+type Marker = {
+  kind: "draft" | "waiver" | "trade" | "drop";
+  glyph: string;
+  cls: string;
+  label: string;
+};
 
 const MARKERS: Record<Marker["kind"], Omit<Marker, "kind">> = {
   draft: { glyph: "◆", cls: "text-[var(--gold)]", label: "Drafted" },
-  waiver: { glyph: "+", cls: "text-[var(--accent)]", label: "Added off waivers / FA" },
-  trade: { glyph: "⇄", cls: "text-[var(--accent-2)]", label: "Acquired by trade" },
+  waiver: {
+    glyph: "+",
+    cls: "text-[var(--accent)]",
+    label: "Added off waivers / FA",
+  },
+  trade: {
+    glyph: "⇄",
+    cls: "text-[var(--accent-2)]",
+    label: "Acquired by trade",
+  },
   drop: { glyph: "−", cls: "text-[var(--bad)]", label: "Dropped" },
 };
 
-const arrivalKind = (a: PlayerOwnerStint["acquisition"]): Marker["kind"] | null =>
-  a === "draft" ? "draft" : a === "trade" ? "trade" : a === "waiver" ? "waiver" : null;
+const arrivalKind = (
+  a: PlayerOwnerStint["acquisition"],
+): Marker["kind"] | null =>
+  a === "draft"
+    ? "draft"
+    : a === "trade"
+      ? "trade"
+      : a === "waiver"
+        ? "waiver"
+        : null;
 
-export function PlayerTimeline({ stints, seasons }: { stints: PlayerOwnerStint[]; seasons: string[] }) {
+export function PlayerTimeline({
+  stints,
+  seasons,
+}: {
+  stints: PlayerOwnerStint[];
+  seasons: string[];
+}) {
   if (stints.length === 0) return null;
 
   // continuous league-time axis so a gap between stints is visible as a gap
   const idx = (season: string) => Math.max(0, seasons.indexOf(season));
-  const pos = (season: string, week: number) => idx(season) * WEEKS_PER_SEASON + Math.max(0, week - 1);
+  const pos = (season: string, week: number) =>
+    idx(season) * WEEKS_PER_SEASON + Math.max(0, week - 1);
 
   const first = Math.min(...stints.map((s) => pos(s.fromSeason, s.fromWeek)));
   const last = Math.max(...stints.map((s) => pos(s.toSeason, s.toWeek)));
@@ -100,12 +128,20 @@ export function PlayerTimeline({ stints, seasons }: { stints: PlayerOwnerStint[]
               <li key={i} className="relative h-9">
                 <div
                   className="absolute inset-y-0 flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--accent-soft)] px-1.5"
-                  style={{ left: `${left}%`, width: `${width}%`, minWidth: "2.5rem" }}
+                  style={{
+                    left: `${left}%`,
+                    width: `${width}%`,
+                    minWidth: "2.5rem",
+                  }}
                   title={`${label(s.userId)} · ${s.fromSeason} wk${s.fromWeek} → ${s.toSeason} wk${s.toWeek} · ${s.weeks} weeks · ${s.points} pts`}
                 >
                   <Avatar userId={s.userId} size={18} />
-                  <span className="min-w-0 flex-1 truncate text-[11px]">{label(s.userId)}</span>
-                  <span className="shrink-0 font-mono text-[10px] text-[var(--muted)]">{s.points}</span>
+                  <span className="min-w-0 flex-1 truncate text-[11px]">
+                    {label(s.userId)}
+                  </span>
+                  <span className="shrink-0 font-mono text-[10px] text-[var(--muted)]">
+                    {s.points}
+                  </span>
                 </div>
 
                 {/* arrival marker, pinned to the band's left edge */}
@@ -138,11 +174,16 @@ export function PlayerTimeline({ stints, seasons }: { stints: PlayerOwnerStint[]
       <figcaption className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--border)] pt-2 text-[11px] text-[var(--muted)]">
         {(["draft", "waiver", "trade", "drop"] as const).map((k) => (
           <span key={k} className="flex items-center gap-1">
-            <span className={`font-mono ${MARKERS[k].cls}`}>{MARKERS[k].glyph}</span>
+            <span className={`font-mono ${MARKERS[k].cls}`}>
+              {MARKERS[k].glyph}
+            </span>
             {MARKERS[k].label}
           </span>
         ))}
-        <span className="ml-auto">Bar length = weeks rostered; the number is points scored for that manager.</span>
+        <span className="ml-auto">
+          Bar length = weeks rostered; the number is points scored for that
+          manager.
+        </span>
       </figcaption>
     </figure>
   );

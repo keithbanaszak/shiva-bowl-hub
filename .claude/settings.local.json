@@ -42,7 +42,11 @@
       "Bash(xargs echo \"lint errors:\")",
       "Bash(timeout 300 npx --yes vercel@latest whoami)",
       "Bash(timeout 900 npx --yes vercel@latest --prod --yes)",
-      "Bash(node -e \"const s=require\\('./package.json'\\).scripts; console.log\\('build:', s.build\\); console.log\\('data:refresh:', s['data:refresh']\\); console.log\\('data:all:', s['data:all']\\);\")"
+      "Bash(node -e \"const s=require\\('./package.json'\\).scripts; console.log\\('build:', s.build\\); console.log\\('data:refresh:', s['data:refresh']\\); console.log\\('data:all:', s['data:all']\\);\")",
+      "Read(//c/Users/keith/.claude/projects/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/subagents/workflows/wf_e5ddbfad-78d/**)",
+      "Bash(node \"C:/Users/keith/AppData/Local/Temp/claude/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/scratchpad/mob3.mjs\")",
+      "Bash(node \"C:/Users/keith/AppData/Local/Temp/claude/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/scratchpad/mob4.mjs\")",
+      "Bash(npx --yes vercel@latest --prod --yes)"
     ]
   }
 }

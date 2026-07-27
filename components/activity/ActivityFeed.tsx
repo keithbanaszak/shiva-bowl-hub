@@ -54,7 +54,7 @@ export function ActivityFeed({
   const shown = visible.slice(current * PAGE, current * PAGE + PAGE);
 
   const seg = (on: boolean) =>
-    `rounded-md px-2.5 py-1.5 text-xs transition ${
+    `whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs transition ${
       on
         ? "bg-[var(--accent-soft)] text-[var(--accent-strong)]"
         : "text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -63,7 +63,7 @@ export function ActivityFeed({
   return (
     <div>
       <div className="mb-5 flex flex-wrap items-center gap-2">
-        <div className="flex flex-wrap rounded-lg border border-[var(--border)] p-0.5">
+        <div className="scroll-thin flex max-w-full overflow-x-auto rounded-lg border border-[var(--border)] p-0.5">
           {KINDS.map((k) => (
             <button
               key={k.key}
@@ -85,7 +85,7 @@ export function ActivityFeed({
             setPage(0);
           }}
           aria-label="Filter by season"
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
+          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-base sm:text-sm"
         >
           <option value="all">All seasons</option>
           {seasons.map((s) => (
@@ -102,7 +102,7 @@ export function ActivityFeed({
             setPage(0);
           }}
           aria-label="Filter by manager"
-          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-sm"
+          className="rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-base sm:text-sm"
         >
           <option value="all">All managers</option>
           {managers.map((m) => (
@@ -124,7 +124,7 @@ export function ActivityFeed({
           <button
             onClick={() => setPage(Math.max(0, current - 1))}
             disabled={current === 0}
-            className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+            className="rounded-lg border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
           >
             ← Prev
           </button>
@@ -139,7 +139,7 @@ export function ActivityFeed({
           <button
             onClick={() => setPage(Math.min(pages - 1, current + 1))}
             disabled={current >= pages - 1}
-            className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+            className="rounded-lg border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
           >
             Next →
           </button>

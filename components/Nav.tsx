@@ -207,7 +207,7 @@ export function Nav() {
             <button
               onClick={() => setPaletteOpen(true)}
               aria-label="Search the league"
-              className="flex items-center gap-2 rounded-lg border border-[var(--border)] px-2.5 py-1.5 text-sm text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)]"
+              className="flex min-h-10 min-w-10 items-center justify-center gap-2 rounded-lg border border-[var(--border)] px-2.5 py-1.5 text-sm text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] md:min-h-0 md:min-w-0 md:justify-start"
             >
               <span aria-hidden>⌕</span>
               <span className="hidden lg:inline">Search</span>
@@ -232,7 +232,7 @@ export function Nav() {
               onClick={() => setDrawer(true)}
               aria-label="Open menu"
               aria-expanded={drawer}
-              className="grid h-8 w-8 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] md:hidden"
+              className="grid h-10 w-10 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition hover:bg-[var(--card-2)] hover:text-[var(--foreground)] md:hidden"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -269,7 +269,7 @@ export function Nav() {
               <button
                 onClick={() => setDrawer(false)}
                 aria-label="Close menu"
-                className="grid h-8 w-8 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)]"
+                className="grid h-10 w-10 place-items-center rounded-lg border border-[var(--border)] text-[var(--muted)]"
               >
                 ✕
               </button>
@@ -278,7 +278,7 @@ export function Nav() {
             <div className="p-3">
               <Link
                 href="/"
-                className={`mb-2 block rounded-lg px-3 py-2 text-sm ${
+                className={`mb-2 block rounded-lg px-3 py-2.5 text-sm ${
                   pathname === "/"
                     ? "bg-[var(--accent-soft)] text-[var(--accent)]"
                     : "hover:bg-[var(--card-2)]"
@@ -289,7 +289,7 @@ export function Nav() {
 
               {GROUPS.map((g) => (
                 <div key={g.label} className="mb-3">
-                  <div className="px-3 pb-1 text-[10px] uppercase tracking-wider text-[var(--faint)]">
+                  <div className="px-3 pb-1 text-[11px] uppercase tracking-wider text-[var(--faint)]">
                     {g.label}
                   </div>
                   {g.items.map((i) => (
@@ -317,7 +317,7 @@ export function Nav() {
                 href={SLEEPER_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--muted)] hover:bg-[var(--card-2)]"
+                className="block rounded-lg px-3 py-2.5 text-sm text-[var(--muted)] hover:bg-[var(--card-2)]"
               >
                 Open in Sleeper ↗
               </a>
