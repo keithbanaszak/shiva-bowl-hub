@@ -3,6 +3,7 @@ import { Card, PageHeader, SectionTitle, Badge } from "@/components/ui";
 import { Avatar, ManagerChip } from "@/components/Manager";
 import { SeasonPills } from "@/components/SeasonPills";
 import { completedSeasons, label, ordinal } from "@/lib/marts";
+import { leagueConfig } from "@/league.config";
 import { awardsForSeason } from "@/lib/data/awards";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { standingsForSeason } from "@/lib/data/standings";
@@ -39,7 +40,7 @@ export function AwardsView({ season }: { season: string }) {
   const headlines: string[] = [];
   if (po?.championUserId)
     headlines.push(
-      `${label(po.championUserId)} are your ${season} Shiva Bowl champions.`,
+      `${label(po.championUserId)} are your ${season} ${leagueConfig.shortName} champions.`,
     );
   const merch = find("schedule_merchant");
   if (merch)

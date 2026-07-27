@@ -11,6 +11,7 @@ import { chain, completedSeasons, label } from "@/lib/marts";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { standingsForSeason } from "@/lib/data/standings";
 import { schedule } from "@/lib/data/schedule";
+import { leagueConfig } from "@/league.config";
 import { home } from "@/lib/data/home";
 import { events } from "@/lib/data/activity";
 import type { ScheduleMatchup } from "@/lib/stats/types";
@@ -148,7 +149,10 @@ export default function Home() {
 
   return (
     <div>
-      <PageHeader kicker={`Dynasty hub · ${span}`} title="The Shiva Bowl" />
+      <PageHeader
+        kicker={`${leagueConfig.tagline} · ${span}`}
+        title={leagueConfig.name}
+      />
 
       {/* hero: season-aware — the current title race while a season is live,
           the reigning champion between seasons — plus the marquee game */}

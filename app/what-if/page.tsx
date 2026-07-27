@@ -1,9 +1,10 @@
 import { PageHeader, Note } from "@/components/ui";
 import { WhatIfExplorer } from "@/components/whatif/WhatIfExplorer";
 import { whatIf } from "@/lib/data/whatIf";
+import { leagueConfig } from "@/league.config";
 
 export const metadata = {
-  title: "What If — The Shiva Bowl",
+  title: `What If — ${leagueConfig.name}`,
   description:
     "The perfect-lineup counterfactual: every game a flawless start/sit would have won, and the record you'd have if you were an oracle.",
 };

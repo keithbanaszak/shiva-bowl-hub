@@ -64,7 +64,8 @@
       "Bash(node -e \"const r=require\\('./data/raw/2025/rosters.json'\\); console.log\\(Array.isArray\\(r\\)?'array len '+r.length:'obj'\\); console.log\\(JSON.stringify\\(r[0]\\).slice\\(0,400\\)\\);\")",
       "Bash(node -e \"const m=require\\('./data/marts/rosterAge.json'\\); console.log\\('season',m.season,'positions',m.positions,'leagueAvgAge',m.leagueAvgAge\\); console.log\\('leagueAvgByPos',JSON.stringify\\(m.leagueAvgByPos\\)\\); console.log\\('teams',m.teams.length\\); const t=m.teams[0]; console.log\\('youngest team avgAge',t.avgAge,'players',t.players,'aged',t.agedPlayers\\); console.log\\('byPos', t.byPos.map\\(p=>p.pos+':'+p.avgAge+'\\('+p.count+'\\)'\\).join\\(' '\\)\\);\")",
       "Bash(node -e \"const m=require\\('./data/marts/integrity.json'\\); const w=m.weeks; console.log\\('flagged weeks',w.length\\); const flips=w.filter\\(x=>x.flipsResult\\); console.log\\('flippable losses',flips.length\\); const f=flips[0]; if\\(f\\) console.log\\('example:',f.season,'wk',f.week,'played',f.actualPoints,'bestActual',f.bestActualPoints,'opp',f.opponentPoints,'result',f.result,'flips',f.flipsResult\\);\")",
-      "Bash(node -e \"const m=require\\('./data/marts/lineups.json'\\); console.log\\(Array.isArray\\(m\\)?'array '+m.length:'obj keys '+Object.keys\\(m\\)\\); console.log\\(JSON.stringify\\(m[0]\\).slice\\(0,600\\)\\);\")"
+      "Bash(node -e \"const m=require\\('./data/marts/lineups.json'\\); console.log\\(Array.isArray\\(m\\)?'array '+m.length:'obj keys '+Object.keys\\(m\\)\\); console.log\\(JSON.stringify\\(m[0]\\).slice\\(0,600\\)\\);\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\(p.scripts,null,1\\)\\)\")"
     ]
   }
 }

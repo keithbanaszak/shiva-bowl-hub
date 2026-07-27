@@ -12,9 +12,10 @@ import { PlayoffBracket } from "@/components/PlayoffBracket";
 import { playoffPicture } from "@/lib/data/playoffPicture";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { getManager, label } from "@/lib/marts";
+import { leagueConfig } from "@/league.config";
 
 export const metadata = {
-  title: "Playoff Picture — The Shiva Bowl",
+  title: `Playoff Picture — ${leagueConfig.name}`,
   description:
     "Live seeding, the projected draft order, and week-by-week standings.",
 };

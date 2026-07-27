@@ -8,7 +8,7 @@ import { leagueConfig } from "@/league.config";
 import type { LeagueRule } from "@/lib/stats/types";
 
 export const metadata = {
-  title: "League Rules — The Shiva Bowl",
+  title: `League Rules — ${leagueConfig.name}`,
   description: "Every house rule, and what is currently on the ballot.",
 };
 

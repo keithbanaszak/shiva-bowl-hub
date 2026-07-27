@@ -2,9 +2,10 @@ import { Card, PageHeader, SectionTitle, Note, Stat } from "@/components/ui";
 import { ManagerChip } from "@/components/Manager";
 import { WeekReceipt } from "@/components/integrity/WeekReceipt";
 import { integrity, flagged } from "@/lib/data/integrity";
+import { leagueConfig } from "@/league.config";
 
 export const metadata = {
-  title: "Lineup Integrity — The Shiva Bowl",
+  title: `Lineup Integrity — ${leagueConfig.name}`,
   description:
     "Projection-based tank watch: which lineups fell furthest short of the best lineup available.",
 };

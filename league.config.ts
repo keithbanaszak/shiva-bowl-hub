@@ -8,6 +8,17 @@ export const leagueConfig = {
   /** Current-season Sleeper league_id (the long number in the league's URL). */
   currentLeagueId: "1315853532460498944",
   sport: "nfl",
+
+  /**
+   * Branding. Everything user-facing reads these, so a second instance of this
+   * hub is just a new league_id + a new name here — no code edits.
+   *   name       — the full title, shown in the browser tab and the home hero.
+   *   shortName   — the bare league name, e.g. "… are your 2025 <shortName> champions".
+   *   tagline     — the kicker above the title / the metadata blurb noun.
+   */
+  name: "The Shiva Bowl",
+  shortName: "Shiva Bowl",
+  tagline: "Dynasty Hub",
   /**
    * Weeks to attempt per season when pulling matchups/transactions.
    * Empty/future weeks simply return [] and are skipped — pulling through 18

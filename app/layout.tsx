@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
+import { leagueConfig } from "@/league.config";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -15,9 +16,8 @@ const display = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "The Shiva Bowl — Dynasty Hub",
-  description:
-    "League history, rivalries, schedule luck, trade receipts, and Dynasty Wrapped for The Shiva Bowl.",
+  title: `${leagueConfig.name} — ${leagueConfig.tagline}`,
+  description: `League history, rivalries, schedule luck, trade receipts, and Dynasty Wrapped for ${leagueConfig.name}.`,
 };
 
 /**

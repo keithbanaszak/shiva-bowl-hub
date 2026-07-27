@@ -154,9 +154,14 @@ export function Nav() {
             className="mr-1 flex items-center gap-2 font-display font-bold tracking-tight"
           >
             <span className="scanline grid h-7 w-7 place-items-center rounded-lg bg-[var(--accent-soft)] text-[11px] font-bold text-[var(--accent)] glow-border">
-              SB
+              {leagueConfig.shortName
+                .split(/\s+/)
+                .map((w) => w[0])
+                .join("")
+                .slice(0, 3)
+                .toUpperCase()}
             </span>
-            <span className="hidden text-glow sm:inline">The Shiva Bowl</span>
+            <span className="hidden text-glow sm:inline">{leagueConfig.name}</span>
           </Link>
 
           {/* ---- desktop ---- */}
