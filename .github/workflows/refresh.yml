@@ -40,7 +40,14 @@ jobs:
           node-version: 20
           cache: npm
 
-      - run: npm ci
+      # `npm install`, not `npm ci`: the committed lockfile is generated on
+      # Windows and omits Linux-only optional native deps (@emnapi/*, pulled by
+      # Next's lightningcss/oxide toolchain), which `npm ci` refuses on the Linux
+      # runner ("Missing … from lock file"). `npm install` resolves what this
+      # platform needs at install time and tolerates that cross-platform gap. It
+      # may touch package-lock.json in the runner, but the commit step below only
+      # stages data/** and the search index, so the lockfile is never committed.
+      - run: npm install --no-audit --no-fund
 
       # ingest current week + pull the config sheet + rebuild every mart
       - run: npm run data:refresh
