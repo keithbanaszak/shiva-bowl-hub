@@ -7,7 +7,7 @@ import { PosBadge } from "@/components/Pos";
 import { ActivityRow } from "@/components/activity/ActivityRow";
 import { ActivityBySeason } from "@/components/charts/ActivityBySeason";
 import { FitText } from "@/components/FitText";
-import { completedSeasons, label } from "@/lib/marts";
+import { chain, completedSeasons, label } from "@/lib/marts";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { standingsForSeason } from "@/lib/data/standings";
 import { schedule } from "@/lib/data/schedule";
@@ -117,7 +117,21 @@ export default function Home() {
   const seasons = completedSeasons();
   const latest = seasons[0];
   const span = seasons.length ? `${seasons[seasons.length - 1]}–${latest}` : "";
-  const champ = playoffsForSeason(latest)?.championUserId ?? null;
+
+  // Season state drives the hero. While a season is live we lead with the
+  // current title race (so in week 11 you see who's on top now, not last year's
+  // banner); between seasons we crown the reigning champion — the winner of the
+  // most recently *finished* season, which may not be the newest season on the
+  // chain once the next one has started.
+  const inSeason = chain.find((c) => c.status === "in_season")?.season ?? null;
+  const lastComplete =
+    chain
+      .filter((c) => c.status === "complete")
+      .map((c) => c.season)
+      .sort((a, b) => Number(b) - Number(a))[0] ?? null;
+  const champ = lastComplete
+    ? (playoffsForSeason(lastComplete)?.championUserId ?? null)
+    : null;
 
   const latestGotw = [...schedule]
     .filter((m) => m.isGameOfWeek)
@@ -128,38 +142,88 @@ export default function Home() {
 
   const seasonStandings = standingsForSeason(latest);
   const maxPf = Math.max(...seasonStandings.map((r) => r.pointsFor), 0);
+  const leader = seasonStandings[0] ?? null;
   const lp = home.lastPlayed;
-  const recent = events.slice(0, 14);
+  const recent = events.slice(0, 8);
 
   return (
     <div>
       <PageHeader kicker={`Dynasty hub · ${span}`} title="The Shiva Bowl" />
 
-      {/* hero: champion + marquee game */}
+      {/* hero: season-aware — the current title race while a season is live,
+          the reigning champion between seasons — plus the marquee game */}
       <div className="mb-8 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
-        <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
-          <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">
-            🏆
-          </div>
-          <div className="font-display text-xs uppercase tracking-widest text-[var(--gold)]">
-            Reigning Champion · {latest}
-          </div>
-          <div className="mt-3 flex items-center gap-3">
-            <Avatar userId={champ} size={52} />
+        {inSeason && leader ? (
+          <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--border-glow)]">
+            <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">
+              📈
+            </div>
+            <div className="font-display text-xs uppercase tracking-widest text-[var(--accent)]">
+              {inSeason} in progress{lp ? ` · through Wk ${lp.week}` : ""}
+            </div>
+            <div className="mt-1 text-[11px] uppercase tracking-wider text-[var(--muted)]">
+              Current leader
+            </div>
+            <div className="mt-2 flex items-center gap-3">
+              <Avatar userId={leader.userId} size={52} />
+              <div className="min-w-0">
+                <Link
+                  href={`/managers/${leader.userId}`}
+                  className="text-lg font-semibold hover:underline"
+                >
+                  {label(leader.userId)}
+                </Link>
+                <div className="font-mono text-xs text-[var(--muted)]">
+                  {leader.wins}-{leader.losses} · {Math.round(leader.pointsFor)}{" "}
+                  PF
+                </div>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+              <Link
+                href="/playoffs"
+                className="text-[var(--accent)] hover:underline"
+              >
+                playoff picture →
+              </Link>
+              {champ && (
+                <span className="text-[var(--muted)]">
+                  Reigning:{" "}
+                  <Link
+                    href={`/awards/${lastComplete}`}
+                    className="text-[var(--gold)] hover:underline"
+                  >
+                    {label(champ)}
+                  </Link>
+                </span>
+              )}
+            </div>
+          </Card>
+        ) : (
+          <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--gold-border)] bg-[var(--gold-soft)]">
+            <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">
+              🏆
+            </div>
+            <div className="font-display text-xs uppercase tracking-widest text-[var(--gold)]">
+              Reigning Champion · {lastComplete}
+            </div>
+            <div className="mt-3 flex items-center gap-3">
+              <Avatar userId={champ} size={52} />
+              <Link
+                href={`/managers/${champ}`}
+                className="text-lg font-semibold text-[var(--gold)] hover:underline"
+              >
+                {label(champ)}
+              </Link>
+            </div>
             <Link
-              href={`/managers/${champ}`}
-              className="text-lg font-semibold text-[var(--gold)] hover:underline"
+              href={`/awards/${lastComplete}`}
+              className="mt-3 inline-block text-xs text-[var(--gold)] hover:underline"
             >
-              {label(champ)}
+              {lastComplete} awards →
             </Link>
-          </div>
-          <Link
-            href={`/awards/${latest}`}
-            className="mt-3 inline-block text-xs text-[var(--gold)] hover:underline"
-          >
-            {latest} awards →
-          </Link>
-        </Card>
+          </Card>
+        )}
         <div className="lg:col-span-2">
           {latestGotw && <GameOfWeekCard m={latestGotw} />}
         </div>
@@ -168,19 +232,6 @@ export default function Home() {
       {/* activity feed + standings */}
       <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0 space-y-8">
-          <section>
-            <SectionHead
-              title="⚡ Latest activity"
-              href="/activity"
-              linkText="full feed"
-            />
-            <div className="space-y-1.5">
-              {recent.map((e) => (
-                <ActivityRow key={e.id} e={e} />
-              ))}
-            </div>
-          </section>
-
           {lp && home.weeklyAwards.length > 0 && (
             <section>
               <SectionHead
@@ -233,6 +284,19 @@ export default function Home() {
               )}
             </section>
           )}
+
+          <section>
+            <SectionHead
+              title="⚡ Latest activity"
+              href="/activity"
+              linkText="full feed"
+            />
+            <div className="space-y-1.5">
+              {recent.map((e) => (
+                <ActivityRow key={e.id} e={e} />
+              ))}
+            </div>
+          </section>
 
           <section>
             <SectionHead title="🏆 Champions" />
