@@ -39,7 +39,10 @@
       "Bash(sed -i 's/^import type { PlayerOwnerStint } from \"@\\\\/lib\\\\/stats\\\\/types\";$//' 'app/players/[playerId]/page.tsx')",
       "Bash(sed -i 's/^import { chain } from \"@\\\\/lib\\\\/marts\";$//' 'app/players/[playerId]/page.tsx')",
       "Bash(sed -i 's/^import { label } from \"@\\\\/lib\\\\/marts\";$/import { chain, label } from \"@\\\\/lib\\\\/marts\";/' 'app/players/[playerId]/page.tsx')",
-      "Bash(xargs echo \"lint errors:\")"
+      "Bash(xargs echo \"lint errors:\")",
+      "Bash(timeout 300 npx --yes vercel@latest whoami)",
+      "Bash(timeout 900 npx --yes vercel@latest --prod --yes)",
+      "Bash(node -e \"const s=require\\('./package.json'\\).scripts; console.log\\('build:', s.build\\); console.log\\('data:refresh:', s['data:refresh']\\); console.log\\('data:all:', s['data:all']\\);\")"
     ]
   }
 }

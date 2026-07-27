@@ -64,16 +64,82 @@ exists, update `currentLeagueId` to it and run `npm run data:all`. The new leagu
   they ever disappear.
 - Trade verdicts are **realized points**, never dynasty market value.
 
-## Deploy (free)
+## Deploy & keep it updated
 
-1. Push this folder to a GitHub repo (it is the repo root).
-2. Import the repo on **Vercel** (Hobby tier). Framework auto-detects Next.js. Deploy.
-3. Share the public URL with the league.
+The site is live at **https://shiva-bowl-hub.vercel.app**. Two ways to ship changes;
+the first is the one you want.
 
-### Weekly auto-refresh
+### The good setup — connect GitHub once, then it runs itself
 
-`.github/workflows/refresh.yml` runs Tuesdays 13:17 UTC (Sep–Jan), re-pulls the
-current week, rebuilds marts, and commits `data/**`. The push triggers a Vercel
-redeploy automatically. You can also trigger it manually from the Actions tab
-(`workflow_dispatch`). Note: GitHub disables scheduled workflows after 60 days of
-repo inactivity — re-enable each preseason.
+This is what makes the site **update itself when league activity happens** and
+**deploy on every change** without you touching a terminal. One-time, ~5 minutes:
+
+1. **Create an empty GitHub repo** (no README/licence) — e.g. `shiva-bowl-hub`.
+2. **Push this folder to it:**
+   ```bash
+   git remote add origin https://github.com/<you>/shiva-bowl-hub.git
+   git push -u origin main
+   ```
+3. **Connect it to the existing Vercel project:** Vercel dashboard →
+   `shiva-bowl-hub` → Settings → Git → Connect the repo. The URL and history are
+   preserved. From now on **every push auto-deploys**.
+
+That's it. Once connected, the refresh Action below runs on schedule, commits any
+new data, and the push redeploys — no computer needs to be on.
+
+> **Optional, only if you skip step 3:** create a Deploy Hook (Vercel → Settings →
+> Git → Deploy Hooks), and add its URL as a repo secret named `VERCEL_DEPLOY_HOOK`.
+> The Action will POST it after a refresh so the data still ships. Unnecessary once
+> git is connected.
+
+### Auto-refresh (the "updates when activity happens" part)
+
+Sleeper has no push notifications, so freshness is polling. `.github/workflows/refresh.yml`:
+
+- runs **daily** 13:17 UTC during the season (Sep–Jan) — waivers, trades and cuts
+  happen almost every day, so the site stays near-live;
+- runs **weekly** (Tuesdays) the rest of the year, which still catches dynasty
+  offseason moves;
+- re-pulls the current season, pulls the [rules sheet](#league-rules--manager-profiles),
+  rebuilds every mart, and commits `data/**` **and** `public/search-index.json`
+  (the ⌘K index — it lives outside `data/` and Vercel doesn't regenerate it, so it
+  must be committed for new players to appear in search);
+- can be run any time from the repo's **Actions** tab → *Refresh Sleeper data* →
+  *Run workflow*.
+
+> GitHub disables scheduled workflows after **60 days of no repo activity**. The
+> Action's own commits count as activity, so it self-sustains whenever data is
+> changing; only a completely dead stretch pauses it. Re-enable from the Actions
+> tab if that happens (and always check each preseason).
+
+### Deploying by hand (no GitHub)
+
+Until git is connected, ship with the Vercel CLI from the project root:
+
+```bash
+npm run data:refresh   # pull Sleeper + sheet, rebuild marts
+npx vercel --prod      # build and deploy
+```
+
+Nothing updates on its own this way — you re-run both after every league move.
+
+## League rules & manager profiles
+
+`/rules` and manager real-names come from a Google Sheet you edit directly, so the
+league's house rules aren't buried in code. Set it up once:
+
+1. Create a Google Sheet with two tabs:
+   - **rules** — columns `category, rule, detail, status, vote_closes, sort_order, pinned`
+     (`status` is `active` / `proposed` / `retired`).
+   - **managers** — columns `user_id, real_name, nickname, joined, favorite_team, bio`.
+2. File → Share → **Publish to web**.
+3. Put the sheet id and each tab's `gid` (both in the tab URL) into
+   `configSheet` in `league.config.ts`.
+
+Then `npm run config:pull` (the refresh Action does this automatically). It's
+**fail-soft**: if the sheet is unreachable the committed `data/league-config.json`
+is kept, so a bad edit never breaks a deploy. Until you link a sheet, the defaults
+committed in that file are used.
+
+**Each new season** Sleeper mints a new `league_id`; update `currentLeagueId` in
+`league.config.ts` and run `npm run data:all`.
