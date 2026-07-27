@@ -153,6 +153,28 @@ export function computeIntegrity(
 
         const rec = recordBefore.get(runningKey(s.season, userId, week)) ?? null;
 
+        // Hindsight: what the best-BY-PROJECTION lineup ACTUALLY scored, and
+        // whether that alone would have flipped the week's result. This scores
+        // the honest counterfactual "if you'd just started who the projections
+        // told you to, do you win?" — not the retrospective perfect lineup.
+        const bestActualPoints = round2(
+          best.assignments.reduce(
+            (sum, a) => sum + (a.playerId ? (m.players_points?.[a.playerId] ?? 0) : 0),
+            0,
+          ),
+        );
+        const opp = entries.find(
+          (e) => e.matchup_id === m.matchup_id && e.roster_id !== m.roster_id,
+        );
+        const opponentPoints = opp ? round2(matchupPoints(opp)) : null;
+        const actualPoints = round2(matchupPoints(m));
+        let result: IntegrityWeek["result"] = null;
+        if (opponentPoints != null)
+          result =
+            actualPoints > opponentPoints ? "W" : actualPoints < opponentPoints ? "L" : "T";
+        const flipsResult =
+          result !== "W" && opponentPoints != null && bestActualPoints > opponentPoints;
+
         weeks.push({
           id: `${s.season}:${week}:${m.roster_id}`,
           season: s.season,
@@ -167,7 +189,11 @@ export function computeIntegrity(
           deadStarters,
           noProjStarters,
           emptySlots,
-          actualPoints: round2(matchupPoints(m)),
+          actualPoints,
+          bestActualPoints,
+          opponentPoints,
+          result,
+          flipsResult,
           recordBefore: rec,
           started,
           bestLineup,

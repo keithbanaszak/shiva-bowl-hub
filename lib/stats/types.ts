@@ -743,6 +743,14 @@ export type IntegrityWeek = {
   noProjStarters: number;
   emptySlots: number;
   actualPoints: number;
+  /** What the best-BY-PROJECTION lineup would ACTUALLY have scored (hindsight). */
+  bestActualPoints: number;
+  /** Opponent's actual points that week (null if the pairing can't be resolved). */
+  opponentPoints: number | null;
+  /** The real result of the week: did the lineup they started win or lose? */
+  result: "W" | "L" | "T" | null;
+  /** They didn't win, but the best-projected lineup would have — a flippable loss. */
+  flipsResult: boolean;
   recordBefore: { w: number; l: number } | null;
   started: LineupSlotEntry[];
   bestLineup: LineupSlotEntry[];

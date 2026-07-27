@@ -58,8 +58,42 @@ function SlotRow({ e, dim = false }: { e: LineupSlotEntry; dim?: boolean }) {
   );
 }
 
+/**
+ * The honest counterfactual: what would have happened if the manager had simply
+ * started the best lineup the projections pointed to. We compare that lineup's
+ * ACTUAL points to the opponent's actual points — not to a hindsight-perfect
+ * lineup — so the verdict answers "would playing the obvious lineup have won?".
+ */
+function hindsightVerdict(w: IntegrityWeek): { text: string; tone: string } | null {
+  if (w.opponentPoints == null) return null;
+  const best = w.bestActualPoints;
+  const opp = w.opponentPoints;
+  if (w.flipsResult)
+    return {
+      text: `Starting the best projected lineup flips this ${
+        w.result === "T" ? "tie" : "loss"
+      } into a win — it scores ${best} to the opponent's ${opp}.`,
+      tone: "text-[var(--gold)]",
+    };
+  if (w.result === "W" && best <= opp)
+    return {
+      text: `They won it, but the by-the-projections lineup would actually have lost (${best} vs ${opp}) — the lineup they started overperformed.`,
+      tone: "text-[var(--muted)]",
+    };
+  if (w.result === "W")
+    return {
+      text: `Won anyway — the best projected lineup (${best}) also clears the opponent's ${opp}.`,
+      tone: "text-[var(--muted)]",
+    };
+  return {
+    text: `Even the best projected lineup (${best}) falls short of the opponent's ${opp} — this one wasn't lost on the lineup card.`,
+    tone: "text-[var(--muted)]",
+  };
+}
+
 export function WeekReceipt({ w }: { w: IntegrityWeek }) {
   const lv = LEVEL[w.level] ?? LEVEL.minor;
+  const verdict = hindsightVerdict(w);
 
   return (
     <details className="group rounded-2xl border border-[var(--border)] bg-[var(--card)] open:bg-[var(--panel)]">
@@ -76,6 +110,14 @@ export function WeekReceipt({ w }: { w: IntegrityWeek }) {
           {w.recordBefore &&
             ` · ${w.recordBefore.w}-${w.recordBefore.l} at the time`}
         </span>
+        {w.flipsResult && (
+          <span
+            className="rounded-full bg-[var(--gold-soft)] px-2 py-0.5 text-[10px] font-semibold uppercase text-[var(--gold)] ring-1 ring-inset ring-[var(--gold-border)]"
+            title="The best lineup available by projection would actually have won this week"
+          >
+            🔁 cost them the win
+          </span>
+        )}
         <span className="ml-auto flex items-center gap-3">
           <span className="text-right">
             <span className="block font-mono text-sm font-semibold text-[var(--bad)]">
@@ -113,8 +155,14 @@ export function WeekReceipt({ w }: { w: IntegrityWeek }) {
             </ul>
           </div>
           <div>
-            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)]">
-              Best lineup available
+            <div className="mb-1.5 flex items-baseline justify-between gap-2 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)]">
+              <span>Best lineup available</span>
+              <span
+                className="font-mono text-[10px] normal-case text-[var(--muted)]"
+                title="What this lineup ACTUALLY scored once the games were played"
+              >
+                actually {w.bestActualPoints}
+              </span>
             </div>
             <ul className="rounded-xl border border-[var(--border)] p-2">
               {w.bestLineup.map((e, i) => (
@@ -123,6 +171,49 @@ export function WeekReceipt({ w }: { w: IntegrityWeek }) {
             </ul>
           </div>
         </div>
+
+        {verdict && (
+          <div className="mt-3 rounded-xl border border-[var(--border)] bg-[var(--panel)] p-3">
+            <div className="mb-2 flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-xs tabular-nums">
+              <span className="text-[var(--muted)]">
+                played{" "}
+                <span className="font-semibold text-[var(--foreground)]">
+                  {w.actualPoints}
+                </span>
+              </span>
+              <span className="text-[var(--muted)]">
+                best projected{" "}
+                <span className="font-semibold text-[var(--accent)]">
+                  {w.bestActualPoints}
+                </span>
+              </span>
+              {w.opponentPoints != null && (
+                <span className="text-[var(--muted)]">
+                  opponent{" "}
+                  <span className="font-semibold text-[var(--foreground)]">
+                    {w.opponentPoints}
+                  </span>
+                </span>
+              )}
+              {w.result && (
+                <span
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase ${
+                    w.result === "W"
+                      ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+                      : "bg-[var(--bad-soft)] text-[var(--bad)]"
+                  }`}
+                >
+                  {w.result === "W"
+                    ? "won"
+                    : w.result === "T"
+                      ? "tied"
+                      : "lost"}
+                </span>
+              )}
+            </div>
+            <div className={`text-xs ${verdict.tone}`}>{verdict.text}</div>
+          </div>
+        )}
 
         {w.benched.length > 0 && (
           <div className="mt-3">
