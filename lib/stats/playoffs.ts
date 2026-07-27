@@ -60,7 +60,18 @@ export function computePlayoffs(
     ...buildGames(s.losersBracket, "losers"),
   ];
 
-  // Finishes from placement games. Winners bracket: place p -> winner, p+1 -> loser.
+  /*
+   * Final standing.
+   *
+   * Top-N (the playoff field) finish by their WINNERS-bracket result: placement
+   * game place p -> winner, p+1 -> loser. Everyone who missed the playoffs is
+   * ranked BELOW the field (places N+1 … 12) by regular-season standing — the
+   * consolation/"losers" bracket is deliberately ignored for finish, because its
+   * low-stakes games otherwise sink a first-team-out 8-6 squad to 10th and make
+   * "best finish" read wrong. (The losers games are still kept in `games` for
+   * display.) This also matches how the projected draft order ranks non-playoff
+   * teams, so the two never disagree.
+   */
   const playoffTeams = s.settings.playoff_teams ?? 6;
   const finishes: Record<string, number> = {};
   for (const g of s.winnersBracket) {
@@ -75,61 +86,29 @@ export function computePlayoffs(
     }
   }
 
-  // The consolation (losers) bracket ranks teams BELOW the playoff field. It can
-  // be a normal consolation (win => 7th, best of the rest) OR a "toilet bowl"
-  // (win => LAST place). Detect by seeding: if the byes go to the WORST
-  // regular-season teams, winning advances you toward the bottom, so reverse it.
-  const losersTeams = new Set<number>();
-  for (const g of s.losersBracket) {
-    if (typeof g.t1 === "number") losersTeams.add(g.t1);
-    if (typeof g.t2 === "number") losersTeams.add(g.t2);
+  const bySeed = [...standings].sort((a, b) => b.wins - a.wins || b.pointsFor - a.pointsFor);
+  const playoffSet = new Set(bySeed.slice(0, playoffTeams).map((r) => r.userId));
+
+  // teams that missed the playoffs: places N+1… by regular-season order
+  let nextNon = playoffTeams + 1;
+  for (const row of bySeed) {
+    if (playoffSet.has(row.userId)) continue;
+    if (finishes[row.userId] == null) finishes[row.userId] = nextNon++;
   }
-  const maxConsolationPlace = playoffTeams + losersTeams.size;
-
-  const rsRank = new Map<number, number>(); // rosterId -> regular-season rank (1 = best)
-  [...standings]
-    .sort((a, b) => b.wins - a.wins || b.pointsFor - a.pointsFor)
-    .forEach((r, i) => rsRank.set(r.rosterId, i + 1));
-
-  const toiletBowl = (() => {
-    const r1 = new Set<number>();
-    for (const g of s.losersBracket)
-      if (g.r === 1) {
-        if (typeof g.t1 === "number") r1.add(g.t1);
-        if (typeof g.t2 === "number") r1.add(g.t2);
-      }
-    const byes = new Set<number>();
-    for (const g of s.losersBracket)
-      if ((g.r ?? 0) > 1) {
-        if (typeof g.t1 === "number" && !r1.has(g.t1)) byes.add(g.t1);
-        if (typeof g.t2 === "number" && !r1.has(g.t2)) byes.add(g.t2);
-      }
-    if (byes.size === 0 || r1.size === 0) return false;
-    const avgRank = (set: Set<number>) =>
-      [...set].reduce((sum, rid) => sum + (rsRank.get(rid) ?? 0), 0) / set.size;
-    return avgRank(byes) > avgRank(r1); // byes seeded to the worst teams => toilet bowl
-  })();
-
-  for (const g of s.losersBracket) {
-    if (g.p == null) continue;
-    const wPlace = toiletBowl ? maxConsolationPlace - (g.p - 1) : playoffTeams + g.p;
-    const lPlace = toiletBowl ? maxConsolationPlace - g.p : playoffTeams + g.p + 1;
-    if (g.w != null) {
-      const u = uid(g.w);
-      if (u) finishes[u] = wPlace;
-    }
-    if (g.l != null) {
-      const u = uid(g.l);
-      if (u) finishes[u] = lPlace;
-    }
+  // safety net: a playoff team the winners bracket never placed (missing
+  // placement game) takes the lowest open top-N slot rather than falling to 7+
+  const usedTop = new Set(Object.values(finishes).filter((p) => p <= playoffTeams));
+  let openTop = 1;
+  for (const row of bySeed) {
+    if (!playoffSet.has(row.userId) || finishes[row.userId] != null) continue;
+    while (usedTop.has(openTop)) openTop++;
+    finishes[row.userId] = openTop;
+    usedTop.add(openTop);
   }
 
   // seeds: top-N regular-season teams by record then PF
   const seeds: Record<string, number> = {};
-  [...standings]
-    .sort((a, b) => b.wins - a.wins || b.pointsFor - a.pointsFor)
-    .slice(0, playoffTeams)
-    .forEach((row, i) => (seeds[row.userId] = i + 1));
+  bySeed.slice(0, playoffTeams).forEach((row, i) => (seeds[row.userId] = i + 1));
 
   const placeToUser = (place: number): string | null =>
     Object.entries(finishes).find(([, p]) => p === place)?.[0] ?? null;

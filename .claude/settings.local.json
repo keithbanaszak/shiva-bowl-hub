@@ -46,7 +46,19 @@
       "Read(//c/Users/keith/.claude/projects/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/subagents/workflows/wf_e5ddbfad-78d/**)",
       "Bash(node \"C:/Users/keith/AppData/Local/Temp/claude/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/scratchpad/mob3.mjs\")",
       "Bash(node \"C:/Users/keith/AppData/Local/Temp/claude/c--Users-keith-OneDrive-Documentos-Fantasy-Sports-Fantasy-NFL-SleeperLeagueShiva-shiva-bowl-hub/aff8cb13-bae8-4137-b6b2-2cbdfcdce401/scratchpad/mob4.mjs\")",
-      "Bash(npx --yes vercel@latest --prod --yes)"
+      "Bash(npx --yes vercel@latest --prod --yes)",
+      "Bash(git ls-tree *)",
+      "Bash(npm -v)",
+      "Bash(node -e \"const l=require\\('./package-lock.json'\\); console.log\\('lockfileVersion', l.lockfileVersion, '| name', l.name\\);\")",
+      "Bash(npm ci *)",
+      "Bash(timeout 300 npm ci)",
+      "Bash(timeout 400 npm ci)",
+      "Bash(git credential *)",
+      "Bash(node -e \"const y=require\\('js-yaml'\\); const s=require\\('fs'\\).readFileSync\\('.github/workflows/refresh.yml','utf8'\\); const d=y.load\\(s\\); const steps=d.jobs.refresh.steps.map\\(x=>x.run||x.uses||x.name\\); console.log\\('steps:', steps\\); console.log\\('install step:', steps.find\\(x=>x&&x.includes\\('npm install'\\)\\)\\);\")",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(git restore *)",
+      "Bash(git pull *)"
     ]
   }
 }

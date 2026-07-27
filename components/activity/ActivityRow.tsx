@@ -83,7 +83,7 @@ export function ActivityRow({ e }: { e: ActivityEvent }) {
             {pid && <PlayerAvatar playerId={pid} size={18} />}
             <Link
               href={pid ? `/players/${pid}` : "#"}
-              className={`min-w-0 text-sm hover:underline ${
+              className={`min-w-0 flex-1 text-sm hover:underline ${
                 e.kind === "drop" ? "text-[var(--bad)]" : "text-[var(--accent)]"
               }`}
             >
