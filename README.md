@@ -37,19 +37,67 @@ npm run data:all         # backfill + build
 npm run data:refresh     # refresh + build  (used by the weekly GitHub Action)
 ```
 
-After cloning, run `npm install` then `npm run data:all` to populate `data/`.
+After cloning, the committed `data/leagues/**` is all you need — just `npm install`
+then `npm run dev` (the `predev` step materializes the active league first). Run
+`npm run data:all` only to re-pull fresh data from Sleeper.
 
 ## Configuration
 
-`league.config.ts` holds the only required setting:
+`leagues.config.mjs` is the registry — **one entry per league** this hub serves.
+Each entry is a Sleeper `currentLeagueId` plus its branding:
 
-```ts
-currentLeagueId: "1315853532460498944"
+```js
+export const leagues = {
+  shiva:   { slug: "shiva",   currentLeagueId: "1315853532460498944", name: "The Shiva Bowl", shortName: "Shiva Bowl", tagline: "Dynasty Hub", ... },
+  pioneer: { slug: "pioneer", currentLeagueId: "1345194878245556224", name: "Pioneer Futbol Liga", shortName: "Pioneer",  tagline: "Dynasty Hub", ... },
+};
 ```
 
-**Each new season** Sleeper creates a new `league_id`. When the next season's league
-exists, update `currentLeagueId` to it and run `npm run data:all`. The new league's
-`previous_league_id` automatically links the prior history.
+Which league a given command or build is for is chosen by the **`LEAGUE` env var**
+(defaults to `DEFAULT_LEAGUE` = `shiva`):
+
+```bash
+npm run data:all               # shiva (the default)
+LEAGUE=pioneer npm run data:all  # pioneer
+```
+
+`league.config.ts` is just a thin app-facing shim over `data/active-league.json`,
+which `scripts/select-league.mjs` writes for the active league at build time — so
+no page code is league-aware.
+
+**Each new season** Sleeper creates a new `league_id`. Update that league's
+`currentLeagueId` in `leagues.config.mjs` and run `LEAGUE=<slug> npm run data:all`.
+The new league's `previous_league_id` automatically links the prior history.
+
+## One codebase, many leagues
+
+The same repo is deployed **once per league** — each its own Vercel project on this
+same GitHub repo, differing only by the `LEAGUE` env var. One `git push` rebuilds
+every league's site from identical code.
+
+**How the data is laid out.** Committed source of truth lives per league under
+`data/leagues/<slug>/` (raw pulls, computed marts, player dict, search index).
+The paths the app actually imports (`data/marts`, `data/players.json`,
+`data/league-config.json`, `public/search-index.json`) are **materialized build
+artifacts** — `scripts/select-league.mjs` runs in `predev`/`prebuild`, reads
+`LEAGUE`, and copies that league's source into them. They are gitignored; only
+`data/leagues/**` is committed.
+
+**To stand up another league:**
+
+1. Add an entry to `leagues.config.mjs` (a new `slug` + its `currentLeagueId` + name).
+2. Backfill it locally and commit the data:
+   ```bash
+   LEAGUE=<slug> npm run data:all
+   git add data/leagues/<slug> && git commit -m "Add <slug> league data"
+   git push
+   ```
+3. In Vercel, **New Project → import this same repo**. Under
+   *Settings → Environment Variables* add `LEAGUE=<slug>` (Production + Preview).
+   Deploy. Give it its own domain (e.g. `<slug>-hub.vercel.app`).
+
+That's it — the weekly refresh Action already loops over every league in the
+registry, so the new one starts auto-updating with no further changes.
 
 ## Data correctness notes
 
@@ -100,10 +148,10 @@ Sleeper has no push notifications, so freshness is polling. `.github/workflows/r
   happen almost every day, so the site stays near-live;
 - runs **weekly** (Tuesdays) the rest of the year, which still catches dynasty
   offseason moves;
-- re-pulls the current season, pulls the [rules sheet](#league-rules--manager-profiles),
-  rebuilds every mart, and commits `data/**` **and** `public/search-index.json`
-  (the ⌘K index — it lives outside `data/` and Vercel doesn't regenerate it, so it
-  must be committed for new players to appear in search);
+- loops over **every league** in `leagues.config.mjs`: re-pulls the current season,
+  pulls the [rules sheet](#league-rules--manager-profiles), rebuilds every mart, and
+  commits each league's source under `data/leagues/**` (the ⌘K index lives there too
+  now; each Vercel project regenerates its own canonical copy at build time);
 - can be run any time from the repo's **Actions** tab → *Refresh Sleeper data* →
   *Run workflow*.
 
