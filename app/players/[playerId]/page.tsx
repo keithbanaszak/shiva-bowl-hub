@@ -13,7 +13,7 @@ import { Avatar, ManagerChip } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PlayerTimeline } from "@/components/charts/PlayerTimeline";
 
-import { chain, label } from "@/lib/marts";
+import { completedSeasons, label } from "@/lib/marts";
 import { legacyFor, legacyIds } from "@/lib/data/playerLegacy";
 
 export function generateStaticParams() {
@@ -29,10 +29,11 @@ export default async function PlayerLegacyPage({
   const p = legacyFor(playerId);
   if (!p) notFound();
 
-  // oldest first, so league time runs left to right on the timeline
-  const allSeasons = [...chain.map((c) => c.season)].sort(
-    (a, b) => Number(a) - Number(b),
-  );
+  // oldest first, so league time runs left to right on the timeline. Use played
+  // seasons (completedSeasons), NOT the raw chain — the chain includes the
+  // rolled-over next season before any game is played, which would draw a
+  // phantom gridline for a season that hasn't happened.
+  const allSeasons = [...completedSeasons()].sort((a, b) => Number(a) - Number(b));
 
   return (
     <div>

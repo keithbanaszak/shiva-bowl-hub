@@ -14,6 +14,12 @@ export function computeDraft(dynasty: Dynasty, identity: Identity, index: Player
   const startupSeason = dynasty.seasons[dynasty.seasons.length - 1]?.season;
 
   for (const s of dynasty.seasons) {
+    // Skip a season that hasn't played a game yet. Its rookie draft is already
+    // complete on Sleeper (36 real picks), but with zero realized points every
+    // pick would look like a −350 bust: it would poison the per-slot expected
+    // value curve, sink every drafter's grade, and dominate the busts list. A
+    // season with no played weeks has an empty matchupsByWeek (see keepPlayedWeeks).
+    if (s.matchupsByWeek.size === 0) continue;
     for (const bundle of s.drafts) {
       // picks per round — needed to turn an overall pick number into Sleeper's
       // round.pick notation ("3.01" rather than a raw overall "3.25")

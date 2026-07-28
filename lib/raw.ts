@@ -62,6 +62,22 @@ function loadProjections(season: string): Map<number, Record<string, number>> {
   return map;
 }
 
+/**
+ * A week counts as PLAYED once any team in it has scored. Sleeper publishes the
+ * full-season schedule up front, so future weeks arrive as entries with 0 points
+ * (and, mid-offseason, a whole "in_season" year can have 18 such weeks). Dropping
+ * the unplayed ones here — at the single source every mart reads — is what stops
+ * the rest of the app treating scheduled games as real: no phantom standings,
+ * no champion crowned before kickoff, no integrity flags or Game-of-the-Week on
+ * games that haven't happened.
+ */
+function keepPlayedWeeks(map: Map<number, ReturnType<typeof MatchupSchema.parse>[]>): void {
+  for (const [wk, entries] of [...map]) {
+    const played = entries.some((e) => ((e.custom_points ?? e.points ?? 0) as number) > 0);
+    if (!played) map.delete(wk);
+  }
+}
+
 function loadSeason(entry: ChainEntry): SeasonData {
   const dir = seasonDir(entry.season);
   const league = LeagueSchema.parse(readJson(path.join(dir, "league.json")));
@@ -94,6 +110,9 @@ function loadSeason(entry: ChainEntry): SeasonData {
     traded_picks: parseArray(TradedPickSchema, b.traded_picks, "draft traded_picks"),
   }));
 
+  const matchupsByWeek = loadWeekly(matchupsDir(entry.season), MatchupSchema, "matchups");
+  keepPlayedWeeks(matchupsByWeek);
+
   return {
     season: entry.season,
     leagueId: entry.league_id,
@@ -106,7 +125,7 @@ function loadSeason(entry: ChainEntry): SeasonData {
     league,
     users,
     rosters,
-    matchupsByWeek: loadWeekly(matchupsDir(entry.season), MatchupSchema, "matchups"),
+    matchupsByWeek,
     transactionsByWeek: loadWeekly(transactionsDir(entry.season), TransactionSchema, "transactions"),
     projectionsByWeek: loadProjections(entry.season),
     tradedPicks,

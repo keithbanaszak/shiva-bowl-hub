@@ -116,15 +116,20 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
 
 export default function Home() {
   const seasons = completedSeasons();
-  const latest = seasons[0];
-  const span = seasons.length ? `${seasons[seasons.length - 1]}–${latest}` : "";
+  const latest = seasons[0] ?? null;
+  const span = seasons.length ? `${seasons[seasons.length - 1]}–${seasons[0]}` : "";
 
-  // Season state drives the hero. While a season is live we lead with the
-  // current title race (so in week 11 you see who's on top now, not last year's
-  // banner); between seasons we crown the reigning champion — the winner of the
-  // most recently *finished* season, which may not be the newest season on the
-  // chain once the next one has started.
+  // Season state drives the hero. A season only counts as "live" once it has
+  // actually played a game (standings exist) — Sleeper flags a rolled-over
+  // season in_season the moment its schedule is generated, months before
+  // kickoff, so we key off real results, not status. While live we lead with the
+  // current title race; otherwise we crown the reigning champion, the winner of
+  // the most recently *finished* season.
   const inSeason = chain.find((c) => c.status === "in_season")?.season ?? null;
+  const liveStandings = inSeason ? standingsForSeason(inSeason) : [];
+  const liveActive = !!inSeason && liveStandings.length > 0;
+  const leader = liveActive ? liveStandings[0] : null;
+
   const lastComplete =
     chain
       .filter((c) => c.status === "complete")
@@ -141,9 +146,8 @@ export default function Home() {
         Number(b.season) * 100 + b.week - (Number(a.season) * 100 + a.week),
     )[0];
 
-  const seasonStandings = standingsForSeason(latest);
+  const seasonStandings = latest ? standingsForSeason(latest) : [];
   const maxPf = Math.max(...seasonStandings.map((r) => r.pointsFor), 0);
-  const leader = seasonStandings[0] ?? null;
   const lp = home.lastPlayed;
   const recent = events.slice(0, 8);
 
@@ -157,7 +161,7 @@ export default function Home() {
       {/* hero: season-aware — the current title race while a season is live,
           the reigning champion between seasons — plus the marquee game */}
       <div className="mb-8 grid grid-cols-1 items-stretch gap-3 lg:grid-cols-3">
-        {inSeason && leader ? (
+        {liveActive && leader ? (
           <Card className="relative flex flex-col justify-center overflow-hidden border-[var(--border-glow)]">
             <div className="pointer-events-none absolute -right-4 -top-6 text-7xl opacity-10">
               📈

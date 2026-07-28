@@ -99,8 +99,19 @@ export function computeWaivers(
     }
   }
 
-  // ---- per-season leaders (computed on the full set)
-  const seasons = [...new Set(acquisitions.map((a) => a.season))].sort((a, b) => Number(b) - Number(a));
+  // Offseason moves for a not-yet-played season are real activity (they belong
+  // in the moves feed), but they have no realized points yet — so they must be
+  // kept out of any PERFORMANCE rollup, or an unplayed season sprouts a "biggest
+  // FAAB bust" and every manager's hit-rate is diluted by adds that simply
+  // haven't had a chance to score. A played season has a non-empty matchupsByWeek.
+  const playedSeasons = new Set(
+    dynasty.seasons.filter((s) => s.matchupsByWeek.size > 0).map((s) => s.season),
+  );
+
+  // ---- per-season leaders (played seasons only)
+  const seasons = [...new Set(acquisitions.map((a) => a.season))]
+    .filter((s) => playedSeasons.has(s))
+    .sort((a, b) => Number(b) - Number(a));
   const seasonLeaders: WaiverSeasonLeaders[] = seasons.map((season) => {
     const inSeason = acquisitions.filter((a) => a.season === season);
     const free = inSeason.filter((a) => a.faab === 0 && a.realizedSeason > 0);
@@ -117,9 +128,10 @@ export function computeWaivers(
     return { season, bestFreeAdd, bestValue, biggestBust };
   });
 
-  // ---- manager grades (full set)
+  // ---- manager grades (played seasons only — see playedSeasons above)
   const gradeMap = new Map<string, ManagerWaiverGrade>();
   for (const a of acquisitions) {
+    if (!playedSeasons.has(a.season)) continue;
     let g = gradeMap.get(a.userId);
     if (!g) {
       g = {
@@ -142,6 +154,7 @@ export function computeWaivers(
   }
   const hitCounts = new Map<string, number>();
   for (const a of acquisitions) {
+    if (!playedSeasons.has(a.season)) continue;
     if (a.realizedSeason >= HIT_THRESHOLD) hitCounts.set(a.userId, (hitCounts.get(a.userId) ?? 0) + 1);
   }
   const managerGrades = [...gradeMap.values()]

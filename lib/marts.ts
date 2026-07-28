@@ -1,4 +1,5 @@
 import coreJson from "@/data/marts/core.json";
+import standingsJson from "@/data/marts/standings.json";
 import type { AllTimeRow } from "@/lib/stats/types";
 import type { Manager } from "@/lib/model";
 
@@ -27,12 +28,21 @@ export function label(userId: string | null | undefined): string {
   return managerById.get(userId)?.label ?? userId;
 }
 
-/** Seasons that were actually played (complete or in progress), newest first. */
+/**
+ * Seasons that were actually played (have real results), newest first.
+ *
+ * Keyed on the standings mart, NOT the Sleeper chain status: a league that has
+ * rolled over to its next season shows `in_season` the moment the schedule is
+ * generated — weeks and months before kickoff — so trusting status would list a
+ * season with zero games played. Standings only exist once a game has been
+ * scored (see keepPlayedWeeks in lib/raw.ts), which is exactly "actually played".
+ */
+const RESULT_SEASONS = [...new Set((standingsJson as Array<{ season: string }>).map((r) => r.season))].sort(
+  (a, b) => Number(b) - Number(a),
+);
+
 export function completedSeasons(): string[] {
-  return chain
-    .filter((c) => c.status === "complete" || c.status === "in_season")
-    .map((c) => c.season)
-    .sort((a, b) => Number(b) - Number(a));
+  return RESULT_SEASONS;
 }
 
 export function activeManagers(): Manager[] {

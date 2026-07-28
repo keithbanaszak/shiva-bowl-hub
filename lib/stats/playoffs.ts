@@ -73,40 +73,53 @@ export function computePlayoffs(
    * teams, so the two never disagree.
    */
   const playoffTeams = s.settings.playoff_teams ?? 6;
-  const finishes: Record<string, number> = {};
-  for (const g of s.winnersBracket) {
-    if (g.p == null) continue;
-    if (g.w != null) {
-      const u = uid(g.w);
-      if (u) finishes[u] = g.p;
-    }
-    if (g.l != null) {
-      const u = uid(g.l);
-      if (u) finishes[u] = g.p + 1;
-    }
-  }
-
   const bySeed = [...standings].sort((a, b) => b.wins - a.wins || b.pointsFor - a.pointsFor);
-  const playoffSet = new Set(bySeed.slice(0, playoffTeams).map((r) => r.userId));
 
-  // teams that missed the playoffs: places N+1… by regular-season order
-  let nextNon = playoffTeams + 1;
-  for (const row of bySeed) {
-    if (playoffSet.has(row.userId)) continue;
-    if (finishes[row.userId] == null) finishes[row.userId] = nextNon++;
-  }
-  // safety net: a playoff team the winners bracket never placed (missing
-  // placement game) takes the lowest open top-N slot rather than falling to 7+
-  const usedTop = new Set(Object.values(finishes).filter((p) => p <= playoffTeams));
-  let openTop = 1;
-  for (const row of bySeed) {
-    if (!playoffSet.has(row.userId) || finishes[row.userId] != null) continue;
-    while (usedTop.has(openTop)) openTop++;
-    finishes[row.userId] = openTop;
-    usedTop.add(openTop);
+  /*
+   * Final finishes are only meaningful for a FINISHED season. Until Sleeper marks
+   * the league "complete", the placement games haven't been played, so both the
+   * bracket result and the regular-season-rank fallback below would be crowning a
+   * champion (and stamping best/avg-finish records) before anyone has won — the
+   * whole point of the fallback is to fill a *decided* bracket, not a hypothetical
+   * one. Seeds are still computed (they drive the live playoff picture); finishes
+   * and the champion stay empty until the season is actually over.
+   */
+  const complete = s.status === "complete";
+  const finishes: Record<string, number> = {};
+  if (complete) {
+    for (const g of s.winnersBracket) {
+      if (g.p == null) continue;
+      if (g.w != null) {
+        const u = uid(g.w);
+        if (u) finishes[u] = g.p;
+      }
+      if (g.l != null) {
+        const u = uid(g.l);
+        if (u) finishes[u] = g.p + 1;
+      }
+    }
+
+    const playoffSet = new Set(bySeed.slice(0, playoffTeams).map((r) => r.userId));
+
+    // teams that missed the playoffs: places N+1… by regular-season order
+    let nextNon = playoffTeams + 1;
+    for (const row of bySeed) {
+      if (playoffSet.has(row.userId)) continue;
+      if (finishes[row.userId] == null) finishes[row.userId] = nextNon++;
+    }
+    // safety net: a playoff team the winners bracket never placed (missing
+    // placement game) takes the lowest open top-N slot rather than falling to 7+
+    const usedTop = new Set(Object.values(finishes).filter((p) => p <= playoffTeams));
+    let openTop = 1;
+    for (const row of bySeed) {
+      if (!playoffSet.has(row.userId) || finishes[row.userId] != null) continue;
+      while (usedTop.has(openTop)) openTop++;
+      finishes[row.userId] = openTop;
+      usedTop.add(openTop);
+    }
   }
 
-  // seeds: top-N regular-season teams by record then PF
+  // seeds: top-N regular-season teams by record then PF (live-safe, so always set)
   const seeds: Record<string, number> = {};
   bySeed.slice(0, playoffTeams).forEach((row, i) => (seeds[row.userId] = i + 1));
 
