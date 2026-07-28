@@ -26,7 +26,15 @@
 dev.log
 srv.log
 
-# NOTE: data/ IS committed on purpose — it is the app's source of truth.
+# NOTE: data/leagues/<slug>/ IS committed on purpose — the per-league source of
+# truth. The canonical paths below are MATERIALIZED for the active league at
+# build time by scripts/select-league.mjs, so they are derived artifacts, not
+# source, and must stay ignored (otherwise a pioneer build would commit pioneer
+# data over shiva's canonical copy).
+/data/marts/
+/data/players.json
+/data/league-config.json
+/public/search-index.json
 
 # debug
 npm-debug.log*

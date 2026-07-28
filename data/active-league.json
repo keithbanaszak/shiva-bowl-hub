@@ -1,0 +1,14 @@
+{
+  "slug": "shiva",
+  "currentLeagueId": "1315853532460498944",
+  "sport": "nfl",
+  "maxWeek": 18,
+  "name": "The Shiva Bowl",
+  "shortName": "Shiva Bowl",
+  "tagline": "Dynasty Hub",
+  "configSheet": {
+    "sheetId": "",
+    "rulesGid": "0",
+    "managersGid": ""
+  }
+}

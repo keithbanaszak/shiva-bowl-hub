@@ -1,0 +1,38 @@
+[
+  {
+    "season": "2026",
+    "league_id": "1345194878245556224",
+    "status": "in_season",
+    "name": "Pioneer Futbol Liga"
+  },
+  {
+    "season": "2025",
+    "league_id": "1230537737975631872",
+    "status": "complete",
+    "name": "Pioneer Futbol Liga"
+  },
+  {
+    "season": "2024",
+    "league_id": "1101993137708380160",
+    "status": "complete",
+    "name": "Pioneer Futbol Liga"
+  },
+  {
+    "season": "2023",
+    "league_id": "933782968236191744",
+    "status": "complete",
+    "name": "Pioneer Futbol Liga"
+  },
+  {
+    "season": "2022",
+    "league_id": "785654147902001152",
+    "status": "complete",
+    "name": "Pioneer Futbol Liga"
+  },
+  {
+    "season": "2021",
+    "league_id": "733501008587657216",
+    "status": "complete",
+    "name": "Pioneer Futbol Liga"
+  }
+]

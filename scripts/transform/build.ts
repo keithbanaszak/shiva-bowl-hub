@@ -8,7 +8,7 @@ import path from "node:path";
 import { loadDynasty } from "../../lib/raw";
 import { buildIdentity } from "../../lib/identity";
 import { writeJson } from "../../lib/fsx";
-import { MARTS_DIR, PUBLIC_DIR } from "../../lib/paths";
+import { MARTS_DIR, searchIndexPath } from "../../lib/paths";
 import { computeSeason } from "../../lib/stats/season";
 import { computePlayoffs } from "../../lib/stats/playoffs";
 import { computeH2H } from "../../lib/stats/h2h";
@@ -232,10 +232,12 @@ function main() {
   w("whatIf", whatIf);
   w("playoffPicture", playoffPicture);
 
-  // Served as a static asset, not imported — see PUBLIC_DIR in lib/paths.ts.
+  // Written into the per-league source dir; select-league.mjs copies it to
+  // public/search-index.json (served as a static asset, not imported) for the
+  // active league at build time.
   const searchIndex = buildSearchIndex(identity, playerLegacy);
   searchIndex.generatedAtMs = start;
-  writeJson(path.join(PUBLIC_DIR, "search-index.json"), searchIndex);
+  writeJson(searchIndexPath, searchIndex);
 
   console.log(
     `\nMarts written: ${teamWeeks.length} team-weeks · ${standings.length} standings · ${h2h.length} rivalries · ${trades.length} trades · ${playerStats.startRecords.length} start-records · ${waivers.acquisitions.length} key adds · ${draft.picks.length} picks · ${schedule.length} matchups · ${lineups.length} lineups · ${playerLegacy.players.length} player legacies · ${teamPower.teams.length} team power.`,

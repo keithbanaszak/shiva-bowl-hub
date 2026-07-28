@@ -1,46 +1,26 @@
 /**
- * League configuration for The Shiva Bowl dynasty hub.
+ * Active-league config for the APP (server + client components).
  *
- * Only `currentLeagueId` is required: the full dynasty history is discovered at
- * ingest time by walking `previous_league_id` backward from this league.
+ * This resolves to whichever league THIS deployment serves. The value is
+ * materialized into data/active-league.json by scripts/select-league.mjs from
+ * the LEAGUE env var before every build, so the browser bundle carries the right
+ * branding with no NEXT_PUBLIC_* plumbing. The committed default is the league
+ * this repo builds when LEAGUE is unset (see leagues.config.mjs → DEFAULT_LEAGUE).
+ *
+ * SCRIPTS must NOT import this shim — they read the registry directly via
+ * leagues.config.mjs (activeLeague()), which is keyed on the LEAGUE env var.
  */
-export const leagueConfig = {
-  /** Current-season Sleeper league_id (the long number in the league's URL). */
-  currentLeagueId: "1315853532460498944",
-  sport: "nfl",
+import active from "@/data/active-league.json";
 
-  /**
-   * Branding. Everything user-facing reads these, so a second instance of this
-   * hub is just a new league_id + a new name here — no code edits.
-   *   name       — the full title, shown in the browser tab and the home hero.
-   *   shortName   — the bare league name, e.g. "… are your 2025 <shortName> champions".
-   *   tagline     — the kicker above the title / the metadata blurb noun.
-   */
-  name: "The Shiva Bowl",
-  shortName: "Shiva Bowl",
-  tagline: "Dynasty Hub",
-  /**
-   * Weeks to attempt per season when pulling matchups/transactions.
-   * Empty/future weeks simply return [] and are skipped — pulling through 18
-   * covers the regular season + playoffs for any reasonable config.
-   */
-  maxWeek: 18,
-
-  /**
-   * League rules + manager profiles live in a Google Sheet so they can be edited
-   * without touching code. File > Share > Publish to web, then copy the id out
-   * of the sheet URL and the gid out of each tab's URL.
-   *
-   *   https://docs.google.com/spreadsheets/d/<SHEET_ID>/edit#gid=<GID>
-   *
-   * Leave sheetId empty and the site simply falls back to whatever is already in
-   * data/league-config.json.
-   */
-  configSheet: {
-    sheetId: "",
-    rulesGid: "0",
-    managersGid: "",
-  },
-} as const;
+export const leagueConfig = active as {
+  slug: string;
+  currentLeagueId: string;
+  sport: string;
+  maxWeek: number;
+  name: string;
+  shortName: string;
+  tagline: string;
+  configSheet: { sheetId: string; rulesGid: string; managersGid: string };
+};
 
 export type LeagueConfig = typeof leagueConfig;

@@ -5,7 +5,7 @@
  *
  *   npm run ingest:refresh
  */
-import { leagueConfig } from "../../league.config";
+import { activeLeague } from "../../leagues.config.mjs";
 import { api } from "../../lib/sleeper/client";
 import { writeJson, readJsonIfExists, listFiles } from "../../lib/fsx";
 import { manifestPath, matchupsDir } from "../../lib/paths";
@@ -20,8 +20,9 @@ async function main() {
   const state = (await api.state()) as NflState | null;
   console.log(`NFL state: season=${state?.season} type=${state?.season_type} week=${state?.display_week ?? state?.week}`);
 
-  const lg = (await api.league(leagueConfig.currentLeagueId)) as LooseLeague | null;
-  if (!lg) throw new Error(`Current league ${leagueConfig.currentLeagueId} not found`);
+  const league = activeLeague();
+  const lg = (await api.league(league.currentLeagueId)) as LooseLeague | null;
+  if (!lg) throw new Error(`Current league ${league.currentLeagueId} (${league.slug}) not found`);
 
   const neededIds = new Set<string>();
   // Re-pull the whole current season (it's a single season; this is cheap and

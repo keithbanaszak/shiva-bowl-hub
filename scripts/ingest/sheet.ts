@@ -13,14 +13,13 @@
  * last good copy and warn. A league-rules page going stale is a nuisance; a
  * failed deploy during the season is worse.
  */
-import path from "node:path";
-import { leagueConfig } from "../../league.config";
+import { activeLeague } from "../../leagues.config.mjs";
 import { parseCsvObjects } from "../../lib/csv";
 import { writeJson, readJsonIfExists } from "../../lib/fsx";
-import { DATA_DIR } from "../../lib/paths";
+import { leagueConfigPath } from "../../lib/paths";
 import type { LeagueRule, LeagueConfigMart, ManagerProfileRow } from "../../lib/stats/types";
 
-const OUT = path.join(DATA_DIR, "league-config.json");
+const OUT = leagueConfigPath;
 
 /** `gid` identifies the tab; `export?format=csv` works for any published sheet. */
 function csvUrl(sheetId: string, gid: string): string {
@@ -82,11 +81,11 @@ function toProfiles(rows: Record<string, string>[]): ManagerProfileRow[] {
 }
 
 async function main() {
-  const { sheetId, rulesGid, managersGid } = leagueConfig.configSheet;
+  const { sheetId, rulesGid, managersGid } = activeLeague().configSheet;
   const previous = readJsonIfExists<LeagueConfigMart>(OUT);
 
   if (!sheetId) {
-    console.log("No configSheet.sheetId set in league.config.ts — skipping.");
+    console.log("No configSheet.sheetId set for this league in leagues.config.mjs — skipping.");
     console.log("See README (League rules) for how to publish the sheet.");
     if (!previous) writeJson(OUT, { fetchedAtMs: 0, rules: [], profiles: [] }, true);
     return;

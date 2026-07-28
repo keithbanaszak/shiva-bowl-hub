@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "select-league": "node scripts/select-league.mjs",
+    "predev": "node scripts/select-league.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/select-league.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

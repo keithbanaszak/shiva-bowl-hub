@@ -1,5 +1,5 @@
 import path from "node:path";
-import { leagueConfig } from "../../league.config";
+import { activeLeague } from "../../leagues.config.mjs";
 import { api } from "../../lib/sleeper/client";
 import { writeJson } from "../../lib/fsx";
 import { seasonDir, matchupsDir, transactionsDir } from "../../lib/paths";
@@ -44,7 +44,7 @@ export async function walkChain(currentId: string): Promise<LooseLeague[]> {
 export async function pullSeason(
   lg: LooseLeague,
   neededIds: Set<string>,
-  weeks: number[] = Array.from({ length: leagueConfig.maxWeek }, (_, i) => i + 1),
+  weeks: number[] = Array.from({ length: activeLeague().maxWeek }, (_, i) => i + 1),
 ): Promise<void> {
   const { league_id: id, season } = lg;
   const dir = seasonDir(season);

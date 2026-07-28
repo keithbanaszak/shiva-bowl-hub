@@ -7,7 +7,7 @@
  * Completed seasons are immutable, so this is normally run once; re-running is
  * safe (it overwrites with identical data).
  */
-import { leagueConfig } from "../../league.config";
+import { activeLeague } from "../../leagues.config.mjs";
 import { writeJson, listFiles } from "../../lib/fsx";
 import { chainPath, manifestPath, matchupsDir } from "../../lib/paths";
 import { walkChain, pullSeason } from "./pull";
@@ -22,9 +22,10 @@ const weeksFromMatchups = (season: string): number[] =>
 
 async function main() {
   const start = Date.now();
-  console.log(`Backfilling dynasty history from league ${leagueConfig.currentLeagueId}…`);
+  const league = activeLeague();
+  console.log(`Backfilling ${league.name} (${league.slug}) from league ${league.currentLeagueId}…`);
 
-  const chain = await walkChain(leagueConfig.currentLeagueId);
+  const chain = await walkChain(league.currentLeagueId);
   if (chain.length === 0) throw new Error("Could not resolve any league in the chain");
   console.log(`Chain (${chain.length} seasons): ${chain.map((l) => l.season).join(" -> ")}`);
 
