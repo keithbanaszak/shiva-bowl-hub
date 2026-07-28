@@ -1,11 +1,19 @@
 import type { Dynasty, Manager } from "./model";
 import { avatarUrl } from "./model";
 import { managerProfiles } from "../league.managers";
-import leagueConfigJson from "../data/league-config.json";
+import { readJsonIfExists } from "./fsx";
+import { leagueConfigPath } from "./paths";
+
+// Read the ACTIVE league's sheet data at runtime (not a static import) so
+// `LEAGUE=<slug> npm run data:build` uses that league's profiles. This module is
+// transform-side only — the app reads the baked core.json mart, never identity —
+// so a filesystem read here never reaches a browser bundle.
+const leagueConfigJson =
+  readJsonIfExists<{ profiles?: Array<Record<string, string>> }>(leagueConfigPath) ?? {};
 
 /** Profiles pulled from the Google Sheet take precedence over the local file. */
 const sheetProfiles = new Map(
-  ((leagueConfigJson as { profiles?: Array<Record<string, string>> }).profiles ?? []).map((p) => [p.userId, p]),
+  (leagueConfigJson.profiles ?? []).map((p) => [p.userId, p]),
 );
 
 /** Merge the hand-maintained profile onto a manager, ignoring blank fields. */
