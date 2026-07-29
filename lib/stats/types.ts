@@ -173,8 +173,13 @@ export type Award = {
   title: string;
   kind: "serious" | "funny";
   userId: string | null;
+  /** The headline number the award is won on. */
   value: string;
   blurb: string;
+  /** An emoji badge for the award. */
+  emoji: string;
+  /** A second stat that backs up the award (e.g. the close-game record). */
+  metric?: string;
 };
 
 export type AllTimeRow = {
@@ -365,10 +370,15 @@ export type ManagerChurn = {
   regretPoints: number;
 };
 
+/** A manager's waiver grade for a single season (for season awards). */
+export type ManagerSeasonWaiverGrade = ManagerWaiverGrade & { season: string };
+
 export type WaiverStats = {
   acquisitions: Acquisition[];
   seasonLeaders: WaiverSeasonLeaders[];
   managerGrades: ManagerWaiverGrade[];
+  /** Per-manager grade broken out by season — for the season Waiver award. */
+  seasonGrades: ManagerSeasonWaiverGrade[];
   /** Every add and drop in league history, newest first. */
   moves: WaiverMove[];
   dropRegrets: DropRegret[];

@@ -177,9 +177,9 @@ function main() {
   const playerRanks = computePlayerRanks(dynasty, index);
   const trades = computeTrades(dynasty, identity, index, playerRanks);
   const allTime = buildAllTime(standings, playoffs);
-  const { awards, cards } = buildAwardsAndCards({ dynasty, identity, teamWeeks, standings, playoffs, h2h, trades });
-  const playerStats = computePlayerStats(index);
   const waivers = computeWaivers(dynasty, identity, index);
+  const { awards, cards } = buildAwardsAndCards({ dynasty, identity, teamWeeks, standings, playoffs, h2h, trades, waivers });
+  const playerStats = computePlayerStats(index);
   const draft = computeDraft(dynasty, identity, index);
   const schedule = computeSchedule(teamWeeks, h2h, trades, playoffs, standings);
   const lineups = computeLineups(dynasty, identity);

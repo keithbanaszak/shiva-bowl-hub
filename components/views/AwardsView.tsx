@@ -12,8 +12,15 @@ import type { Award } from "@/lib/stats/types";
 function AwardCard({ a }: { a: Award }) {
   return (
     <Card>
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-semibold">{a.title}</div>
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2">
+          {a.emoji && (
+            <span aria-hidden className="text-lg leading-none">
+              {a.emoji}
+            </span>
+          )}
+          <div className="text-sm font-semibold">{a.title}</div>
+        </div>
         <Badge tone={a.kind === "serious" ? "good" : "gold"}>{a.value}</Badge>
       </div>
       <div className="mt-3 flex items-center gap-2">
@@ -21,6 +28,11 @@ function AwardCard({ a }: { a: Award }) {
         <span className="truncate font-medium">{label(a.userId)}</span>
       </div>
       <p className="mt-2 text-sm text-[var(--muted)]">{a.blurb}</p>
+      {a.metric && (
+        <div className="mt-2 inline-flex items-center gap-1 rounded-md bg-[var(--chip)] px-2 py-0.5 font-mono text-[11px] text-[var(--muted)]">
+          {a.metric}
+        </div>
+      )}
     </Card>
   );
 }
@@ -50,7 +62,12 @@ export function AwardsView({ season }: { season: string }) {
   const trader = find("best_trader");
   if (trader)
     headlines.push(
-      `${label(trader.userId)} fleeced the league for ${trader.value}.`,
+      `${label(trader.userId)} won the trade market — ${trader.value} beyond what they gave up.`,
+    );
+  const wiz = find("waiver_wizard");
+  if (wiz)
+    headlines.push(
+      `${label(wiz.userId)} worked the wire best at ${wiz.value}.`,
     );
   const bench = find("bench_billionaire");
   if (bench)

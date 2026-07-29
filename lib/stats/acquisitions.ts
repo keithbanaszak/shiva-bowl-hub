@@ -6,6 +6,7 @@ import type {
   DropRegret,
   ManagerChurn,
   ManagerWaiverGrade,
+  ManagerSeasonWaiverGrade,
   WaiverMove,
   WaiverSeasonLeaders,
   WaiverStats,
@@ -168,6 +169,46 @@ export function computeWaivers(
     }))
     .sort((a, b) => b.pointsGained - a.pointsGained);
 
+  // ---- per-season grades (for the season Waiver award). Same shape as the
+  // all-time grades, keyed by season:user, so awards can pick a season's best.
+  const seasonGradeMap = new Map<string, ManagerSeasonWaiverGrade>();
+  const seasonHits = new Map<string, number>();
+  for (const a of acquisitions) {
+    if (!playedSeasons.has(a.season)) continue;
+    const key = `${a.season}:${a.userId}`;
+    let g = seasonGradeMap.get(key);
+    if (!g) {
+      g = {
+        season: a.season,
+        userId: a.userId,
+        adds: 0,
+        faabSpent: 0,
+        pointsGained: 0,
+        starterPointsGained: 0,
+        pointsPerFaab: 0,
+        freeAddPoints: 0,
+        hitRate: 0,
+      };
+      seasonGradeMap.set(key, g);
+    }
+    g.adds++;
+    g.faabSpent += a.faab;
+    g.pointsGained += a.realizedSeason;
+    g.starterPointsGained += a.starterSeason;
+    if (a.faab === 0) g.freeAddPoints += a.realizedSeason;
+    if (a.realizedSeason >= HIT_THRESHOLD) seasonHits.set(key, (seasonHits.get(key) ?? 0) + 1);
+  }
+  const seasonGrades = [...seasonGradeMap.entries()]
+    .map(([key, g]) => ({
+      ...g,
+      pointsGained: round2(g.pointsGained),
+      starterPointsGained: round2(g.starterPointsGained),
+      freeAddPoints: round2(g.freeAddPoints),
+      pointsPerFaab: g.faabSpent > 0 ? round2(g.pointsGained / g.faabSpent) : 0,
+      hitRate: g.adds > 0 ? round2((seasonHits.get(key) ?? 0) / g.adds) : 0,
+    }))
+    .sort((a, b) => b.pointsGained - a.pointsGained);
+
   /*
    * Drop regret.
    *
@@ -278,7 +319,15 @@ export function computeWaivers(
 
   moves.sort((a, b) => (b.dateMs ?? 0) - (a.dateMs ?? 0));
 
-  return { acquisitions: meaningful, seasonLeaders, managerGrades, moves, dropRegrets, churn };
+  return {
+    acquisitions: meaningful,
+    seasonLeaders,
+    managerGrades,
+    seasonGrades,
+    moves,
+    dropRegrets,
+    churn,
+  };
 }
 
 function best<T>(items: T[], score: (t: T) => number): T | null {
