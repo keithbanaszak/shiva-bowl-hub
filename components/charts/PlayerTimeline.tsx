@@ -108,7 +108,9 @@ export function PlayerTimeline({
           ))}
         </div>
 
-        <ol className="relative space-y-1.5">
+        {/* one shared track: every stint sits on the SAME row, so ownership
+            reads as a single left-to-right band with gaps for waiver spells */}
+        <div className="relative h-10">
           {stints.map((s, i) => {
             const start = pos(s.fromSeason, s.fromWeek);
             const end = pos(s.toSeason, s.toWeek);
@@ -125,13 +127,13 @@ export function PlayerTimeline({
               : null;
 
             return (
-              <li key={i} className="relative h-9">
+              <span key={i}>
                 <div
-                  className="absolute inset-y-0 flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--accent-soft)] px-1.5"
+                  className="absolute top-1/2 flex h-9 -translate-y-1/2 items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--accent-soft)] px-1.5"
                   style={{
                     left: `${left}%`,
                     width: `${width}%`,
-                    minWidth: "2.5rem",
+                    minWidth: "2.25rem",
                   }}
                   title={`${label(s.userId)} · ${s.fromSeason} wk${s.fromWeek} → ${s.toSeason} wk${s.toWeek} · ${s.weeks} weeks · ${s.points} pts`}
                 >
@@ -147,7 +149,7 @@ export function PlayerTimeline({
                 {/* arrival marker, pinned to the band's left edge */}
                 {arrive && (
                   <span
-                    className={`absolute top-1/2 grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--border)] bg-[var(--overlay)] font-mono text-[11px] leading-none ${MARKERS[arrive].cls}`}
+                    className={`absolute top-1/2 z-10 grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--border)] bg-[var(--overlay)] font-mono text-[11px] leading-none ${MARKERS[arrive].cls}`}
                     style={{ left: `${left}%` }}
                     title={`${MARKERS[arrive].label} — ${s.fromSeason} wk${s.fromWeek}`}
                   >
@@ -158,17 +160,17 @@ export function PlayerTimeline({
                 {/* departure marker at the right edge */}
                 {departKind && (
                   <span
-                    className={`absolute top-1/2 grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--border)] bg-[var(--overlay)] font-mono text-[11px] leading-none ${MARKERS[departKind].cls}`}
+                    className={`absolute top-1/2 z-10 grid h-5 w-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--border)] bg-[var(--overlay)] font-mono text-[11px] leading-none ${MARKERS[departKind].cls}`}
                     style={{ left: `${pct(end)}%` }}
                     title={`${departKind === "trade" ? "Traded away" : "Dropped"} — ${s.toSeason} wk${s.toWeek}`}
                   >
                     {MARKERS[departKind].glyph}
                   </span>
                 )}
-              </li>
+              </span>
             );
           })}
-        </ol>
+        </div>
       </div>
 
       <figcaption className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--border)] pt-2 text-[11px] text-[var(--muted)]">

@@ -10,7 +10,7 @@ import {
   Tag,
   Note,
 } from "@/components/ui";
-import { Avatar, ManagerChip } from "@/components/Manager";
+import { Avatar, ManagerIdentity } from "@/components/Manager";
 import { PlayerAvatar } from "@/components/PlayerAvatar";
 import { PlayerTimeline } from "@/components/charts/PlayerTimeline";
 
@@ -65,18 +65,28 @@ export default async function PlayerLegacyPage({
         </Note>
       ) : (
         <>
-          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             <Stat label="League points" value={p.careerPoints} tone="good" />
-            <Stat label="Points while started" value={p.careerStarterPoints} />
             <Stat
-              label="Weeks rostered"
-              value={p.totalWeeks}
+              label="Record started"
+              value={`${p.record.w}-${p.record.l}${p.record.t ? `-${p.record.t}` : ""}`}
               sub={`${p.totalStarts} starts`}
             />
             <Stat
+              label="Points started"
+              value={p.careerStarterPoints}
+              sub={`${p.startedPpg}/start`}
+            />
+            <Stat label="Weeks rostered" value={p.totalWeeks} />
+            <Stat
               label="Managers"
               value={p.ownerTotals.length}
-              sub="who rostered him"
+              sub="rostered him"
+            />
+            <Stat
+              label="Times moved"
+              value={p.timesMoved}
+              sub="trades/adds/drops"
             />
           </div>
 
@@ -89,12 +99,18 @@ export default async function PlayerLegacyPage({
           {/* points by manager */}
           <SectionTitle>📊 Points by manager</SectionTitle>
           <Card className="mb-8 overflow-x-auto scroll-thin">
-            <table className="w-full min-w-[620px] text-sm">
+            <table className="w-full min-w-[720px] text-sm">
               <thead>
                 <tr className="text-left text-xs uppercase tracking-wider text-[var(--muted)]">
                   <th className="py-2 pr-3">Manager</th>
                   <th className="px-3">Weeks</th>
                   <th className="px-3">Starts</th>
+                  <th
+                    className="px-3"
+                    title="Team record in the weeks this manager started him"
+                  >
+                    Record
+                  </th>
                   <th className="px-3">Points</th>
                   <th className="px-3">Started pts</th>
                   <th className="px-3">PPG</th>
@@ -108,10 +124,10 @@ export default async function PlayerLegacyPage({
                     className="border-t border-[var(--border)]"
                   >
                     <td className="py-2 pr-3">
-                      <ManagerChip
+                      <ManagerIdentity
                         userId={o.userId}
                         href={`/managers/${o.userId}`}
-                        size={18}
+                        size={26}
                       />
                     </td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">
@@ -119,6 +135,10 @@ export default async function PlayerLegacyPage({
                     </td>
                     <td className="px-3 tabular-nums text-[var(--muted)]">
                       {o.starts}
+                    </td>
+                    <td className="px-3 font-mono tabular-nums">
+                      {o.wins}-{o.losses}
+                      {o.ties ? `-${o.ties}` : ""}
                     </td>
                     <td className="px-3 tabular-nums font-semibold text-[var(--accent)]">
                       {o.points}

@@ -86,14 +86,30 @@ function ownerTotalsFor(log: PlayerWeek[]): PlayerOwnerTotals[] {
   for (const pw of log) {
     let t = by.get(pw.userId);
     if (!t) {
-      t = { userId: pw.userId, weeks: 0, starts: 0, points: 0, starterPoints: 0, ppg: 0, bestGame: null };
+      t = {
+        userId: pw.userId,
+        weeks: 0,
+        starts: 0,
+        points: 0,
+        starterPoints: 0,
+        ppg: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        bestGame: null,
+      };
       by.set(pw.userId, t);
     }
     t.weeks++;
     t.points += pw.points;
-    if (pw.started) {
+    // a "start" counts only a real head-to-head game (see the /players fix),
+    // so the record and start total reconcile.
+    if (pw.started && pw.result != null) {
       t.starts++;
       t.starterPoints += pw.points;
+      if (pw.result === "W") t.wins++;
+      else if (pw.result === "L") t.losses++;
+      else t.ties++;
     }
     if (!t.bestGame || pw.points > t.bestGame.points) {
       t.bestGame = { season: pw.season, week: pw.week, points: round2(pw.points), opponentUserId: pw.opponentUserId };
@@ -221,7 +237,22 @@ export function computePlayerLegacy(
     const meta = dynasty.players[pid];
     const totals = ownerTotalsFor(log);
     const careerPoints = round2(log.reduce((a, p) => a + p.points, 0));
-    const careerStarterPoints = round2(log.filter((p) => p.started).reduce((a, p) => a + p.points, 0));
+    // real-game starts only (a bye/consolation week is no start — see /players)
+    const realStarts = log.filter((p) => p.started && p.result != null);
+    const careerStarterPoints = round2(realStarts.reduce((a, p) => a + p.points, 0));
+    const totalStarts = realStarts.length;
+    let rw = 0;
+    let rl = 0;
+    let rt = 0;
+    for (const p of realStarts) {
+      if (p.result === "W") rw++;
+      else if (p.result === "L") rl++;
+      else rt++;
+    }
+    const startedPpg = totalStarts > 0 ? round2(careerStarterPoints / totalStarts) : 0;
+    const timesMoved =
+      (acq.get(pid) ?? []).filter((e) => e.type !== "draft").length +
+      (drops.get(pid) ?? []).length;
     const boomWeeks = [...log]
       .sort((a, b) => b.points - a.points)
       .slice(0, 8)
@@ -244,7 +275,10 @@ export function computePlayerLegacy(
       careerPoints,
       careerStarterPoints,
       totalWeeks: log.length,
-      totalStarts: log.filter((p) => p.started).length,
+      totalStarts,
+      record: { w: rw, l: rl, t: rt },
+      startedPpg,
+      timesMoved,
       ownerTotals: totals,
       timeline: stintsFor(log, acq, pid),
       revengeGames: revengeFor(log),

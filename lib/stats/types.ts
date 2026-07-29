@@ -510,6 +510,10 @@ export type PlayerOwnerTotals = {
   points: number;
   starterPoints: number;
   ppg: number;
+  /** Team record in the weeks this manager STARTED him (real games only). */
+  wins: number;
+  losses: number;
+  ties: number;
   bestGame: PlayerGameRef | null;
 };
 
@@ -532,6 +536,12 @@ export type PlayerLegacy = {
   careerStarterPoints: number;
   totalWeeks: number;
   totalStarts: number;
+  /** Team record in weeks he was started (real games only). */
+  record: { w: number; l: number; t: number };
+  /** Average points per start (careerStarterPoints ÷ totalStarts). */
+  startedPpg: number;
+  /** Times he changed hands: trades + waiver/FA adds + drops (excludes his draft). */
+  timesMoved: number;
   ownerTotals: PlayerOwnerTotals[]; // sorted by points desc
   timeline: PlayerOwnerStint[]; // chronological stints
   revengeGames: PlayerRevengeGame[];
