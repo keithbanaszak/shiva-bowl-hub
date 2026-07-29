@@ -7,6 +7,7 @@ import type {
   RosterAgePlayer,
   RosterAgePos,
   RosterAgeTeam,
+  RosterEntry,
 } from "./types";
 
 const POS_ORDER = ["QB", "RB", "WR", "TE", "K", "DEF"];
@@ -58,6 +59,7 @@ export function computeRosterAge(dynasty: Dynasty, identity: Identity): RosterAg
 
     const buckets = new Map<string, RosterAgePlayer[]>();
     const counts = new Map<string, number>();
+    const rosterList: RosterEntry[] = [];
     let agedPlayers = 0;
     let ageSum = 0;
 
@@ -67,6 +69,12 @@ export function computeRosterAge(dynasty: Dynasty, identity: Identity): RosterAg
       if (!pos) continue;
       seenPos.add(pos);
       counts.set(pos, (counts.get(pos) ?? 0) + 1);
+      rosterList.push({
+        playerId: pid,
+        name: player?.full_name ?? pid,
+        pos,
+        age: player?.age ?? null,
+      });
 
       const age = player?.age;
       if (age != null) {
@@ -95,12 +103,21 @@ export function computeRosterAge(dynasty: Dynasty, identity: Identity): RosterAg
       });
     }
 
+    rosterList.sort((a, b) => {
+      const ia = POS_ORDER.indexOf(a.pos);
+      const ib = POS_ORDER.indexOf(b.pos);
+      return (
+        (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.name.localeCompare(b.name)
+      );
+    });
+
     teams.push({
       userId,
       players: ids.length,
       agedPlayers,
       avgAge: agedPlayers > 0 ? round2(ageSum / agedPlayers) : null,
       byPos,
+      roster: rosterList,
     });
   }
 

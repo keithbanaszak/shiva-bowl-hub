@@ -802,6 +802,14 @@ export type SlotScoringMart = { scopes: string[]; slots: string[]; rows: SlotSco
 
 export type RosterAgePlayer = { playerId: string; name: string; age: number };
 
+/** One rostered player (age may be unknown, e.g. a team defense). */
+export type RosterEntry = {
+  playerId: string;
+  name: string;
+  pos: string;
+  age: number | null;
+};
+
 export type RosterAgePos = {
   pos: string;
   /** Players rostered at this position (whether or not their age is known). */
@@ -821,6 +829,8 @@ export type RosterAgeTeam = {
   /** Mean age across the whole roster; null if no ages are known. */
   avgAge: number | null;
   byPos: RosterAgePos[];
+  /** The full current roster, for a plain who's-on-the-team listing. */
+  roster: RosterEntry[];
 };
 
 export type RosterAgeMart = {

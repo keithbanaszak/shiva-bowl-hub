@@ -7,12 +7,14 @@ import {
   type TimelineMeeting,
 } from "@/components/compare/CompareTimeline";
 import { TradeReceipt, type Mgr } from "@/components/trades/TradeReceipt";
+import { RosterColumn } from "@/components/compare/RosterColumn";
 import { label, managers } from "@/lib/marts";
 import { h2h, getPair } from "@/lib/data/h2h";
 import { meetings } from "@/lib/data/teamWeeks";
 import { tradesBetween } from "@/lib/data/trades";
 import { lineupForMeeting } from "@/lib/data/lineups";
 import { playoffs } from "@/lib/data/playoffs";
+import { currentRosterFor, rosterAge } from "@/lib/data/rosterAge";
 
 export function generateStaticParams() {
   const params: { a: string; b: string }[] = [];
@@ -189,10 +191,36 @@ export default async function ComparePairPage({
           <h2 className="mb-3 text-lg font-semibold tracking-tight">
             Trades between them ({trades.length})
           </h2>
-          <div className="columns-1 gap-3 sm:columns-2">
+          <div className="mb-8 columns-1 gap-3 sm:columns-2">
             {trades.map((t) => (
               <TradeReceipt key={t.id} t={t} mgrMap={mgrMap} basis="career" />
             ))}
+          </div>
+        </>
+      )}
+
+      {/* current rosters, side by side */}
+      {(currentRosterFor(a) || currentRosterFor(b)) && (
+        <>
+          <h2 className="mb-1 text-lg font-semibold tracking-tight">
+            Current rosters
+          </h2>
+          <p className="mb-3 text-xs text-[var(--muted)]">
+            Who each manager holds right now ({rosterAge.season}).
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Card>
+              <div className="mb-3">
+                <ManagerIdentity userId={a} size={28} href={`/managers/${a}`} />
+              </div>
+              <RosterColumn team={currentRosterFor(a)} />
+            </Card>
+            <Card>
+              <div className="mb-3">
+                <ManagerIdentity userId={b} size={28} href={`/managers/${b}`} />
+              </div>
+              <RosterColumn team={currentRosterFor(b)} />
+            </Card>
           </div>
         </>
       )}
