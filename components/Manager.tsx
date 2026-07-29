@@ -73,3 +73,49 @@ export function ManagerChip({
 export function ManagerName({ userId }: { userId: string | null | undefined }) {
   return <>{getManager(userId)?.label ?? "—"}</>;
 }
+
+/**
+ * Fuller identity block: avatar + team name + @handle beneath. Use where there's
+ * room to show WHO a manager is (scoreboards, page headers, pickers), not in
+ * dense tables. `align="right"` mirrors it for the right side of a matchup.
+ */
+export function ManagerIdentity({
+  userId,
+  size = 40,
+  href,
+  align = "left",
+  className = "",
+}: {
+  userId: string | null | undefined;
+  size?: number;
+  href?: string;
+  align?: "left" | "right";
+  className?: string;
+}) {
+  const m = getManager(userId);
+  const team = m?.label ?? "—";
+  const handle = m?.displayName;
+  const right = align === "right";
+  const body = (
+    <span
+      className={`flex min-w-0 items-center gap-2.5 ${right ? "flex-row-reverse" : ""} ${className}`}
+    >
+      <Avatar userId={userId} size={size} />
+      <span
+        className={`flex min-w-0 flex-col leading-tight ${right ? "items-end text-right" : ""}`}
+      >
+        <span className="truncate font-semibold">{team}</span>
+        {handle && handle !== team && (
+          <span className="truncate text-xs text-[var(--muted)]">@{handle}</span>
+        )}
+      </span>
+    </span>
+  );
+  if (href && userId)
+    return (
+      <Link href={href} className="hover:text-[var(--accent)]">
+        {body}
+      </Link>
+    );
+  return body;
+}

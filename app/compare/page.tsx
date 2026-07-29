@@ -8,6 +8,7 @@ export default function ComparePage() {
   const managers = activeManagers().map((m) => ({
     userId: m.userId,
     label: m.label,
+    handle: m.displayName,
   }));
   const suggestions = topRivalries(6);
 
