@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import {
   Card,
   PageHeader,
@@ -37,12 +38,7 @@ export default async function PlayerLegacyPage({
 
   return (
     <div>
-      <Link
-        href="/players"
-        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
-      >
-        ← All players
-      </Link>
+      <BackLink fallback="/players" />
 
       <div className="mb-6 flex items-center gap-4">
         <PlayerAvatar playerId={p.playerId} size={64} />

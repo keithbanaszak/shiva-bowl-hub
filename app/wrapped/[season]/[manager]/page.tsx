@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import { Card, Stat, Badge, signed } from "@/components/ui";
 import { Avatar } from "@/components/Manager";
 import { label, ordinal } from "@/lib/marts";
@@ -20,12 +21,7 @@ export default async function WrappedCardPage({
 
   return (
     <div>
-      <Link
-        href={`/wrapped/${season}`}
-        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
-      >
-        ← {season} Wrapped
-      </Link>
+      <BackLink fallback={`/wrapped/${season}`} />
 
       <Card className="relative overflow-hidden border-[var(--border-glow)]">
         <div className="pointer-events-none absolute -right-10 -top-16 text-[12rem] opacity-[0.06]">

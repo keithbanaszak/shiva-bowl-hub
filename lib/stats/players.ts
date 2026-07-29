@@ -28,6 +28,11 @@ export function computePlayerStats(index: PlayerWeekIndex): PlayerStats {
 
     for (const pw of log) {
       if (pw.started) {
+        // A "start" only counts when the week was a real head-to-head game. A
+        // started week with no result (a playoff bye or consolation week with no
+        // opponent) belongs to no win-loss record, so counting it inflated the
+        // start total above W+L+T and read as broken (14 starts, 10-1 record).
+        if (pw.result == null) continue;
         starts++;
         pointsWhileStarting += pw.points;
         startsByManager.set(pw.userId, (startsByManager.get(pw.userId) ?? 0) + 1);

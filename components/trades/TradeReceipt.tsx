@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Trade, TradeAsset } from "@/lib/stats/types";
 import { PickBadge, roundColor } from "@/components/trades/PickBadge";
 import { posColor } from "@/lib/positions";
@@ -73,7 +74,23 @@ function GotRow({ a, mgrMap }: { a: TradeAsset; mgrMap: Map<string, Mgr> }) {
           </span>
           <span className="block truncate text-[10px] text-[var(--muted)]">
             {via ? `via ${via}` : "pick"}
-            {a.becameName ? ` → ${a.becameName}` : ""}
+            {a.becameName ? (
+              a.becamePlayerId ? (
+                <>
+                  {" → "}
+                  <Link
+                    href={`/players/${a.becamePlayerId}`}
+                    className="hover:text-[var(--accent)] hover:underline"
+                  >
+                    {a.becameName}
+                  </Link>
+                </>
+              ) : (
+                ` → ${a.becameName}`
+              )
+            ) : (
+              ""
+            )}
           </span>
         </span>
       </li>
@@ -83,20 +100,27 @@ function GotRow({ a, mgrMap }: { a: TradeAsset; mgrMap: Map<string, Mgr> }) {
   return (
     <li className="flex min-w-0 items-center gap-1.5 text-xs">
       {plus}
-      <Pic url={playerPic(a.playerId)} pos={a.position} />
-      <span className="min-w-0 flex-1 leading-tight">
-        <span className="block truncate">{a.name}</span>
-        <span className="block truncate text-[10px] text-[var(--muted)]">
-          {a.rankLabel ? (
-            <>
-              <span style={{ color: posColor(a.position) }}>{a.rankLabel}</span>
-              {a.ppg != null ? ` · ${a.ppg} ppg` : ""}
-            </>
-          ) : (
-            (a.position ?? "—")
-          )}
+      <Link
+        href={`/players/${a.playerId}`}
+        className="flex min-w-0 flex-1 items-center gap-1.5 hover:text-[var(--accent)]"
+      >
+        <Pic url={playerPic(a.playerId)} pos={a.position} />
+        <span className="min-w-0 flex-1 leading-tight">
+          <span className="block truncate hover:underline">{a.name}</span>
+          <span className="block truncate text-[10px] text-[var(--muted)]">
+            {a.rankLabel ? (
+              <>
+                <span style={{ color: posColor(a.position) }}>
+                  {a.rankLabel}
+                </span>
+                {a.ppg != null ? ` · ${a.ppg} ppg` : ""}
+              </>
+            ) : (
+              (a.position ?? "—")
+            )}
+          </span>
         </span>
-      </span>
+      </Link>
     </li>
   );
 }

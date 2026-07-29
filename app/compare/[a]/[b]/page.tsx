@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import { Card, PageHeader, Stat, Badge } from "@/components/ui";
 import { Avatar } from "@/components/Manager";
 import { MatchupLineups } from "@/components/MatchupLineups";
@@ -43,12 +43,7 @@ export default async function ComparePairPage({
 
   return (
     <div>
-      <Link
-        href="/compare"
-        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
-      >
-        ← Compare
-      </Link>
+      <BackLink fallback="/compare" />
 
       <PageHeader
         kicker="Manager vs manager"

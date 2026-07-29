@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import {
   Card,
   PageHeader,
@@ -84,12 +85,7 @@ export default async function ManagerProfile({
 
   return (
     <div>
-      <Link
-        href="/managers"
-        className="mb-4 inline-block text-sm text-[var(--muted)] hover:text-[var(--accent)]"
-      >
-        ← All managers
-      </Link>
+      <BackLink fallback="/managers" />
 
       <div className="mb-6 flex items-center gap-4">
         <Avatar userId={userId} size={64} />
