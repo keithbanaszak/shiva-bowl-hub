@@ -836,6 +836,31 @@ export type RosterAgeMart = {
   teams: RosterAgeTeam[];
 };
 
+// ---- upcoming (scheduled-but-unplayed) matchups -----------------------------
+
+export type UpcomingMatchup = {
+  season: string;
+  week: number;
+  matchupId: number;
+  aUserId: string;
+  bUserId: string;
+  /** Projected best-lineup total from each side's current roster. */
+  aProj: number;
+  bProj: number;
+  /** The marquee matchup of its week (highest combined projection). */
+  isGameOfWeek: boolean;
+};
+
+export type UpcomingMart = {
+  /** The season these upcoming games belong to (null if none scheduled). */
+  season: string | null;
+  /** Soonest unplayed scheduled week. */
+  nextWeek: number | null;
+  /** All upcoming week numbers, ascending. */
+  weeks: number[];
+  matchups: UpcomingMatchup[];
+};
+
 // ---- what-if: perfect-lineup counterfactual --------------------------------
 
 export type WhatIfSwap = {

@@ -71,11 +71,19 @@ function loadProjections(season: string): Map<number, Record<string, number>> {
  * no champion crowned before kickoff, no integrity flags or Game-of-the-Week on
  * games that haven't happened.
  */
-function keepPlayedWeeks(map: Map<number, ReturnType<typeof MatchupSchema.parse>[]>): void {
+function keepPlayedWeeks(
+  map: Map<number, ReturnType<typeof MatchupSchema.parse>[]>,
+): Map<number, ReturnType<typeof MatchupSchema.parse>[]> {
+  const upcoming = new Map<number, ReturnType<typeof MatchupSchema.parse>[]>();
   for (const [wk, entries] of [...map]) {
     const played = entries.some((e) => ((e.custom_points ?? e.points ?? 0) as number) > 0);
-    if (!played) map.delete(wk);
+    if (played) continue;
+    map.delete(wk);
+    // keep only weeks that are a real scheduled game (a matchup_id is set), so
+    // the upcoming preview has opponents to pair; empty placeholder weeks are dropped.
+    if (entries.some((e) => e.matchup_id != null)) upcoming.set(wk, entries);
   }
+  return upcoming;
 }
 
 function loadSeason(entry: ChainEntry): SeasonData {
@@ -111,7 +119,7 @@ function loadSeason(entry: ChainEntry): SeasonData {
   }));
 
   const matchupsByWeek = loadWeekly(matchupsDir(entry.season), MatchupSchema, "matchups");
-  keepPlayedWeeks(matchupsByWeek);
+  const upcomingByWeek = keepPlayedWeeks(matchupsByWeek);
 
   return {
     season: entry.season,
@@ -126,6 +134,7 @@ function loadSeason(entry: ChainEntry): SeasonData {
     users,
     rosters,
     matchupsByWeek,
+    upcomingByWeek,
     transactionsByWeek: loadWeekly(transactionsDir(entry.season), TransactionSchema, "transactions"),
     projectionsByWeek: loadProjections(entry.season),
     tradedPicks,

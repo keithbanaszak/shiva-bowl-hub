@@ -29,6 +29,12 @@ export type SeasonData = {
   users: User[];
   rosters: Roster[];
   matchupsByWeek: Map<number, Matchup[]>;
+  /**
+   * Scheduled-but-unplayed weeks (0 points), dropped from matchupsByWeek so they
+   * never count as real games. Kept separately so the "upcoming" preview can show
+   * next week's projected matchups without contaminating any result-based mart.
+   */
+  upcomingByWeek: Map<number, Matchup[]>;
   transactionsByWeek: Map<number, Transaction[]>;
   projectionsByWeek: Map<number, Record<string, number>>; // week -> playerId -> projected pts
   tradedPicks: TradedPick[];

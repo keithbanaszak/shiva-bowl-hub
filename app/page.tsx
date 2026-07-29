@@ -14,7 +14,8 @@ import { schedule } from "@/lib/data/schedule";
 import { leagueConfig } from "@/league.config";
 import { home } from "@/lib/data/home";
 import { events } from "@/lib/data/activity";
-import type { ScheduleMatchup } from "@/lib/stats/types";
+import { upcoming } from "@/lib/data/upcoming";
+import type { ScheduleMatchup, UpcomingMatchup } from "@/lib/stats/types";
 
 function Panel({
   children,
@@ -114,6 +115,104 @@ function GameOfWeekCard({ m }: { m: ScheduleMatchup }) {
   );
 }
 
+/** The upcoming marquee game, shown in the hero when a season is scheduled. */
+function UpcomingGotwCard({ m }: { m: UpcomingMatchup }) {
+  const aFav = m.aProj >= m.bProj;
+  return (
+    <Card className="flex h-full flex-col justify-center border-[var(--accent-2-border)]">
+      <div className="mb-3 flex items-center justify-between text-xs">
+        <span className="font-display uppercase tracking-widest text-[var(--accent-2)]">
+          ★ Projected Game of the Week
+        </span>
+        <span className="text-[var(--muted)]">
+          {m.season} · Wk {m.week} · upcoming
+        </span>
+      </div>
+      <div className="flex items-center justify-between gap-3">
+        <div
+          className={`flex min-w-0 flex-1 items-center gap-2 ${aFav ? "" : "opacity-70"}`}
+        >
+          <Avatar userId={m.aUserId} size={32} />
+          <span className="truncate text-sm font-medium">{label(m.aUserId)}</span>
+        </div>
+        <div className="shrink-0 text-center font-mono tabular-nums">
+          <span className={aFav ? "font-bold text-[var(--accent)]" : ""}>
+            {m.aProj}
+          </span>
+          <span className="mx-1 text-[var(--muted)]">–</span>
+          <span className={!aFav ? "font-bold text-[var(--accent)]" : ""}>
+            {m.bProj}
+          </span>
+        </div>
+        <div
+          className={`flex min-w-0 flex-1 items-center justify-end gap-2 text-right ${!aFav ? "" : "opacity-70"}`}
+        >
+          <span className="truncate text-sm font-medium">{label(m.bUserId)}</span>
+          <Avatar userId={m.bUserId} size={32} />
+        </div>
+      </div>
+      <div className="mt-3 text-center text-[11px] text-[var(--muted)]">
+        Projected best-lineup totals
+      </div>
+      <Link
+        href={`/schedule/${m.season}`}
+        className="mt-1 text-center text-xs text-[var(--accent)] hover:underline"
+      >
+        full schedule →
+      </Link>
+    </Card>
+  );
+}
+
+/** One compact projected matchup row for the "upcoming week" strip. */
+function UpcomingRow({ m }: { m: UpcomingMatchup }) {
+  const aFav = m.aProj >= m.bProj;
+  return (
+    <div className="flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--panel)] px-2.5 py-2">
+      {m.isGameOfWeek && (
+        <span
+          aria-hidden
+          title="Projected game of the week"
+          className="shrink-0 text-[var(--accent-2)]"
+        >
+          ★
+        </span>
+      )}
+      <div
+        className={`flex min-w-0 flex-1 items-center gap-1.5 ${aFav ? "" : "opacity-70"}`}
+      >
+        <Avatar userId={m.aUserId} size={20} />
+        <Link
+          href={`/managers/${m.aUserId}`}
+          className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]"
+        >
+          {label(m.aUserId)}
+        </Link>
+      </div>
+      <div className="shrink-0 text-center font-mono text-[11px] tabular-nums">
+        <span className={aFav ? "font-semibold text-[var(--accent)]" : "text-[var(--muted)]"}>
+          {m.aProj}
+        </span>
+        <span className="mx-1 text-[var(--faint)]">–</span>
+        <span className={!aFav ? "font-semibold text-[var(--accent)]" : "text-[var(--muted)]"}>
+          {m.bProj}
+        </span>
+      </div>
+      <div
+        className={`flex min-w-0 flex-1 items-center justify-end gap-1.5 text-right ${!aFav ? "" : "opacity-70"}`}
+      >
+        <Link
+          href={`/managers/${m.bUserId}`}
+          className="min-w-0 flex-1 truncate text-xs hover:text-[var(--accent)]"
+        >
+          {label(m.bUserId)}
+        </Link>
+        <Avatar userId={m.bUserId} size={20} />
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const seasons = completedSeasons();
   const latest = seasons[0] ?? null;
@@ -145,6 +244,13 @@ export default function Home() {
       (a, b) =>
         Number(b.season) * 100 + b.week - (Number(a.season) * 100 + a.week),
     )[0];
+
+  // upcoming (scheduled-but-unplayed) week — drives the "what's next" preview
+  const hasUpcoming = upcoming.nextWeek != null;
+  const upWeekGames = hasUpcoming
+    ? upcoming.matchups.filter((m) => m.week === upcoming.nextWeek)
+    : [];
+  const upGotw = upWeekGames.find((m) => m.isGameOfWeek) ?? upWeekGames[0] ?? null;
 
   const seasonStandings = latest ? standingsForSeason(latest) : [];
   const maxPf = Math.max(...seasonStandings.map((r) => r.pointsFor), 0);
@@ -233,13 +339,36 @@ export default function Home() {
           </Card>
         )}
         <div className="lg:col-span-2">
-          {latestGotw && <GameOfWeekCard m={latestGotw} />}
+          {upGotw ? (
+            <UpcomingGotwCard m={upGotw} />
+          ) : (
+            latestGotw && <GameOfWeekCard m={latestGotw} />
+          )}
         </div>
       </div>
 
       {/* activity feed + standings */}
       <div className="grid gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0 space-y-8">
+          {hasUpcoming && upWeekGames.length > 0 && (
+            <section>
+              <SectionHead
+                title={`🔮 Upcoming · ${upcoming.season} Week ${upcoming.nextWeek}`}
+                href={`/schedule/${upcoming.season}`}
+                linkText="full schedule"
+              />
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {upWeekGames.map((m) => (
+                  <UpcomingRow key={m.matchupId} m={m} />
+                ))}
+              </div>
+              <div className="mt-2 text-[11px] text-[var(--muted)]">
+                Projected best-lineup totals from each team&rsquo;s current
+                roster — the season hasn&rsquo;t kicked off yet.
+              </div>
+            </section>
+          )}
+
           {lp && home.weeklyAwards.length > 0 && (
             <section>
               <SectionHead

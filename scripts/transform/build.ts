@@ -34,6 +34,7 @@ import { computeIntegrity } from "../../lib/stats/integrity";
 import { computeSlotScoring } from "../../lib/stats/slotScoring";
 import { computeRosterAge } from "../../lib/stats/rosterAge";
 import { computeWhatIf } from "../../lib/stats/whatIf";
+import { computeUpcoming } from "../../lib/stats/upcoming";
 import { computePlayoffPicture } from "../../lib/stats/playoffPicture";
 import type { AllTimeRow, SeasonPlayoffs, SeasonStanding, TeamWeek } from "../../lib/stats/types";
 import { round2 } from "../../lib/stats/util";
@@ -194,6 +195,7 @@ function main() {
   const slotScoring = computeSlotScoring(dynasty, identity);
   const rosterAge = computeRosterAge(dynasty, identity);
   const whatIf = computeWhatIf(dynasty, identity);
+  const upcoming = computeUpcoming(dynasty, identity);
   const playoffPicture = computePlayoffPicture(dynasty, standings, playoffs, teamWeeks);
 
   // ---- write per-domain marts
@@ -230,6 +232,7 @@ function main() {
   w("slotScoring", slotScoring);
   w("rosterAge", rosterAge);
   w("whatIf", whatIf);
+  w("upcoming", upcoming);
   w("playoffPicture", playoffPicture);
 
   // Written into the per-league source dir; select-league.mjs copies it to
