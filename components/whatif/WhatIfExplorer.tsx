@@ -13,6 +13,9 @@ import type {
   WhatIfWeek,
 } from "@/lib/stats/types";
 
+type SortKey = "team" | "actual" | "perfect" | "stolen" | "eff";
+const PAGE = 15;
+
 function rec(w: number, l: number, t: number): string {
   return t > 0 ? `${w}-${l}-${t}` : `${w}-${l}`;
 }
@@ -131,14 +134,45 @@ export function WhatIfExplorer({
 }) {
   const [scope, setScope] = useState("all");
   const [player, setPlayer] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
+  const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({
+    key: "stolen",
+    dir: "desc",
+  });
+  const reset = () => setPage(0);
+  const toggleSort = (key: SortKey) =>
+    setSort((s) =>
+      s.key === key
+        ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+        : { key, dir: key === "team" ? "asc" : "desc" },
+    );
 
-  const rows = useMemo(
-    () =>
-      managerSeasons
-        .filter((r) => r.scope === scope)
-        .sort((a, b) => b.flips - a.flips || a.efficiency - b.efficiency),
-    [managerSeasons, scope],
-  );
+  const rows = useMemo(() => {
+    const val = (r: WhatIfManagerSeason): number | string => {
+      switch (sort.key) {
+        case "team":
+          return label(r.userId).toLowerCase();
+        case "actual":
+          return r.actualW;
+        case "perfect":
+          return r.optimalW;
+        case "eff":
+          return r.efficiency;
+        default:
+          return r.flips;
+      }
+    };
+    const mul = sort.dir === "asc" ? 1 : -1;
+    return managerSeasons
+      .filter((r) => r.scope === scope)
+      .sort((a, b) => {
+        const va = val(a);
+        const vb = val(b);
+        if (typeof va === "string" || typeof vb === "string")
+          return String(va).localeCompare(String(vb)) * mul;
+        return (va - vb) * mul || b.flips - a.flips;
+      });
+  }, [managerSeasons, scope, sort]);
 
   const flips = useMemo(
     () => flipWeeks.filter((w) => scope === "all" || w.season === scope),
@@ -163,8 +197,13 @@ export function WhatIfExplorer({
     () => (player ? flips.filter((w) => w.swaps.some((s) => s.inPlayerId === player)) : flips),
     [flips, player],
   );
+  const pages = Math.max(1, Math.ceil(shownFlips.length / PAGE));
+  const cur = Math.min(page, pages - 1);
+  const pagedFlips = shownFlips.slice(cur * PAGE, cur * PAGE + PAGE);
 
   const maxDelta = Math.max(1, ...rows.map((r) => r.optimalW - r.actualW));
+  const arrow = (key: SortKey) =>
+    sort.key === key ? (sort.dir === "asc" ? "▲" : "▼") : "↕";
 
   return (
     <div>
@@ -177,6 +216,7 @@ export function WhatIfExplorer({
               onClick={() => {
                 setScope(k);
                 setPlayer(null);
+                reset();
               }}
               className={`rounded-lg px-3 py-1.5 text-sm transition ${
                 scope === k
@@ -195,15 +235,36 @@ export function WhatIfExplorer({
         <table className="w-full min-w-[560px] text-sm">
           <thead>
             <tr className="border-b border-[var(--border)] text-xs uppercase tracking-wider text-[var(--muted)]">
-              <th className="px-3 py-2.5 text-left font-medium">Manager</th>
-              <th className="px-3 py-2.5 text-right font-medium">Actual</th>
-              <th className="px-3 py-2.5 text-center font-medium">If perfect</th>
-              <th className="px-3 py-2.5 text-right font-medium" title="Losses & ties a perfect lineup turns into wins">
-                Stolen wins
-              </th>
-              <th className="px-3 py-2.5 text-right font-medium" title="Actual points ÷ perfect-lineup points">
-                Efficiency
-              </th>
+              {(
+                [
+                  ["team", "Manager", "text-left"],
+                  ["actual", "Actual", "text-right"],
+                  ["perfect", "If perfect", "text-center"],
+                  ["stolen", "Stolen wins", "text-right"],
+                  ["eff", "Efficiency", "text-right"],
+                ] as const
+              ).map(([key, lab, align]) => (
+                <th key={key} className={`px-3 py-2.5 font-medium ${align}`}>
+                  <button
+                    onClick={() => toggleSort(key)}
+                    className={`inline-flex items-center gap-1 transition hover:text-[var(--foreground)] ${
+                      sort.key === key ? "text-[var(--accent)]" : ""
+                    } ${align === "text-center" ? "justify-center" : align === "text-right" ? "flex-row-reverse" : ""}`}
+                    title={
+                      key === "stolen"
+                        ? "Losses & ties a perfect lineup turns into wins"
+                        : key === "eff"
+                          ? "Actual points ÷ perfect-lineup points"
+                          : undefined
+                    }
+                  >
+                    <span>{lab}</span>
+                    <span aria-hidden className="text-[9px] opacity-60">
+                      {arrow(key)}
+                    </span>
+                  </button>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -250,19 +311,23 @@ export function WhatIfExplorer({
       {costly.length > 0 && (
         <div className="mb-8">
           <h2 className="mb-2 font-display text-lg font-semibold tracking-tight">
-            🪑 Costliest benchings
+            🪑 Players left on the bench
           </h2>
           <p className="mb-3 text-sm text-[var(--muted)]">
-            Players who most often should have been in a lineup that would have
-            won — total points gained across the stolen games{" "}
-            {scope === "all" ? "of all time" : `in ${scope}`}. Tap one to filter
-            the receipts.
+            In the games below — ones a perfect lineup would have won — these are
+            the players most often sitting on the bench who should have started.
+            The number is the total points that benching cost{" "}
+            {scope === "all" ? "all-time" : `in ${scope}`}. Tap a player to see
+            only the games he could have swung.
           </p>
           <div className="flex flex-wrap gap-2">
             {costly.map((c) => (
               <button
                 key={c.pid}
-                onClick={() => setPlayer((p) => (p === c.pid ? null : c.pid))}
+                onClick={() => {
+                  setPlayer((p) => (p === c.pid ? null : c.pid));
+                  reset();
+                }}
                 className={`flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-sm transition ${
                   player === c.pid
                     ? "border-[var(--accent)] bg-[var(--accent-soft)]"
@@ -281,25 +346,40 @@ export function WhatIfExplorer({
       )}
 
       {/* stolen-win receipts */}
-      <div className="mb-3 flex items-end justify-between gap-3">
+      <div className="mb-1 flex items-end justify-between gap-3">
         <h2 className="font-display text-lg font-semibold tracking-tight">
-          🎣 Stolen wins
+          🎣 Games a perfect lineup would&rsquo;ve won
           <span className="ml-2 text-sm font-normal text-[var(--muted)]">
             {shownFlips.length} game{shownFlips.length === 1 ? "" : "s"}
           </span>
         </h2>
         {player && (
           <button
-            onClick={() => setPlayer(null)}
+            onClick={() => {
+              setPlayer(null);
+              reset();
+            }}
             className="text-xs text-[var(--accent)] hover:underline"
           >
             clear {pname(player)} filter ✕
           </button>
         )}
       </div>
+      <p className="mb-3 text-sm text-[var(--muted)]">
+        Real losses (and ties) where this manager&rsquo;s best possible lineup —
+        the same players, started right — would have outscored the opponent&rsquo;s
+        actual total. Open one for the exact swaps.
+      </p>
       <div className="space-y-2">
-        {shownFlips.map((w) => (
-          <FlipReceipt key={w.id} w={w} onPickPlayer={(pid) => setPlayer(pid)} />
+        {pagedFlips.map((w) => (
+          <FlipReceipt
+            key={w.id}
+            w={w}
+            onPickPlayer={(pid) => {
+              setPlayer(pid);
+              reset();
+            }}
+          />
         ))}
         {shownFlips.length === 0 && (
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] px-4 py-8 text-center text-sm text-[var(--muted)]">
@@ -307,6 +387,28 @@ export function WhatIfExplorer({
           </div>
         )}
       </div>
+
+      {pages > 1 && (
+        <div className="mt-4 flex items-center justify-between gap-2">
+          <button
+            onClick={() => setPage(Math.max(0, cur - 1))}
+            disabled={cur === 0}
+            className="rounded-lg border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+          >
+            ← Prev
+          </button>
+          <span className="text-xs text-[var(--muted)]">
+            Page {cur + 1} of {pages}
+          </span>
+          <button
+            onClick={() => setPage(Math.min(pages - 1, cur + 1))}
+            disabled={cur >= pages - 1}
+            className="rounded-lg border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--muted)] transition enabled:hover:bg-[var(--card-2)] enabled:hover:text-[var(--foreground)] disabled:opacity-40"
+          >
+            Next →
+          </button>
+        </div>
+      )}
     </div>
   );
 }
