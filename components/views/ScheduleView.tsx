@@ -5,11 +5,7 @@ import { WeekCarousel } from "@/components/WeekCarousel";
 import { PlayoffBracket } from "@/components/PlayoffBracket";
 import { playoffsForSeason } from "@/lib/data/playoffs";
 import { label } from "@/lib/marts";
-import {
-  seasonsWithSchedule,
-  weeksForSeason,
-  matchupsForWeek,
-} from "@/lib/data/schedule";
+import { weeksForSeason, matchupsForWeek } from "@/lib/data/schedule";
 import type { ScheduleMatchup } from "@/lib/stats/types";
 
 function seriesText(m: ScheduleMatchup): string {
@@ -77,9 +73,14 @@ function WeekSection({ season, week }: { season: string; week: number }) {
   );
 }
 
-export function ScheduleView({ season }: { season: string }) {
+export function ScheduleView({
+  season,
+  seasons,
+}: {
+  season: string;
+  seasons: string[];
+}) {
   const po = playoffsForSeason(season);
-  const seasons = seasonsWithSchedule();
   const weeks = weeksForSeason(season);
 
   return (
