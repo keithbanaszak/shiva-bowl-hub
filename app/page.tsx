@@ -541,6 +541,25 @@ export default function Home() {
                       <span className="w-4 shrink-0 text-right font-mono text-[11px] text-[var(--muted)]">
                         {i + 1}
                       </span>
+                      <span
+                        aria-hidden
+                        title={
+                          r.weekMovement > 0
+                            ? `Up ${r.weekMovement} since last week`
+                            : r.weekMovement < 0
+                              ? `Down ${Math.abs(r.weekMovement)} since last week`
+                              : "No change since last week"
+                        }
+                        className={`w-2 shrink-0 text-center text-[9px] ${
+                          r.weekMovement > 0
+                            ? "text-[var(--accent)]"
+                            : r.weekMovement < 0
+                              ? "text-[var(--bad)]"
+                              : "text-[var(--faint)]"
+                        }`}
+                      >
+                        {r.weekMovement > 0 ? "▲" : r.weekMovement < 0 ? "▼" : "–"}
+                      </span>
                       <Avatar userId={r.userId} size={20} />
                       <Link
                         href={`/managers/${r.userId}`}

@@ -146,6 +146,7 @@ export function computeSeason(s: SeasonData, identity: Identity, dynasty: Dynast
       madePlayoffs: false,
       champion: false,
       regSeasonChamp: false,
+      weekMovement: 0,
     });
   }
 
@@ -188,6 +189,41 @@ export function computeSeason(s: SeasonData, identity: Identity, dynasty: Dynast
     (x, y) => y.wins - x.wins || y.pointsFor - x.pointsFor,
   )[0];
   if (regChamp && (regChamp.wins > 0 || regChamp.pointsFor > 0)) regChamp.regSeasonChamp = true;
+
+  // week-over-week rank movement: cumulative standings through the last played
+  // regular-season week vs the week before, so the table can show who climbed
+  // or slipped. + = climbed (rank number went down), − = fell.
+  const playedRegWeeks = [...regWeeks]
+    .filter((w) => teamWeeks.some((t) => t.week === w && t.result != null))
+    .sort((a, b) => a - b);
+  if (playedRegWeeks.length >= 2) {
+    const rankThrough = (throughWeek: number): Map<number, number> => {
+      const cum = new Map<number, { w: number; pf: number }>();
+      for (const r of s.rosters) cum.set(r.roster_id, { w: 0, pf: 0 });
+      for (const tw of teamWeeks) {
+        if (!regWeeks.has(tw.week) || tw.week > throughWeek) continue;
+        const c = cum.get(tw.rosterId);
+        if (!c) continue;
+        if (tw.result === "W") c.w++;
+        c.pf += tw.points;
+      }
+      const ranked = [...cum.entries()].sort(
+        (x, y) => y[1].w - x[1].w || y[1].pf - x[1].pf,
+      );
+      const rank = new Map<number, number>();
+      ranked.forEach(([rid], i) => rank.set(rid, i + 1));
+      return rank;
+    };
+    const last = playedRegWeeks[playedRegWeeks.length - 1];
+    const prev = playedRegWeeks[playedRegWeeks.length - 2];
+    const rLast = rankThrough(last);
+    const rPrev = rankThrough(prev);
+    for (const a of standings) {
+      const l = rLast.get(a.rosterId);
+      const p = rPrev.get(a.rosterId);
+      a.weekMovement = l != null && p != null ? p - l : 0;
+    }
+  }
 
   // validation: computed optimal vs Sleeper ppts
   const validation: SeasonComputed["validation"] = [];

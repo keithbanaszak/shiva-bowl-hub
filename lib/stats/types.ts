@@ -53,6 +53,8 @@ export type SeasonStanding = {
   madePlayoffs: boolean;
   champion: boolean;
   regSeasonChamp: boolean; // best regular-season record/PF
+  /** Rank change over the last played week (+ = climbed, − = fell, 0 = held). */
+  weekMovement: number;
 };
 
 export type PlayoffGame = {
