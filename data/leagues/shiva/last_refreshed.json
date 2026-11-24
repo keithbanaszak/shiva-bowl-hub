@@ -7,13 +7,13 @@
     "2023",
     "2022"
   ],
-  "last_refresh_ms": 1795481972620,
+  "last_refresh_ms": 1795561420005,
   "refreshed_season": "2026",
   "nfl_state": {
-    "week": 11,
-    "leg": 11,
-    "season": "2026",
+    "week": 12,
     "season_type": "regular",
+    "season": "2026",
+    "leg": 12,
     "league_season": "2026",
     "previous_season": "2025",
     "season_start_date": "2026-09-09",
